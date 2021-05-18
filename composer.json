@@ -1,0 +1,19 @@
+{
+    "name": "michaelr0/buildamic",
+    "autoload": {
+        "psr-4": {
+            "Michaelr0\\Buildamic\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Buildamic",
+            "description": "Buildamic addon"
+        },
+        "laravel": {
+            "providers": [
+                "Michaelr0\\Buildamic\\ServiceProvider"
+            ]
+        }
+    }
+}
