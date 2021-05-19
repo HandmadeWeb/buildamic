@@ -7,6 +7,7 @@
                 <div v-for="row, rowKey in section.rows" :key="rowKey">
                     <div v-for="column, columnKey in row.columns" :key="columnKey">
                         <div v-for="(field, fieldKey) in column.fields" :index="fieldKey" :key="fieldKey">
+                            
                             <div v-if="field.type == 'field'">
                                 <component 
                                     :is="`${field.config.field.component || field.config.field.type}-fieldtype`"
@@ -23,22 +24,23 @@
                                     @blur="$emit('blur')"
                                 />
                             </div>
+                            
                             <div v-else-if="field.type == 'set'">
-                                <component 
-                                    v-for="(setField, setFieldKey) in field" :index="setFieldKey" :key="setFieldKey"
-                                    :is="`${field.config.field.component || field.config.field.type}-fieldtype`"
-                                    :config="field.config.field"
-                                    :value="field.value"
-                                    :meta="field.meta"
-                                    :handle="field.config.handle"
-                                    :name-prefix="field.config.prefix"
+                                <!-- <component 
+                                    v-for="(setField, setFieldKey) in this.sets[field.value.type].fields" :index="setFieldKey" :key="setFieldKey"
+                                    :is="`${setField.component || setField.type}-fieldtype`"
+                                    :config="setField"
+                                    :value="setField"
+                                    :meta="setField"
+                                    :handle="setField.handle"
+                                    :name-prefix="setField.prefix"
                                     :error-key-prefix="errorKey"
                                     :read-only="isReadOnly"
                                     @input="$emit('updated', $event)"
                                     @meta-updated="$emit('meta-updated', $event)"
                                     @focus="$emit('focus')"
                                     @blur="$emit('blur')"
-                                />
+                                /> -->
                             </div>
                         </div>
                     </div>
@@ -89,7 +91,7 @@ export default {
 
         this.config.sets.forEach(set => {
             this.sets[set.handle] = set;
-        });
+        });        
     },
     
     computed: {

@@ -65,6 +65,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [Fieldtype],
   props: {
@@ -250,50 +252,7 @@ var render = function() {
                                   1
                                 )
                               : field.type == "set"
-                              ? _c(
-                                  "div",
-                                  _vm._l(field, function(
-                                    setField,
-                                    setFieldKey
-                                  ) {
-                                    return _c(
-                                      (field.config.field.component ||
-                                        field.config.field.type) + "-fieldtype",
-                                      {
-                                        key: setFieldKey,
-                                        tag: "component",
-                                        attrs: {
-                                          index: setFieldKey,
-                                          config: field.config.field,
-                                          value: field.value,
-                                          meta: field.meta,
-                                          handle: field.config.handle,
-                                          "name-prefix": field.config.prefix,
-                                          "error-key-prefix": _vm.errorKey,
-                                          "read-only": _vm.isReadOnly
-                                        },
-                                        on: {
-                                          input: function($event) {
-                                            return _vm.$emit("updated", $event)
-                                          },
-                                          "meta-updated": function($event) {
-                                            return _vm.$emit(
-                                              "meta-updated",
-                                              $event
-                                            )
-                                          },
-                                          focus: function($event) {
-                                            return _vm.$emit("focus")
-                                          },
-                                          blur: function($event) {
-                                            return _vm.$emit("blur")
-                                          }
-                                        }
-                                      }
-                                    )
-                                  }),
-                                  1
-                                )
+                              ? _c("div")
                               : _vm._e()
                           ]
                         )
