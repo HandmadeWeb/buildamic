@@ -65,7 +65,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [Fieldtype],
   props: {
@@ -194,11 +193,6 @@ var render = function() {
     { staticClass: "buildamic-fieldtype-container" },
     _vm._l(_vm.values, function(section, sectionKey) {
       return _c("div", { key: sectionKey, class: _vm.sortableItemClass }, [
-        _c("div", {
-          staticClass: "item-move sortable-handle",
-          class: _vm.sortableHandleClass
-        }),
-        _vm._v(" "),
         section.type == "section"
           ? _c(
               "div",

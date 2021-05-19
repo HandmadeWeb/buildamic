@@ -3,7 +3,6 @@
     <div class="buildamic-fieldtype-container">
         
         <div v-for="section, sectionKey in values" :key="sectionKey" :class="sortableItemClass">
-            <div class="item-move sortable-handle" :class="sortableHandleClass"></div>
             <div v-if="section.type == 'section'">
                 <div v-for="row, rowKey in section.rows" :key="rowKey">
                     <div v-for="column, columnKey in row.columns" :key="columnKey">
