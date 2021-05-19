@@ -72,51 +72,36 @@ __webpack_require__.r(__webpack_exports__);
     handle: {
       type: String,
       required: true
-    } // meta: {
+    },
+    // meta: {
     //     type: Object,
     //     required: true
     // },
-    // value: {
-    //     type: Object,
-    //     required: true
-    // },
-
+    value: {
+      type: Object,
+      required: true
+    }
   },
   data: function data() {
     return {
-      fields: this.config.fields
+      fields: {},
+      sets: {},
+      values: this.value
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.config.fields.forEach(function (field) {
+      _this.fields[field.handle] = field;
+    });
+    this.config.sets.forEach(function (set) {
+      _this.sets[set.handle] = set;
+    });
   },
   computed: {},
   methods: {}
 });
-
-/***/ }),
-
-/***/ "./src/resources/js/buildamic.js":
-/*!***************************************!*\
-  !*** ./src/resources/js/buildamic.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_fieldtypes_Buildamic_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/fieldtypes/Buildamic.vue */ "./src/resources/js/components/fieldtypes/Buildamic.vue");
-
-Statamic.booting(function () {
-  Statamic.$components.register('buildamic-fieldtype', _components_fieldtypes_Buildamic_vue__WEBPACK_IMPORTED_MODULE_0__.default);
-});
-
-/***/ }),
-
-/***/ "./src/resources/css/buildamic.css":
-/*!*****************************************!*\
-  !*** ./src/resources/css/buildamic.css ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
 
 /***/ }),
 
@@ -206,9 +191,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "Buildamic-fieldtype-container" },
-    _vm._l(_vm.value, function(section, sectionKey) {
-      return _c("div", { key: sectionKey }, [
+    { staticClass: "buildamic-fieldtype-container" },
+    _vm._l(_vm.values, function(section, sectionKey) {
+      return _c("div", { key: sectionKey, class: _vm.sortableItemClass }, [
+        _c("div", {
+          staticClass: "item-move sortable-handle",
+          class: _vm.sortableHandleClass
+        }),
+        _vm._v(" "),
         section.type == "section"
           ? _c(
               "div",
@@ -222,39 +212,99 @@ var render = function() {
                       { key: columnKey },
                       _vm._l(column.fields, function(field, fieldKey) {
                         return _c(
-                          (field.config.field.component ||
-                            field.config.field.type) + "-fieldtype",
-                          {
-                            key: fieldKey,
-                            tag: "component",
-                            attrs: {
-                              index: fieldKey,
-                              config: field.config.field,
-                              value: field.value,
-                              meta: field.meta,
-                              handle: field.config.handle,
-                              "name-prefix": field.config.prefix,
-                              "error-key-prefix": _vm.errorKey,
-                              "read-only": _vm.isReadOnly
-                            },
-                            on: {
-                              input: function($event) {
-                                return _vm.$emit("updated", $event)
-                              },
-                              "meta-updated": function($event) {
-                                return _vm.$emit("meta-updated", $event)
-                              },
-                              focus: function($event) {
-                                return _vm.$emit("focus")
-                              },
-                              blur: function($event) {
-                                return _vm.$emit("blur")
-                              }
-                            }
-                          }
+                          "div",
+                          { key: fieldKey, attrs: { index: fieldKey } },
+                          [
+                            field.type == "field"
+                              ? _c(
+                                  "div",
+                                  [
+                                    _c(
+                                      (field.config.field.component ||
+                                        field.config.field.type) + "-fieldtype",
+                                      {
+                                        tag: "component",
+                                        attrs: {
+                                          config: field.config.field,
+                                          value: field.value,
+                                          meta: field.meta,
+                                          handle: field.config.handle,
+                                          "name-prefix": field.config.prefix,
+                                          "error-key-prefix": _vm.errorKey,
+                                          "read-only": _vm.isReadOnly
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            return _vm.$emit("updated", $event)
+                                          },
+                                          "meta-updated": function($event) {
+                                            return _vm.$emit(
+                                              "meta-updated",
+                                              $event
+                                            )
+                                          },
+                                          focus: function($event) {
+                                            return _vm.$emit("focus")
+                                          },
+                                          blur: function($event) {
+                                            return _vm.$emit("blur")
+                                          }
+                                        }
+                                      }
+                                    )
+                                  ],
+                                  1
+                                )
+                              : field.type == "set"
+                              ? _c(
+                                  "div",
+                                  _vm._l(field, function(
+                                    setField,
+                                    setFieldKey
+                                  ) {
+                                    return _c(
+                                      (field.config.field.component ||
+                                        field.config.field.type) + "-fieldtype",
+                                      {
+                                        key: setFieldKey,
+                                        tag: "component",
+                                        attrs: {
+                                          index: setFieldKey,
+                                          config: field.config.field,
+                                          value: field.value,
+                                          meta: field.meta,
+                                          handle: field.config.handle,
+                                          "name-prefix": field.config.prefix,
+                                          "error-key-prefix": _vm.errorKey,
+                                          "read-only": _vm.isReadOnly
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            return _vm.$emit("updated", $event)
+                                          },
+                                          "meta-updated": function($event) {
+                                            return _vm.$emit(
+                                              "meta-updated",
+                                              $event
+                                            )
+                                          },
+                                          focus: function($event) {
+                                            return _vm.$emit("focus")
+                                          },
+                                          blur: function($event) {
+                                            return _vm.$emit("blur")
+                                          }
+                                        }
+                                      }
+                                    )
+                                  }),
+                                  1
+                                )
+                              : _vm._e()
+                          ]
                         )
                       }),
-                      1
+                      0
                     )
                   }),
                   0
@@ -415,41 +465,7 @@ function normalizeComponent (
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/chunk loaded */
-/******/ 	(() => {
-/******/ 		var deferred = [];
-/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
-/******/ 			if(chunkIds) {
-/******/ 				priority = priority || 0;
-/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
-/******/ 				deferred[i] = [chunkIds, fn, priority];
-/******/ 				return;
-/******/ 			}
-/******/ 			var notFulfilled = Infinity;
-/******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var [chunkIds, fn, priority] = deferred[i];
-/******/ 				var fulfilled = true;
-/******/ 				for (var j = 0; j < chunkIds.length; j++) {
-/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
-/******/ 						chunkIds.splice(j--, 1);
-/******/ 					} else {
-/******/ 						fulfilled = false;
-/******/ 						if(priority < notFulfilled) notFulfilled = priority;
-/******/ 					}
-/******/ 				}
-/******/ 				if(fulfilled) {
-/******/ 					deferred.splice(i--, 1)
-/******/ 					result = fn();
-/******/ 				}
-/******/ 			}
-/******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -478,66 +494,20 @@ function normalizeComponent (
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
-/******/ 			"/public/js/buildamic": 0,
-/******/ 			"public/css/buildamic": 0
-/******/ 		};
-/******/ 		
-/******/ 		// no chunk on demand loading
-/******/ 		
-/******/ 		// no prefetching
-/******/ 		
-/******/ 		// no preloaded
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 		
-/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
-/******/ 		
-/******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime] = data;
-/******/ 			// add "moreModules" to the modules object,
-/******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0;
-/******/ 			for(moduleId in moreModules) {
-/******/ 				if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 					__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 				}
-/******/ 			}
-/******/ 			if(runtime) var result = runtime(__webpack_require__);
-/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					installedChunks[chunkId][0]();
-/******/ 				}
-/******/ 				installedChunks[chunkIds[i]] = 0;
-/******/ 			}
-/******/ 			return __webpack_require__.O(result);
-/******/ 		}
-/******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
-/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 	})();
-/******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["public/css/buildamic"], () => (__webpack_require__("./src/resources/js/buildamic.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["public/css/buildamic"], () => (__webpack_require__("./src/resources/css/buildamic.css")))
-/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!***************************************!*\
+  !*** ./src/resources/js/buildamic.js ***!
+  \***************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_fieldtypes_Buildamic_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/fieldtypes/Buildamic.vue */ "./src/resources/js/components/fieldtypes/Buildamic.vue");
+
+Statamic.booting(function () {
+  Statamic.$components.register('buildamic-fieldtype', _components_fieldtypes_Buildamic_vue__WEBPACK_IMPORTED_MODULE_0__.default);
+});
+})();
+
 /******/ })()
 ;

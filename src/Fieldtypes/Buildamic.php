@@ -12,7 +12,12 @@ class Buildamic extends FieldType
     protected function configFieldItems(): array
     {
         return [
+            'fields' => [
+                'display' => __('Fields'),
+                'type' => 'fields',
+            ],
             'sets' => [
+                'display' => __('Sets'),
                 'type' => 'sets',
             ],
         ];
@@ -25,7 +30,7 @@ class Buildamic extends FieldType
      */
     public function defaultValue()
     {
-        //return [];
+        return [];
     }
 
     /**
