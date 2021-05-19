@@ -6,6 +6,8 @@ use Statamic\Modifiers\Modifier;
 
 class Buildamic extends Modifier
 {
+    //protected static $handle = 'repeatrepeat';
+
     /**
      * Modify a value.
      *
@@ -16,6 +18,12 @@ class Buildamic extends Modifier
      */
     public function index($value, $params, $context)
     {
-        return $value;
+        if (in_array('blade', $params)) {
+            return \Michaelr0\Buildamic\Buildamic::withBlade()->render($value);
+        } elseif (in_array('antlers', $params)) {
+            return \Michaelr0\Buildamic\Buildamic::withAntlers()->render($value);
+        } else {
+            return \Michaelr0\Buildamic\Buildamic::withBlade()->render($value);
+        }
     }
 }
