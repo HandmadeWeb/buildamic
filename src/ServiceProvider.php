@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\Blade;
 use Michaelr0\Buildamic\Fieldtypes\Buildamic as BuildamicField;
 use Michaelr0\Buildamic\Modifiers\Buildamic as BuildamicModifier;
 use Statamic\Providers\AddonServiceProvider;
+use Illuminate\Support\Str;
 
 class ServiceProvider extends AddonServiceProvider
 {
     protected $publishAfterInstall = false;
+    protected $disableAssets = true;
 
     protected $stylesheets = [
         __DIR__.'/../public/css/buildamic.css',
