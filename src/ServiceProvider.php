@@ -2,7 +2,9 @@
 
 namespace Michaelr0\Buildamic;
 
+use Illuminate\Support\Facades\Blade;
 use Michaelr0\Buildamic\Fieldtypes\Buildamic as BuildamicField;
+use Michaelr0\Buildamic\Modifiers\Buildamic as BuildamicModifier;
 use Statamic\Providers\AddonServiceProvider;
 use Illuminate\Support\Str;
 
@@ -23,22 +25,29 @@ class ServiceProvider extends AddonServiceProvider
         BuildamicField::class,
     ];
 
+    protected $modifiers = [
+        BuildamicModifier::class,
+    ];
+
     public function boot()
     {
-        if (app()->runningInConsole() || Str::contains(request()->path(), ['entries', 'globals']) && ! Str::contains(request()->path(), 'blueprint') || Str::startsWith(request()->path(), config('statamic.cp.route'))) {
-            $this->disableAssets = false;
-        }
-
-        if ($this->disableAssets) {
-            $this->scripts = [];
-            $this->stylesheets = [];
-        }
-
         parent::boot();
 
-        // $this->loadViewsFrom(__DIR__.'/resources/views', 'buildy');
+        $this->bootBladeDirectives();
+    }
 
-        // BuildyFilters::boot();
-        // Shortcodes::boot();
+    public function bootBladeDirectives()
+    {
+        Blade::directive('buildamic', function ($expression) {
+            return "<?php echo \Michaelr0\Buildamic\Buildamic::withBlade()->render($expression); ?>";
+        });
+
+        Blade::directive('buildamicWithBlade', function ($expression) {
+            return "<?php echo \Michaelr0\Buildamic\Buildamic::withBlade()->render($expression); ?>";
+        });
+
+        Blade::directive('buildamicWithAntlers', function ($expression) {
+            return "<?php echo \Michaelr0\Buildamic\Buildamic::withAntlers()->render($expression); ?>";
+        });
     }
 }
