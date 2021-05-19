@@ -6,8 +6,6 @@ use Statamic\Modifiers\Modifier;
 
 class Buildamic extends Modifier
 {
-    //protected static $handle = 'repeatrepeat';
-
     /**
      * Modify a value.
      *
