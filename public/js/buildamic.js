@@ -282,6 +282,7 @@ __webpack_require__.r(__webpack_exports__);
     this.config.sets.forEach(function (set) {
       _this.sets[set.handle] = set;
     });
+    console.log(this.sets["blurbs"]);
   },
   provide: function provide() {
     return {

@@ -7,9 +7,12 @@
 
             <div v-else-if="section.type == 'global'">Global Section</div>
         </div>
-
-        <!-- <text-input :value="value" @input="update" /> -->
+      </div>
+      <div v-else-if="section.type == 'global'">Global Section</div>
     </div>
+
+    <!-- <text-input :value="value" @input="update" /> -->
+  </div>
 </template>
 
 <script>
@@ -47,6 +50,7 @@ export default {
             values: this.value,
         };
     },
+  },
 
     mounted() {
         this.config.fields.forEach(field => {
@@ -70,8 +74,15 @@ export default {
 
     },
 
-    methods: {  
-    }
+    this.config.sets.forEach((set) => {
+      this.sets[set.handle] = set;
+    });
 
+    console.log(this.sets["blurbs"]);
+  },
+
+  computed: {},
+
+  methods: {},
 };
 </script>
