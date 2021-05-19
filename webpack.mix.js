@@ -10,9 +10,9 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('src/resources/js/buildamic.js', 'public/js').vue();
+mix.js('resources/js/buildamic.js', 'public/js').vue();
 
-// mix.postCss('src/resources/css/buildamic.css', 'public/css', [
+// mix.postCss('resources/css/buildamic.css', 'public/css', [
 //     require('postcss-import'),
 //     require('tailwindcss'),
 //     require('postcss-nested'),
