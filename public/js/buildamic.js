@@ -78,6 +78,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {};
@@ -86,6 +88,11 @@ __webpack_require__.r(__webpack_exports__);
     field: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    update: function update($event) {
+      this.field.value = $event; //   console.log($event);
     }
   }
 });
@@ -216,6 +223,9 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     }
+  },
+  mounted: function mounted() {
+    console.log("section element");
   }
 });
 
@@ -245,53 +255,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [Fieldtype],
   components: {
     SectionElement: _Section_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  props: {
-    handle: {
-      type: String,
-      required: true
-    },
-    // meta: {
-    //     type: Object,
-    //     required: true
-    // },
-    value: {
-      type: Object,
-      required: true
-    }
-  },
   data: function data() {
     return {
       fields: new Array(),
-      sets: new Array(),
-      values: this.value
+      sets: new Array()
     };
+  },
+  watch: {
+    value: {
+      handler: function handler(val) {
+        this.update(val);
+      },
+      deep: true
+    }
   },
   mounted: function mounted() {
     var _this = this;
 
     this.config.fields.forEach(function (field) {
-      _this.fields[field.handle] = field; //console.log(this.fields);
+      _this.fields[field.handle] = field;
     });
     this.config.sets.forEach(function (set) {
       _this.sets[set.handle] = set;
     });
-    console.log(this.sets["blurbs"]);
   },
   provide: function provide() {
     return {
       fields: this.fields,
       sets: this.sets
     };
-  },
-  computed: {},
-  methods: {}
+  }
 });
 
 /***/ }),
@@ -782,9 +781,7 @@ var render = function() {
             "read-only": _vm.isReadOnly
           },
           on: {
-            input: function($event) {
-              return _vm.$emit("updated", $event)
-            },
+            input: _vm.update,
             "meta-updated": function($event) {
               return _vm.$emit("meta-updated", $event)
             },
@@ -922,7 +919,7 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "buildamic-fieldtype-container" },
-    _vm._l(_vm.values, function(section, sectionKey) {
+    _vm._l(_vm.value, function(section, sectionKey) {
       return _c(
         "div",
         { key: sectionKey, class: _vm.sortableItemClass },
