@@ -13,15 +13,16 @@
       class="bg-grey-40 module drag-handle p-2 text-center"
       :class="sortableItemClass"
     >
-      <div
-        @click.prevent="$modal.show(`${field.config.handle}-test`)"
-        class="module-name"
-      >
-        {{ field.config.handle }}
-      </div>
-      <vue-modal :name="`${field.config.handle}-test`">
-        <component :is="componentType(field.type)" :field="field" />
-      </vue-modal>
+        <div
+          @click.prevent="$modal.show(`${fieldHandle(field)}-test`)"
+          class="module-name"
+        >
+          {{ fieldHandle(field) }}  
+        </div>
+
+        <vue-modal :name="`${fieldHandle(field)}-test`">
+          <component :is="componentType(field.type)" :field="field" />
+        </vue-modal>
     </div>
   </draggable>
 </template>
@@ -58,12 +59,22 @@ export default {
     componentType(fieldtype) {
       return fieldtype === "field" ? "field-element" : "field-group-element";
     },
+
+    fieldHandle(field) {
+      // console.log(this.sets)
+      // console.log(field)
+      return field.type === "field" ? field.config.handle : 'blurb';
+    },
   },
 
   mounted() {
-    console.log(this.sortableItemClass);
+    console.log("Grid Column: ", this.column);
+    console.log('Sets', this.sets)
+    //console.log(this.sortableItemClass);
   },
 
+  inject: ['fields', 'sets'],
+  
   props: {
     column: {
       type: Object,

@@ -21,7 +21,7 @@ export default {
   },
 
   mounted() {
-    console.log("row", this.row.columns);
+    console.log("Grid Row: ", this.row);
   },
 
   props: {

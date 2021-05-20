@@ -1,6 +1,6 @@
 <template>
   <div class="buildamic-field-container">
-    <component
+    <!-- <component
       :is="
         `${field.config.field.component || field.config.field.type}-fieldtype`
       "
@@ -15,7 +15,7 @@
       @meta-updated="$emit('meta-updated', $event)"
       @focus="$emit('focus')"
       @blur="$emit('blur')"
-    />
+    /> -->
   </div>
 </template>
 

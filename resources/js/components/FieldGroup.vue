@@ -37,8 +37,8 @@ export default {
     inject: ['fields', 'sets'],
 
     created() {
-        console.log(this.fields);    
-        console.log(this.sets);    
+        // console.log(this.fields);    
+        // console.log(this.sets);    
     },
 
     props: {

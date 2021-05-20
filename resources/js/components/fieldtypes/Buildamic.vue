@@ -23,8 +23,8 @@ export default {
 
   data() {
     return {
-      fields: new Array(),
-      sets: new Array(),
+      fields: {},
+      sets: {},
     };
   },
 
@@ -40,18 +40,15 @@ export default {
   mounted() {
     this.config.fields.forEach((field) => {
       this.fields[field.handle] = field;
+      this.fields[field.handle+'2'] = field;
     });
 
     this.config.sets.forEach((set) => {
       this.sets[set.handle] = set;
+      this.sets[set.handle+'2'] = set;
     });
-  },
 
-  provide() {
-    return {
-      fields: this.fields,
-      sets: this.sets,
-    };
+    console.log('parent sets', this.sets);
   },
 };
 </script>

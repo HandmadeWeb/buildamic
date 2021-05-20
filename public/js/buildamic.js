@@ -94,9 +94,8 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   inject: ['fields', 'sets'],
-  created: function created() {
-    console.log(this.fields);
-    console.log(this.sets);
+  created: function created() {// console.log(this.fields);    
+    // console.log(this.sets);    
   },
   props: {
     field: {
@@ -151,6 +150,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -176,11 +176,18 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     componentType: function componentType(fieldtype) {
       return fieldtype === "field" ? "field-element" : "field-group-element";
+    },
+    fieldHandle: function fieldHandle(field) {
+      // console.log(this.sets)
+      // console.log(field)
+      return field.type === "field" ? field.config.handle : 'blurb';
     }
   },
   mounted: function mounted() {
-    console.log(this.sortableItemClass);
+    console.log("Grid Column: ", this.column);
+    console.log('Sets', this.sets); //console.log(this.sortableItemClass);
   },
+  inject: ['fields', 'sets'],
   props: {
     column: {
       type: Object,
@@ -222,7 +229,7 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   mounted: function mounted() {
-    console.log("row", this.row.columns);
+    console.log("Grid Row: ", this.row);
   },
   props: {
     row: {
@@ -269,7 +276,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log("section element", this.section.rows);
+    console.log("Grid Section: ", this.section);
   }
 });
 
@@ -308,8 +315,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      fields: new Array(),
-      sets: new Array()
+      fields: {},
+      sets: {}
     };
   },
   watch: {
@@ -325,16 +332,13 @@ __webpack_require__.r(__webpack_exports__);
 
     this.config.fields.forEach(function (field) {
       _this.fields[field.handle] = field;
+      _this.fields[field.handle + '2'] = field;
     });
     this.config.sets.forEach(function (set) {
       _this.sets[set.handle] = set;
+      _this.sets[set.handle + '2'] = set;
     });
-  },
-  provide: function provide() {
-    return {
-      fields: this.fields,
-      sets: this.sets
-    };
+    console.log('parent sets', this.sets);
   }
 });
 
@@ -4505,41 +4509,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "buildamic-field-container" },
-    [
-      _c(
-        (_vm.field.config.field.component || _vm.field.config.field.type) +
-          "-fieldtype",
-        {
-          tag: "component",
-          attrs: {
-            config: _vm.field.config.field,
-            value: _vm.field.value,
-            meta: _vm.field.meta,
-            handle: _vm.field.config.handle,
-            "name-prefix": _vm.field.config.prefix,
-            "error-key-prefix": _vm.errorKey,
-            "read-only": _vm.isReadOnly
-          },
-          on: {
-            input: _vm.update,
-            "meta-updated": function($event) {
-              return _vm.$emit("meta-updated", $event)
-            },
-            focus: function($event) {
-              return _vm.$emit("focus")
-            },
-            blur: function($event) {
-              return _vm.$emit("blur")
-            }
-          }
-        }
-      )
-    ],
-    1
-  )
+  return _c("div", { staticClass: "buildamic-field-container" })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4617,16 +4587,20 @@ var render = function() {
               on: {
                 click: function($event) {
                   $event.preventDefault()
-                  return _vm.$modal.show(field.config.handle + "-test")
+                  _vm.$modal.show(_vm.fieldHandle(field) + "-test")
                 }
               }
             },
-            [_vm._v("\n      " + _vm._s(field.config.handle) + "\n    ")]
+            [
+              _vm._v(
+                "\n        " + _vm._s(_vm.fieldHandle(field)) + "  \n      "
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
             "vue-modal",
-            { attrs: { name: field.config.handle + "-test" } },
+            { attrs: { name: _vm.fieldHandle(field) + "-test" } },
             [
               _c(_vm.componentType(field.type), {
                 tag: "component",

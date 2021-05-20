@@ -26,7 +26,7 @@ export default {
   },
 
   mounted() {
-    console.log("section element", this.section.rows);
+    console.log("Grid Section: ", this.section);
   },
 };
 </script>
