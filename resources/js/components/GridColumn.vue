@@ -21,7 +21,7 @@
         </div>
 
         <vue-modal :name="`${fieldHandle(field)}-test`">
-          <component :is="componentType(field.type)" :field="field" />
+          <component :is="componentType(field)" :field="field" />
         </vue-modal>
     </div>
   </draggable>
@@ -33,10 +33,20 @@ import FieldGroupElement from "./FieldGroup.vue";
 import draggable from "vuedraggable";
 
 export default {
+
   components: {
     FieldElement,
     FieldGroupElement,
     draggable,
+  },
+
+  inject: ['fields', 'sets'],
+  
+  props: {
+    column: {
+      type: Object,
+      required: true,
+    },
   },
 
   data() {
@@ -56,30 +66,14 @@ export default {
   },
 
   methods: {
-    componentType(fieldtype) {
-      return fieldtype === "field" ? "field-element" : "field-group-element";
+    componentType(field) {
+      return field.type === "field" ? "field-element" : "field-group-element";
     },
 
     fieldHandle(field) {
-      // console.log(this.sets)
-      // console.log(field)
-      return field.type === "field" ? field.config.handle : 'blurb';
+      return field.type === "field" ? field.config.handle : this.sets[field.value.type].handle;
     },
   },
 
-  mounted() {
-    console.log("Grid Column: ", this.column);
-    console.log('Sets', this.sets)
-    //console.log(this.sortableItemClass);
-  },
-
-  inject: ['fields', 'sets'],
-  
-  props: {
-    column: {
-      type: Object,
-      required: true,
-    },
-  },
 };
 </script>

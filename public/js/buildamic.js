@@ -31,21 +31,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  data: function data() {
-    return {};
-  },
   props: {
     field: {
       type: Object,
       required: true
-    }
+    },
+    value: {}
+  },
+  data: function data() {
+    return {};
   },
   methods: {
     update: function update($event) {
-      this.field.value = $event; //   console.log($event);
+      this.field.value = $event;
     }
   }
 });
@@ -85,23 +84,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     FieldElement: _Field_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  data: function data() {
-    return {};
-  },
   inject: ['fields', 'sets'],
-  created: function created() {// console.log(this.fields);    
-    // console.log(this.sets);    
-  },
   props: {
     field: {
       type: Object,
       required: true
     }
+  },
+  data: function data() {
+    return {};
   }
 });
 
@@ -160,6 +158,13 @@ __webpack_require__.r(__webpack_exports__);
     FieldGroupElement: _FieldGroup_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     draggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_2___default())
   },
+  inject: ['fields', 'sets'],
+  props: {
+    column: {
+      type: Object,
+      required: true
+    }
+  },
   data: function data() {
     return {
       draggarray: this.column.fields
@@ -174,24 +179,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    componentType: function componentType(fieldtype) {
-      return fieldtype === "field" ? "field-element" : "field-group-element";
+    componentType: function componentType(field) {
+      return field.type === "field" ? "field-element" : "field-group-element";
     },
     fieldHandle: function fieldHandle(field) {
-      // console.log(this.sets)
-      // console.log(field)
-      return field.type === "field" ? field.config.handle : 'blurb';
-    }
-  },
-  mounted: function mounted() {
-    console.log("Grid Column: ", this.column);
-    console.log('Sets', this.sets); //console.log(this.sortableItemClass);
-  },
-  inject: ['fields', 'sets'],
-  props: {
-    column: {
-      type: Object,
-      required: true
+      return field.type === "field" ? field.config.handle : this.sets[field.value.type].handle;
     }
   }
 });
@@ -225,17 +217,14 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     GridColumn: _GridColumn_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  data: function data() {
-    return {};
-  },
-  mounted: function mounted() {
-    console.log("Grid Row: ", this.row);
-  },
   props: {
     row: {
       type: Object,
       required: true
     }
+  },
+  data: function data() {
+    return {};
   }
 });
 
@@ -264,20 +253,18 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     GridRow: _GridRow_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  data: function data() {
-    return {
-      dragarray: this.section.rows
-    };
-  },
   props: {
     section: {
       type: Object,
       required: true
     }
   },
-  mounted: function mounted() {
-    console.log("Grid Section: ", this.section);
-  }
+  data: function data() {
+    return {
+      dragarray: this.section.rows
+    };
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -313,11 +300,14 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     GridSection: _GridSection_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  data: function data() {
+  provide: function provide() {
     return {
-      fields: {},
-      sets: {}
+      fields: this.fields,
+      sets: this.sets
     };
+  },
+  data: function data() {
+    return {};
   },
   watch: {
     value: {
@@ -327,18 +317,17 @@ __webpack_require__.r(__webpack_exports__);
       deep: true
     }
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.config.fields.forEach(function (field) {
-      _this.fields[field.handle] = field;
-      _this.fields[field.handle + '2'] = field;
-    });
-    this.config.sets.forEach(function (set) {
-      _this.sets[set.handle] = set;
-      _this.sets[set.handle + '2'] = set;
-    });
-    console.log('parent sets', this.sets);
+  computed: {
+    fields: function fields() {
+      return this.config.fields.reduce(function (acc, cur) {
+        return acc[cur.handle] = cur, acc;
+      }, {});
+    },
+    sets: function sets() {
+      return this.config.sets.reduce(function (acc, cur) {
+        return acc[cur.handle] = cur, acc;
+      }, {});
+    }
   }
 });
 
@@ -4509,7 +4498,41 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "buildamic-field-container" })
+  return _c(
+    "div",
+    { staticClass: "buildamic-field-container" },
+    [
+      _c(
+        (_vm.field.config.field.component || _vm.field.config.field.type) +
+          "-fieldtype",
+        {
+          tag: "component",
+          attrs: {
+            config: _vm.field.config.field || _vm.field.config || _vm.field,
+            value: _vm.value ? _vm.value : _vm.field.value,
+            meta: _vm.field.meta ? _vm.field.meta : _vm.field.config,
+            handle: _vm.field.config.handle,
+            "name-prefix": _vm.field.config.prefix,
+            "error-key-prefix": _vm.errorKey,
+            "read-only": _vm.isReadOnly
+          },
+          on: {
+            input: _vm.update,
+            "meta-updated": function($event) {
+              return _vm.$emit("meta-updated", $event)
+            },
+            focus: function($event) {
+              return _vm.$emit("focus")
+            },
+            blur: function($event) {
+              return _vm.$emit("blur")
+            }
+          }
+        }
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4534,7 +4557,49 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "buildamic-fieldGroup-container" })
+  return _c(
+    "div",
+    { staticClass: "buildamic-fieldGroup-container" },
+    _vm._l(_vm.sets[_vm.field.value.type].fields, function(
+      setField,
+      setFieldKey
+    ) {
+      return _c(
+        "div",
+        { key: setFieldKey, attrs: { index: setFieldKey, field: setField } },
+        [
+          _c((setField.component || setField.type) + "-fieldtype", {
+            tag: "component",
+            attrs: {
+              config: setField,
+              value: _vm.field.value[setField.handle],
+              meta: setField,
+              handle: setField.handle,
+              "name-prefix": setField.prefix,
+              "error-key-prefix": _vm.errorKey,
+              "read-only": _vm.isReadOnly
+            },
+            on: {
+              input: function($event) {
+                return _vm.$emit("updated", $event)
+              },
+              "meta-updated": function($event) {
+                return _vm.$emit("meta-updated", $event)
+              },
+              focus: function($event) {
+                return _vm.$emit("focus")
+              },
+              blur: function($event) {
+                return _vm.$emit("blur")
+              }
+            }
+          })
+        ],
+        1
+      )
+    }),
+    0
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4602,7 +4667,7 @@ var render = function() {
             "vue-modal",
             { attrs: { name: _vm.fieldHandle(field) + "-test" } },
             [
-              _c(_vm.componentType(field.type), {
+              _c(_vm.componentType(field), {
                 tag: "component",
                 attrs: { field: field }
               })

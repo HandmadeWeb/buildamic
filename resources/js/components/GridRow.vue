@@ -16,19 +16,15 @@ export default {
     GridColumn,
   },
 
-  data() {
-    return {};
-  },
-
-  mounted() {
-    console.log("Grid Row: ", this.row);
-  },
-
   props: {
     row: {
       type: Object,
       required: true,
     },
+  },
+
+  data() {
+    return {};
   },
 };
 </script>

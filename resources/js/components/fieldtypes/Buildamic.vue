@@ -21,10 +21,15 @@ export default {
     GridSection,
   },
 
+  provide() {
+    return {
+      fields: this.fields,
+      sets: this.sets,
+    };
+  },
+
   data() {
     return {
-      fields: {},
-      sets: {},
     };
   },
 
@@ -37,18 +42,21 @@ export default {
     },
   },
 
-  mounted() {
-    this.config.fields.forEach((field) => {
-      this.fields[field.handle] = field;
-      this.fields[field.handle+'2'] = field;
-    });
+  computed: {
+    fields() {
+      return this.config.fields.reduce(
+        (acc, cur) => ((acc[cur.handle] = cur), acc),
+        {}
+      );
+    },
 
-    this.config.sets.forEach((set) => {
-      this.sets[set.handle] = set;
-      this.sets[set.handle+'2'] = set;
-    });
-
-    console.log('parent sets', this.sets);
+    sets() {
+      return this.config.sets.reduce(
+        (acc, cur) => ((acc[cur.handle] = cur), acc),
+        {}
+      );
+    }
   },
+
 };
 </script>

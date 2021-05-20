@@ -12,12 +12,6 @@ export default {
     GridRow,
   },
 
-  data() {
-    return {
-      dragarray: this.section.rows,
-    };
-  },
-
   props: {
     section: {
       type: Object,
@@ -25,8 +19,14 @@ export default {
     },
   },
 
-  mounted() {
-    console.log("Grid Section: ", this.section);
+  data() {
+    return {
+      dragarray: this.section.rows,
+    };
   },
+
+  mounted() {
+  },
+
 };
 </script>
