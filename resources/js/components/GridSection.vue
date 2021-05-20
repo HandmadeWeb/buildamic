@@ -1,8 +1,6 @@
 <template>
-  <div class="buildamic-section-container">
-    <div v-for="(row, rowKey) in section.rows" :key="rowKey">
-      <grid-row :row="row" />
-    </div>
+  <div class="buildamic-section bg-blue-light p-2 mb-2">
+    <grid-row :row="row" v-for="(row, rowKey) in dragarray" :key="rowKey" />
   </div>
 </template>
 
@@ -15,7 +13,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      dragarray: this.section.rows,
+    };
   },
 
   props: {
@@ -26,7 +26,7 @@ export default {
   },
 
   mounted() {
-    console.log("section element");
+    console.log("section element", this.section.rows);
   },
 };
 </script>

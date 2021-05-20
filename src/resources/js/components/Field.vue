@@ -1,5 +1,5 @@
 <template>
-  <div class="buildamic-field-container">
+  <div class="buildamic-field">
     <component
       :is="
         `${field.config.field.component || field.config.field.type}-fieldtype`
