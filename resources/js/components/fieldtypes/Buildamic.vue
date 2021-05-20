@@ -5,20 +5,20 @@
       :key="sectionKey"
       :class="sortableItemClass"
     >
-      <sectionElement v-if="section.type == 'section'" :section="section" />
+      <grid-section v-if="section.type == 'section'" :section="section" />
       <div v-else-if="section.type == 'global'">Global Section</div>
     </div>
   </div>
 </template>
 
 <script>
-import SectionElement from "../Section.vue";
+import GridSection from "../GridSection.vue";
 
 export default {
   mixins: [Fieldtype],
 
   components: {
-    SectionElement,
+    GridSection,
   },
 
   data() {

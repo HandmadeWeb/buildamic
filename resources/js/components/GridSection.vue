@@ -1,17 +1,17 @@
 <template>
   <div class="buildamic-section-container">
     <div v-for="(row, rowKey) in section.rows" :key="rowKey">
-      <rowElement :row="row" />
+      <grid-row :row="row" />
     </div>
   </div>
 </template>
 
 <script>
-import RowElement from "./Row.vue";
+import GridRow from "./GridRow.vue";
 
 export default {
   components: {
-    RowElement,
+    GridRow,
   },
 
   data() {
