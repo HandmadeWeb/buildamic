@@ -4655,7 +4655,9 @@ var render = function() {
               on: {
                 click: function($event) {
                   $event.preventDefault()
-                  _vm.$modal.show(_vm.fieldHandle(field) + "-test")
+                  _vm.$modal.show(
+                    "" + _vm.fieldHandle(field) + fieldKey + "-test"
+                  )
                 }
               }
             },
@@ -4668,7 +4670,9 @@ var render = function() {
           _vm._v(" "),
           _c(
             "vue-modal",
-            { attrs: { name: _vm.fieldHandle(field) + "-test" } },
+            {
+              attrs: { name: "" + _vm.fieldHandle(field) + fieldKey + "-test" }
+            },
             [
               _c(_vm.componentType(field), {
                 tag: "component",

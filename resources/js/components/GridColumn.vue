@@ -14,13 +14,13 @@
       :class="sortableItemClass"
     >
         <div
-          @click.prevent="$modal.show(`${fieldHandle(field)}-test`)"
+          @click.prevent="$modal.show(`${fieldHandle(field)}${fieldKey}-test`)"
           class="module-name"
         >
           {{ fieldHandle(field) }}  
         </div>
 
-        <vue-modal :name="`${fieldHandle(field)}-test`">
+        <vue-modal :name="`${fieldHandle(field)}${fieldKey}-test`">
           <component :is="componentType(field)" :field="field" />
         </vue-modal>
     </div>
