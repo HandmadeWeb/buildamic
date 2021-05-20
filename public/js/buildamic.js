@@ -84,8 +84,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -100,6 +98,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {};
+  },
+  methods: {
+    update: function update(handle, $event) {
+      this.field.value[handle] = $event;
+    }
   }
 });
 
@@ -4581,7 +4584,7 @@ var render = function() {
             },
             on: {
               input: function($event) {
-                return _vm.$emit("updated", $event)
+                return _vm.update(setField.handle, $event)
               },
               "meta-updated": function($event) {
                 return _vm.$emit("meta-updated", $event)
