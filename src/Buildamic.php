@@ -36,12 +36,8 @@ class Buildamic
 
         if (is_array($content)) {
             foreach ($content as $part) {
-                if ($part['type'] === 'section') {
-                    $buildamic_html .= $this->renderSection($part);
-                } elseif ($part['type'] === 'row') {
-                    $buildamic_html .= $this->renderRow($part);
-                } elseif ($part['type'] === 'column') {
-                    $buildamic_html .= $this->renderColumn($part);
+                if (in_array($part['type'], ['section', 'row', 'column'])) {
+                    $buildamic_html .= $this->renderLayoutPart($part);
                 } elseif ($part['type'] === 'field') {
                     $buildamic_html .= $this->renderField($part);
                 } elseif ($part['type'] === 'set') {
@@ -53,23 +49,21 @@ class Buildamic
         return $buildamic_html;
     }
 
-    public function renderSection($section = [])
+    public function renderLayoutPart($part = [])
     {
-        return view("buildamic::{$this->viewEngine}.section", ['section' => $section]);
-    }
+        if (empty($part)) {
+            return;
+        }
 
-    public function renderRow($row = [])
-    {
-        return view("buildamic::{$this->viewEngine}.row", ['row' => $row]);
-    }
-
-    public function renderColumn($column = [])
-    {
-        return view("buildamic::{$this->viewEngine}.column", ['column' => $column]);
+        return view("buildamic::{$this->viewEngine}.{$part['type']}", ["{$part['type']}" => $part]);
     }
 
     public function renderField($field = [])
     {
+        if (empty($field)) {
+            return;
+        }
+
         return view("buildamic::{$this->viewEngine}.fields.{$field['config']['field']['type']}", ['field' => $field]);
     }
 }
