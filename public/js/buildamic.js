@@ -4656,7 +4656,7 @@ var render = function() {
                 click: function($event) {
                   $event.preventDefault()
                   _vm.$modal.show(
-                    "" + _vm.fieldHandle(field) + fieldKey + "-test"
+                    "" + _vm.fieldHandle(field) + fieldKey + "-modal"
                   )
                 }
               }
@@ -4671,7 +4671,7 @@ var render = function() {
           _c(
             "vue-modal",
             {
-              attrs: { name: "" + _vm.fieldHandle(field) + fieldKey + "-test" }
+              attrs: { name: "" + _vm.fieldHandle(field) + fieldKey + "-modal" }
             },
             [
               _c(_vm.componentType(field), {
