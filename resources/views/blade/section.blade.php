@@ -1,3 +1,5 @@
-Section Testing in Blade
+<div class="section">
+    <h1>Section Testing in Blade</h1>
 
-@buildamicWithAntlers('test')
+    @buildamicWithBlade($section['rows'])    
+</div>

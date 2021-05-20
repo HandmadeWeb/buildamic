@@ -30,13 +30,37 @@ class Buildamic
         return new static('antlers');
     }
 
-    public function render($content = null)
+    public function render($content = [])
     {
-        return $this->renderSection($content);
+        $buildamic_html = '';
+
+        if (is_array($content)) {
+            foreach ($content as $part) {
+                if ($part['type'] === 'section') {
+                    $buildamic_html .= $this->renderSection($part);
+                } elseif ($part['type'] === 'row') {
+                    $buildamic_html .= $this->renderRow($part);
+                } elseif ($part['type'] === 'column') {
+                    $buildamic_html .= $this->renderColumn($part);
+                }
+            }
+        }
+
+        return $buildamic_html;
     }
 
-    public function renderSection($content)
+    public function renderSection($section = [])
     {
-        return view("buildamic::{$this->viewEngine}.section", []);
+        return view("buildamic::{$this->viewEngine}.section", ['section' => $section]);
+    }
+
+    public function renderRow($row = [])
+    {
+        return view("buildamic::{$this->viewEngine}.row", ['row' => $row]);
+    }
+
+    public function renderColumn($column = [])
+    {
+        return view("buildamic::{$this->viewEngine}.column", ['column' => $column]);
     }
 }
