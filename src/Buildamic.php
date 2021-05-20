@@ -42,6 +42,10 @@ class Buildamic
                     $buildamic_html .= $this->renderRow($part);
                 } elseif ($part['type'] === 'column') {
                     $buildamic_html .= $this->renderColumn($part);
+                } elseif ($part['type'] === 'field') {
+                    $buildamic_html .= $this->renderField($part);
+                } elseif ($part['type'] === 'set') {
+                    //$buildamic_html .= $this->renderField($part);
                 }
             }
         }
@@ -62,5 +66,10 @@ class Buildamic
     public function renderColumn($column = [])
     {
         return view("buildamic::{$this->viewEngine}.column", ['column' => $column]);
+    }
+
+    public function renderField($field = [])
+    {
+        return view("buildamic::{$this->viewEngine}.fields.{$field['config']['field']['type']}", ['field' => $field]);
     }
 }

@@ -1,0 +1,1 @@
+{!! modify($field['value'])->markdown() !!}
