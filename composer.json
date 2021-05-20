@@ -1,6 +1,9 @@
 {
     "name": "michaelr0/buildamic",
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "Michaelr0\\Buildamic\\": "src"
         }
