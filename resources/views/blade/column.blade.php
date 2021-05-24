@@ -1,3 +1,5 @@
 <div class="column">
-    @buildamicWithBlade($column['fields'])
+    @foreach($column['fields'] as $field)
+        {!! $buildamic->renderField($field) !!}   
+    @endforeach
 </div>

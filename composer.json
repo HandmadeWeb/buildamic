@@ -16,7 +16,10 @@
         "laravel": {
             "providers": [
                 "Michaelr0\\Buildamic\\ServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Buildamic": "Michaelr0\\Buildamic\\Buildamic"
+            }
         }
     }
 }

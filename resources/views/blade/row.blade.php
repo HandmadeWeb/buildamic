@@ -1,3 +1,5 @@
 <div class="row">
-    @buildamicWithBlade($row['columns'])
+    @foreach($row['columns'] as $column)
+        {!! $buildamic->renderLayoutPart($column) !!}   
+    @endforeach
 </div>

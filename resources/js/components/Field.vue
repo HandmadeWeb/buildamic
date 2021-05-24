@@ -1,10 +1,12 @@
 <template>
-  <div class="buildamic-field-container">
+  <div class="buildamic-field">
     <component
-      :is="`${field.config.field.component || field.config.field.type}-fieldtype`"
-      :config="field.config.field || field.config || field"
-      :value="value ? value : field.value"
-      :meta="field.meta ? field.meta : field.config"
+      :is="
+        `${field.config.field.component || field.config.field.type}-fieldtype`
+      "
+      :config="field.config.field"
+      :value="field.value"
+      :meta="field.meta"
       :handle="field.config.handle"
       :name-prefix="field.config.prefix"
       :error-key-prefix="errorKey"
@@ -18,21 +20,16 @@
 </template>
 
 <script>
-
 export default {
+  data() {
+    return {};
+  },
 
   props: {
     field: {
       type: Object,
       required: true,
     },
-    value: {
-    }
-  },
-
-  data() {
-    return {
-    };
   },
 
   methods: {
@@ -40,7 +37,5 @@ export default {
       this.field.value = $event;
     },
   },
-
 };
-
 </script>
