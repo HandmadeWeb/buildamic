@@ -16,32 +16,49 @@ class Buildamic
     ];
 
     /**
-     * All of the configuration items.
+     * Define the Instance Store.
      *
      * @var array
      */
-    protected $config = [];
+    protected $instance = [
+        'config' => [],
+        'sections' => [],
+    ];
 
+    /**
+     * Undocumented function.
+     *
+     * @param mixed $config
+     */
     public function __construct($config)
     {
         if ($config instanceof \Statamic\Fields\Value) {
-            $this->set('content', $config->raw());
+            $this->set($config->value());
         } elseif (is_array($config)) {
             $this->set($config);
         }
 
-        if (! $this->has('viewEngine') || $this->has('viewEngine') && ! in_array($this->get('viewEngine'), $this->compatibleViewEngines)) {
-            $this->set('viewEngine', $this->defaultViewEngine);
+        if (! $this->has('config.view_engine') || $this->has('config.view_engine') && ! in_array($this->get('config.view_engine'), $this->compatibleViewEngines)) {
+            $this->set('config.view_engine', $this->defaultViewEngine);
         }
     }
 
-    public function __toString()
+    /**
+     * Undocumented function.
+     *
+     * @return string
+     */
+    public function __toString(): string
     {
         return $this->render();
     }
 
     /** View Engine Selectors */
-    public function withBlade()
+
+    /**
+     * @return static
+     */
+    public function withBlade(): static
     {
         $this->set('viewEngine', 'blade');
 
@@ -58,9 +75,9 @@ class Buildamic
      * @param  string  $key
      * @return bool
      */
-    public function has($key)
+    public function has($key): bool
     {
-        return Arr::has($this->config, $key);
+        return Arr::has($this->instance, $key);
     }
 
     /**
@@ -76,7 +93,7 @@ class Buildamic
             return $this->getMany($key);
         }
 
-        return Arr::get($this->config, $key, $default);
+        return Arr::get($this->instance, $key, $default);
     }
 
     /**
@@ -85,7 +102,7 @@ class Buildamic
      * @param  array  $keys
      * @return array
      */
-    public function getMany($keys)
+    public function getMany($keys): array
     {
         $config = [];
 
@@ -94,7 +111,7 @@ class Buildamic
                 [$key, $default] = [$default, null];
             }
 
-            $config[$key] = Arr::get($this->config, $key, $default);
+            $config[$key] = Arr::get($this->instance, $key, $default);
         }
 
         return $config;
@@ -105,14 +122,14 @@ class Buildamic
      *
      * @param  array|string  $key
      * @param  mixed  $value
-     * @return Buildamic
+     * @return static
      */
-    public function set($key, $value = null)
+    public function set($key, $value = null): static
     {
         $keys = is_array($key) ? $key : [$key => $value];
 
         foreach ($keys as $key => $value) {
-            Arr::set($this->config, $key, $value);
+            Arr::set($this->instance, $key, $value);
         }
 
         return $this;
@@ -123,9 +140,9 @@ class Buildamic
      *
      * @param  string  $key
      * @param  mixed  $value
-     * @return Buildamic
+     * @return static
      */
-    public function push($key, $value)
+    public function push($key, $value): static
     {
         $array = $this->get($key);
 
@@ -141,9 +158,9 @@ class Buildamic
      *
      * @return array
      */
-    public function config()
+    public function config(): array
     {
-        return $this->config;
+        return $this->instance;
     }
 
     /** Config Helpers */
@@ -155,8 +172,10 @@ class Buildamic
      */
     protected function checkExceptions()
     {
-        if (! $this->has('content') || empty($this->get('content'))) {
-            throw new \Exception('Buildamic requires content.');
+        if (! $this->has('sections')) {
+            throw new \Exception('Buildamic requires content sections.');
+        } elseif (! is_array($this->get('sections'))) {
+            throw new \Exception('Buildamic requires sections to be an array. '.gettype($this->get('sections')).' was given.');
         }
     }
 
@@ -167,38 +186,48 @@ class Buildamic
      *
      * @throws \Exception
      */
-    public function render()
+    public function render(): string
     {
         $this->checkExceptions();
 
         $buildamic_html = '';
 
-        if (is_array($this->get('content'))) {
-            foreach ($this->get('content') as $part) {
-                $buildamic_html .= $this->renderLayoutPart($part);
-            }
+        foreach ($this->get('sections') as $part) {
+            $buildamic_html .= $this->renderLayoutPart($part);
         }
 
         return $buildamic_html;
     }
 
+    /**
+     * Undocumented function.
+     *
+     * @param array $part
+     * @return void|string
+     */
     public function renderLayoutPart($part = [])
     {
         if (empty($part)) {
             return;
         }
 
-        return view('buildamic::'.$this->get('viewEngine').".{$part['type']}", ['buildamic' => $this, $part['type'] => $part]);
+        return view('buildamic::'.$this->get('config.view_engine').".{$part['type']}", ['buildamic' => $this, $part['type'] => $part]);
     }
 
+    /**
+     * Undocumented function.
+     *
+     * @param array $field
+     * @return void|string
+     */
     public function renderField($field = [])
     {
-        if (empty($field) || empty($field['config'])) {
+        if (empty($field) || empty($field['config'])) { // disable sets for now
             return;
         }
 
         $fieldTemplate = $field['config']['field']['type'] ?? $field['value']['type'];
 
-        return view('buildamic::'.$this->get('viewEngine').".fields.{$fieldTemplate}", ['buildamic' => $this, 'field' => $field]);
+        return view('buildamic::'.$this->get('config.view_engine').".fields.{$fieldTemplate}", ['buildamic' => $this, 'field' => $field]);
     }
 }

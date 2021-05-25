@@ -12,14 +12,24 @@ class Buildamic extends FieldType
     protected function configFieldItems(): array
     {
         return [
-            'fields' => [
-                'display' => __('Fields'),
-                'type' => 'fields',
+            'view_engine' => [
+                'display' => __('View Engine'),
+                'instructions' => '',
+                'type' => 'select',
+                'options' => [
+                    'blade' => __('Blade'),
+                    //'antlers' => __('Antlers'),
+                ],
+                'default' => 'blade',
             ],
-            'sets' => [
-                'display' => __('Sets'),
-                'type' => 'sets',
-            ],
+            // 'fields' => [
+            //     'display' => __('Fields'),
+            //     'type' => 'fields',
+            // ],
+            // 'sets' => [
+            //     'display' => __('Sets'),
+            //     'type' => 'sets',
+            // ],
         ];
     }
 
@@ -30,7 +40,12 @@ class Buildamic extends FieldType
      */
     public function defaultValue()
     {
-        return [];
+        return [
+            'config' => [
+                'view_engine' => $this->config('view_engine'),
+            ],
+            'sections' => [],
+        ];
     }
 
     /**
@@ -41,7 +56,7 @@ class Buildamic extends FieldType
      */
     public function preProcess($data)
     {
-        return $data;
+        return array_merge($this->defaultValue(), $data);
     }
 
     /**
@@ -53,5 +68,10 @@ class Buildamic extends FieldType
     public function process($data)
     {
         return $data;
+    }
+
+    public function preload()
+    {
+        return [];
     }
 }
