@@ -211,7 +211,10 @@ class Buildamic
             return;
         }
 
-        return view('buildamic::'.$this->get('config.view_engine').".{$part['type']}", ['buildamic' => $this, $part['type'] => $part]);
+        $view_engine = $this->get('config.view_engine');
+        $part_type = $part['type'];
+
+        return view("buildamic::{$view_engine}.layouts.{$part_type}", ['buildamic' => $this, $part_type => $part]);
     }
 
     /**
@@ -222,12 +225,13 @@ class Buildamic
      */
     public function renderField($field = [])
     {
-        if (empty($field) || empty($field['config'])) { // disable sets for now
+        if (empty($field) || empty($field['config']) || $field['type'] === 'set') { // disable sets for now
             return;
         }
 
-        $fieldTemplate = $field['config']['field']['type'] ?? $field['value']['type'];
+        $view_engine = $this->get('config.view_engine');
+        $field_template = $field['config']['field']['type'] ?? $field['value']['type'];
 
-        return view('buildamic::'.$this->get('config.view_engine').".fields.{$fieldTemplate}", ['buildamic' => $this, 'field' => $field]);
+        return view("buildamic::{$view_engine}.fields.{$field_template}", ['buildamic' => $this, 'field' => $field]);
     }
 }
