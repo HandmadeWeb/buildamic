@@ -2,6 +2,7 @@
 
 namespace Michaelr0\Buildamic\Fieldtypes;
 
+use Illuminate\Support\Str;
 use Statamic\Fields\Fields;
 use Statamic\Fields\Fieldtype;
 
@@ -44,7 +45,38 @@ class Buildamic extends FieldType
             'config' => [
                 'view_engine' => $this->config('view_engine'),
             ],
-            'sections' => [],
+            //'sections' => [],
+            'sections' => [
+                $this->makeSection($this->makeRow($this->makeColumn())),
+            ],
+        ];
+    }
+
+    protected function makeSection(...$rows)
+    {
+        return [
+            //'uuid' => c38c5a87-9e05-4342-9897-75b8e68d40c0,
+            'uuid' => Str::uuid(),
+            'type' => 'section',
+            'rows' => $rows,
+        ];
+    }
+
+    protected function makeRow(...$columns)
+    {
+        return [
+            'uuid' => Str::uuid(),
+            'type' => 'row',
+            'columns' => $columns,
+        ];
+    }
+
+    protected function makeColumn(...$fields)
+    {
+        return [
+            'uuid' => Str::uuid(),
+            'type' => 'column',
+            'fields' => $fields,
         ];
     }
 
