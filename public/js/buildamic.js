@@ -178,8 +178,9 @@ __webpack_require__.r(__webpack_exports__);
       return fieldtype === "field" ? "field-element" : "field-group-element";
     }
   },
+  inject: ["fields", "sets"],
   mounted: function mounted() {
-    console.log(this.sortableItemClass);
+    console.log("fields", this.sets);
   },
   props: {
     column: {
@@ -268,8 +269,7 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  mounted: function mounted() {
-    console.log("section element", this.section.rows);
+  mounted: function mounted() {// console.log("section element", this.section.rows);
   }
 });
 
@@ -306,11 +306,17 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     GridSection: _GridSection_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  data: function data() {
-    return {
-      fields: new Array(),
-      sets: new Array()
-    };
+  computed: {
+    fields: function fields() {
+      return this.config.fields.reduce(function (acc, cur) {
+        return acc[cur.handle] = cur, acc;
+      }, {});
+    },
+    sets: function sets() {
+      return this.config.sets.reduce(function (acc, cur) {
+        return acc[cur.handle] = cur, acc;
+      }, {});
+    }
   },
   watch: {
     value: {
@@ -319,16 +325,6 @@ __webpack_require__.r(__webpack_exports__);
       },
       deep: true
     }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.config.fields.forEach(function (field) {
-      _this.fields[field.handle] = field;
-    });
-    this.config.sets.forEach(function (set) {
-      _this.sets[set.handle] = set;
-    });
   },
   provide: function provide() {
     return {
@@ -4592,7 +4588,7 @@ var render = function() {
   return _c(
     "draggable",
     {
-      staticClass: "buildamic-column flex-grow",
+      staticClass: "buildamic-column flex-grow flex flex-col gap-3",
       attrs: {
         list: _vm.draggarray,
         group: { name: "columns" },
@@ -4667,7 +4663,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "buildamic-row flex gap-3 bg-green-light p-2 mb-4" },
+    { staticClass: "buildamic-row flex gap-3 bg-green-light p-2" },
     _vm._l(_vm.row.columns, function(column, columnKey) {
       return _c("grid-column", { key: columnKey, attrs: { column: column } })
     }),
@@ -4699,7 +4695,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "buildamic-section bg-blue-light p-2 mb-2" },
+    {
+      staticClass:
+        "buildamic-section bg-blue-light p-2 mb-2 flex flex-col gap-3"
+    },
     _vm._l(_vm.dragarray, function(row, rowKey) {
       return _c("grid-row", { key: rowKey, attrs: { row: row } })
     }),

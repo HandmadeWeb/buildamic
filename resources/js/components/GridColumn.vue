@@ -4,7 +4,7 @@
     :group="{ name: 'columns' }"
     ghost-class="ghost"
     handle=".drag-handle"
-    class="buildamic-column flex-grow"
+    class="buildamic-column flex-grow flex flex-col gap-3"
   >
     <div
       v-for="(field, fieldKey) in draggarray"
@@ -60,8 +60,10 @@ export default {
     },
   },
 
+  inject: ["fields", "sets"],
+
   mounted() {
-    console.log(this.sortableItemClass);
+    console.log("fields", this.sets);
   },
 
   props: {

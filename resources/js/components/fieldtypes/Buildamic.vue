@@ -21,11 +21,19 @@ export default {
     GridSection,
   },
 
-  data() {
-    return {
-      fields: new Array(),
-      sets: new Array(),
-    };
+  computed: {
+    fields() {
+      return this.config.fields.reduce(
+        (acc, cur) => ((acc[cur.handle] = cur), acc),
+        {}
+      );
+    },
+    sets() {
+      return this.config.sets.reduce(
+        (acc, cur) => ((acc[cur.handle] = cur), acc),
+        {}
+      );
+    },
   },
 
   watch: {
@@ -35,16 +43,6 @@ export default {
       },
       deep: true,
     },
-  },
-
-  mounted() {
-    this.config.fields.forEach((field) => {
-      this.fields[field.handle] = field;
-    });
-
-    this.config.sets.forEach((set) => {
-      this.sets[set.handle] = set;
-    });
   },
 
   provide() {
