@@ -1,6 +1,9 @@
 {
     "name": "michaelr0/buildamic",
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "Michaelr0\\Buildamic\\": "src"
         }
@@ -13,7 +16,10 @@
         "laravel": {
             "providers": [
                 "Michaelr0\\Buildamic\\ServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Buildamic": "Michaelr0\\Buildamic\\Buildamic"
+            }
         }
     }
 }
