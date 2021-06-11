@@ -18,9 +18,25 @@
       </div>
       <button class="btn" @click="isSelectingNewField = true">Add Field</button>
       <stack name="field-stack" v-if="isSelectingNewField" @closed="isSelectingNewField = false">
-          <div>
-            <button v-for="(field, key) in fields" :key="key" class="btn" v-on:click="addField(key)">{{ field.type }}</button>
+        <div class="h-full bg-white overflow-auto">
+          <div class="bg-grey-20 px-3 py-1 border-b border-grey-30 text-lg font-medium flex items-center justify-between">
+              {{ __('Fieldtypes') }}
+              <button type="button" class="btn-close" @click="isSelectingNewField = false">×</button>
           </div>
+
+          <div class="p-3 pt-0">
+              <div class="fieldtype-selector">
+                  <div class="fieldtype-list">
+                      <div class="p-1" v-for="(field, key) in fields" :key="key">
+                          <a class="border flex items-center group w-full rounded shadow-sm py-1 px-2" @click="addField(key)">
+                              <svg-icon class="h-4 w-4 text-grey-80 group-hover:text-blue" :name="field.icon"></svg-icon>
+                              <span class="pl-2 text-grey-80 group-hover:text-blue">{{ __(field.display) }}</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
       </stack>
   </div>
 </template>
@@ -70,6 +86,7 @@ export default {
         value: null,
       });
 
+      this.isSelectingNewField = false;
       //this.update(this.value);
     },
 

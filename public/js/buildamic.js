@@ -44,6 +44,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -72,7 +88,8 @@ __webpack_require__.r(__webpack_exports__);
         config: this.fields[fieldKey],
         //value: this.fields[fieldKey].field.type == 'markdown' ? '' : [],
         value: null
-      }); //this.update(this.value);
+      });
+      this.isSelectingNewField = false; //this.update(this.value);
     },
     removeField: function removeField(fieldKey) {
       this.column.fields.splice(fieldKey, 1); //this.update(this.value);
@@ -804,25 +821,78 @@ var render = function() {
               }
             },
             [
-              _c(
-                "div",
-                _vm._l(_vm.fields, function(field, key) {
-                  return _c(
-                    "button",
-                    {
-                      key: key,
-                      staticClass: "btn",
-                      on: {
-                        click: function($event) {
-                          return _vm.addField(key)
+              _c("div", { staticClass: "h-full bg-white overflow-auto" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-grey-20 px-3 py-1 border-b border-grey-30 text-lg font-medium flex items-center justify-between"
+                  },
+                  [
+                    _vm._v(
+                      "\n            " +
+                        _vm._s(_vm.__("Fieldtypes")) +
+                        "\n            "
+                    ),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn-close",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.isSelectingNewField = false
+                          }
                         }
-                      }
-                    },
-                    [_vm._v(_vm._s(field.type))]
-                  )
-                }),
-                0
-              )
+                      },
+                      [_vm._v("×")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "p-3 pt-0" }, [
+                  _c("div", { staticClass: "fieldtype-selector" }, [
+                    _c(
+                      "div",
+                      { staticClass: "fieldtype-list" },
+                      _vm._l(_vm.fields, function(field, key) {
+                        return _c("div", { key: key, staticClass: "p-1" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "border flex items-center group w-full rounded shadow-sm py-1 px-2",
+                              on: {
+                                click: function($event) {
+                                  return _vm.addField(key)
+                                }
+                              }
+                            },
+                            [
+                              _c("svg-icon", {
+                                staticClass:
+                                  "h-4 w-4 text-grey-80 group-hover:text-blue",
+                                attrs: { name: field.icon }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "pl-2 text-grey-80 group-hover:text-blue"
+                                },
+                                [_vm._v(_vm._s(_vm.__(field.display)))]
+                              )
+                            ],
+                            1
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ])
             ]
           )
         : _vm._e()
