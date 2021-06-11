@@ -28,6 +28,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -37,15 +42,40 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   data: function data() {
-    return {};
+    return {
+      isSelectingNewField: false
+    };
   },
   methods: {
-    addField: function addField() {
+    addField: function addField(fieldType) {
       this.column.fields.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_0__.default)(),
         type: 'field',
         config: [],
-        value: []
+        field: {
+          config: {
+            "restrict": false,
+            "automatic_line_breaks": true,
+            "automatic_links": false,
+            "escape_markup": false,
+            "smartypants": false,
+            "antlers": false,
+            "display": "Markdown",
+            "type": "markdown",
+            "icon": "markdown",
+            "listable": "hidden",
+            "container": null,
+            "folder": null,
+            "parser": null,
+            "component": "markdown",
+            "handle": "markdown",
+            "prefix": null,
+            "instructions": null,
+            "required": false
+          }
+        },
+        value: '' //value: fieldType == 'markdown' ? '' : [],
+
       }); //this.update(this.value);
     },
     removeField: function removeField(fieldKey) {
@@ -702,21 +732,33 @@ var render = function() {
     [
       _vm._v("\n    Column " + _vm._s(_vm.column.uuid) + "\n    "),
       _vm._l(_vm.column.fields, function(field, fieldKey) {
-        return _c("div", { key: fieldKey, staticClass: "py-2" }, [
-          _vm._v(" \n      Field\n      "),
-          _c(
-            "button",
-            {
-              staticClass: "btn",
-              on: {
-                click: function($event) {
-                  return _vm.removeField(fieldKey)
-                }
+        return _c(
+          "div",
+          { key: fieldKey, staticClass: "py-2" },
+          [
+            _c("markdown-fieldtype", {
+              attrs: {
+                handle: field.field.config.handle,
+                value: field.value,
+                config: field.field.config
               }
-            },
-            [_vm._v("Remove Field")]
-          )
-        ])
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn",
+                on: {
+                  click: function($event) {
+                    return _vm.removeField(fieldKey)
+                  }
+                }
+              },
+              [_vm._v("Remove Field")]
+            )
+          ],
+          1
+        )
       }),
       _vm._v(" "),
       _c(
@@ -725,13 +767,42 @@ var render = function() {
           staticClass: "btn",
           on: {
             click: function($event) {
-              $event.preventDefault()
-              return _vm.addField($event)
+              _vm.isSelectingNewField = true
             }
           }
         },
         [_vm._v("Add Field")]
-      )
+      ),
+      _vm._v(" "),
+      _vm.isSelectingNewField
+        ? _c(
+            "stack",
+            {
+              attrs: { name: "field-stack" },
+              on: {
+                closed: function($event) {
+                  _vm.isSelectingNewField = false
+                }
+              }
+            },
+            [
+              _c("div", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn",
+                    on: {
+                      click: function($event) {
+                        return _vm.addField("markdown")
+                      }
+                    }
+                  },
+                  [_vm._v("Markdown")]
+                )
+              ])
+            ]
+          )
+        : _vm._e()
     ],
     2
   )

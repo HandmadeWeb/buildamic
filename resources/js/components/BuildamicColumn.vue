@@ -2,10 +2,15 @@
   <div class="buildamic-column-container">
       Column {{ column.uuid }}
       <div v-for="(field, fieldKey) in column.fields" :key="fieldKey" class="py-2"> 
-        Field
+        <markdown-fieldtype :handle="field.field.config.handle" :value="field.value" :config="field.field.config" />
         <button class="btn" v-on:click="removeField(fieldKey)">Remove Field</button>
       </div>
-      <button class="btn" @click.prevent="addField">Add Field</button>
+      <button class="btn" @click="isSelectingNewField = true">Add Field</button>
+      <stack name="field-stack" v-if="isSelectingNewField" @closed="isSelectingNewField = false">
+          <div>
+            <button class="btn" v-on:click="addField('markdown')">Markdown</button>
+          </div>
+      </stack>
   </div>
 </template>
 
@@ -16,8 +21,7 @@
 <script>
 import { v4 as uuidv4 } from 'uuid';
 
-export default {
-  
+export default {  
     props: {
       column: {
         type: Object,
@@ -27,16 +31,40 @@ export default {
 
   data() {
     return {
+      isSelectingNewField: false,
     };
   },
 
   methods: {
-    addField() {
+    addField(fieldType) {
       this.column.fields.push({
         uuid: uuidv4(),
         type: 'field',
         config: [],
-        value: [],
+        field: {
+          config: {
+            "restrict": false,
+            "automatic_line_breaks": true,
+            "automatic_links": false,
+            "escape_markup": false,
+            "smartypants": false,
+            "antlers": false,
+            "display": "Markdown",
+            "type": "markdown",
+            "icon": "markdown",
+            "listable": "hidden",
+            "container": null,
+            "folder": null,
+            "parser": null,
+            "component": "markdown",
+            "handle": "markdown",
+            "prefix": null,
+            "instructions": null,
+            "required": false,
+          },
+        },
+        value: '',
+        //value: fieldType == 'markdown' ? '' : [],
       });
 
       //this.update(this.value);
