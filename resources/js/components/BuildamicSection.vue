@@ -2,8 +2,10 @@
   <div class="buildamic-section-container">
     Section {{ section.uuid }}
     <div v-for="(row, rowKey) in section.rows" :key="rowKey" class="py-2"> 
-      <buildamic-row :row="row" />
-      <button class="btn" v-on:click="removeRow(rowKey)">Remove Row</button>
+      <div class="p-5 bg-green">
+        <buildamic-row :row="row" />
+        <button class="btn" v-on:click="removeRow(rowKey)">Remove Row</button>
+      </div>
     </div>
     <button class="btn" @click.prevent="addRow">Add Row</button>
   </div>

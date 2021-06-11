@@ -1,8 +1,10 @@
 <template>
   <div class="buildamic-fieldtype-container">
     <div v-for="(section, sectionKey) in value.sections" :key="sectionKey" class="py-2"> 
-      <buildamic-section :section="section" />
-      <button class="btn" v-on:click="removeSection(sectionKey)">Remove Section</button>
+      <div class="p-5 bg-blue">
+        <buildamic-section :section="section" />
+        <button class="btn" v-on:click="removeSection(sectionKey)">Remove Section</button>
+      </div>
     </div>    
     
     <button class="btn" @click.prevent="addSection">Add Section</button>

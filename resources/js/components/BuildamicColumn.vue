@@ -2,19 +2,22 @@
   <div class="buildamic-column-container">
       Column {{ column.uuid }}
       <div v-for="(field, fieldKey) in column.fields" :key="fieldKey" class="py-2"> 
-        <component
-            :is="fieldtypeComponent(field.config.handle)"
-            :config="fields.where('handle', field.config.handle).first()"
-            :value="field.value"
-            :meta="field.meta"
-            :handle="field.config.handle"
-            @input="updateField(fieldKey, $event)"
-            @meta-updated="$emit('meta-updated', $event)"
-            @focus="$emit('focus')"
-            @blur="$emit('blur')"
-        />
+        <div class="p-5 bg-red">
+          Field {{ field.uuid }}
+          <component
+              :is="fieldtypeComponent(field.config.handle)"
+              :config="fields.where('handle', field.config.handle).first()"
+              :value="field.value"
+              :meta="field.meta"
+              :handle="field.config.handle"
+              @input="updateField(fieldKey, $event)"
+              @meta-updated="$emit('meta-updated', $event)"
+              @focus="$emit('focus')"
+              @blur="$emit('blur')"
+          />
 
-        <button class="btn" v-on:click="removeField(fieldKey)">Remove Field</button>
+          <button class="btn" v-on:click="removeField(fieldKey)">Remove Field</button>
+        </div>
       </div>
       <button class="btn" @click="isSelectingNewField = true">Add Field</button>
       <stack name="field-stack" v-if="isSelectingNewField" @closed="isSelectingNewField = false">

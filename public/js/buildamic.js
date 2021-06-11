@@ -60,6 +60,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -122,6 +125,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/v4.js");
 /* harmony import */ var _BuildamicColumn_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BuildamicColumn.vue */ "./resources/js/components/BuildamicColumn.vue");
+//
+//
 //
 //
 //
@@ -202,6 +207,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -254,6 +261,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var collect_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! collect.js */ "./node_modules/collect.js/dist/index.js");
 /* harmony import */ var collect_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(collect_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _BuildamicSection_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../BuildamicSection.vue */ "./resources/js/components/BuildamicSection.vue");
+//
+//
 //
 //
 //
@@ -4888,49 +4897,54 @@ var render = function() {
     [
       _vm._v("\n    Column " + _vm._s(_vm.column.uuid) + "\n    "),
       _vm._l(_vm.column.fields, function(field, fieldKey) {
-        return _c(
-          "div",
-          { key: fieldKey, staticClass: "py-2" },
-          [
-            _c(_vm.fieldtypeComponent(field.config.handle), {
-              tag: "component",
-              attrs: {
-                config: _vm.fields.where("handle", field.config.handle).first(),
-                value: field.value,
-                meta: field.meta,
-                handle: field.config.handle
-              },
-              on: {
-                input: function($event) {
-                  return _vm.updateField(fieldKey, $event)
+        return _c("div", { key: fieldKey, staticClass: "py-2" }, [
+          _c(
+            "div",
+            { staticClass: "p-5 bg-red" },
+            [
+              _vm._v("\n        Field " + _vm._s(field.uuid) + "\n        "),
+              _c(_vm.fieldtypeComponent(field.config.handle), {
+                tag: "component",
+                attrs: {
+                  config: _vm.fields
+                    .where("handle", field.config.handle)
+                    .first(),
+                  value: field.value,
+                  meta: field.meta,
+                  handle: field.config.handle
                 },
-                "meta-updated": function($event) {
-                  return _vm.$emit("meta-updated", $event)
-                },
-                focus: function($event) {
-                  return _vm.$emit("focus")
-                },
-                blur: function($event) {
-                  return _vm.$emit("blur")
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn",
                 on: {
-                  click: function($event) {
-                    return _vm.removeField(fieldKey)
+                  input: function($event) {
+                    return _vm.updateField(fieldKey, $event)
+                  },
+                  "meta-updated": function($event) {
+                    return _vm.$emit("meta-updated", $event)
+                  },
+                  focus: function($event) {
+                    return _vm.$emit("focus")
+                  },
+                  blur: function($event) {
+                    return _vm.$emit("blur")
                   }
                 }
-              },
-              [_vm._v("Remove Field")]
-            )
-          ],
-          1
-        )
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn",
+                  on: {
+                    click: function($event) {
+                      return _vm.removeField(fieldKey)
+                    }
+                  }
+                },
+                [_vm._v("Remove Field")]
+              )
+            ],
+            1
+          )
+        ])
       }),
       _vm._v(" "),
       _c(
@@ -5066,27 +5080,29 @@ var render = function() {
     [
       _vm._v("\n    Row " + _vm._s(_vm.row.uuid) + "\n    "),
       _vm._l(_vm.row.columns, function(column, columnKey) {
-        return _c(
-          "div",
-          { key: columnKey, staticClass: "py-2" },
-          [
-            _c("buildamic-column", { attrs: { column: column } }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn",
-                on: {
-                  click: function($event) {
-                    return _vm.removeColumn(columnKey)
+        return _c("div", { key: columnKey, staticClass: "py-2" }, [
+          _c(
+            "div",
+            { staticClass: "p-5 bg-yellow" },
+            [
+              _c("buildamic-column", { attrs: { column: column } }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn",
+                  on: {
+                    click: function($event) {
+                      return _vm.removeColumn(columnKey)
+                    }
                   }
-                }
-              },
-              [_vm._v("Remove Column")]
-            )
-          ],
-          1
-        )
+                },
+                [_vm._v("Remove Column")]
+              )
+            ],
+            1
+          )
+        ])
       }),
       _vm._v(" "),
       _c(
@@ -5135,27 +5151,29 @@ var render = function() {
     [
       _vm._v("\n  Section " + _vm._s(_vm.section.uuid) + "\n  "),
       _vm._l(_vm.section.rows, function(row, rowKey) {
-        return _c(
-          "div",
-          { key: rowKey, staticClass: "py-2" },
-          [
-            _c("buildamic-row", { attrs: { row: row } }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn",
-                on: {
-                  click: function($event) {
-                    return _vm.removeRow(rowKey)
+        return _c("div", { key: rowKey, staticClass: "py-2" }, [
+          _c(
+            "div",
+            { staticClass: "p-5 bg-green" },
+            [
+              _c("buildamic-row", { attrs: { row: row } }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn",
+                  on: {
+                    click: function($event) {
+                      return _vm.removeRow(rowKey)
+                    }
                   }
-                }
-              },
-              [_vm._v("Remove Row")]
-            )
-          ],
-          1
-        )
+                },
+                [_vm._v("Remove Row")]
+              )
+            ],
+            1
+          )
+        ])
       }),
       _vm._v(" "),
       _c(
@@ -5203,27 +5221,29 @@ var render = function() {
     { staticClass: "buildamic-fieldtype-container" },
     [
       _vm._l(_vm.value.sections, function(section, sectionKey) {
-        return _c(
-          "div",
-          { key: sectionKey, staticClass: "py-2" },
-          [
-            _c("buildamic-section", { attrs: { section: section } }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn",
-                on: {
-                  click: function($event) {
-                    return _vm.removeSection(sectionKey)
+        return _c("div", { key: sectionKey, staticClass: "py-2" }, [
+          _c(
+            "div",
+            { staticClass: "p-5 bg-blue" },
+            [
+              _c("buildamic-section", { attrs: { section: section } }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn",
+                  on: {
+                    click: function($event) {
+                      return _vm.removeSection(sectionKey)
+                    }
                   }
-                }
-              },
-              [_vm._v("Remove Section")]
-            )
-          ],
-          1
-        )
+                },
+                [_vm._v("Remove Section")]
+              )
+            ],
+            1
+          )
+        ])
       }),
       _vm._v(" "),
       _c(

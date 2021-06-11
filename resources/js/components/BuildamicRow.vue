@@ -2,8 +2,10 @@
   <div class="buildamic-row-container">
       Row {{ row.uuid }}
       <div v-for="(column, columnKey) in row.columns" :key="columnKey" class="py-2"> 
-        <buildamic-column :column="column" />
-        <button class="btn" v-on:click="removeColumn(columnKey)">Remove Column</button>
+        <div class="p-5 bg-yellow">
+          <buildamic-column :column="column" />
+          <button class="btn" v-on:click="removeColumn(columnKey)">Remove Column</button>
+        </div>
       </div>
       <button class="btn" @click.prevent="addColumn">Add Column</button>
   </div>
