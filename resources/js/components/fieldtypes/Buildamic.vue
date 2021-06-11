@@ -15,6 +15,7 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
+import collect from 'collect.js';
 import BuildamicSection from '../BuildamicSection.vue';
 
 export default {
@@ -33,8 +34,8 @@ export default {
 
   provide() {
     return {
-      fields: this.config.fields,
-      fieldsets: this.config.sets,
+      fields: collect(this.config.fields),
+      fieldsets: collect(this.config.sets),
     }
   },
 

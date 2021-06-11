@@ -3,8 +3,8 @@
       Column {{ column.uuid }}
       <div v-for="(field, fieldKey) in column.fields" :key="fieldKey" class="py-2"> 
         <component
-            :is="fieldtypeComponent(field.config)"
-            :config="field.config"
+            :is="fieldtypeComponent(field.config.handle)"
+            :config="fields.where('handle', field.config.handle).first()"
             :value="field.value"
             :meta="field.meta"
             :handle="field.config.handle"
@@ -28,7 +28,7 @@
               <div class="fieldtype-selector">
                   <div class="fieldtype-list">
                       <div class="p-1" v-for="(field, key) in fields" :key="key">
-                          <a class="border flex items-center group w-full rounded shadow-sm py-1 px-2" @click="addField(key)">
+                          <a class="border flex items-center group w-full rounded shadow-sm py-1 px-2" @click="addField(field.handle)">
                               <svg-icon class="h-4 w-4 text-grey-80 group-hover:text-blue" :name="field.icon"></svg-icon>
                               <span class="pl-2 text-grey-80 group-hover:text-blue">{{ __(field.display) }}</span>
                           </a>
@@ -68,21 +68,25 @@ export default {
   ],
 
   methods: {
-    fieldtypeComponent(field) {
-        return `${field.type}-fieldtype`;
-        //return `${field.component || field.type}-fieldtype`;
+    fieldtypeComponent(handle) {
+        let field = this.fields.where('handle', handle).first();
+        return `${field.component || field.type}-fieldtype`;
     },
 
     updateField(index, value) {
         this.column.fields[index].value = value;
     },
 
-    addField(fieldKey) {
+    addField(handle) {
+      let field = this.fields.where('handle', handle).first();
+
       this.column.fields.push({
         uuid: uuidv4(),
         type: 'field',
-        config: this.fields[fieldKey],
-        //value: this.fields[fieldKey].field.type == 'markdown' ? '' : [],
+        config: {
+          handle: field.handle,
+          type: field.type,
+        },
         value: null,
       });
 

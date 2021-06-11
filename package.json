@@ -17,6 +17,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "collect.js": "^4.28.6",
         "uuid": "^8.3.2"
     }
 }
