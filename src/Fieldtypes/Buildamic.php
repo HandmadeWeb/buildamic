@@ -23,14 +23,14 @@ class Buildamic extends FieldType
                 ],
                 'default' => 'blade',
             ],
-            // 'fields' => [
-            //     'display' => __('Fields'),
-            //     'type' => 'fields',
-            // ],
-            // 'sets' => [
-            //     'display' => __('Sets'),
-            //     'type' => 'sets',
-            // ],
+            'fields' => [
+                'display' => __('Fields'),
+                'type' => 'fields',
+            ],
+            'sets' => [
+                'display' => __('Sets'),
+                'type' => 'sets',
+            ],
         ];
     }
 
@@ -44,10 +44,16 @@ class Buildamic extends FieldType
         return [
             'config' => [
                 'view_engine' => $this->config('view_engine'),
+                'fields' => $this->config('fields'),
+                'sets' => $this->config('sets'),
             ],
             //'sections' => [],
             'sections' => [
-                $this->makeSection($this->makeRow($this->makeColumn())),
+                $this->makeSection(
+                    $this->makeRow(
+                        $this->makeColumn()
+                    )
+                ),
             ],
         ];
     }
