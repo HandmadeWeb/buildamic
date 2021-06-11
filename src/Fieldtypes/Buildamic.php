@@ -110,6 +110,21 @@ class Buildamic extends FieldType
 
     public function preload()
     {
-        return [];
+        return [
+            'defaultValue' => $this->defaultRowData()->all(),
+            'defaultMeta' => $this->fields()->meta()->all(),
+        ];
+    }
+
+    public function fields()
+    {
+        return new Fields($this->config('fields'), $this->field()->parent(), $this->field());
+    }
+
+    protected function defaultRowData()
+    {
+        return $this->fields()->all()->map(function ($field) {
+            return $field->fieldtype()->preProcess($field->defaultValue());
+        });
     }
 }

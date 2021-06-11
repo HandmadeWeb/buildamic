@@ -76,7 +76,7 @@ __webpack_require__.r(__webpack_exports__);
       isSelectingNewField: false
     };
   },
-  inject: ['fields', 'fieldsets'],
+  inject: ['fields', 'fieldsets', 'meta'],
   methods: {
     fieldtypeComponent: function fieldtypeComponent(handle) {
       var field = this.fields.where('handle', handle).first();
@@ -87,6 +87,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     addField: function addField(handle) {
       var field = this.fields.where('handle', handle).first();
+      var defaultValue = this.meta.get('defaultValue')[handle];
+      var defaultmeta = this.meta.get('defaultMeta')[handle];
       this.column.fields.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_0__.default)(),
         type: 'field',
@@ -94,7 +96,8 @@ __webpack_require__.r(__webpack_exports__);
           handle: field.handle,
           type: field.type
         },
-        value: null
+        meta: defaultmeta,
+        value: defaultValue
       });
       this.isSelectingNewField = false; //this.update(this.value);
     },
@@ -292,7 +295,8 @@ __webpack_require__.r(__webpack_exports__);
   provide: function provide() {
     return {
       fields: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.config.fields),
-      fieldsets: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.config.sets)
+      fieldsets: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.config.sets),
+      meta: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.meta)
     };
   },
   methods: {

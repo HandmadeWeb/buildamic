@@ -38,6 +38,7 @@ export default {
     return {
       fields: collect(this.config.fields),
       fieldsets: collect(this.config.sets),
+      meta: collect(this.meta),
     }
   },
 

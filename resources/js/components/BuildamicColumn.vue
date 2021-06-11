@@ -68,6 +68,7 @@ export default {
   inject: [
     'fields',
     'fieldsets',
+    'meta',
   ],
 
   methods: {
@@ -82,7 +83,9 @@ export default {
 
     addField(handle) {
       let field = this.fields.where('handle', handle).first();
-
+      let defaultValue = this.meta.get('defaultValue')[handle];
+      let defaultmeta = this.meta.get('defaultMeta')[handle];
+      
       this.column.fields.push({
         uuid: uuidv4(),
         type: 'field',
@@ -90,7 +93,8 @@ export default {
           handle: field.handle,
           type: field.type,
         },
-        value: null,
+        meta: defaultmeta,
+        value: defaultValue,
       });
 
       this.isSelectingNewField = false;
