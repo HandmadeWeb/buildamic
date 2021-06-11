@@ -31,6 +31,13 @@ export default {
     };
   },
 
+  provide() {
+    return {
+      fields: this.config.fields,
+      fieldsets: this.config.sets,
+    }
+  },
+
   methods: {
     getConfig(key) {
       return this.value.config[key] ?? null;

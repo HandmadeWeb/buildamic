@@ -33,6 +33,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -46,36 +57,21 @@ __webpack_require__.r(__webpack_exports__);
       isSelectingNewField: false
     };
   },
+  inject: ['fields', 'fieldsets'],
   methods: {
-    addField: function addField(fieldType) {
+    fieldtypeComponent: function fieldtypeComponent(field) {
+      return "".concat(field.type, "-fieldtype"); //return `${field.component || field.type}-fieldtype`;
+    },
+    updateField: function updateField(index, value) {
+      this.column.fields[index].value = value;
+    },
+    addField: function addField(fieldKey) {
       this.column.fields.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_0__.default)(),
         type: 'field',
-        config: [],
-        field: {
-          config: {
-            "restrict": false,
-            "automatic_line_breaks": true,
-            "automatic_links": false,
-            "escape_markup": false,
-            "smartypants": false,
-            "antlers": false,
-            "display": "Markdown",
-            "type": "markdown",
-            "icon": "markdown",
-            "listable": "hidden",
-            "container": null,
-            "folder": null,
-            "parser": null,
-            "component": "markdown",
-            "handle": "markdown",
-            "prefix": null,
-            "instructions": null,
-            "required": false
-          }
-        },
-        value: '' //value: fieldType == 'markdown' ? '' : [],
-
+        config: this.fields[fieldKey],
+        //value: this.fields[fieldKey].field.type == 'markdown' ? '' : [],
+        value: null
       }); //this.update(this.value);
     },
     removeField: function removeField(fieldKey) {
@@ -256,6 +252,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {};
+  },
+  provide: function provide() {
+    return {
+      fields: this.config.fields,
+      fieldsets: this.config.sets
+    };
   },
   methods: {
     getConfig: function getConfig(key) {
@@ -736,11 +738,27 @@ var render = function() {
           "div",
           { key: fieldKey, staticClass: "py-2" },
           [
-            _c("markdown-fieldtype", {
+            _c(_vm.fieldtypeComponent(field.config), {
+              tag: "component",
               attrs: {
-                handle: field.field.config.handle,
+                config: field.config,
                 value: field.value,
-                config: field.field.config
+                meta: field.meta,
+                handle: field.config.handle
+              },
+              on: {
+                input: function($event) {
+                  return _vm.updateField(fieldKey, $event)
+                },
+                "meta-updated": function($event) {
+                  return _vm.$emit("meta-updated", $event)
+                },
+                focus: function($event) {
+                  return _vm.$emit("focus")
+                },
+                blur: function($event) {
+                  return _vm.$emit("blur")
+                }
               }
             }),
             _vm._v(" "),
@@ -786,20 +804,25 @@ var render = function() {
               }
             },
             [
-              _c("div", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn",
-                    on: {
-                      click: function($event) {
-                        return _vm.addField("markdown")
+              _c(
+                "div",
+                _vm._l(_vm.fields, function(field, key) {
+                  return _c(
+                    "button",
+                    {
+                      key: key,
+                      staticClass: "btn",
+                      on: {
+                        click: function($event) {
+                          return _vm.addField(key)
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("Markdown")]
-                )
-              ])
+                    },
+                    [_vm._v(_vm._s(field.type))]
+                  )
+                }),
+                0
+              )
             ]
           )
         : _vm._e()

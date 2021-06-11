@@ -44,8 +44,8 @@ class Buildamic extends FieldType
         return [
             'config' => [
                 'view_engine' => $this->config('view_engine'),
-                'fields' => $this->config('fields'),
-                'sets' => $this->config('sets'),
+                //'fields' => $this->config('fields'),
+                //'sets' => $this->config('sets'),
             ],
             //'sections' => [],
             'sections' => [

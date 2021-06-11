@@ -2,13 +2,24 @@
   <div class="buildamic-column-container">
       Column {{ column.uuid }}
       <div v-for="(field, fieldKey) in column.fields" :key="fieldKey" class="py-2"> 
-        <markdown-fieldtype :handle="field.field.config.handle" :value="field.value" :config="field.field.config" />
+        <component
+            :is="fieldtypeComponent(field.config)"
+            :config="field.config"
+            :value="field.value"
+            :meta="field.meta"
+            :handle="field.config.handle"
+            @input="updateField(fieldKey, $event)"
+            @meta-updated="$emit('meta-updated', $event)"
+            @focus="$emit('focus')"
+            @blur="$emit('blur')"
+        />
+
         <button class="btn" v-on:click="removeField(fieldKey)">Remove Field</button>
       </div>
       <button class="btn" @click="isSelectingNewField = true">Add Field</button>
       <stack name="field-stack" v-if="isSelectingNewField" @closed="isSelectingNewField = false">
           <div>
-            <button class="btn" v-on:click="addField('markdown')">Markdown</button>
+            <button v-for="(field, key) in fields" :key="key" class="btn" v-on:click="addField(key)">{{ field.type }}</button>
           </div>
       </stack>
   </div>
@@ -35,36 +46,28 @@ export default {
     };
   },
 
+  inject: [
+    'fields',
+    'fieldsets',
+  ],
+
   methods: {
-    addField(fieldType) {
+    fieldtypeComponent(field) {
+        return `${field.type}-fieldtype`;
+        //return `${field.component || field.type}-fieldtype`;
+    },
+
+    updateField(index, value) {
+        this.column.fields[index].value = value;
+    },
+
+    addField(fieldKey) {
       this.column.fields.push({
         uuid: uuidv4(),
         type: 'field',
-        config: [],
-        field: {
-          config: {
-            "restrict": false,
-            "automatic_line_breaks": true,
-            "automatic_links": false,
-            "escape_markup": false,
-            "smartypants": false,
-            "antlers": false,
-            "display": "Markdown",
-            "type": "markdown",
-            "icon": "markdown",
-            "listable": "hidden",
-            "container": null,
-            "folder": null,
-            "parser": null,
-            "component": "markdown",
-            "handle": "markdown",
-            "prefix": null,
-            "instructions": null,
-            "required": false,
-          },
-        },
-        value: '',
-        //value: fieldType == 'markdown' ? '' : [],
+        config: this.fields[fieldKey],
+        //value: this.fields[fieldKey].field.type == 'markdown' ? '' : [],
+        value: null,
       });
 
       //this.update(this.value);
