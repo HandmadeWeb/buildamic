@@ -1,8 +1,12 @@
 <template>
   <div class="buildamic-fieldtype-container">
-    <div v-for="(section, sectionKey) in value.sections" :key="sectionKey" class="py-2">  
-        Section {{ section.uuid }} <button class="btn" v-on:click="removeSection(sectionKey)">Remove Section</button>
+    <div v-for="(section, sectionKey) in value.sections" :key="sectionKey" class="py-2"> 
+      <div class="p-5 bg-blue">
+        <buildamic-section :section="section" />
+        <button class="btn" v-on:click="removeSection(sectionKey)">Remove Section</button>
+      </div>
     </div>    
+    
     <button class="btn" @click.prevent="addSection">Add Section</button>
   </div>
 </template>
@@ -13,13 +17,29 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
+import collect from 'collect.js';
+import BuildamicSection from '../BuildamicSection.vue';
 
 export default {
-  mixins: [Fieldtype],
+  mixins: [
+    Fieldtype
+  ],
   
+  components: { 
+    BuildamicSection 
+  },
+
   data() {
     return {
     };
+  },
+
+  provide() {
+    return {
+      fields: collect(this.config.fields),
+      fieldsets: collect(this.config.sets),
+      meta: collect(this.meta),
+    }
   },
 
   methods: {
@@ -31,7 +51,7 @@ export default {
       this.value.sections.push({
         uuid: uuidv4(),
         type: 'section',
-        rows: {}
+        rows: []
       });
 
       this.update(this.value);

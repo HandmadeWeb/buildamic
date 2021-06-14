@@ -23,14 +23,14 @@ class Buildamic extends FieldType
                 ],
                 'default' => 'blade',
             ],
-            // 'fields' => [
-            //     'display' => __('Fields'),
-            //     'type' => 'fields',
-            // ],
-            // 'sets' => [
-            //     'display' => __('Sets'),
-            //     'type' => 'sets',
-            // ],
+            'fields' => [
+                'display' => __('Fields'),
+                'type' => 'fields',
+            ],
+            'sets' => [
+                'display' => __('Sets'),
+                'type' => 'sets',
+            ],
         ];
     }
 
@@ -44,39 +44,45 @@ class Buildamic extends FieldType
         return [
             'config' => [
                 'view_engine' => $this->config('view_engine'),
+                //'fields' => $this->config('fields'),
+                //'sets' => $this->config('sets'),
             ],
             //'sections' => [],
             'sections' => [
-                $this->makeSection($this->makeRow($this->makeColumn())),
+                $this->makeSection(
+                    $this->makeRow(
+                        $this->makeColumn()
+                    )
+                ),
             ],
         ];
     }
 
     protected function makeSection(...$rows)
     {
-        return [
+        return (object) [
             //'uuid' => c38c5a87-9e05-4342-9897-75b8e68d40c0,
             'uuid' => Str::uuid(),
             'type' => 'section',
-            'rows' => $rows,
+            'rows' => (array) $rows,
         ];
     }
 
     protected function makeRow(...$columns)
     {
-        return [
+        return (object) [
             'uuid' => Str::uuid(),
             'type' => 'row',
-            'columns' => $columns,
+            'columns' => (array) $columns,
         ];
     }
 
     protected function makeColumn(...$fields)
     {
-        return [
+        return (object) [
             'uuid' => Str::uuid(),
             'type' => 'column',
-            'fields' => $fields,
+            'fields' => (array) $fields,
         ];
     }
 
@@ -104,6 +110,21 @@ class Buildamic extends FieldType
 
     public function preload()
     {
-        return [];
+        return [
+            'defaultValue' => $this->defaultRowData()->all(),
+            'defaultMeta' => $this->fields()->meta()->all(),
+        ];
+    }
+
+    public function fields()
+    {
+        return new Fields($this->config('fields'), $this->field()->parent(), $this->field());
+    }
+
+    protected function defaultRowData()
+    {
+        return $this->fields()->all()->map(function ($field) {
+            return $field->fieldtype()->preProcess($field->defaultValue());
+        });
     }
 }

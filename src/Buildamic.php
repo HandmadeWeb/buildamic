@@ -225,12 +225,12 @@ class Buildamic
      */
     public function renderField($field = [])
     {
-        if (empty($field) || empty($field['config']) || $field['type'] === 'set') { // disable sets for now
+        if (empty($field) || empty($field['config']['type']) || $field['type'] === 'set') { // disable sets for now
             return;
         }
 
         $view_engine = $this->get('config.view_engine');
-        $field_template = $field['config']['field']['type'] ?? $field['value']['type'];
+        $field_template = $field['config']['type'] ?? $field['value']['type'];
 
         return view("buildamic::{$view_engine}.fields.{$field_template}", ['buildamic' => $this, 'field' => $field]);
     }
