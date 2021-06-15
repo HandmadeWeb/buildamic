@@ -3,8 +3,10 @@
 namespace Michaelr0\Buildamic\Fieldtypes;
 
 use Illuminate\Support\Str;
+use Statamic\Fields\Field;
 use Statamic\Fields\Fields;
 use Statamic\Fields\Fieldtype;
+use Statamic\Fields\Value;
 
 class Buildamic extends FieldType
 {
@@ -43,7 +45,7 @@ class Buildamic extends FieldType
     {
         return [
             'config' => [
-                'view_engine' => $this->config('view_engine'),
+                //'view_engine' => $this->config('view_engine'),
                 //'fields' => $this->config('fields'),
                 //'sets' => $this->config('sets'),
             ],
@@ -126,5 +128,23 @@ class Buildamic extends FieldType
         return $this->fields()->all()->map(function ($field) {
             return $field->fieldtype()->preProcess($field->defaultValue());
         });
+    }
+
+    public function augment($value)
+    {
+        return $this->performAugmentation($value, false);
+    }
+
+    public function shallowAugment($value)
+    {
+        return $this->performAugmentation($value, true);
+    }
+
+    private function performAugmentation($value, $shallow)
+    {
+        $method = $shallow ? 'shallowAugment' : 'augment';
+        $field = $this->field()->setValue($value)->{$method}();
+
+        return (new \Michaelr0\Buildamic\Buildamic($field->value(), $field->config(), $shallow))->render();
     }
 }

@@ -1,5 +1,5 @@
 <div class="section">
-    @foreach($section['rows'] as $row)
-        {!! $buildamic->renderLayoutPart($row) !!}   
+    @foreach($section->get('rows') as $row)
+        {!! $buildamic->renderRow($row) !!}   
     @endforeach
 </div>
