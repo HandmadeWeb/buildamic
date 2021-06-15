@@ -1,5 +1,5 @@
 @extends('buildamic::blade.layouts.field')
 
 @section('field_content')
-    {!! modify($field['value'])->markdown() !!}
+    {!! $field->get('value') !!}
 @overwrite

@@ -2,236 +2,104 @@
 
 namespace Michaelr0\Buildamic;
 
+use Facades\Statamic\Fields\FieldtypeRepository;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Statamic\Facades\Antlers;
+use Statamic\Fields\Field;
+use Statamic\Fields\Value;
+use Statamic\View\Antlers\Parser as AntlersParser;
 
 class Buildamic
 {
-    // Default Engine
-    protected $defaultViewEngine = 'blade';
+    // // Default Engine
+    // protected $defaultViewEngine = 'blade';
 
-    // Allowed Engines
-    protected $compatibleViewEngines = [
-        'blade',
-        //'antlers',
-    ];
+    // // Allowed Engines
+    // protected $compatibleViewEngines = [
+    //     'blade',
+    //     //'antlers',
+    // ];
 
-    /**
-     * Define the Instance Store.
-     *
-     * @var array
-     */
-    protected $instance = [
-        'config' => [],
-        'sections' => [],
-    ];
+    protected $config;
+    protected $sections;
+    protected $shallow;
 
-    /**
-     * Undocumented function.
-     *
-     * @param mixed $config
-     */
-    public function __construct($config)
+    public function __construct(Value $value, array $config, bool $shallow = false)
     {
-        if ($config instanceof \Statamic\Fields\Value) {
-            $this->set($config->value());
-        } elseif (is_array($config)) {
-            $this->set($config);
-        }
+        $this->config = collect([]);
+        $this->sections = collect([]);
+        $this->shallow = $shallow;
 
-        if (! $this->has('config.view_engine') || $this->has('config.view_engine') && ! in_array($this->get('config.view_engine'), $this->compatibleViewEngines)) {
-            $this->set('config.view_engine', $this->defaultViewEngine);
-        }
+        $this->config = $this->collectRecursive($this->config->mergeRecursive(collect($config)));
+        $this->sections = $this->collectRecursive($this->sections->mergeRecursive(collect($value->raw())));
     }
 
-    /**
-     * Undocumented function.
-     *
-     * @return string
-     */
+    protected function collectRecursive($collection)
+    {
+        if ($collection instanceof Collection) {
+            return $collection->map(function ($value) {
+                if (is_array($value) || is_object($value)) {
+                    return $this->collectRecursive(collect($value));
+                }
+
+                return $value;
+            });
+        }
+
+        return $collection;
+    }
+
     public function __toString(): string
     {
         return $this->render();
     }
 
-    /** View Engine Selectors */
-
-    /**
-     * @return static
-     */
-    public function withBlade(): static
-    {
-        $this->set('viewEngine', 'blade');
-
-        return $this;
-    }
-
-    /** View Engine Selectors */
-
-    /** Config Helpers */
-
-    /**
-     * Determine if the given configuration value exists.
-     *
-     * @param  string  $key
-     * @return bool
-     */
-    public function has($key): bool
-    {
-        return Arr::has($this->instance, $key);
-    }
-
-    /**
-     * Get the specified configuration value.
-     *
-     * @param  array|string  $key
-     * @param  mixed  $default
-     * @return mixed
-     */
-    public function get($key, $default = null)
-    {
-        if (is_array($key)) {
-            return $this->getMany($key);
-        }
-
-        return Arr::get($this->instance, $key, $default);
-    }
-
-    /**
-     * Get many configuration values.
-     *
-     * @param  array  $keys
-     * @return array
-     */
-    public function getMany($keys): array
-    {
-        $config = [];
-
-        foreach ($keys as $key => $default) {
-            if (is_numeric($key)) {
-                [$key, $default] = [$default, null];
-            }
-
-            $config[$key] = Arr::get($this->instance, $key, $default);
-        }
-
-        return $config;
-    }
-
-    /**
-     * Set a given configuration value.
-     *
-     * @param  array|string  $key
-     * @param  mixed  $value
-     * @return static
-     */
-    public function set($key, $value = null): static
-    {
-        $keys = is_array($key) ? $key : [$key => $value];
-
-        foreach ($keys as $key => $value) {
-            Arr::set($this->instance, $key, $value);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Push a value onto an array configuration value.
-     *
-     * @param  string  $key
-     * @param  mixed  $value
-     * @return static
-     */
-    public function push($key, $value): static
-    {
-        $array = $this->get($key);
-
-        $array[] = $value;
-
-        $this->set($key, $array);
-
-        return $this;
-    }
-
-    /**
-     * Get all of the configuration items for the application.
-     *
-     * @return array
-     */
-    public function config(): array
-    {
-        return $this->instance;
-    }
-
-    /** Config Helpers */
-
-    /**
-     * Undocumented function.
-     *
-     * @throws \Exception
-     */
-    protected function checkExceptions()
-    {
-        if (! $this->has('sections')) {
-            throw new \Exception('Buildamic requires content sections.');
-        } elseif (! is_array($this->get('sections'))) {
-            throw new \Exception('Buildamic requires sections to be an array. '.gettype($this->get('sections')).' was given.');
-        }
-    }
-
-    /**
-     * Undocumented function.
-     *
-     * @return string
-     *
-     * @throws \Exception
-     */
     public function render(): string
     {
-        $this->checkExceptions();
-
         $buildamic_html = '';
 
-        foreach ($this->get('sections') as $part) {
-            $buildamic_html .= $this->renderLayoutPart($part);
+        foreach ($this->sections as $section) {
+            $buildamic_html .= $section->get('type') === 'section' ? $this->renderSection($section) : $this->renderGlobal($section);
         }
 
         return $buildamic_html;
     }
 
-    /**
-     * Undocumented function.
-     *
-     * @param array $part
-     * @return void|string
-     */
-    public function renderLayoutPart($part = [])
+    public function renderSection(Collection $section)
     {
-        if (empty($part)) {
-            return;
-        }
-
-        $view_engine = $this->get('config.view_engine');
-        $part_type = $part['type'];
-
-        return view("buildamic::{$view_engine}.layouts.{$part_type}", ['buildamic' => $this, $part_type => $part]);
+        return view('buildamic::blade.layouts.section', ['buildamic' => $this, 'section' => $section]);
     }
 
-    /**
-     * Undocumented function.
-     *
-     * @param array $field
-     * @return void|string
-     */
-    public function renderField($field = [])
+    public function renderGlobal(Collection $section)
     {
-        if (empty($field) || empty($field['config']['type']) || $field['type'] === 'set') { // disable sets for now
-            return;
-        }
+    }
 
-        $view_engine = $this->get('config.view_engine');
-        $field_template = $field['config']['type'] ?? $field['value']['type'];
+    public function renderRow(Collection $row)
+    {
+        return view('buildamic::blade.layouts.row', ['buildamic' => $this, 'row' => $row]);
+    }
 
-        return view("buildamic::{$view_engine}.fields.{$field_template}", ['buildamic' => $this, 'field' => $field]);
+    public function renderColumn(Collection $column)
+    {
+        return view('buildamic::blade.layouts.column', ['buildamic' => $this, 'column' => $column]);
+    }
+
+    public function renderField(Collection $field)
+    {
+        $field = $field->map(function ($value, $key) use ($field) {
+            if ($key === 'value') {
+                $method = $this->shallow ? 'shallowAugment' : 'augment';
+                $_config = $this->config->get('fields')->where('handle', $field->get('config')->get('handle'))->first();
+                $_field = (new Field($_config->get('handle'), $_config->get('field')->toArray()))->setValue($value)->{$method}();
+                $value = $_field->value();
+
+                return $value->shouldParseAntlers() ? Antlers::parse($value) : $value->value();
+            }
+
+            return $value;
+        });
+
+        return view('buildamic::blade.fields.'.$field->get('config')->get('type'), ['buildamic' => $this, 'field' => $field]);
     }
 }

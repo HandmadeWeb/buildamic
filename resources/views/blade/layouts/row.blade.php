@@ -1,5 +1,5 @@
 <div class="row">
-    @foreach($row['columns'] as $column)
-        {!! $buildamic->renderLayoutPart($column) !!}   
+    @foreach($row->get('columns') as $column)
+        {!! $buildamic->renderColumn($column) !!}   
     @endforeach
 </div>
