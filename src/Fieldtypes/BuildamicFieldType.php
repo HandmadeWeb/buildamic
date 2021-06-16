@@ -88,22 +88,15 @@ class BuildamicFieldType extends FieldType
      */
     public function preProcess($data)
     {
-        return empty($data) ? $this->defaultValue() : $data;
-    }
+        if (empty($data)) {
+            return $this->defaultValue();
+        }
 
-    /**
-     * Process the data before it gets saved.
-     *
-     * @param mixed $data
-     * @return array|mixed
-     */
-    public function process($data)
-    {
         return collect($data)->transform(function ($section) {
             $section['rows'] = collect($section['rows'])->map(function ($row) {
                 $row['columns'] = collect($row['columns'])->map(function ($column) {
                     $column['fields'] = collect($column['fields'])->map(function ($field) {
-                        $field['value'] = $this->modifyValue($field['value'], $field['config']['handle']);
+                        $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->preProcess()->value();
 
                         return $field;
                     })->toArray();
@@ -118,9 +111,31 @@ class BuildamicFieldType extends FieldType
         })->toArray();
     }
 
-    private function modifyValue($value, $handle)
+    /**
+     * Process the data before it gets saved.
+     *
+     * @param mixed $data
+     * @return array|mixed
+     */
+    public function process($data)
     {
-        return $this->fields()->get($handle)->setValue($value)->process()->value();
+        return collect($data)->transform(function ($section) {
+            $section['rows'] = collect($section['rows'])->map(function ($row) {
+                $row['columns'] = collect($row['columns'])->map(function ($column) {
+                    $column['fields'] = collect($column['fields'])->map(function ($field) {
+                        $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->process()->value();
+
+                        return $field;
+                    })->toArray();
+
+                    return $column;
+                })->toArray();
+
+                return $row;
+            })->toArray();
+
+            return $section;
+        })->toArray();
     }
 
     public function preload()
