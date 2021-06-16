@@ -46,19 +46,11 @@ class BuildamicFieldType extends FieldType
     public function defaultValue()
     {
         return [
-            'config' => [
-                //'view_engine' => $this->config('view_engine'),
-                //'fields' => $this->config('fields'),
-                //'sets' => $this->config('sets'),
-            ],
-            //'sections' => [],
-            'sections' => [
-                $this->makeSection(
-                    $this->makeRow(
-                        $this->makeColumn()
-                    )
-                ),
-            ],
+            $this->makeSection(
+                $this->makeRow(
+                    $this->makeColumn()
+                )
+            ),
         ];
     }
 
@@ -96,7 +88,7 @@ class BuildamicFieldType extends FieldType
      */
     public function preProcess($data)
     {
-        return array_merge($this->defaultValue(), $data);
+        return empty($data) ? $this->defaultValue() : $data;
     }
 
     /**
