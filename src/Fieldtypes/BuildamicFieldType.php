@@ -134,6 +134,15 @@ class BuildamicFieldType extends FieldType
         return new Fields($this->config('fields'), $this->field()->parent(), $this->field());
     }
 
+    public function extraRules(): array
+    {
+        $rules = $this->fields()->validator()->rules();
+
+        return collect($rules)->mapWithKeys(function ($rules, $handle) {
+            return ["{$this->field->handle()}.*.*.*.*.{$handle}" => $rules];
+        })->all();
+    }
+
     protected function defaultRowData()
     {
         return $this->fields()->all()->map(function ($field) {
