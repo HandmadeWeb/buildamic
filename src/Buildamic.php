@@ -91,7 +91,7 @@ class Buildamic
             if ($key === 'value') {
                 $method = $this->shallow ? 'shallowAugment' : 'augment';
                 $_config = $this->config->get('fields')->where('handle', $field->get('config')->get('handle'))->first();
-                $_field = (new Field($_config->get('handle'), $_config->get('field')->toArray()))->setValue($value)->{$method}();
+                $_field = (new Field($_config->get('handle'), $_config->get('field')->toArray()))->setValue($this->modifyValue($value, $field->get('config')->get('type')))->{$method}();
                 $value = $_field->value();
 
                 return $value->shouldParseAntlers() ? Antlers::parse($value) : $value->value();
@@ -100,6 +100,19 @@ class Buildamic
             return $value;
         });
 
-        return view('buildamic::blade.fields.'.$field->get('config')->get('type'), ['buildamic' => $this, 'field' => $field]);
+        $view = 'buildamic::blade.fields.'.$field->get('config')->get('type');
+        $view = view()->exists($view) ? $view : 'buildamic::blade.default-field';
+
+        return view($view, ['buildamic' => $this, 'field' => $field]);
+    }
+
+    protected function modifyValue($value, $fieldType)
+    {
+        // Bard
+        if ($fieldType === 'bard' && is_string($value)) {
+            $value = json_decode($value);
+        }
+
+        return $value;
     }
 }
