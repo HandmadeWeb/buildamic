@@ -92,23 +92,7 @@ class BuildamicFieldType extends FieldType
             return $this->defaultValue();
         }
 
-        return collect($data)->map(function ($section) {
-            $section['rows'] = collect($section['rows'])->map(function ($row) {
-                $row['columns'] = collect($row['columns'])->map(function ($column) {
-                    $column['fields'] = collect($column['fields'])->map(function ($field) {
-                        $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->preProcess()->value();
-
-                        return $field;
-                    })->toArray();
-
-                    return $column;
-                })->toArray();
-
-                return $row;
-            })->toArray();
-
-            return $section;
-        })->toArray();
+        return $this->processFieldValues($data, 'preProcess');
     }
 
     /**
@@ -119,11 +103,16 @@ class BuildamicFieldType extends FieldType
      */
     public function process($data)
     {
-        return collect($data)->map(function ($section) {
-            $section['rows'] = collect($section['rows'])->map(function ($row) {
-                $row['columns'] = collect($row['columns'])->map(function ($column) {
-                    $column['fields'] = collect($column['fields'])->map(function ($field) {
-                        $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->process()->value();
+        return $this->processFieldValues($data, 'process');
+    }
+
+    protected function processFieldValues($data, $method)
+    {
+        return collect($data)->map(function ($section) use ($method) {
+            $section['rows'] = collect($section['rows'])->map(function ($row) use ($method) {
+                $row['columns'] = collect($row['columns'])->map(function ($column) use ($method) {
+                    $column['fields'] = collect($column['fields'])->map(function ($field) use ($method) {
+                        $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->{$method}()->value();
 
                         return $field;
                     })->toArray();
