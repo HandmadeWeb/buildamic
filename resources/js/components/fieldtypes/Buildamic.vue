@@ -1,6 +1,6 @@
 <template>
   <div class="buildamic-fieldtype-container">
-    <div v-for="(section, sectionKey) in value.sections" :key="sectionKey" class="py-2"> 
+    <div v-for="(section, sectionKey) in value" :key="sectionKey" class="py-2"> 
       <div class="p-5 bg-blue">
         <buildamic-section :section="section" />
         <button class="btn" v-on:click="removeSection(sectionKey)">Remove Section</button>

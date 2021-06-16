@@ -12,7 +12,7 @@
           :is="fieldtypeComponent(field.config.handle)"
           :config="fields.where('handle', field.config.handle).first()"
           :value="field.value"
-          :meta="field.meta"
+          :meta="meta.get('defaultMeta')[field.config.handle]"
           :handle="field.config.handle"
           @input="updateField(fieldKey, $event)"
           @meta-updated="$emit('meta-updated', $event)"
@@ -113,7 +113,7 @@ export default {
           handle: field.handle,
           type: field.type,
         },
-        meta: defaultmeta,
+        //meta: defaultmeta,
         value: defaultValue,
       });
 
@@ -127,11 +127,11 @@ export default {
     },
   },
 
-  //   mounted() {
-  //     //console.log(uuidv4());
-  //     // console.log('config:', this.config);
-  //     // console.log('meta:', this.meta);
-  //     // console.log('value:', this.value);
-  //   }
+    mounted() {
+      //console.log(uuidv4());
+      // console.log('config:', this.config);
+      // console.log('meta:', this.meta);
+      // console.log('value:', this.value);
+    }
 };
 </script>

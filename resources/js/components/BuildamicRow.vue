@@ -38,7 +38,6 @@ export default {
     addColumn() {
       this.row.columns.push({
         uuid: uuidv4(),
-        type: 'column',
         fields: []
       });
 

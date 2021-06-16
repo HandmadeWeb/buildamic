@@ -38,7 +38,6 @@ export default {
     addRow() {
       this.section.rows.push({
         uuid: uuidv4(),
-        type: 'row',
         columns: []
       });
 
