@@ -8,31 +8,33 @@ use Statamic\Fields\Fields;
 use Statamic\Fields\Fieldtype;
 use Statamic\Fields\Value;
 
-class Buildamic extends FieldType
+class BuildamicFieldType extends FieldType
 {
+    protected static $handle = 'buildamic';
+
     protected $defaultable = false;
 
     protected function configFieldItems(): array
     {
         return [
-            'view_engine' => [
-                'display' => __('View Engine'),
-                'instructions' => '',
-                'type' => 'select',
-                'options' => [
-                    'blade' => __('Blade'),
-                    //'antlers' => __('Antlers'),
-                ],
-                'default' => 'blade',
-            ],
+            // 'view_engine' => [
+            //     'display' => __('View Engine'),
+            //     'instructions' => '',
+            //     'type' => 'select',
+            //     'options' => [
+            //         'blade' => __('Blade'),
+            //         //'antlers' => __('Antlers'),
+            //     ],
+            //     'default' => 'blade',
+            // ],
             'fields' => [
                 'display' => __('Fields'),
                 'type' => 'fields',
             ],
-            'sets' => [
-                'display' => __('Sets'),
-                'type' => 'sets',
-            ],
+            // 'sets' => [
+            //     'display' => __('Sets'),
+            //     'type' => 'sets',
+            // ],
         ];
     }
 
@@ -74,7 +76,6 @@ class Buildamic extends FieldType
     {
         return (object) [
             'uuid' => Str::uuid(),
-            'type' => 'row',
             'columns' => (array) $columns,
         ];
     }
@@ -83,7 +84,6 @@ class Buildamic extends FieldType
     {
         return (object) [
             'uuid' => Str::uuid(),
-            'type' => 'column',
             'fields' => (array) $fields,
         ];
     }

@@ -3,10 +3,10 @@
 namespace Michaelr0\Buildamic;
 
 use Illuminate\Support\Facades\Blade;
-use Michaelr0\Buildamic\Fieldtypes\Buildamic as BuildamicField;
+use Illuminate\Support\Str;
+use Michaelr0\Buildamic\Fieldtypes\BuildamicFieldType;
 use Michaelr0\Buildamic\Modifiers\Buildamic as BuildamicModifier;
 use Statamic\Providers\AddonServiceProvider;
-use Illuminate\Support\Str;
 
 class ServiceProvider extends AddonServiceProvider
 {
@@ -22,18 +22,18 @@ class ServiceProvider extends AddonServiceProvider
     ];
 
     protected $fieldtypes = [
-        BuildamicField::class,
+        BuildamicFieldType::class,
     ];
 
-    protected $modifiers = [
-        BuildamicModifier::class,
-    ];
+    // protected $modifiers = [
+    //     BuildamicModifier::class,
+    // ];
 
     public function boot()
     {
         parent::boot();
 
-        $this->bootBladeDirectives();
+        //$this->bootBladeDirectives();
     }
 
     public function bootBladeDirectives()
