@@ -87,14 +87,14 @@ class Buildamic
 
     public function renderField(Collection $field)
     {
-        $field = $field->map(function ($value, $key) use ($field) {
+        $field->transform(function ($value, $key) use ($field) {
             if ($key === 'value') {
                 $method = $this->shallow ? 'shallowAugment' : 'augment';
                 $_config = $this->config->get('fields')->where('handle', $field->get('config')->get('handle'))->first();
                 $_field = (new Field($_config->get('handle'), $_config->get('field')->toArray()))->setValue($this->modifyValue($value, $field->get('config')->get('type')))->{$method}();
-                $value = $_field->value();
+                $_value = $_field->value();
 
-                return $value->shouldParseAntlers() ? Antlers::parse($value) : $value->value();
+                return $_value->shouldParseAntlers() ? Antlers::parse($_value) : $_value->value();
             }
 
             return $value;

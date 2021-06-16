@@ -108,23 +108,17 @@ class BuildamicFieldType extends FieldType
 
     protected function processFieldValues($data, $method)
     {
-        return collect($data)->map(function ($section) use ($method) {
-            $section['rows'] = collect($section['rows'])->map(function ($row) use ($method) {
-                $row['columns'] = collect($row['columns'])->map(function ($column) use ($method) {
-                    $column['fields'] = collect($column['fields'])->map(function ($field) use ($method) {
+        foreach ($data as &$section) {
+            foreach ($section['rows'] as &$row) {
+                foreach ($row['columns'] as &$column) {
+                    foreach ($column['fields'] as &$field) {
                         $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->{$method}()->value();
+                    }
+                }
+            }
+        }
 
-                        return $field;
-                    })->toArray();
-
-                    return $column;
-                })->toArray();
-
-                return $row;
-            })->toArray();
-
-            return $section;
-        })->toArray();
+        return $data;
     }
 
     public function preload()
