@@ -2,11 +2,7 @@
 
 @section('field_content')
 
-    <form method="POST" action="{{ route('statamic.forms.submit', $form->handle()) }}" 
-        @if($form->fields()->search(function($field){ return $field->type() === 'assets'; }))
-            enctype="multipart/form-data"
-        @endif
-    >
+    <form method="POST" action="{{ route('statamic.forms.submit', $form->handle()) }}" @if($form->hasFiles()) enctype="multipart/form-data" @endif>
         @csrf
         @method('POST')
         
