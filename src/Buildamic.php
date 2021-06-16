@@ -94,7 +94,7 @@ class Buildamic
                 $_field = (new Field($_config->get('handle'), $_config->get('field')->toArray()))->setValue($value)->{$method}();
                 $_value = $_field->value();
 
-                return $_value->shouldParseAntlers() ? Antlers::parse($_value) : $_value;
+                return (method_exists($_value, 'shouldParseAntlers') && $_value->shouldParseAntlers()) ? Antlers::parse($_value) : $_value;
             }
 
             return $value;
