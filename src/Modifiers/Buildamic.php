@@ -17,11 +17,11 @@ class Buildamic extends Modifier
     public function index($value, $params, $context)
     {
         if (in_array('blade', $params)) {
-            return \Michaelr0\Buildamic\Buildamic::withBlade()->render($value);
+            return (new \Michaelr0\Buildamic\Buildamic($value))->withBlade()->render($value);
         } elseif (in_array('antlers', $params)) {
-            return \Michaelr0\Buildamic\Buildamic::withAntlers()->render($value);
+            return (new \Michaelr0\Buildamic\Buildamic($value))->withAntlers()->render($value);
         } else {
-            return \Michaelr0\Buildamic\Buildamic::withBlade()->render($value);
+            return (new \Michaelr0\Buildamic\Buildamic($value))->withBlade()->render($value);
         }
     }
 }

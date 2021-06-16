@@ -1,0 +1,10 @@
+{
+  "include": ["./resources/**/*"],
+  "compilerOptions": {
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es5",
+    "sourceMap": true,
+    "allowJs": true
+  }
+}
