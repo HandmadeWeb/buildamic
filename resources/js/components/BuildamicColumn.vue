@@ -124,8 +124,7 @@ export default {
   },
 
   inject: [
-    "fields", 
-    "fieldsets", 
+    "meta", 
   ],
 
   methods: {
@@ -195,7 +194,7 @@ export default {
   },
 
     mounted() {
-      //console.log(uuidv4());
+      console.log(this.meta.fields);
       // console.log('config:', this.config);
       // console.log('meta:', this.meta);
       // console.log('value:', this.value);

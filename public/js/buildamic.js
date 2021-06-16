@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
       isSelectingNewField: false
     };
   },
-  inject: ["fields", "fieldsets"],
+  inject: ["meta"],
   methods: {
     fieldtypeComponent: function fieldtypeComponent(handle) {
       var field = this.fields.where("handle", handle).first();
@@ -185,8 +185,8 @@ __webpack_require__.r(__webpack_exports__);
       this.column.fields.splice(fieldKey, 1); //this.update(this.value);
     }
   },
-  mounted: function mounted() {//console.log(uuidv4());
-    // console.log('config:', this.config);
+  mounted: function mounted() {
+    console.log(this.meta.fields); // console.log('config:', this.config);
     // console.log('meta:', this.meta);
     // console.log('value:', this.value);
   }
@@ -341,6 +341,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var collect_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! collect.js */ "./node_modules/collect.js/dist/index.js");
 /* harmony import */ var collect_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(collect_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _BuildamicSection_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../BuildamicSection.vue */ "./resources/js/components/BuildamicSection.vue");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 //
 //
 //
@@ -371,11 +373,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   provide: function provide() {
     return {
-      fields: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.fields),
-      fieldsets: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.fieldsets)
+      meta: this.recursiveCollect(collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.meta))
     };
   },
   methods: {
+    recursiveCollect: function recursiveCollect(collection) {
+      if (_typeof(collection) === 'object' && collection.map) {
+        return collection.map(function (value) {
+          if (typeof value === 'array' || _typeof(value) === 'object' && !value.map) {
+            return collectRecursive(collect_js__WEBPACK_IMPORTED_MODULE_0___default()(value));
+          }
+
+          return value;
+        });
+      }
+
+      return collection;
+    },
     addSection: function addSection() {
       this.value.sections.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_2__.default)(),

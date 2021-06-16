@@ -36,12 +36,25 @@ export default {
 
   provide() {
     return {
-      fields: collect(this.fields),
-      fieldsets: collect(this.fieldsets),
+      meta: this.recursiveCollect(collect(this.meta)),
     }
   },
 
   methods: {
+    recursiveCollect(collection){
+      if (typeof collection === 'object' && collection.map) {
+            return collection.map(function (value) {
+                if (typeof value === 'array' || typeof value === 'object' && ! value.map) {
+                    return collectRecursive(collect(value));
+                }
+
+                return value;
+            });
+        }
+
+      return collection;
+    },
+
     addSection() {
       this.value.sections.push({
         uuid: uuidv4(),
