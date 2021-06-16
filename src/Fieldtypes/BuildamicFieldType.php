@@ -92,7 +92,7 @@ class BuildamicFieldType extends FieldType
             return $this->defaultValue();
         }
 
-        return collect($data)->transform(function ($section) {
+        return collect($data)->map(function ($section) {
             $section['rows'] = collect($section['rows'])->map(function ($row) {
                 $row['columns'] = collect($row['columns'])->map(function ($column) {
                     $column['fields'] = collect($column['fields'])->map(function ($field) {
@@ -119,7 +119,7 @@ class BuildamicFieldType extends FieldType
      */
     public function process($data)
     {
-        return collect($data)->transform(function ($section) {
+        return collect($data)->map(function ($section) {
             $section['rows'] = collect($section['rows'])->map(function ($row) {
                 $row['columns'] = collect($row['columns'])->map(function ($column) {
                     $column['fields'] = collect($column['fields'])->map(function ($field) {
