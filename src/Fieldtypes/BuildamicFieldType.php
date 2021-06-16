@@ -31,10 +31,10 @@ class BuildamicFieldType extends FieldType
                 'display' => __('Fields'),
                 'type' => 'fields',
             ],
-            // 'sets' => [
-            //     'display' => __('Sets'),
-            //     'type' => 'sets',
-            // ],
+            'sets' => [
+                'display' => __('Sets'),
+                'type' => 'sets',
+            ],
         ];
     }
 
@@ -124,14 +124,44 @@ class BuildamicFieldType extends FieldType
     public function preload()
     {
         return [
-            'defaultValue' => $this->defaultRowData()->all(),
-            'defaultMeta' => $this->fields()->meta()->all(),
+            // 'defaultValue' => $this->defaultRowData()->all(),
+            // 'defaultMeta' => $this->fields()->meta()->all(),
+            'fields' => [
+                'meta' => $this->fields()->meta()->all(),
+                'value' => $this->fields()->all()->map(function ($field) {
+                    return $field->fieldtype()->preProcess($field->defaultValue());
+                }),
+                'config' => $this->config('fields'),
+            ],
+            'fieldsets' => $this->fieldsets()->map(function ($fields, $key) {
+                return [
+                    'meta' => $fields->meta()->all(),
+                    'value' => $fields->all()->map(function ($field) {
+                        return $field->fieldtype()->preProcess($field->defaultValue());
+                    }),
+                    'config' => collect($this->config('sets'))->get($key),
+                ];
+            }),
         ];
     }
 
     public function fields()
     {
         return new Fields($this->config('fields'), $this->field()->parent(), $this->field());
+    }
+
+    public function fieldsets()
+    {
+        $fields = [];
+        foreach ($this->config('sets') as $key => $value) {
+            $fields[$key] = new Fields(
+                $this->config("sets.{$key}.fields"),
+                $this->field()->parent(),
+                $this->field()
+            );
+        }
+
+        return collect($fields);
     }
 
     public function extraRules(): array
@@ -144,12 +174,12 @@ class BuildamicFieldType extends FieldType
         })->all();
     }
 
-    protected function defaultRowData()
-    {
-        return $this->fields()->all()->map(function ($field) {
-            return $field->fieldtype()->preProcess($field->defaultValue());
-        });
-    }
+    // protected function defaultRowData()
+    // {
+    //     return $this->fields()->all()->map(function ($field) {
+    //         return $field->fieldtype()->preProcess($field->defaultValue());
+    //     });
+    // }
 
     public function augment($value)
     {

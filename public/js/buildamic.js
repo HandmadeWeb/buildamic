@@ -87,6 +87,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -100,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
       isSelectingNewField: false
     };
   },
-  inject: ["fields", "fieldsets", "meta"],
+  inject: ["fields", "fieldsets"],
   methods: {
     fieldtypeComponent: function fieldtypeComponent(handle) {
       var field = this.fields.where("handle", handle).first();
@@ -111,8 +145,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     addField: function addField(handle) {
       var field = this.fields.where("handle", handle).first();
-      var defaultValue = this.meta.get("defaultValue")[handle];
-      var defaultmeta = this.meta.get("defaultMeta")[handle];
+      var defaultValue = this.mmeta.get('fields')['value'][handle];
+      var defaultmeta = this.meta.get('fields')['meta'][handle];
       this.column.fields.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_0__.default)(),
         type: "field",
@@ -124,6 +158,28 @@ __webpack_require__.r(__webpack_exports__);
         value: defaultValue
       });
       this.isSelectingNewField = false; //this.update(this.value);
+    },
+    addFieldSet: function addFieldSet(handle) {
+      var fieldSet = this.fieldsets.where("handle", handle).first();
+      var defaultValue = [];
+      var defaultValues = this.meta.get('fieldsets')['value'][handle];
+      var defaultmeta = this.meta.get('fieldsets')['meta'][handle];
+      defaultValues.foreach(function (key, val) {
+        console.log(key);
+        console.log(val);
+      });
+      console.log(defaultValue); // this.column.fields.push({
+      //   uuid: uuidv4(),
+      //   type: "fieldset",
+      //   config: {
+      //     handle: field.handle,
+      //     type: field.type,
+      //   },
+      //   //meta: defaultmeta,
+      //   value: defaultValue,
+      // });
+      // this.isSelectingNewField = false;
+      //this.update(this.value);
     },
     removeField: function removeField(fieldKey) {
       this.column.fields.splice(fieldKey, 1); //this.update(this.value);
@@ -315,17 +371,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   provide: function provide() {
     return {
-      fields: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.config.fields),
-      fieldsets: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.config.sets),
-      meta: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.meta)
+      fields: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.fields),
+      fieldsets: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.fieldsets)
     };
   },
   methods: {
-    getConfig: function getConfig(key) {
-      var _this$value$config$ke;
-
-      return (_this$value$config$ke = this.value.config[key]) !== null && _this$value$config$ke !== void 0 ? _this$value$config$ke : null;
-    },
     addSection: function addSection() {
       this.value.sections.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_2__.default)(),
@@ -4923,55 +4973,113 @@ var render = function() {
       _vm._v("\n  Column " + _vm._s(_vm.column.uuid) + "\n  "),
       _vm._l(_vm.column.fields, function(field, fieldKey) {
         return _c("div", { key: fieldKey, staticClass: "py-2" }, [
-          _c(
-            "div",
-            {
-              staticClass: "p-5 bg-red",
-              class: [field.config.type + "-fieldtype"]
-            },
-            [
-              _vm._v("\n      Field " + _vm._s(field.uuid) + "\n      "),
-              _c(_vm.fieldtypeComponent(field.config.handle), {
-                tag: "component",
-                attrs: {
-                  config: _vm.fields
-                    .where("handle", field.config.handle)
-                    .first(),
-                  value: field.value,
-                  meta: _vm.meta.get("defaultMeta")[field.config.handle],
-                  handle: field.config.handle
-                },
-                on: {
-                  input: function($event) {
-                    return _vm.updateField(fieldKey, $event)
-                  },
-                  "meta-updated": function($event) {
-                    return _vm.$emit("meta-updated", $event)
-                  },
-                  focus: function($event) {
-                    return _vm.$emit("focus")
-                  },
-                  blur: function($event) {
-                    return _vm.$emit("blur")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
+          field.type === "field"
+            ? _c(
+                "div",
                 {
-                  staticClass: "btn",
-                  on: {
-                    click: function($event) {
-                      return _vm.removeField(fieldKey)
-                    }
-                  }
+                  staticClass: "p-5 bg-red",
+                  class: [field.config.type + "-fieldtype"]
                 },
-                [_vm._v("\n        Remove Field\n      ")]
+                [
+                  _vm._v("\n      Field " + _vm._s(field.uuid) + "\n      "),
+                  _c(_vm.fieldtypeComponent(field.config.handle), {
+                    tag: "component",
+                    attrs: {
+                      config: _vm.fields
+                        .where("handle", field.config.handle)
+                        .first(),
+                      value: field.value,
+                      meta: _vm.fields.get("fields")["meta"][
+                        field.config.handle
+                      ],
+                      handle: field.config.handle
+                    },
+                    on: {
+                      input: function($event) {
+                        return _vm.updateField(fieldKey, $event)
+                      },
+                      "meta-updated": function($event) {
+                        return _vm.$emit("meta-updated", $event)
+                      },
+                      focus: function($event) {
+                        return _vm.$emit("focus")
+                      },
+                      blur: function($event) {
+                        return _vm.$emit("blur")
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn",
+                      on: {
+                        click: function($event) {
+                          return _vm.removeField(fieldKey)
+                        }
+                      }
+                    },
+                    [_vm._v("\n        Remove Field\n      ")]
+                  )
+                ],
+                1
               )
-            ],
-            1
-          )
+            : _vm._e(),
+          _vm._v(" "),
+          field.type === "fieldset"
+            ? _c(
+                "div",
+                {
+                  staticClass: "p-5 bg-red",
+                  class: [field.config.type + "-fieldtype"]
+                },
+                [
+                  _vm._v(
+                    "\n      Field Set " + _vm._s(field.uuid) + "\n      "
+                  ),
+                  _c(_vm.fieldtypeComponent(field.config.handle), {
+                    tag: "component",
+                    attrs: {
+                      config: _vm.fields
+                        .where("handle", field.config.handle)
+                        .first(),
+                      value: field.value,
+                      meta: _vm.meta.get("fields")["meta"][field.config.handle],
+                      handle: field.config.handle
+                    },
+                    on: {
+                      input: function($event) {
+                        return _vm.updateField(fieldKey, $event)
+                      },
+                      "meta-updated": function($event) {
+                        return _vm.$emit("meta-updated", $event)
+                      },
+                      focus: function($event) {
+                        return _vm.$emit("focus")
+                      },
+                      blur: function($event) {
+                        return _vm.$emit("blur")
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn",
+                      on: {
+                        click: function($event) {
+                          return _vm.removeField(fieldKey)
+                        }
+                      }
+                    },
+                    [_vm._v("\n        Remove Field\n      ")]
+                  )
+                ],
+                1
+              )
+            : _vm._e()
         ])
       }),
       _vm._v(" "),
@@ -5032,40 +5140,80 @@ var render = function() {
                     _c(
                       "div",
                       { staticClass: "fieldtype-list" },
-                      _vm._l(_vm.fields, function(field, key) {
-                        return _c("div", { key: key, staticClass: "p-1" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass:
-                                "border flex items-center group w-full rounded shadow-sm py-1 px-2",
-                              on: {
-                                click: function($event) {
-                                  return _vm.addField(field.handle)
-                                }
-                              }
-                            },
-                            [
-                              _c("svg-icon", {
+                      [
+                        _vm._l(_vm.fields, function(field, key) {
+                          return _c("div", { key: key, staticClass: "p-1" }, [
+                            _c(
+                              "a",
+                              {
                                 staticClass:
-                                  "h-4 w-4 text-grey-80 group-hover:text-blue",
-                                attrs: { name: field.icon }
-                              }),
-                              _vm._v(" "),
+                                  "border flex items-center group w-full rounded shadow-sm py-1 px-2",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.addField(field.handle)
+                                  }
+                                }
+                              },
+                              [
+                                _c("svg-icon", {
+                                  staticClass:
+                                    "h-4 w-4 text-grey-80 group-hover:text-blue",
+                                  attrs: { name: field.icon }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "pl-2 text-grey-80 group-hover:text-blue"
+                                  },
+                                  [_vm._v(_vm._s(_vm.__(field.display)))]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _vm._l(_vm.fieldsets, function(fieldSet, fieldSetKey) {
+                          return _c(
+                            "div",
+                            { key: fieldSetKey, staticClass: "p-1" },
+                            [
                               _c(
-                                "span",
+                                "a",
                                 {
                                   staticClass:
-                                    "pl-2 text-grey-80 group-hover:text-blue"
+                                    "border flex items-center group w-full rounded shadow-sm py-1 px-2",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.addFieldSet(fieldSet.handle)
+                                    }
+                                  }
                                 },
-                                [_vm._v(_vm._s(_vm.__(field.display)))]
+                                [
+                                  _c("svg-icon", {
+                                    staticClass:
+                                      "h-4 w-4 text-grey-80 group-hover:text-blue",
+                                    attrs: { name: fieldSet.icon }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "pl-2 text-grey-80 group-hover:text-blue"
+                                    },
+                                    [_vm._v(_vm._s(_vm.__(fieldSet.display)))]
+                                  )
+                                ],
+                                1
                               )
-                            ],
-                            1
+                            ]
                           )
-                        ])
-                      }),
-                      0
+                        })
+                      ],
+                      2
                     )
                   ])
                 ])

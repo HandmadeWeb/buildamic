@@ -36,17 +36,12 @@ export default {
 
   provide() {
     return {
-      fields: collect(this.config.fields),
-      fieldsets: collect(this.config.sets),
-      meta: collect(this.meta),
+      fields: collect(this.fields),
+      fieldsets: collect(this.fieldsets),
     }
   },
 
   methods: {
-    getConfig(key) {
-      return this.value.config[key] ?? null;
-    },
-
     addSection() {
       this.value.sections.push({
         uuid: uuidv4(),
