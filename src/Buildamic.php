@@ -117,6 +117,17 @@ class Buildamic
             $view = "{$viewPrefix}.default-field";
         }
 
-        return view($view, ['buildamic' => $this, 'field' => $field]);
+        $additionalData = $this->additionalData($field->get('value'));
+
+        return view($view, array_merge(['buildamic' => $this, 'field' => $field], $additionalData));
+    }
+
+    protected function additionalData($field)
+    {
+        if ($field->value() instanceof \Statamic\Forms\Form) {
+            return ['form' => $field->value()];
+        }
+
+        return [];
     }
 }
