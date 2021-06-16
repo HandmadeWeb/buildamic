@@ -139,7 +139,8 @@ class BuildamicFieldType extends FieldType
         $rules = $this->fields()->validator()->rules();
 
         return collect($rules)->mapWithKeys(function ($rules, $handle) {
-            return ["{$this->field->handle()}.*.*.*.*.{$handle}" => $rules];
+            return ["{$this->field->handle()}.{$handle}" => $rules];
+            //return ["{$this->field->handle()}.*.{$handle}" => $rules];
         })->all();
     }
 
