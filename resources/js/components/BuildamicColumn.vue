@@ -1,6 +1,10 @@
 <template>
-  <div class="buildamic-column-container">
-    Column {{ column.uuid }}
+  <draggable
+    :list="column.fields"
+    :group="{ name: 'columns' }"
+    ghost-class="ghost"
+    class="buildamic-column"
+  >
     <div
       v-for="(field, fieldKey) in column.fields"
       :key="fieldKey"
@@ -67,13 +71,14 @@
         </div>
       </div>
     </stack>
-  </div>
+  </draggable>
 </template>
 
 <style scoped></style>
 
 <script>
 import { v4 as uuidv4 } from "uuid";
+import draggable from "vuedraggable";
 
 export default {
   props: {
@@ -87,6 +92,10 @@ export default {
     return {
       isSelectingNewField: false,
     };
+  },
+
+  components: {
+    draggable,
   },
 
   inject: ["fields", "fieldsets", "meta"],
