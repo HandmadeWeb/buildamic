@@ -99,7 +99,28 @@ class BuildamicFieldType extends FieldType
      */
     public function process($data)
     {
-        return $data;
+        return collect($data)->transform(function ($section) {
+            $section['rows'] = collect($section['rows'])->map(function ($row) {
+                $row['columns'] = collect($row['columns'])->map(function ($column) {
+                    $column['fields'] = collect($column['fields'])->map(function ($field) {
+                        $field['value'] = $this->modifyValue($field['value'], $field['config']['handle']);
+
+                        return $field;
+                    })->toArray();
+
+                    return $column;
+                })->toArray();
+
+                return $row;
+            })->toArray();
+
+            return $section;
+        })->toArray();
+    }
+
+    private function modifyValue($value, $handle)
+    {
+        return $this->fields()->get($handle)->setValue($value)->process()->value();
     }
 
     public function preload()
