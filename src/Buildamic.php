@@ -100,8 +100,22 @@ class Buildamic
             return $value;
         });
 
-        $view = 'buildamic::blade.fields.'.$field->get('config')->get('type');
-        $view = view()->exists($view) ? $view : 'buildamic::blade.default-field';
+        $viewPrefix = 'buildamic::blade';
+        $fieldHandle = $field->get('config')->get('handle');
+        $fieldType = $field->get('config')->get('type');
+
+        // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
+        if (view()->exists("{$viewPrefix}.fields.{$fieldType}-{$fieldHandle}")) {
+            $view = "{$viewPrefix}.fields.{$fieldType}-{$fieldHandle}";
+        }
+        // type: markdown, file: markdown
+        elseif (view()->exists("{$viewPrefix}.fields.{$fieldType}")) {
+            $view = "{$viewPrefix}.fields.{$fieldType}";
+        }
+        // catch all, file:default-field
+        else {
+            $view = "{$viewPrefix}.default-field";
+        }
 
         return view($view, ['buildamic' => $this, 'field' => $field]);
     }
