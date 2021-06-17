@@ -42,9 +42,7 @@ export default {
             return collect(field);
           });
         } else if(metaKey === 'fieldsets') {
-          return collect(metaVal).map(function(item){ 
-            return collect(item);
-          });
+          return metaVal;
         } else {
           return metaVal;
         }

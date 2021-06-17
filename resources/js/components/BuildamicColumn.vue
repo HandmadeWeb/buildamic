@@ -6,7 +6,7 @@
       :key="fieldKey"
       class="py-2"
     >
-      <div v-if="field.type === 'field'" class="p-5 bg-red" >
+      <div v-if="field.type === 'field'" class="p-5 bg-red" :class="[`${field.config.type}-fieldtype`]">
         Field {{ field.uuid }}
 
         <component
@@ -26,22 +26,30 @@
         </button>
       </div>
 
-      <div v-if="field.type === 'fieldset'" class="p-5 bg-red" :class="[`${field.config.type}-fieldtype`]">
+      <div v-if="field.type === 'fieldset'" class="p-5 bg-red">
         Field Set {{ field.uuid }}
-        <component
-          :is="fieldtypeComponent(field.config.handle)"
-          :config="fields.where('handle', field.config.handle).first()"
-          :value="field.value"
-          :meta="meta.get('fields')['meta'][field.config.handle]"
-          :handle="field.config.handle"
-          @input="updateField(fieldKey, $event)"
-          @meta-updated="$emit('meta-updated', $event)"
-          @focus="$emit('focus')"
-          @blur="$emit('blur')"
-        />
+
+        <div v-for="(subField, subFieldKey) in fieldDefaults.get('fieldsets')[field.config.handle]['config']['fields']" :key="subFieldKey" class="p-5 bg-blue">
+          <div class="p-5 bg-purple" :class="[`${subField.field.type}-fieldtype`]">
+            Field {{ subField.field.display }}
+
+            <component
+              :is="`${subField.field.type}-fieldtype`"
+              :config="subField.field"
+              :value="field.value[subField.handle]"
+              :meta="fieldDefaults.get('fieldsets')[field.config.handle]['meta'][subField.handle]"
+              :handle="subField.handle"
+              @input="updateFieldSet(fieldKey, subField.handle, $event)"
+              @meta-updated="$emit('meta-updated', $event)"
+              @focus="$emit('focus')"
+              @blur="$emit('blur')"
+            />
+
+          </div>
+        </div>
 
         <button class="btn" v-on:click="removeField(fieldKey)">
-          Remove Field
+          Remove FieldSet
         </button>
       </div>
     </div>
@@ -83,18 +91,19 @@
                 </a>
               </div>
 
-              <div class="p-1" v-for="(fieldSet, fieldSetKey) in fieldsets" :key="fieldSetKey">
+              <div class="p-1" v-for="(fieldSet, fieldSetKey) in fieldDefaults.get('fieldsets')" :key="fieldSetKey">
+
                 <a
                   class="border flex items-center group w-full rounded shadow-sm py-1 px-2"
-                  @click="addFieldSet(fieldSet.handle)"
+                  @click="addFieldSet(fieldSetKey)"
                 >
-                  <svg-icon
+                  <!-- <svg-icon
                     class="h-4 w-4 text-grey-80 group-hover:text-blue"
                     :name="fieldSet.icon"
-                  ></svg-icon>
-                  <span class="pl-2 text-grey-80 group-hover:text-blue">{{
-                    __(fieldSet.display)
-                  }}</span>
+                  ></svg-icon> -->
+                  <span class="pl-2 text-grey-80 group-hover:text-blue">
+                    Fieldset: {{ __(fieldSet.config.display) }}
+                  </span>
                 </a>
               </div>
             </div>
@@ -138,6 +147,10 @@ export default {
       this.column.fields[index].value = value;
     },
 
+    updateFieldset(index, subFieldHandle, value) {
+      this.column.fields[index].value[subFieldHandle] = value;
+    },
+
     addField(handle) {
       let field = this.fieldDefaults.get('fields').get('config').where('handle', handle).first();
 
@@ -158,31 +171,19 @@ export default {
 
     addFieldSet(handle) {
 
-      let fieldSet = this.fieldsets.where("handle", handle).first();
+      let fieldSet = this.fieldDefaults.get('fieldsets')[handle];
 
-      let defaultValue = [];
-      let defaultValues = this.meta.get('fieldsets')['value'][handle];
-      let defaultmeta = this.meta.get('fieldsets')['meta'][handle];
-
-      defaultValues.foreach(function(key, val){
-        console.log(key);
-        console.log(val);
+      this.column.fields.push({
+        uuid: uuidv4(),
+        type: "fieldset",
+        config: {
+          handle: handle,
+        },
+        //meta: defaultmeta,
+        value: fieldSet['value'],
       });
-      
-      console.log(defaultValue);
 
-      // this.column.fields.push({
-      //   uuid: uuidv4(),
-      //   type: "fieldset",
-      //   config: {
-      //     handle: field.handle,
-      //     type: field.type,
-      //   },
-      //   //meta: defaultmeta,
-      //   value: defaultValue,
-      // });
-
-      // this.isSelectingNewField = false;
+      this.isSelectingNewField = false;
       //this.update(this.value);
     },
 

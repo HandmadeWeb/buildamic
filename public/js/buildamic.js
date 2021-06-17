@@ -122,6 +122,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -144,6 +153,9 @@ __webpack_require__.r(__webpack_exports__);
     updateField: function updateField(index, value) {
       this.column.fields[index].value = value;
     },
+    updateFieldset: function updateFieldset(index, subFieldHandle, value) {
+      this.column.fields[index].value[subFieldHandle] = value;
+    },
     addField: function addField(handle) {
       var field = this.fieldDefaults.get('fields').get('config').where('handle', handle).first();
       this.column.fields.push({
@@ -159,26 +171,17 @@ __webpack_require__.r(__webpack_exports__);
       this.isSelectingNewField = false; //this.update(this.value);
     },
     addFieldSet: function addFieldSet(handle) {
-      var fieldSet = this.fieldsets.where("handle", handle).first();
-      var defaultValue = [];
-      var defaultValues = this.meta.get('fieldsets')['value'][handle];
-      var defaultmeta = this.meta.get('fieldsets')['meta'][handle];
-      defaultValues.foreach(function (key, val) {
-        console.log(key);
-        console.log(val);
+      var fieldSet = this.fieldDefaults.get('fieldsets')[handle];
+      this.column.fields.push({
+        uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_0__.default)(),
+        type: "fieldset",
+        config: {
+          handle: handle
+        },
+        //meta: defaultmeta,
+        value: fieldSet['value']
       });
-      console.log(defaultValue); // this.column.fields.push({
-      //   uuid: uuidv4(),
-      //   type: "fieldset",
-      //   config: {
-      //     handle: field.handle,
-      //     type: field.type,
-      //   },
-      //   //meta: defaultmeta,
-      //   value: defaultValue,
-      // });
-      // this.isSelectingNewField = false;
-      //this.update(this.value);
+      this.isSelectingNewField = false; //this.update(this.value);
     },
     removeField: function removeField(fieldKey) {
       this.column.fields.splice(fieldKey, 1); //this.update(this.value);
@@ -377,9 +380,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             return collect_js__WEBPACK_IMPORTED_MODULE_0___default()(field);
           });
         } else if (metaKey === 'fieldsets') {
-          return collect_js__WEBPACK_IMPORTED_MODULE_0___default()(metaVal).map(function (item) {
-            return collect_js__WEBPACK_IMPORTED_MODULE_0___default()(item);
-          });
+          return metaVal;
         } else {
           return metaVal;
         }
@@ -5003,7 +5004,10 @@ var render = function() {
           field.type === "field"
             ? _c(
                 "div",
-                { staticClass: "p-5 bg-red" },
+                {
+                  staticClass: "p-5 bg-red",
+                  class: [field.config.type + "-fieldtype"]
+                },
                 [
                   _vm._v("\n      Field " + _vm._s(field.uuid) + "\n\n      "),
                   _c(_vm.fieldtypeComponent(field.config.handle), {
@@ -5057,39 +5061,68 @@ var render = function() {
           field.type === "fieldset"
             ? _c(
                 "div",
-                {
-                  staticClass: "p-5 bg-red",
-                  class: [field.config.type + "-fieldtype"]
-                },
+                { staticClass: "p-5 bg-red" },
                 [
                   _vm._v(
-                    "\n      Field Set " + _vm._s(field.uuid) + "\n      "
+                    "\n      Field Set " + _vm._s(field.uuid) + "\n\n      "
                   ),
-                  _c(_vm.fieldtypeComponent(field.config.handle), {
-                    tag: "component",
-                    attrs: {
-                      config: _vm.fields
-                        .where("handle", field.config.handle)
-                        .first(),
-                      value: field.value,
-                      meta: _vm.meta.get("fields")["meta"][field.config.handle],
-                      handle: field.config.handle
-                    },
-                    on: {
-                      input: function($event) {
-                        return _vm.updateField(fieldKey, $event)
-                      },
-                      "meta-updated": function($event) {
-                        return _vm.$emit("meta-updated", $event)
-                      },
-                      focus: function($event) {
-                        return _vm.$emit("focus")
-                      },
-                      blur: function($event) {
-                        return _vm.$emit("blur")
-                      }
+                  _vm._l(
+                    _vm.fieldDefaults.get("fieldsets")[field.config.handle][
+                      "config"
+                    ]["fields"],
+                    function(subField, subFieldKey) {
+                      return _c(
+                        "div",
+                        { key: subFieldKey, staticClass: "p-5 bg-blue" },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "p-5 bg-purple",
+                              class: [subField.field.type + "-fieldtype"]
+                            },
+                            [
+                              _vm._v(
+                                "\n          Field " +
+                                  _vm._s(subField.field.display) +
+                                  "\n\n          "
+                              ),
+                              _c(subField.field.type + "-fieldtype", {
+                                tag: "component",
+                                attrs: {
+                                  config: subField.field,
+                                  value: field.value[subField.handle],
+                                  meta: _vm.fieldDefaults.get("fieldsets")[
+                                    field.config.handle
+                                  ]["meta"][subField.handle],
+                                  handle: subField.handle
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.updateFieldSet(
+                                      fieldKey,
+                                      subField.handle,
+                                      $event
+                                    )
+                                  },
+                                  "meta-updated": function($event) {
+                                    return _vm.$emit("meta-updated", $event)
+                                  },
+                                  focus: function($event) {
+                                    return _vm.$emit("focus")
+                                  },
+                                  blur: function($event) {
+                                    return _vm.$emit("blur")
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ]
+                      )
                     }
-                  }),
+                  ),
                   _vm._v(" "),
                   _c(
                     "button",
@@ -5101,10 +5134,10 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n        Remove Field\n      ")]
+                    [_vm._v("\n        Remove FieldSet\n      ")]
                   )
                 ],
-                1
+                2
               )
             : _vm._e()
         ])
@@ -5209,7 +5242,10 @@ var render = function() {
                           }
                         ),
                         _vm._v(" "),
-                        _vm._l(_vm.fieldsets, function(fieldSet, fieldSetKey) {
+                        _vm._l(_vm.fieldDefaults.get("fieldsets"), function(
+                          fieldSet,
+                          fieldSetKey
+                        ) {
                           return _c(
                             "div",
                             { key: fieldSetKey, staticClass: "p-1" },
@@ -5221,27 +5257,28 @@ var render = function() {
                                     "border flex items-center group w-full rounded shadow-sm py-1 px-2",
                                   on: {
                                     click: function($event) {
-                                      return _vm.addFieldSet(fieldSet.handle)
+                                      return _vm.addFieldSet(fieldSetKey)
                                     }
                                   }
                                 },
                                 [
-                                  _c("svg-icon", {
-                                    staticClass:
-                                      "h-4 w-4 text-grey-80 group-hover:text-blue",
-                                    attrs: { name: fieldSet.icon }
-                                  }),
-                                  _vm._v(" "),
                                   _c(
                                     "span",
                                     {
                                       staticClass:
                                         "pl-2 text-grey-80 group-hover:text-blue"
                                     },
-                                    [_vm._v(_vm._s(_vm.__(fieldSet.display)))]
+                                    [
+                                      _vm._v(
+                                        "\n                  Fieldset: " +
+                                          _vm._s(
+                                            _vm.__(fieldSet.config.display)
+                                          ) +
+                                          "\n                "
+                                      )
+                                    ]
                                   )
-                                ],
-                                1
+                                ]
                               )
                             ]
                           )

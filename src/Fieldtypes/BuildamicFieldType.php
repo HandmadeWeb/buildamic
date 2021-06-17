@@ -112,7 +112,13 @@ class BuildamicFieldType extends FieldType
             foreach ($section['rows'] as &$row) {
                 foreach ($row['columns'] as &$column) {
                     foreach ($column['fields'] as &$field) {
-                        $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->{$method}()->value();
+                        if ($field['type'] === 'field') {
+                            $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->{$method}()->value();
+                        } elseif ($field['type'] === 'fieldset') {
+                            $field['value'] = $this->fieldsets()->get($field['config']['handle'])->all()->map(function ($item) use ($field, $method) {
+                                return $item->setValue($field['value'][$item->handle()])->{$method}()->value();
+                            })->toArray();
+                        }
                     }
                 }
             }
