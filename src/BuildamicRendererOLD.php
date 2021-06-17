@@ -12,7 +12,7 @@ use Statamic\Fields\Value;
 use Statamic\Fieldtypes\Sets;
 use Statamic\View\Antlers\Parser as AntlersParser;
 
-class Buildamic
+class BuildamicRendererOLD
 {
     // // Default Engine
     // protected $defaultViewEngine = 'blade';

@@ -2,7 +2,7 @@
 
 @section('field_content')
     <!-- Field could not be rendered, View not found -->
-    <!-- ID: {{ $field->get('uuid') }} -->
-    <!-- Type: {{ $field->get('config')->get('type') }} -->
-    <!-- Handle: {{ $field->get('config')->get('handle') }} -->
+    <!-- ID: {{ $field['uuid'] }} -->
+    <!-- Type: {{ $field['config'][]'type'] }} -->
+    <!-- Handle: {{ $field['config'][]'handle'] }} -->
 @overwrite

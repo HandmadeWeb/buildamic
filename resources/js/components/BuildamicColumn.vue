@@ -166,7 +166,6 @@ export default {
       });
 
       this.isSelectingNewField = false;
-      //this.update(this.value);
     },
 
     addFieldSet(handle) {
@@ -184,19 +183,12 @@ export default {
       });
 
       this.isSelectingNewField = false;
-      //this.update(this.value);
     },
 
     removeField(fieldKey) {
       this.value.value.splice(fieldKey, 1);
-      //this.update(this.value);
     },
   },
 
-    mounted() {
-      // console.log('config:', this.config);
-      // console.log('meta:', this.meta);
-      // console.log('value:', this.value);
-    }
 };
 </script>

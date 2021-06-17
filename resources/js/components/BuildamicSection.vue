@@ -30,8 +30,7 @@ export default {
   },
 
   data() {
-    return {
-    };
+    return {};
   },
 
   methods: {
@@ -40,22 +39,11 @@ export default {
         uuid: uuidv4(),
         value: []
       });
-
-      //this.update(this.value);
     },
 
     removeRow(rowKey) {
       this.value.value.splice(rowKey, 1);
-      //this.update(this.value);
     },
   },
-
-//   mounted() {
-//     //console.log(uuidv4());
-//     // console.log('config:', this.config);
-//     // console.log('meta:', this.meta);
-//     // console.log('value:', this.value);
-//   }
-
 };
 </script>

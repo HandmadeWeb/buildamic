@@ -168,7 +168,7 @@ __webpack_require__.r(__webpack_exports__);
         //meta: this.fieldDefaults.get('fields').get('meta').get(handle),
         value: this.fieldDefaults.get('fields').get('value').get(handle)
       });
-      this.isSelectingNewField = false; //this.update(this.value);
+      this.isSelectingNewField = false;
     },
     addFieldSet: function addFieldSet(handle) {
       var fieldSet = this.fieldDefaults.get('fieldsets')[handle];
@@ -181,15 +181,11 @@ __webpack_require__.r(__webpack_exports__);
         //meta: defaultmeta,
         value: fieldSet['value']
       });
-      this.isSelectingNewField = false; //this.update(this.value);
+      this.isSelectingNewField = false;
     },
     removeField: function removeField(fieldKey) {
-      this.value.value.splice(fieldKey, 1); //this.update(this.value);
+      this.value.value.splice(fieldKey, 1);
     }
-  },
-  mounted: function mounted() {// console.log('config:', this.config);
-    // console.log('meta:', this.meta);
-    // console.log('value:', this.value);
   }
 });
 
@@ -245,18 +241,12 @@ __webpack_require__.r(__webpack_exports__);
       this.value.value.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_1__.default)(),
         value: []
-      }); //this.update(this.value);
+      });
     },
     removeColumn: function removeColumn(columnKey) {
-      this.value.value.splice(columnKey, 1); //this.update(this.value);
+      this.value.value.splice(columnKey, 1);
     }
-  } //   mounted() {
-  //     //console.log(uuidv4());
-  //     // console.log('config:', this.config);
-  //     // console.log('meta:', this.meta);
-  //     // console.log('value:', this.value);
-  //   }
-
+  }
 });
 
 /***/ }),
@@ -311,18 +301,12 @@ __webpack_require__.r(__webpack_exports__);
       this.value.value.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_1__.default)(),
         value: []
-      }); //this.update(this.value);
+      });
     },
     removeRow: function removeRow(rowKey) {
-      this.value.value.splice(rowKey, 1); //this.update(this.value);
+      this.value.value.splice(rowKey, 1);
     }
-  } //   mounted() {
-  //     //console.log(uuidv4());
-  //     // console.log('config:', this.config);
-  //     // console.log('meta:', this.meta);
-  //     // console.log('value:', this.value);
-  //   }
-
+  }
 });
 
 /***/ }),
@@ -384,8 +368,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         } else {
           return metaVal;
         }
-      }) //fieldDefaults: this.recursiveCollect(collect(this.meta)),
-
+      })
     };
   },
   methods: {
@@ -408,20 +391,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       this.value.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_2__.default)(),
         type: 'section',
-        rows: []
-      });
-      this.update(this.value);
+        value: []
+      }); //this.update(this.value);
     },
     removeSection: function removeSection(sectionKey) {
-      this.value.splice(sectionKey, 1);
-      this.update(this.value);
+      this.value.splice(sectionKey, 1); //this.update(this.value);
     }
   },
-  mounted: function mounted() {//console.log(collect().recursiveCollect)
-    // console.log('config:', this.config);
-    // console.log('meta:', this.meta);
-    // console.log('value:', this.value);
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),

@@ -20,18 +20,19 @@ import { v4 as uuidv4 } from 'uuid';
 import BuildamicColumn from './BuildamicColumn.vue';
 
 export default {
-  components: { BuildamicColumn },
+  components: { 
+    BuildamicColumn 
+  },
   
-    props: {
-      value: {
-        type: Object,
-        required: true
-      },
+  props: {
+    value: {
+      type: Object,
+      required: true
+    },
   },
 
   data() {
-    return {
-    };
+    return {};
   },
 
   methods: {
@@ -40,23 +41,11 @@ export default {
         uuid: uuidv4(),
         value: []
       });
-
-      //this.update(this.value);
     },
 
     removeColumn(columnKey) {
-      this.value.value.splice(columnKey, 1);
-      //this.update(this.value);
-      
+      this.value.value.splice(columnKey, 1);      
     },
   },
-
-//   mounted() {
-//     //console.log(uuidv4());
-//     // console.log('config:', this.config);
-//     // console.log('meta:', this.meta);
-//     // console.log('value:', this.value);
-//   }
-
 };
 </script>

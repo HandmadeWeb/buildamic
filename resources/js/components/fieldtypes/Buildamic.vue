@@ -30,8 +30,7 @@ export default {
   },
 
   data() {
-    return {
-    };
+    return {};
   },
 
   provide() {
@@ -47,7 +46,6 @@ export default {
           return metaVal;
         }
       }),
-      //fieldDefaults: this.recursiveCollect(collect(this.meta)),
     }
   },
 
@@ -71,24 +69,20 @@ export default {
       this.value.push({
         uuid: uuidv4(),
         type: 'section',
-        rows: []
+        value: []
       });
 
-      this.update(this.value);
+      //this.update(this.value);
     },
 
     removeSection(sectionKey) {
       this.value.splice(sectionKey, 1);
-      this.update(this.value);
+
+      //this.update(this.value);
     },
   },
 
-  mounted() {
-    //console.log(collect().recursiveCollect)
-    // console.log('config:', this.config);
-    // console.log('meta:', this.meta);
-    // console.log('value:', this.value);
-  }
+  mounted() {}
 
 };
 </script>

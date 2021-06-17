@@ -1,3 +1,3 @@
-<div class="field {{ modify($field->get('config')->get('type'))->ensureRight('-field') }}">
+<div class="field {{ modify($field['config']['type'])->ensureRight('-field') }}">
     @yield('field_content')
 </div>
