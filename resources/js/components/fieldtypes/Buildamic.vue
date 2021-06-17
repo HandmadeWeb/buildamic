@@ -36,21 +36,35 @@ export default {
 
   provide() {
     return {
-      meta: this.recursiveCollect(collect(this.meta)),
+      fieldDefaults: collect(this.meta).map(function(metaVal, metaKey){ 
+        if(metaKey === 'fields'){
+          return collect(metaVal).map(function(field){ 
+            return collect(field);
+          });
+        } else if(metaKey === 'fieldsets') {
+          return collect(metaVal).map(function(item){ 
+            return collect(item);
+          });
+        } else {
+          return metaVal;
+        }
+      }),
+      //fieldDefaults: this.recursiveCollect(collect(this.meta)),
     }
   },
 
   methods: {
+
     recursiveCollect(collection){
       if (typeof collection === 'object' && collection.map) {
-            return collection.map(function (value) {
-                if (typeof value === 'array' || typeof value === 'object' && ! value.map) {
-                    return collectRecursive(collect(value));
-                }
+          return collection.map(value => {
+              if (typeof value === 'array' || typeof value === 'object') {
+                  return this.recursiveCollect(collect(value));
+              }
 
-                return value;
-            });
-        }
+              return value;
+          });
+      }
 
       return collection;
     },
@@ -72,7 +86,7 @@ export default {
   },
 
   mounted() {
-    //console.log(uuidv4());
+    //console.log(collect().recursiveCollect)
     // console.log('config:', this.config);
     // console.log('meta:', this.meta);
     // console.log('value:', this.value);

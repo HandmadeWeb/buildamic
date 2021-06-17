@@ -121,6 +121,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
@@ -134,28 +135,26 @@ __webpack_require__.r(__webpack_exports__);
       isSelectingNewField: false
     };
   },
-  inject: ["meta"],
+  inject: ["fieldDefaults"],
   methods: {
     fieldtypeComponent: function fieldtypeComponent(handle) {
-      var field = this.fields.where("handle", handle).first();
-      return "".concat(field.component || field.type, "-fieldtype");
+      var field = this.fieldDefaults.get('fields').get('config').where('handle', handle).first();
+      return "".concat(field.field.component || field.field.type, "-fieldtype");
     },
     updateField: function updateField(index, value) {
       this.column.fields[index].value = value;
     },
     addField: function addField(handle) {
-      var field = this.fields.where("handle", handle).first();
-      var defaultValue = this.mmeta.get('fields')['value'][handle];
-      var defaultmeta = this.meta.get('fields')['meta'][handle];
+      var field = this.fieldDefaults.get('fields').get('config').where('handle', handle).first();
       this.column.fields.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_0__.default)(),
         type: "field",
         config: {
           handle: field.handle,
-          type: field.type
+          type: field.field.type
         },
-        //meta: defaultmeta,
-        value: defaultValue
+        //meta: this.fieldDefaults.get('fields').get('meta').get(handle),
+        value: this.fieldDefaults.get('fields').get('value').get(handle)
       });
       this.isSelectingNewField = false; //this.update(this.value);
     },
@@ -185,8 +184,7 @@ __webpack_require__.r(__webpack_exports__);
       this.column.fields.splice(fieldKey, 1); //this.update(this.value);
     }
   },
-  mounted: function mounted() {
-    console.log(this.meta.fields); // console.log('config:', this.config);
+  mounted: function mounted() {// console.log('config:', this.config);
     // console.log('meta:', this.meta);
     // console.log('value:', this.value);
   }
@@ -373,15 +371,30 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   },
   provide: function provide() {
     return {
-      meta: this.recursiveCollect(collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.meta))
+      fieldDefaults: collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.meta).map(function (metaVal, metaKey) {
+        if (metaKey === 'fields') {
+          return collect_js__WEBPACK_IMPORTED_MODULE_0___default()(metaVal).map(function (field) {
+            return collect_js__WEBPACK_IMPORTED_MODULE_0___default()(field);
+          });
+        } else if (metaKey === 'fieldsets') {
+          return collect_js__WEBPACK_IMPORTED_MODULE_0___default()(metaVal).map(function (item) {
+            return collect_js__WEBPACK_IMPORTED_MODULE_0___default()(item);
+          });
+        } else {
+          return metaVal;
+        }
+      }) //fieldDefaults: this.recursiveCollect(collect(this.meta)),
+
     };
   },
   methods: {
     recursiveCollect: function recursiveCollect(collection) {
+      var _this = this;
+
       if (_typeof(collection) === 'object' && collection.map) {
         return collection.map(function (value) {
-          if (typeof value === 'array' || _typeof(value) === 'object' && !value.map) {
-            return collectRecursive(collect_js__WEBPACK_IMPORTED_MODULE_0___default()(value));
+          if (typeof value === 'array' || _typeof(value) === 'object') {
+            return _this.recursiveCollect(collect_js__WEBPACK_IMPORTED_MODULE_0___default()(value));
           }
 
           return value;
@@ -403,7 +416,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       this.update(this.value);
     }
   },
-  mounted: function mounted() {//console.log(uuidv4());
+  mounted: function mounted() {//console.log(collect().recursiveCollect)
     // console.log('config:', this.config);
     // console.log('meta:', this.meta);
     // console.log('value:', this.value);
@@ -4990,22 +5003,22 @@ var render = function() {
           field.type === "field"
             ? _c(
                 "div",
-                {
-                  staticClass: "p-5 bg-red",
-                  class: [field.config.type + "-fieldtype"]
-                },
+                { staticClass: "p-5 bg-red" },
                 [
-                  _vm._v("\n      Field " + _vm._s(field.uuid) + "\n      "),
+                  _vm._v("\n      Field " + _vm._s(field.uuid) + "\n\n      "),
                   _c(_vm.fieldtypeComponent(field.config.handle), {
                     tag: "component",
                     attrs: {
-                      config: _vm.fields
+                      config: _vm.fieldDefaults
+                        .get("fields")
+                        .get("config")
                         .where("handle", field.config.handle)
                         .first(),
                       value: field.value,
-                      meta: _vm.fields.get("fields")["meta"][
-                        field.config.handle
-                      ],
+                      meta: _vm.fieldDefaults
+                        .get("fields")
+                        .get("meta")
+                        .get(field.config.handle),
                       handle: field.config.handle
                     },
                     on: {
@@ -5155,39 +5168,46 @@ var render = function() {
                       "div",
                       { staticClass: "fieldtype-list" },
                       [
-                        _vm._l(_vm.fields, function(field, key) {
-                          return _c("div", { key: key, staticClass: "p-1" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass:
-                                  "border flex items-center group w-full rounded shadow-sm py-1 px-2",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.addField(field.handle)
-                                  }
-                                }
-                              },
-                              [
-                                _c("svg-icon", {
+                        _vm._l(
+                          _vm.fieldDefaults.get("fields").get("config"),
+                          function(field, key) {
+                            return _c("div", { key: key, staticClass: "p-1" }, [
+                              _c(
+                                "a",
+                                {
                                   staticClass:
-                                    "h-4 w-4 text-grey-80 group-hover:text-blue",
-                                  attrs: { name: field.icon }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "span",
-                                  {
+                                    "border flex items-center group w-full rounded shadow-sm py-1 px-2",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.addField(field.handle)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("svg-icon", {
                                     staticClass:
-                                      "pl-2 text-grey-80 group-hover:text-blue"
-                                  },
-                                  [_vm._v(_vm._s(_vm.__(field.display)))]
-                                )
-                              ],
-                              1
-                            )
-                          ])
-                        }),
+                                      "h-4 w-4 text-grey-80 group-hover:text-blue",
+                                    attrs: { name: field.field.icon }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "pl-2 text-grey-80 group-hover:text-blue"
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(_vm.__(field.field.display))
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          }
+                        ),
                         _vm._v(" "),
                         _vm._l(_vm.fieldsets, function(fieldSet, fieldSetKey) {
                           return _c(
@@ -5648,7 +5668,21 @@ var __webpack_exports__ = {};
   \***********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_fieldtypes_Buildamic_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/fieldtypes/Buildamic.vue */ "./resources/js/components/fieldtypes/Buildamic.vue");
+/* harmony import */ var collect_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! collect.js */ "./node_modules/collect.js/dist/index.js");
+/* harmony import */ var collect_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(collect_js__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+
+
+collect_js__WEBPACK_IMPORTED_MODULE_1___default()().macro('recursiveCollect', function () {
+  return this.map(function (item) {
+    if (typeof item === 'array' || _typeof(item) === 'object' && !item.recursiveCollect) {
+      return collect_js__WEBPACK_IMPORTED_MODULE_1___default()(item).recursiveCollect();
+    }
+
+    return item;
+  });
+});
 Statamic.booting(function () {
   Statamic.$components.register('buildamic-fieldtype', _components_fieldtypes_Buildamic_vue__WEBPACK_IMPORTED_MODULE_0__.default);
 });

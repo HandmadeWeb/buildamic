@@ -6,13 +6,14 @@
       :key="fieldKey"
       class="py-2"
     >
-      <div v-if="field.type === 'field'" class="p-5 bg-red" :class="[`${field.config.type}-fieldtype`]">
+      <div v-if="field.type === 'field'" class="p-5 bg-red" >
         Field {{ field.uuid }}
+
         <component
           :is="fieldtypeComponent(field.config.handle)"
-          :config="fields.where('handle', field.config.handle).first()"
+          :config="fieldDefaults.get('fields').get('config').where('handle', field.config.handle).first()"
           :value="field.value"
-          :meta="fields.get('fields')['meta'][field.config.handle]"
+          :meta="fieldDefaults.get('fields').get('meta').get(field.config.handle)"
           :handle="field.config.handle"
           @input="updateField(fieldKey, $event)"
           @meta-updated="$emit('meta-updated', $event)"
@@ -67,17 +68,17 @@
         <div class="p-3 pt-0">
           <div class="fieldtype-selector">
             <div class="fieldtype-list">
-              <div class="p-1" v-for="(field, key) in fields" :key="key">
+              <div class="p-1" v-for="(field, key) in fieldDefaults.get('fields').get('config')" :key="key">
                 <a
                   class="border flex items-center group w-full rounded shadow-sm py-1 px-2"
                   @click="addField(field.handle)"
                 >
                   <svg-icon
                     class="h-4 w-4 text-grey-80 group-hover:text-blue"
-                    :name="field.icon"
+                    :name="field.field.icon"
                   ></svg-icon>
                   <span class="pl-2 text-grey-80 group-hover:text-blue">{{
-                    __(field.display)
+                    __(field.field.display)
                   }}</span>
                 </a>
               </div>
@@ -124,13 +125,13 @@ export default {
   },
 
   inject: [
-    "meta", 
+    "fieldDefaults", 
   ],
 
   methods: {
     fieldtypeComponent(handle) {
-      let field = this.fields.where("handle", handle).first();
-      return `${field.component || field.type}-fieldtype`;
+      let field = this.fieldDefaults.get('fields').get('config').where('handle', handle).first();
+      return `${field.field.component || field.field.type}-fieldtype`;
     },
 
     updateField(index, value) {
@@ -138,19 +139,17 @@ export default {
     },
 
     addField(handle) {
-      let field = this.fields.where("handle", handle).first();
-      let defaultValue = this.mmeta.get('fields')['value'][handle];
-      let defaultmeta = this.meta.get('fields')['meta'][handle];
+      let field = this.fieldDefaults.get('fields').get('config').where('handle', handle).first();
 
       this.column.fields.push({
         uuid: uuidv4(),
         type: "field",
         config: {
           handle: field.handle,
-          type: field.type,
+          type: field.field.type,
         },
-        //meta: defaultmeta,
-        value: defaultValue,
+        //meta: this.fieldDefaults.get('fields').get('meta').get(handle),
+        value: this.fieldDefaults.get('fields').get('value').get(handle),
       });
 
       this.isSelectingNewField = false;
@@ -194,7 +193,6 @@ export default {
   },
 
     mounted() {
-      console.log(this.meta.fields);
       // console.log('config:', this.config);
       // console.log('meta:', this.meta);
       // console.log('value:', this.value);
