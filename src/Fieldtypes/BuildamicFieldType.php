@@ -56,27 +56,27 @@ class BuildamicFieldType extends FieldType
 
     protected function makeSection(...$rows)
     {
-        return (object) [
+        return [
             //'uuid' => c38c5a87-9e05-4342-9897-75b8e68d40c0,
             'uuid' => Str::uuid(),
             'type' => 'section',
-            'rows' => (array) $rows,
+            'rows' => $rows,
         ];
     }
 
     protected function makeRow(...$columns)
     {
-        return (object) [
+        return [
             'uuid' => Str::uuid(),
-            'columns' => (array) $columns,
+            'columns' => $columns,
         ];
     }
 
     protected function makeColumn(...$fields)
     {
-        return (object) [
+        return [
             'uuid' => Str::uuid(),
-            'fields' => (array) $fields,
+            'fields' => $fields,
         ];
     }
 
