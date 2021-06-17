@@ -1,23 +1,34 @@
 {
     "private": true,
     "scripts": {
+        "test:unit": "vue-cli-service test:unit",
         "dev": "mix",
         "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
-        "production": "mix --production"
-    },
-    "devDependencies": {
-        "cross-env": "^7.0",
-        "laravel-mix": "^6.0",
-        "postcss": "^8.1",
-        "vue": "^2.6.12",
-        "vue-loader": "^15.9.7",
-        "vue-template-compiler": "^2.6.12"
+        "production": "mix --production",
+        "test": "jest",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000"
     },
     "dependencies": {
         "collect.js": "^4.28.6",
-        "uuid": "^8.3.2"
+        "uuid": "^8.3.2",
+        "vue-feather-icons": "^5.1.0",
+        "vuedraggable": "^2.24.3"
+    },
+    "devDependencies": {
+        "@vue/test-utils": "^1.2.1",
+        "babel-core": "^7.0.0-bridge.0",
+        "babel-jest": "^27.0.2",
+        "cross-env": "^7.0",
+        "jest": "^27.0.4",
+        "jsdom": "^16.6.0",
+        "jsdom-global": "^3.0.2",
+        "laravel-mix": "^6.0",
+        "postcss": "^8.1",
+        "vue": "^2.6.12",
+        "vue-jest": "^3.0.7",
+        "vue-loader": "^15.9.7",
+        "vue-template-compiler": "^2.6.12"
     }
 }

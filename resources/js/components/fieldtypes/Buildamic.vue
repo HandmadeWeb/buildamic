@@ -1,37 +1,37 @@
 <template>
   <div class="buildamic-fieldtype-container">
-    <div v-for="(section, sectionKey) in value.sections" :key="sectionKey" class="py-2"> 
-      <div class="p-5 bg-blue">
-        <buildamic-section :section="section" />
-        <button class="btn" v-on:click="removeSection(sectionKey)">Remove Section</button>
+    <div
+      v-for="(section, sectionKey) in value.sections"
+      :key="sectionKey"
+      class="py-2"
+    >
+      <div v-if="value.sections.length" class="p-5 bg-blue">
+        <b-section :section="section" />
       </div>
-    </div>    
-    
-    <button class="btn" @click.prevent="addSection">Add Section</button>
+    </div>
+    <section-controls v-if="!value.sections.length" />
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
 
 <script>
-import { v4 as uuidv4 } from 'uuid';
-import collect from 'collect.js';
-import BuildamicSection from '../BuildamicSection.vue';
+import Fieldtype from "./fieldtype";
+import { v4 as uuidv4 } from "uuid";
+import collect from "collect.js";
+import BSection from "../BSection.vue";
+import SectionControls from "../SectionControls.vue";
 
 export default {
-  mixins: [
-    Fieldtype
-  ],
-  
-  components: { 
-    BuildamicSection 
+  mixins: [Fieldtype],
+
+  components: {
+    BSection,
+    SectionControls,
   },
 
   data() {
-    return {
-    };
+    return {};
   },
 
   provide() {
@@ -39,7 +39,8 @@ export default {
       fields: collect(this.config.fields),
       fieldsets: collect(this.config.sets),
       meta: collect(this.meta),
-    }
+      sections: this.value.sections,
+    };
   },
 
   methods: {
@@ -50,8 +51,8 @@ export default {
     addSection() {
       this.value.sections.push({
         uuid: uuidv4(),
-        type: 'section',
-        rows: []
+        type: "section",
+        rows: [],
       });
 
       this.update(this.value);
@@ -67,8 +68,7 @@ export default {
     //console.log(uuidv4());
     // console.log('config:', this.config);
     // console.log('meta:', this.meta);
-    // console.log('value:', this.value);
-  }
-
+    // console.log("value:", this.value);
+  },
 };
 </script>
