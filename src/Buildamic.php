@@ -6,8 +6,10 @@ use Facades\Statamic\Fields\FieldtypeRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Statamic\Facades\Antlers;
+use Statamic\Facades\Fieldset;
 use Statamic\Fields\Field;
 use Statamic\Fields\Value;
+use Statamic\Fieldtypes\Sets;
 use Statamic\View\Antlers\Parser as AntlersParser;
 
 class Buildamic
@@ -24,14 +26,16 @@ class Buildamic
     protected $config;
     protected $sections;
     protected $shallow;
+    protected $blueprint;
 
     public function __construct(Value $value, array $config, bool $shallow = false)
     {
         $this->config = collect([]);
         $this->sections = collect([]);
+        $this->blueprint = $value;
         $this->shallow = $shallow;
 
-        $this->config = $this->collectRecursive($this->config->mergeRecursive(collect($config)));
+        //$this->config = $this->collectRecursive($this->config->mergeRecursive(collect($config)));
         $this->sections = $this->collectRecursive($this->sections->mergeRecursive(collect($value->raw())));
     }
 
@@ -39,6 +43,10 @@ class Buildamic
     {
         if ($collection instanceof Collection) {
             return $collection->map(function ($value) {
+                if (is_array($value) && isset($value['type']) && in_array($value['type'], ['field', 'fieldset'])) {
+                    return collect($value);
+                }
+
                 if (is_array($value) || is_object($value)) {
                     return $this->collectRecursive(collect($value));
                 }
@@ -85,20 +93,28 @@ class Buildamic
         return view('buildamic::blade.layouts.column', ['buildamic' => $this, 'column' => $column]);
     }
 
+    public function renderFieldSet(Collection $fieldset)
+    {
+        $html = '';
+        foreach ($fieldset->get('value') as $field) {
+            $html .= $this->renderField(collect([
+                'uuid' => $field->handle(),
+                'config' => collect([
+                    'type' => $field->field()->type(),
+                    'handle' => $field->handle(),
+                ]),
+                'value' => $field,
+            ]));
+        }
+
+        return $html;
+    }
+
     public function renderField(Collection $field)
     {
-        $field->transform(function ($value, $key) use ($field) {
-            if ($key === 'value') {
-                $method = $this->shallow ? 'shallowAugment' : 'augment';
-                $_config = $this->config->get('fields')->where('handle', $field->get('config')->get('handle'))->first();
-                $_field = (new Field($_config->get('handle'), $_config->get('field')->toArray()))->setValue($value)->{$method}();
-                $_value = $_field->value();
-
-                return (method_exists($_value, 'shouldParseAntlers') && $_value->shouldParseAntlers()) ? Antlers::parse($_value) : $_value;
-            }
-
-            return $value;
-        });
+        if ($field->get('type') === 'fieldset') {
+            return $this->renderFieldSet($field);
+        }
 
         $viewPrefix = 'buildamic::blade';
         $fieldHandle = $field->get('config')->get('handle');

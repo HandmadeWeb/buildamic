@@ -156,18 +156,21 @@ class BuildamicFieldType extends FieldType
         return new Fields($this->config('fields'), $this->field()->parent(), $this->field());
     }
 
-    public function fieldsets()
+    public function makeField($fieldHandle)
     {
-        $fields = [];
-        foreach ($this->config('sets') as $key => $value) {
-            $fields[$key] = new Fields(
-                $this->config("sets.{$key}.fields"),
-                $this->field()->parent(),
-                $this->field()
-            );
-        }
+        return new Field(
+            $fieldHandle,
+            $this->config('fields'),
+        );
+    }
 
-        return collect($fields);
+    public function makeFieldSet($setHandle)
+    {
+        return new Fields(
+            $this->config("sets.{$setHandle}.fields"),
+            $this->field()->parent(),
+            $this->field()
+        );
     }
 
     public function extraRules(): array
@@ -200,8 +203,25 @@ class BuildamicFieldType extends FieldType
     private function performAugmentation($value, $shallow)
     {
         $method = $shallow ? 'shallowAugment' : 'augment';
-        $field = $this->field()->setValue($value)->{$method}();
 
-        return (new \Michaelr0\Buildamic\Buildamic($field->value(), $field->config(), $shallow))->render();
+        $values = $value;
+
+        foreach ($value as $sectionKey => $section) {
+            foreach ($section['value'] as $rowKey => $row) {
+                foreach ($row['value'] as $columnKey => $column) {
+                    foreach ($column['value'] as $fieldKey => $field) {
+                        if ($field['type'] === 'field') {
+                            $values[$sectionKey][$rowKey][$columnKey][$fieldKey]['value'] = $this->makeField($field['config']['handle'])->setValue($field['value'])->{$method}();
+                        } elseif ($field['type'] === 'fieldset') {
+                            $values[$sectionKey]['value'][$rowKey]['value'][$columnKey]['value'][$fieldKey]['value'] = $this->makeFieldSet($field['config']['handle'])->addValues($field['value'])->{$method}()->values();
+                        }
+                    }
+                }
+            }
+        }
+
+        $buildamic = $this->field()->setValue($values)->{$method}();
+
+        return (new \Michaelr0\Buildamic\Buildamic($buildamic->value(), $buildamic->config(), $shallow))->render();
     }
 }
