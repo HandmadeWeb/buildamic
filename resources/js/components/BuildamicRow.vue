@@ -1,9 +1,9 @@
 <template>
   <div class="buildamic-row-container">
-      Row {{ row.uuid }}
-      <div v-for="(column, columnKey) in row.columns" :key="columnKey" class="py-2"> 
+      Row {{ value.uuid }}
+      <div v-for="(column, columnKey) in value.value" :key="columnKey" class="py-2"> 
         <div class="p-5 bg-yellow">
-          <buildamic-column :column="column" />
+          <buildamic-column :value="column" />
           <button class="btn" v-on:click="removeColumn(columnKey)">Remove Column</button>
         </div>
       </div>
@@ -23,7 +23,7 @@ export default {
   components: { BuildamicColumn },
   
     props: {
-      row: {
+      value: {
         type: Object,
         required: true
       },
@@ -36,16 +36,16 @@ export default {
 
   methods: {
     addColumn() {
-      this.row.columns.push({
+      this.value.value.push({
         uuid: uuidv4(),
-        fields: []
+        value: []
       });
 
       //this.update(this.value);
     },
 
     removeColumn(columnKey) {
-      this.row.columns.splice(columnKey, 1);
+      this.value.value.splice(columnKey, 1);
       //this.update(this.value);
       
     },

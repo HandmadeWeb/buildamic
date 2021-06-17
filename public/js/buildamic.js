@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    column: {
+    value: {
       type: Object,
       required: true
     }
@@ -150,15 +150,15 @@ __webpack_require__.r(__webpack_exports__);
       var field = this.fieldDefaults.get('fields').get('config').where('handle', handle).first();
       return "".concat(field.field.component || field.field.type, "-fieldtype");
     },
-    updateField: function updateField(index, value) {
-      this.column.fields[index].value = value;
+    updateField: function updateField(index, newValue) {
+      this.value.value[index].value = newValue;
     },
-    updateFieldset: function updateFieldset(index, subFieldHandle, value) {
-      this.column.fields[index].value[subFieldHandle] = value;
+    updateFieldSet: function updateFieldSet(index, subFieldHandle, newValue) {
+      this.value.value[index].value[subFieldHandle] = newValue;
     },
     addField: function addField(handle) {
       var field = this.fieldDefaults.get('fields').get('config').where('handle', handle).first();
-      this.column.fields.push({
+      this.value.value.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_0__.default)(),
         type: "field",
         config: {
@@ -172,7 +172,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     addFieldSet: function addFieldSet(handle) {
       var fieldSet = this.fieldDefaults.get('fieldsets')[handle];
-      this.column.fields.push({
+      this.value.value.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_0__.default)(),
         type: "fieldset",
         config: {
@@ -184,7 +184,7 @@ __webpack_require__.r(__webpack_exports__);
       this.isSelectingNewField = false; //this.update(this.value);
     },
     removeField: function removeField(fieldKey) {
-      this.column.fields.splice(fieldKey, 1); //this.update(this.value);
+      this.value.value.splice(fieldKey, 1); //this.update(this.value);
     }
   },
   mounted: function mounted() {// console.log('config:', this.config);
@@ -232,7 +232,7 @@ __webpack_require__.r(__webpack_exports__);
     BuildamicColumn: _BuildamicColumn_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
-    row: {
+    value: {
       type: Object,
       required: true
     }
@@ -242,13 +242,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addColumn: function addColumn() {
-      this.row.columns.push({
+      this.value.value.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_1__.default)(),
-        fields: []
+        value: []
       }); //this.update(this.value);
     },
     removeColumn: function removeColumn(columnKey) {
-      this.row.columns.splice(columnKey, 1); //this.update(this.value);
+      this.value.value.splice(columnKey, 1); //this.update(this.value);
     }
   } //   mounted() {
   //     //console.log(uuidv4());
@@ -298,7 +298,7 @@ __webpack_require__.r(__webpack_exports__);
     BuildamicRow: _BuildamicRow_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
-    section: {
+    value: {
       type: Object,
       required: true
     }
@@ -308,13 +308,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addRow: function addRow() {
-      this.section.rows.push({
+      this.value.value.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_1__.default)(),
-        columns: []
+        value: []
       }); //this.update(this.value);
     },
     removeRow: function removeRow(rowKey) {
-      this.section.rows.splice(rowKey, 1); //this.update(this.value);
+      this.value.value.splice(rowKey, 1); //this.update(this.value);
     }
   } //   mounted() {
   //     //console.log(uuidv4());
@@ -405,7 +405,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return collection;
     },
     addSection: function addSection() {
-      this.value.sections.push({
+      this.value.push({
         uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_2__.default)(),
         type: 'section',
         rows: []
@@ -413,7 +413,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       this.update(this.value);
     },
     removeSection: function removeSection(sectionKey) {
-      this.value.sections.splice(sectionKey, 1);
+      this.value.splice(sectionKey, 1);
       this.update(this.value);
     }
   },
@@ -4998,8 +4998,8 @@ var render = function() {
     "div",
     { staticClass: "buildamic-column-container" },
     [
-      _vm._v("\n  Column " + _vm._s(_vm.column.uuid) + "\n  "),
-      _vm._l(_vm.column.fields, function(field, fieldKey) {
+      _vm._v("\n  Column " + _vm._s(_vm.value.uuid) + "\n  "),
+      _vm._l(_vm.value.value, function(field, fieldKey) {
         return _c("div", { key: fieldKey, staticClass: "py-2" }, [
           field.type === "field"
             ? _c(
@@ -5323,14 +5323,14 @@ var render = function() {
     "div",
     { staticClass: "buildamic-row-container" },
     [
-      _vm._v("\n    Row " + _vm._s(_vm.row.uuid) + "\n    "),
-      _vm._l(_vm.row.columns, function(column, columnKey) {
+      _vm._v("\n    Row " + _vm._s(_vm.value.uuid) + "\n    "),
+      _vm._l(_vm.value.value, function(column, columnKey) {
         return _c("div", { key: columnKey, staticClass: "py-2" }, [
           _c(
             "div",
             { staticClass: "p-5 bg-yellow" },
             [
-              _c("buildamic-column", { attrs: { column: column } }),
+              _c("buildamic-column", { attrs: { value: column } }),
               _vm._v(" "),
               _c(
                 "button",
@@ -5394,14 +5394,14 @@ var render = function() {
     "div",
     { staticClass: "buildamic-section-container" },
     [
-      _vm._v("\n  Section " + _vm._s(_vm.section.uuid) + "\n  "),
-      _vm._l(_vm.section.rows, function(row, rowKey) {
+      _vm._v("\n  Section " + _vm._s(_vm.value.uuid) + "\n  "),
+      _vm._l(_vm.value.value, function(row, rowKey) {
         return _c("div", { key: rowKey, staticClass: "py-2" }, [
           _c(
             "div",
             { staticClass: "p-5 bg-green" },
             [
-              _c("buildamic-row", { attrs: { row: row } }),
+              _c("buildamic-row", { attrs: { value: row } }),
               _vm._v(" "),
               _c(
                 "button",
@@ -5471,7 +5471,7 @@ var render = function() {
             "div",
             { staticClass: "p-5 bg-blue" },
             [
-              _c("buildamic-section", { attrs: { section: section } }),
+              _c("buildamic-section", { attrs: { value: section } }),
               _vm._v(" "),
               _c(
                 "button",

@@ -2,7 +2,7 @@
   <div class="buildamic-fieldtype-container">
     <div v-for="(section, sectionKey) in value" :key="sectionKey" class="py-2"> 
       <div class="p-5 bg-blue">
-        <buildamic-section :section="section" />
+        <buildamic-section :value="section" />
         <button class="btn" v-on:click="removeSection(sectionKey)">Remove Section</button>
       </div>
     </div>    
@@ -68,7 +68,7 @@ export default {
     },
 
     addSection() {
-      this.value.sections.push({
+      this.value.push({
         uuid: uuidv4(),
         type: 'section',
         rows: []
@@ -78,7 +78,7 @@ export default {
     },
 
     removeSection(sectionKey) {
-      this.value.sections.splice(sectionKey, 1);
+      this.value.splice(sectionKey, 1);
       this.update(this.value);
     },
   },

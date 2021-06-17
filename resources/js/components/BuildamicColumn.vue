@@ -1,8 +1,8 @@
 <template>
   <div class="buildamic-column-container">
-    Column {{ column.uuid }}
+    Column {{ value.uuid }}
     <div
-      v-for="(field, fieldKey) in column.fields"
+      v-for="(field, fieldKey) in value.value"
       :key="fieldKey"
       class="py-2"
     >
@@ -121,7 +121,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export default {
   props: {
-    column: {
+    value: {
       type: Object,
       required: true,
     },
@@ -143,18 +143,18 @@ export default {
       return `${field.field.component || field.field.type}-fieldtype`;
     },
 
-    updateField(index, value) {
-      this.column.fields[index].value = value;
+    updateField(index, newValue) {
+      this.value.value[index].value = newValue;
     },
 
-    updateFieldset(index, subFieldHandle, value) {
-      this.column.fields[index].value[subFieldHandle] = value;
+    updateFieldSet(index, subFieldHandle, newValue) {
+      this.value.value[index].value[subFieldHandle] = newValue;
     },
 
     addField(handle) {
       let field = this.fieldDefaults.get('fields').get('config').where('handle', handle).first();
 
-      this.column.fields.push({
+      this.value.value.push({
         uuid: uuidv4(),
         type: "field",
         config: {
@@ -173,7 +173,7 @@ export default {
 
       let fieldSet = this.fieldDefaults.get('fieldsets')[handle];
 
-      this.column.fields.push({
+      this.value.value.push({
         uuid: uuidv4(),
         type: "fieldset",
         config: {
@@ -188,7 +188,7 @@ export default {
     },
 
     removeField(fieldKey) {
-      this.column.fields.splice(fieldKey, 1);
+      this.value.value.splice(fieldKey, 1);
       //this.update(this.value);
     },
   },

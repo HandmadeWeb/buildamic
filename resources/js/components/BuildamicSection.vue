@@ -1,9 +1,9 @@
 <template>
   <div class="buildamic-section-container">
-    Section {{ section.uuid }}
-    <div v-for="(row, rowKey) in section.rows" :key="rowKey" class="py-2"> 
+    Section {{ value.uuid }}
+    <div v-for="(row, rowKey) in value.value" :key="rowKey" class="py-2"> 
       <div class="p-5 bg-green">
-        <buildamic-row :row="row" />
+        <buildamic-row :value="row" />
         <button class="btn" v-on:click="removeRow(rowKey)">Remove Row</button>
       </div>
     </div>
@@ -23,7 +23,7 @@ export default {
   components: { BuildamicRow },
   
     props: {
-      section: {
+      value: {
         type: Object,
         required: true
       },
@@ -36,16 +36,16 @@ export default {
 
   methods: {
     addRow() {
-      this.section.rows.push({
+      this.value.value.push({
         uuid: uuidv4(),
-        columns: []
+        value: []
       });
 
       //this.update(this.value);
     },
 
     removeRow(rowKey) {
-      this.section.rows.splice(rowKey, 1);
+      this.value.value.splice(rowKey, 1);
       //this.update(this.value);
     },
   },

@@ -1,5 +1,5 @@
 <div class="column">
-    @foreach($column->get('fields') as $field)
+    @foreach($column->get('value') as $field)
         {!! $buildamic->renderField($field) !!}   
     @endforeach
 </div>

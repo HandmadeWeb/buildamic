@@ -60,7 +60,7 @@ class BuildamicFieldType extends FieldType
             //'uuid' => c38c5a87-9e05-4342-9897-75b8e68d40c0,
             'uuid' => Str::uuid(),
             'type' => 'section',
-            'rows' => $rows,
+            'value' => $rows,
         ];
     }
 
@@ -68,7 +68,7 @@ class BuildamicFieldType extends FieldType
     {
         return [
             'uuid' => Str::uuid(),
-            'columns' => $columns,
+            'value' => $columns,
         ];
     }
 
@@ -76,7 +76,7 @@ class BuildamicFieldType extends FieldType
     {
         return [
             'uuid' => Str::uuid(),
-            'fields' => $fields,
+            'value' => $fields,
         ];
     }
 
@@ -109,9 +109,9 @@ class BuildamicFieldType extends FieldType
     protected function processFieldValues($data, $method)
     {
         foreach ($data as &$section) {
-            foreach ($section['rows'] as &$row) {
-                foreach ($row['columns'] as &$column) {
-                    foreach ($column['fields'] as &$field) {
+            foreach ($section['value'] as &$row) {
+                foreach ($row['value'] as &$column) {
+                    foreach ($column['value'] as &$field) {
                         if ($field['type'] === 'field') {
                             $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->{$method}()->value();
                         } elseif ($field['type'] === 'fieldset') {
