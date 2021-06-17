@@ -1,9 +1,24 @@
 <template>
-  <div class="buildamic-section">
-    <template v-for="(row, rowKey) in rows">
-      <b-row :key="rowKey" :row="row" />
-    </template>
-    <section-controls />
+  <div class="buildamic-section p-4 bg-blue">
+    <vue-draggable
+      :list="rows"
+      :group="{ name: 'rows' }"
+      ghost-class="ghost"
+      class="flex flex-col gap-3"
+    >
+      <template v-for="(row, rowIndex) in rows">
+        <b-row
+          :rowIndex="rowIndex"
+          :key="`row-${row.uuid}`"
+          :row="row"
+          :rows="rows"
+        >
+          <row-controls :value="rows" />
+        </b-row>
+      </template>
+      <row-controls v-if="!rows.length" :value="rows" />
+      <slot></slot>
+    </vue-draggable>
   </div>
 </template>
 
@@ -11,10 +26,11 @@
 
 <script>
 import BRow from "../rows/BRow.vue";
-import SectionControls from "./SectionControls.vue";
+import RowControls from "../rows/RowControls.vue";
+import VueDraggable from "vuedraggable";
 
 export default {
-  components: { BRow, SectionControls },
+  components: { BRow, VueDraggable, RowControls },
 
   props: {
     section: {
@@ -25,23 +41,14 @@ export default {
 
   data() {
     return {
-      rows: this.section.rows ?? [],
+      rows: [],
     };
   },
 
   methods: {},
 
-  provide() {
-    return {
-      rows: this.rows,
-    };
+  mounted() {
+    this.rows = this.section.value ?? [];
   },
-
-  //   mounted() {
-  //     //console.log(uuidv4());
-  //     // console.log('config:', this.config);
-  //     // console.log('meta:', this.meta);
-  //     // console.log('value:', this.value);
-  //   }
 };
 </script>

@@ -1,9 +1,9 @@
 <template>
-  <div class="buildamic-row">
+  <div class="buildamic-row bg-green-light p-2">
     <template v-for="(column, columnKey) in columns">
       <b-column :key="columnKey" :column="column" />
     </template>
-    <row-controls />
+    <slot></slot>
     <column-selector
       :columns="columns"
       :name="row.uuid + '-column-layouts'"
@@ -33,29 +33,10 @@ export default {
 
   data() {
     return {
-      columns: this.row.columns ?? [],
+      columns: this.row.value ?? [],
       rowID: this.row.uuid,
     };
   },
-
-  methods: {
-    addColumn() {
-      this.row.columns.push({
-        uuid: uuidv4(),
-        type: "column",
-        fields: [],
-      });
-
-      //this.update(this.value);
-    },
-
-    removeColumn(columnKey) {
-      this.row.columns.splice(columnKey, 1);
-      //this.update(this.value);
-    },
-  },
-
-  provide() {},
 
   //   mounted() {
   //     //console.log(uuidv4());

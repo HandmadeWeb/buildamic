@@ -3,20 +3,16 @@ export function generateID() {
     return uuidv4()
 }
 
-export const generateModuleID = (type) => {
-    return type.replace("module", "") + generateID()
-}
-
 export const recursifyID = (array) => {
-    array.id = generateModuleID(array.type);
-    if (!Array.isArray(array.content)) {
+    array.uuid = generateID();
+    if (!Array.isArray(array.value)) {
         return false
     }
-    array.content.forEach((el) => {
+    array.value.forEach((el) => {
         if (el.id || el.id === '') {
             el.id = generateModuleID(el.type);
         }
-        if (!Array.isArray(el.content)) {
+        if (!Array.isArray(el.value)) {
             return false
         } else {
             recursifyID(el)

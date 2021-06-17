@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
 import BContainer from '@/fieldtypes/Buildamic.vue'
-import SectionControls from '@/SectionControls.vue'
+import SectionControls from '@/sections/SectionControls.vue'
 
 
 describe('Container', () => {

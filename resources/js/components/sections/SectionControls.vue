@@ -4,14 +4,15 @@
     data-testid="section-controls"
   >
     <a
-      @click.prevent="addSection"
+      @click.prevent="addModule"
       class="flex pr-6 items-center justify-center"
       href="#"
       data-testid="section-add"
       ><plus-circle-icon class="mr-2"></plus-circle-icon> Add empty section</a
     >
     <a
-      @click.prevent="removeSection"
+      v-if="value.length"
+      @click.prevent="removeModule"
       class="flex pr-6 items-center justify-center"
       href="#"
       data-testid="section-remove"
@@ -26,26 +27,17 @@
 
 <script>
 import { PlusCircleIcon, XIcon, ClipboardIcon } from "vue-feather-icons";
-import { v4 as uuidv4 } from "uuid";
+import ModuleControls from "../mixins/ModuleControls.js";
 
 export default {
-  inject: ["sections"],
   name: "section-controls",
-  props: {
-    index: {
-      type: Number,
-      default: 0,
-    },
+  data() {
+    return {
+      type: "Section",
+    };
   },
   components: { PlusCircleIcon, XIcon, ClipboardIcon },
-  methods: {
-    addSection() {
-      this.sections.push({ uuid: uuidv4(), type: "section", rows: [] });
-    },
-    removeSection() {
-      this.sections.splice(this.index, 1);
-    },
-  },
+  mixins: [ModuleControls],
 };
 </script>
 

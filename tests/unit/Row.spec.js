@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
-import BRow from '@/BRow.vue'
-import SectionControls from '@/SectionControls.vue'
+import BRow from '@/rows/BRow.vue'
+import RowControls from '@/rows/RowControls.vue'
 
 describe('Sections', () => {
     let wrapper;
@@ -8,13 +8,13 @@ describe('Sections', () => {
     const mountWithProps = (props = {}) => {
         wrapper = shallowMount(BRow, {
             stubs: {
-                'section-controls': SectionControls
+                'row-controls': RowControls
             },
             propsData: {
-                "section": {
+                "row": {
                     "uuid": "d31e1f01-a8ef-401f-a639-2aa637b3c782",
-                    "type": "section",
-                    "rows": []
+                    "type": "row",
+                    "columns": []
                 },
                 ...props,
             },
@@ -22,9 +22,9 @@ describe('Sections', () => {
     }
 
     // Displays section controls
-    it('displays section controls', () => {
+    it('Displays row controls', () => {
         mountWithProps()
-        expect(wrapper.find('[data-testid="section-controls"]').exists()).toBe(true)
+        expect(wrapper.find('[data-testid="row-controls"]').exists()).toBe(true)
     })
 })
 

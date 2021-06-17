@@ -1,24 +1,25 @@
 <template>
-  <draggable
-    :list="column.fields"
-    :group="{ name: 'columns' }"
-    ghost-class="ghost"
-    class="buildamic-column"
-  >
-    <template v-for="(field, fieldKey) in column.fields" class="py-2">
-      <component
-        :key="fieldKey"
-        :is="fieldtypeComponent(field.config.handle)"
-        :config="fields.where('handle', field.config.handle).first()"
-        :value="field.value"
-        :meta="field.meta"
-        :handle="field.config.handle"
-        @input="updateField(fieldKey, $event)"
-        @meta-updated="$emit('meta-updated', $event)"
-        @focus="$emit('focus')"
-        @blur="$emit('blur')"
-      />
-    </template>
+  <div class="buildamic-column" :class="columnClass">
+    <vue-draggable
+      :list="column.value"
+      :group="{ name: 'columns' }"
+      ghost-class="ghost"
+    >
+      <template v-for="(field, fieldKey) in column.value" class="py-2">
+        <component
+          :key="fieldKey"
+          :is="fieldtypeComponent(field.config.handle)"
+          :config="fields.where('handle', field.config.handle).first()"
+          :value="field.value"
+          :meta="field.meta"
+          :handle="field.config.handle"
+          @input="updateField(fieldKey, $event)"
+          @meta-updated="$emit('meta-updated', $event)"
+          @focus="$emit('focus')"
+          @blur="$emit('blur')"
+        />
+      </template>
+    </vue-draggable>
     <button class="btn" v-on:click="removeField(fieldKey)">
       Remove Field
     </button>
@@ -48,7 +49,7 @@
               <div class="p-1" v-for="(field, key) in fields" :key="key">
                 <a
                   class="border flex items-center group w-full rounded shadow-sm py-1 px-2"
-                  @click="addField(field.handle)"
+                  @click="addField(field)"
                 >
                   <svg-icon
                     class="h-4 w-4 text-grey-80 group-hover:text-blue"
@@ -64,14 +65,14 @@
         </div>
       </div>
     </stack>
-  </draggable>
+  </div>
 </template>
 
 <style scoped></style>
 
 <script>
 import { v4 as uuidv4 } from "uuid";
-import draggable from "vuedraggable";
+import VueDraggable from "vuedraggable";
 
 export default {
   props: {
@@ -87,8 +88,14 @@ export default {
     };
   },
 
+  computed: {
+    columnClass() {
+      return `col col-${this.column?.config?.columnSizes?.lg}`;
+    },
+  },
+
   components: {
-    draggable,
+    VueDraggable,
   },
 
   inject: ["fields", "fieldsets", "meta"],
@@ -103,12 +110,12 @@ export default {
       this.column.fields[index].value = value;
     },
 
-    addField(handle) {
-      let field = this.fields.where("handle", handle).first();
-      let defaultValue = this.meta.get("defaultValue")[handle];
-      let defaultmeta = this.meta.get("defaultMeta")[handle];
+    addField(field) {
+      let defaultValue = this.meta.get("defaultValue")[field.handle];
+      let defaultmeta = this.meta.get("defaultMeta")[field.handle];
 
-      this.column.fields.push({
+      const newField = {
+        ...field,
         uuid: uuidv4(),
         type: "field",
         config: {
@@ -117,14 +124,16 @@ export default {
         },
         meta: defaultmeta,
         value: defaultValue,
-      });
+      };
+
+      this.column.value.push(newField);
 
       this.isSelectingNewField = false;
       //this.update(this.value);
     },
 
     removeField(fieldKey) {
-      this.column.fields.splice(fieldKey, 1);
+      this.column.value.splice(fieldKey, 1);
       //this.update(this.value);
     },
   },

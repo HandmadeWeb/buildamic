@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import SectionControls from '@/SectionControls.vue'
-
+import SectionControls from '@/sections/SectionControls.vue'
 
 describe('SectionControls', () => {
     let wrapper

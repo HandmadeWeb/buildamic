@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { Module } from "../../classes/ModuleClass";
+import { createModule } from "../../factories/modules/moduleFactory";
 import { XIcon } from "vue-feather-icons";
 
 export default {
@@ -78,16 +78,15 @@ export default {
 
       // Loop the new array and create a column for each item
       layoutArr.forEach((col) => {
-        let newCol = new Module();
-        newCol = newCol.newCol();
+        let newCol = createModule("Column");
 
         // If we are divisible by 2, set the md breakpoint to 6 (translates to col-md-6)
         if (layoutArr.length % 2 === 0) {
-          newCol.options.columns.md = 6;
+          newCol.config.columnSizes.md = 6;
         }
 
         // Set the lg size to seleted value
-        newCol.options.columns.lg = col;
+        newCol.config.columnSizes.lg = col;
 
         // Not the smallest "xs" (mobile) size will remain unchanged from the newColumnStructure object which is 12
         newLayout.push(newCol);
@@ -134,7 +133,7 @@ export default {
   },
   props: {
     name: String,
-    columns: Object,
+    columns: Array,
   },
 };
 </script>
