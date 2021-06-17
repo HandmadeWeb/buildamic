@@ -19,8 +19,8 @@
 import Fieldtype from "./fieldtype";
 import { v4 as uuidv4 } from "uuid";
 import collect from "collect.js";
-import BSection from "../BSection.vue";
-import SectionControls from "../SectionControls.vue";
+import BSection from "../sections/BSection.vue";
+import SectionControls from "../sections/SectionControls.vue";
 
 export default {
   mixins: [Fieldtype],

@@ -1,19 +1,16 @@
 <template>
-  <div class="buildamic-row-container">
-    Row {{ row.uuid }}
-    <div
-      v-for="(column, columnKey) in row.columns"
-      :key="columnKey"
-      class="py-2"
-    >
-      <div class="p-5 bg-yellow">
-        <b-column :column="column" />
-        <button class="btn" v-on:click="removeColumn(columnKey)">
-          Remove Column
-        </button>
-      </div>
-    </div>
-    <button class="btn" @click.prevent="addColumn">Add Column</button>
+  <div class="buildamic-row">
+    <template v-for="(column, columnKey) in columns">
+      <b-column :key="columnKey" :column="column" />
+    </template>
+    <row-controls />
+    <column-selector
+      :columns="columns"
+      :name="row.uuid + '-column-layouts'"
+    ></column-selector>
+    <button @click="$modals.open(row.uuid + '-column-layouts')">
+      Open Col
+    </button>
   </div>
 </template>
 
@@ -21,10 +18,11 @@
 
 <script>
 import { v4 as uuidv4 } from "uuid";
-import BColumn from "./BColumn.vue";
-
+import BColumn from "../columns/BColumn.vue";
+import RowControls from "./RowControls.vue";
+import ColumnSelector from "./ColumnSelector.vue";
 export default {
-  components: { BColumn },
+  components: { BColumn, RowControls, ColumnSelector },
 
   props: {
     row: {
@@ -34,7 +32,10 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      columns: this.row.columns ?? [],
+      rowID: this.row.uuid,
+    };
   },
 
   methods: {
@@ -53,6 +54,8 @@ export default {
       //this.update(this.value);
     },
   },
+
+  provide() {},
 
   //   mounted() {
   //     //console.log(uuidv4());

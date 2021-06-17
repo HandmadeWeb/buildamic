@@ -5,30 +5,23 @@
     ghost-class="ghost"
     class="buildamic-column"
   >
-    <div
-      v-for="(field, fieldKey) in column.fields"
-      :key="fieldKey"
-      class="py-2"
-    >
-      <div class="p-5 bg-red" :class="[`${field.config.type}-fieldtype`]">
-        Field {{ field.uuid }}
-        <component
-          :is="fieldtypeComponent(field.config.handle)"
-          :config="fields.where('handle', field.config.handle).first()"
-          :value="field.value"
-          :meta="field.meta"
-          :handle="field.config.handle"
-          @input="updateField(fieldKey, $event)"
-          @meta-updated="$emit('meta-updated', $event)"
-          @focus="$emit('focus')"
-          @blur="$emit('blur')"
-        />
-
-        <button class="btn" v-on:click="removeField(fieldKey)">
-          Remove Field
-        </button>
-      </div>
-    </div>
+    <template v-for="(field, fieldKey) in column.fields" class="py-2">
+      <component
+        :key="fieldKey"
+        :is="fieldtypeComponent(field.config.handle)"
+        :config="fields.where('handle', field.config.handle).first()"
+        :value="field.value"
+        :meta="field.meta"
+        :handle="field.config.handle"
+        @input="updateField(fieldKey, $event)"
+        @meta-updated="$emit('meta-updated', $event)"
+        @focus="$emit('focus')"
+        @blur="$emit('blur')"
+      />
+    </template>
+    <button class="btn" v-on:click="removeField(fieldKey)">
+      Remove Field
+    </button>
     <button class="btn" @click="isSelectingNewField = true">Add Field</button>
     <stack
       name="field-stack"
