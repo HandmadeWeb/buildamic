@@ -34,6 +34,36 @@ class BuildamicFieldType extends Fieldtype
         return [];
     }
 
+    public function preload()
+    {
+        $instance = $this;
+
+        return [
+            'fields' => collect($this->fields()->all())->map(function ($field) {
+                return [
+                    'handle' => $field->handle(),
+                    'meta' => $field->meta(),
+                    'value' => $field->fieldtype()->preProcess($field->defaultValue()),
+                    'config' => $field->config(),
+                ];
+            })->toArray(),
+            'fieldsets' => collect($this->config('sets'))->map(function ($fieldset, $handle) use ($instance) {
+                $fields = [];
+
+                foreach ($instance->fieldset($handle)->all() as $field) {
+                    $fields[] = [
+                        'handle' => $field->handle(),
+                        'meta' => $field->meta(),
+                        'value' => $field->fieldtype()->preProcess($field->defaultValue()),
+                        'config' => $field->config(),
+                    ];
+                }
+
+                return $fields;
+            })->toArray(),
+        ];
+    }
+
     /**
      * Pre-process the data before it gets sent to the publish page.
      *
@@ -57,7 +87,29 @@ class BuildamicFieldType extends Fieldtype
      */
     public function process($data)
     {
-        return $data;
+        return collect($data)->map(function ($section) {
+            $section['value'] = collect($section['value'])->map(function ($row) {
+                $row['value'] = collect($row['value'])->map(function ($column) {
+                    $column['value'] = collect($column['value'])->map(function ($field) {
+                        if ($field['type'] === 'field') {
+                            $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->process()->value();
+                        } elseif ($field['type'] === 'fieldset') {
+                            $field['value'] = $this->fieldset($field['config']['handle'])->all()->map(function ($item) use ($field) {
+                                return $item->setValue($field['value'][$item->handle()])->process()->value();
+                            })->toArray();
+                        }
+
+                        return $field;
+                    })->toArray();
+
+                    return $column;
+                })->toArray();
+
+                return $row;
+            })->toArray();
+
+            return $section;
+        })->toArray();
     }
 
     public function augment($value)
@@ -72,8 +124,6 @@ class BuildamicFieldType extends Fieldtype
 
     private function performAugmentation($value, $shallow = false)
     {
-        //$method = $shallow ? 'shallowAugment' : 'augment';
-
         return new BuildamicRenderer($this, $value, $shallow);
     }
 
@@ -82,7 +132,7 @@ class BuildamicFieldType extends Fieldtype
         return new Fields($this->config('fields'), $this->field()->parent(), $this->field());
     }
 
-    public function fieldset($setHandle)
+    public function fieldset(string $setHandle)
     {
         return new Fields($this->config("sets.{$setHandle}.fields"), $this->field()->parent(), $this->field());
     }
