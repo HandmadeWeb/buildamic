@@ -61,8 +61,8 @@ class BuildamicRenderer
 
     public function renderField(array $field)
     {
-        if ($field['type'] === 'fieldset') {
-            return $this->renderFieldSet($field);
+        if ($field['type'] === 'set') {
+            return $this->renderSet($field);
         }
 
         $viewPrefix = 'buildamic::blade';
@@ -88,19 +88,19 @@ class BuildamicRenderer
         return view($view, array_merge(['buildamic' => $this, 'field' => $field], $additionalData));
     }
 
-    public function renderFieldSet(array $fieldset)
+    public function renderSet(array $set)
     {
-        if ($fieldset['type'] === 'field') {
-            return $this->renderField($fieldset);
+        if ($set['type'] === 'field') {
+            return $this->renderField($set);
         }
 
         $viewPrefix = 'buildamic::blade';
-        $fieldHandle = $fieldset['config']['handle'];
-        $view = "{$viewPrefix}.fieldsets.{$fieldHandle}";
+        $fieldHandle = $set['config']['handle'];
+        $view = "{$viewPrefix}.sets.{$fieldHandle}";
 
         if (! view()->exists($view)) {
             $buildamic_html = '';
-            foreach ($fieldset['value'] as $field) {
+            foreach ($set['value'] as $field) {
                 $buildamic_html .= $this->renderField($field);
             }
 
@@ -110,6 +110,6 @@ class BuildamicRenderer
         //$additionalData = $this->additionalData($field->get('value'));
         $additionalData = [];
 
-        return view($view, array_merge(['buildamic' => $this, 'fieldset' => $fieldset], $additionalData));
+        return view($view, array_merge(['buildamic' => $this, 'set' => $set], $additionalData));
     }
 }

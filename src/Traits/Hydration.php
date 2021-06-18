@@ -42,8 +42,8 @@ trait Hydration
         return collect($fields)->map(function ($field) {
             if ($field['type'] === 'field') {
                 $field['value'] = $this->hydrateField($field);
-            } elseif ($field['type'] === 'fieldset') {
-                $field['value'] = $this->hydrateFieldSet($field);
+            } elseif ($field['type'] === 'set') {
+                $field['value'] = $this->hydrateSet($field);
             }
 
             return $field;
@@ -52,8 +52,8 @@ trait Hydration
 
     protected function hydrateField(array $field, array $config = [])
     {
-        if ($field['type'] === 'fieldset') {
-            return $this->hydrateFieldSet($field);
+        if ($field['type'] === 'set') {
+            return $this->hydrateSet($field);
         }
 
         if (! empty($field['config']['handle'])) {
@@ -69,18 +69,18 @@ trait Hydration
         return $field['value'];
     }
 
-    protected function hydrateFieldSet(array $fieldset)
+    protected function hydrateSet(array $set)
     {
-        if ($fieldset['type'] === 'field') {
-            return $this->hydrateField($fieldset);
+        if ($set['type'] === 'field') {
+            return $this->hydrateField($set);
         }
 
-        if (! empty($fieldset['config']['handle'])) {
+        if (! empty($set['config']['handle'])) {
             $fields = [];
-            $config = collect($this->instance->config("sets.{$fieldset['config']['handle']}.fields"));
-            foreach ($fieldset['value'] as $handle => $value) {
+            $config = collect($this->instance->config("sets.{$set['config']['handle']}.fields"));
+            foreach ($set['value'] as $handle => $value) {
                 $field = [
-                    'uuid' => "{$fieldset['uuid']}-{$fieldset['config']['handle']}-{$handle}",
+                    'uuid' => "{$set['uuid']}-{$set['config']['handle']}-{$handle}",
                     'type' => 'field',
                     'config' => [
                         'type' => $config->where('handle', $handle)->pluck('field')->first()['type'],
@@ -97,6 +97,6 @@ trait Hydration
             return $fields;
         }
 
-        return $fieldset['value'];
+        return $set['value'];
     }
 }
