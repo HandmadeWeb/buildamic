@@ -44,52 +44,21 @@ export default {
 
   provide() {
     return {
-      fields: collect(this.config.fields),
-      fieldsets: collect(this.config.sets),
-      meta: collect(this.meta),
-      fieldDefaults: collect(this.meta).map(function(metaVal, metaKey){ 
-        if(metaKey === 'fields'){
-          return collect(metaVal).map(function(field){ 
-            return collect(field);
-          });
-        } else if(metaKey === 'fieldsets') {
-          return metaVal;
-        } else {
-          return metaVal;
-        }
-      }),
-    }
+      fieldDefaults: this.meta,
+    };
   },
 
   methods: {
-
-    recursiveCollect(collection){
-      if (typeof collection === 'object' && collection.map) {
-          return collection.map(value => {
-              if (typeof value === 'array' || typeof value === 'object') {
-                  return this.recursiveCollect(collect(value));
-              }
-
-              return value;
-          });
-      }
-
-      return collection;
-    },
-
     addSection() {
-      this.value.sections.push({
+      this.value.push({
         uuid: uuidv4(),
-        type: 'section',
-        rows: []
+        type: "section",
+        rows: [],
       });
-
-      this.update(this.value);
     },
 
     removeSection(sectionKey) {
-      this.value.sections.splice(sectionKey, 1);
-      this.update(this.value);
+      this.value.splice(sectionKey, 1);
     },
   },
 
@@ -98,7 +67,6 @@ export default {
     // console.log('config:', this.config);
     // console.log('meta:', this.meta);
     // console.log('value:', this.value);
-  }
-
+  },
 };
 </script>

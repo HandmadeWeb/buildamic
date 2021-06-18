@@ -61,6 +61,111 @@ function mergeFn (a, b) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ModuleSelector.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ModuleSelector.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _factories_modules_moduleFactory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../factories/modules/moduleFactory */ "./resources/js/factories/modules/moduleFactory.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    value: Array
+  },
+  data: function data() {
+    return {
+      toggleStack: false
+    };
+  },
+  inject: ["fieldDefaults"],
+  methods: {
+    addField: function addField(field) {
+      var _field$config, _field$meta;
+
+      var MODULE = field.fields ? "Set" : "Field";
+      var VALUE = field.fields ? field.fields : field.value;
+      var CONFIG = (_field$config = field.config) !== null && _field$config !== void 0 ? _field$config : {};
+      var META = (_field$meta = field.meta) !== null && _field$meta !== void 0 ? _field$meta : {};
+      var NEW_FIELD = (0,_factories_modules_moduleFactory__WEBPACK_IMPORTED_MODULE_0__.createModule)(MODULE, {
+        VALUE: VALUE,
+        CONFIG: CONFIG,
+        META: META
+      });
+      this.value.push(NEW_FIELD);
+      console.log(this.value);
+      this.toggleStack = false;
+    },
+    removeField: function removeField(fieldKey) {
+      this.value.splice(fieldKey, 1);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/columns/BColumn.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/columns/BColumn.vue?vue&type=script&lang=js& ***!
@@ -72,9 +177,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/v4.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ModuleSelector_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ModuleSelector.vue */ "./resources/js/components/ModuleSelector.vue");
+/* harmony import */ var _fields_BField_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../fields/BField.vue */ "./resources/js/components/fields/BField.vue");
+/* harmony import */ var _sets_BSet_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../sets/BSet.vue */ "./resources/js/components/sets/BSet.vue");
 //
 //
 //
@@ -92,111 +199,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -219,51 +223,66 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    VueDraggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_0___default())
+    VueDraggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_0___default()),
+    ModuleSelector: _ModuleSelector_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    BField: _fields_BField_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    BSet: _sets_BSet_vue__WEBPACK_IMPORTED_MODULE_3__.default
   },
-  inject: ["fieldDefaults"],
-  methods: {
-    updateField: function updateField(index, newValue) {
-      this.column.value[index].value = newValue;
-    },
-    updateFieldSet: function updateFieldSet(index, subFieldHandle, newValue) {
-      this.column.value[index].value[subFieldHandle] = newValue;
-    },
-    addField: function addField(field) {
-      this.column.value.push({
-        uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_1__.default)(),
-        type: "field",
-        config: {
-          handle: field.config.handle,
-          type: field.config.type
-        },
-        // meta: field.get("meta"),
-        value: field.value
-      });
-      this.isSelectingNewField = false;
-    },
-    addFieldSet: function addFieldSet(handle) {
-      var fieldSet = this.fieldDefaults.fieldsets[handle];
-      this.column.value.push({
-        uuid: (0,uuid__WEBPACK_IMPORTED_MODULE_1__.default)(),
-        type: "fieldset",
-        config: {
-          handle: handle
-        },
-        //meta: defaultmeta,
-        value: fieldSet["value"]
-      });
-      this.isSelectingNewField = false;
-    },
-    removeField: function removeField(fieldKey) {
-      this.column.value.splice(fieldKey, 1);
-    }
-  },
-  mounted: function mounted() {
-    console.log(this.fieldDefaults); // console.log('config:', this.config);
+  mounted: function mounted() {// console.log('config:', this.config);
     // console.log('meta:', this.meta);
     // console.log('value:', this.column);
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/BField.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/BField.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    value: {
+      type: Object,
+      required: true
+    }
+  },
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {
+    console.log(this.value);
+  },
+  inject: ["fieldDefaults"]
 });
 
 /***/ }),
@@ -739,6 +758,40 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sets/BSet.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sets/BSet.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    field: {
+      type: Object,
+      required: true
+    }
+  },
+  data: function data() {
+    return {};
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/buildamic.js":
 /*!***********************************!*\
   !*** ./resources/js/buildamic.js ***!
@@ -917,6 +970,44 @@ var Column = function Column(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/factories/modules/field.js":
+/*!*************************************************!*\
+  !*** ./resources/js/factories/modules/field.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Field": () => (/* binding */ Field)
+/* harmony export */ });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Field = function Field(_ref) {
+  var UUID = _ref.UUID,
+      ADMIN_LABEL = _ref.ADMIN_LABEL,
+      VALUE = _ref.VALUE,
+      _ref$CONFIG = _ref.CONFIG,
+      CONFIG = _ref$CONFIG === void 0 ? {} : _ref$CONFIG,
+      _ref$META = _ref.META,
+      META = _ref$META === void 0 ? {} : _ref$META;
+  this.type = 'field';
+  this.uuid = "".concat(UUID);
+  this.value = VALUE || [];
+  this.meta = META;
+  this.config = _objectSpread(_objectSpread({}, CONFIG), {}, {
+    admin_label: ADMIN_LABEL || this.type
+  });
+};
+
+
+
+/***/ }),
+
 /***/ "./resources/js/factories/modules/moduleFactory.js":
 /*!*********************************************************!*\
   !*** ./resources/js/factories/modules/moduleFactory.js ***!
@@ -932,6 +1023,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./section */ "./resources/js/factories/modules/section.js");
 /* harmony import */ var _row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./row */ "./resources/js/factories/modules/row.js");
 /* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./column */ "./resources/js/factories/modules/column.js");
+/* harmony import */ var _field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./field */ "./resources/js/factories/modules/field.js");
+/* harmony import */ var _set__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./set */ "./resources/js/factories/modules/set.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -942,10 +1035,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
 var module = {
   Section: _section__WEBPACK_IMPORTED_MODULE_1__.Section,
   Row: _row__WEBPACK_IMPORTED_MODULE_2__.Row,
-  Column: _column__WEBPACK_IMPORTED_MODULE_3__.Column
+  Column: _column__WEBPACK_IMPORTED_MODULE_3__.Column,
+  Field: _field__WEBPACK_IMPORTED_MODULE_4__.Field,
+  Set: _set__WEBPACK_IMPORTED_MODULE_5__.Set
 };
 
 var createModule = function createModule(type, attributes) {
@@ -1005,6 +1102,41 @@ var Section = function Section(_ref) {
   this.config = {
     admin_label: ADMIN_LABEL || this.type
   };
+};
+
+
+
+/***/ }),
+
+/***/ "./resources/js/factories/modules/set.js":
+/*!***********************************************!*\
+  !*** ./resources/js/factories/modules/set.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Set": () => (/* binding */ Set)
+/* harmony export */ });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Set = function Set(_ref) {
+  var UUID = _ref.UUID,
+      ADMIN_LABEL = _ref.ADMIN_LABEL,
+      VALUE = _ref.VALUE,
+      _ref$CONFIG = _ref.CONFIG,
+      CONFIG = _ref$CONFIG === void 0 ? {} : _ref$CONFIG;
+  this.type = 'set';
+  this.uuid = "".concat(UUID);
+  this.value = VALUE || [];
+  this.config = _objectSpread(_objectSpread({}, CONFIG), {}, {
+    admin_label: ADMIN_LABEL || this.type
+  });
 };
 
 
@@ -23886,6 +24018,45 @@ var ZoomOutIcon = {
 
 /***/ }),
 
+/***/ "./resources/js/components/ModuleSelector.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/ModuleSelector.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ModuleSelector_vue_vue_type_template_id_16f81016___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModuleSelector.vue?vue&type=template&id=16f81016& */ "./resources/js/components/ModuleSelector.vue?vue&type=template&id=16f81016&");
+/* harmony import */ var _ModuleSelector_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModuleSelector.vue?vue&type=script&lang=js& */ "./resources/js/components/ModuleSelector.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _ModuleSelector_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _ModuleSelector_vue_vue_type_template_id_16f81016___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ModuleSelector_vue_vue_type_template_id_16f81016___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ModuleSelector.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/columns/BColumn.vue":
 /*!*****************************************************!*\
   !*** ./resources/js/components/columns/BColumn.vue ***!
@@ -23921,6 +24092,45 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/columns/BColumn.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/fields/BField.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/fields/BField.vue ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _BField_vue_vue_type_template_id_1f4dceb3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BField.vue?vue&type=template&id=1f4dceb3& */ "./resources/js/components/fields/BField.vue?vue&type=template&id=1f4dceb3&");
+/* harmony import */ var _BField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BField.vue?vue&type=script&lang=js& */ "./resources/js/components/fields/BField.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _BField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _BField_vue_vue_type_template_id_1f4dceb3___WEBPACK_IMPORTED_MODULE_0__.render,
+  _BField_vue_vue_type_template_id_1f4dceb3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/fields/BField.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -24161,6 +24371,61 @@ component.options.__file = "resources/js/components/sections/SectionControls.vue
 
 /***/ }),
 
+/***/ "./resources/js/components/sets/BSet.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/sets/BSet.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _BSet_vue_vue_type_template_id_3ad3bb03___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BSet.vue?vue&type=template&id=3ad3bb03& */ "./resources/js/components/sets/BSet.vue?vue&type=template&id=3ad3bb03&");
+/* harmony import */ var _BSet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BSet.vue?vue&type=script&lang=js& */ "./resources/js/components/sets/BSet.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _BSet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _BSet_vue_vue_type_template_id_3ad3bb03___WEBPACK_IMPORTED_MODULE_0__.render,
+  _BSet_vue_vue_type_template_id_3ad3bb03___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/sets/BSet.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ModuleSelector.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/ModuleSelector.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModuleSelector_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ModuleSelector.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ModuleSelector.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModuleSelector_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/columns/BColumn.vue?vue&type=script&lang=js&":
 /*!******************************************************************************!*\
   !*** ./resources/js/components/columns/BColumn.vue?vue&type=script&lang=js& ***!
@@ -24174,6 +24439,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BColumn_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BColumn.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/columns/BColumn.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BColumn_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/fields/BField.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/fields/BField.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BField.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/BField.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -24273,6 +24554,39 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/sets/BSet.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/sets/BSet.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BSet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BSet.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sets/BSet.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BSet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ModuleSelector.vue?vue&type=template&id=16f81016&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/ModuleSelector.vue?vue&type=template&id=16f81016& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModuleSelector_vue_vue_type_template_id_16f81016___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModuleSelector_vue_vue_type_template_id_16f81016___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModuleSelector_vue_vue_type_template_id_16f81016___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ModuleSelector.vue?vue&type=template&id=16f81016& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ModuleSelector.vue?vue&type=template&id=16f81016&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/columns/BColumn.vue?vue&type=template&id=fa9700ea&scoped=true&":
 /*!************************************************************************************************!*\
   !*** ./resources/js/components/columns/BColumn.vue?vue&type=template&id=fa9700ea&scoped=true& ***!
@@ -24286,6 +24600,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BColumn_vue_vue_type_template_id_fa9700ea_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BColumn_vue_vue_type_template_id_fa9700ea_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BColumn.vue?vue&type=template&id=fa9700ea&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/columns/BColumn.vue?vue&type=template&id=fa9700ea&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/fields/BField.vue?vue&type=template&id=1f4dceb3&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/fields/BField.vue?vue&type=template&id=1f4dceb3& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BField_vue_vue_type_template_id_1f4dceb3___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BField_vue_vue_type_template_id_1f4dceb3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BField_vue_vue_type_template_id_1f4dceb3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BField.vue?vue&type=template&id=1f4dceb3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/BField.vue?vue&type=template&id=1f4dceb3&");
 
 
 /***/ }),
@@ -24392,6 +24723,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/sets/BSet.vue?vue&type=template&id=3ad3bb03&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/sets/BSet.vue?vue&type=template&id=3ad3bb03& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BSet_vue_vue_type_template_id_3ad3bb03___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BSet_vue_vue_type_template_id_3ad3bb03___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BSet_vue_vue_type_template_id_3ad3bb03___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BSet.vue?vue&type=template&id=3ad3bb03& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sets/BSet.vue?vue&type=template&id=3ad3bb03&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/rows/ColumnSelector.vue?vue&type=style&index=0&id=b198e620&scoped=true&lang=css&":
 /*!******************************************************************************************************************!*\
   !*** ./resources/js/components/rows/ColumnSelector.vue?vue&type=style&index=0&id=b198e620&scoped=true&lang=css& ***!
@@ -24405,6 +24753,164 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ColumnSelector_vue_vue_type_style_index_0_id_b198e620_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ColumnSelector_vue_vue_type_style_index_0_id_b198e620_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ModuleSelector.vue?vue&type=template&id=16f81016&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ModuleSelector.vue?vue&type=template&id=16f81016& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "module-selector" },
+    [
+      _c(
+        "button",
+        {
+          staticClass: "btn",
+          on: {
+            click: function($event) {
+              _vm.toggleStack = true
+            }
+          }
+        },
+        [_vm._v("Add Field")]
+      ),
+      _vm._v(" "),
+      _vm.toggleStack
+        ? _c(
+            "stack",
+            {
+              attrs: { name: "field-stack" },
+              on: {
+                closed: function($event) {
+                  _vm.toggleStack = false
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "h-full bg-white overflow-auto" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-grey-20 px-3 py-1 border-b border-grey-30 text-lg font-medium flex items-center justify-between"
+                  },
+                  [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.__("Fieldtypes")) + "\n        "
+                    ),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn-close",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.toggleStack = false
+                          }
+                        }
+                      },
+                      [_vm._v("\n          ×\n        ")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "p-3 pt-0" }, [
+                  _c("div", { staticClass: "fieldtype-selector" }, [
+                    _c(
+                      "div",
+                      { staticClass: "fieldtype-list" },
+                      [
+                        _vm._l(_vm.fieldDefaults.fields, function(field, key) {
+                          return _c("div", { key: key, staticClass: "p-1" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "border flex items-center group w-full rounded shadow-sm py-1 px-2",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.addField(field)
+                                  }
+                                }
+                              },
+                              [
+                                _c("svg-icon", {
+                                  staticClass:
+                                    "h-4 w-4 text-grey-80 group-hover:text-blue",
+                                  attrs: { name: field.config.icon }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "pl-2 text-grey-80 group-hover:text-blue"
+                                  },
+                                  [_vm._v(_vm._s(_vm.__(field.config.display)))]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _vm._l(_vm.fieldDefaults.sets, function(field, key) {
+                          return _c("div", { key: key, staticClass: "p-1" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "border flex items-center group w-full rounded shadow-sm py-1 px-2",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.addField(field)
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "pl-2 text-grey-80 group-hover:text-blue"
+                                  },
+                                  [_vm._v(_vm._s(_vm.__(key)))]
+                                )
+                              ]
+                            )
+                          ])
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
 
 
 /***/ }),
@@ -24439,144 +24945,77 @@ var render = function() {
           }
         },
         [
-          _vm._l(_vm.column.value, function(field, fieldKey) {
+          _vm._l(_vm.column.value, function(field) {
             return [
-              field.type === "field"
-                ? _c(
-                    "div",
-                    {
-                      key: field.uuid,
-                      staticClass: "p-5 bg-red",
-                      class: [field.config.type + "-fieldtype"]
-                    },
-                    [
-                      _c(field.config.handle + "-fieldtype", {
-                        tag: "component",
-                        attrs: {
-                          config: field.config,
-                          value: field.value,
-                          meta: field.meta,
-                          handle: field.config.handle
-                        },
-                        on: {
-                          input: function($event) {
-                            return _vm.updateField(fieldKey, $event)
-                          },
-                          "meta-updated": function($event) {
-                            return _vm.$emit("meta-updated", $event)
-                          },
-                          focus: function($event) {
-                            return _vm.$emit("focus")
-                          },
-                          blur: function($event) {
-                            return _vm.$emit("blur")
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn",
-                          on: {
-                            click: function($event) {
-                              return _vm.removeField(fieldKey)
-                            }
-                          }
-                        },
-                        [_vm._v("\n          Remove Field\n        ")]
-                      )
-                    ],
-                    1
-                  )
-                : _c(
-                    "div",
-                    { key: field.uuid, staticClass: "p-5 bg-red" },
-                    [
-                      _vm._v(
-                        "\n        Field Set " +
-                          _vm._s(field.uuid) +
-                          "\n\n        "
-                      ),
-                      _vm._l(
-                        _vm.fieldDefaults.fieldsets[field.config.handle][
-                          "config"
-                        ]["fields"],
-                        function(subField, subFieldKey) {
-                          return _c(
-                            "div",
-                            { key: subFieldKey, staticClass: "p-5 bg-blue" },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "p-5 bg-purple",
-                                  class: [subField.field.type + "-fieldtype"]
-                                },
-                                [
-                                  _vm._v(
-                                    "\n            Field " +
-                                      _vm._s(subField.field.display) +
-                                      "\n\n            "
-                                  ),
-                                  _c(subField.field.type + "-fieldtype", {
-                                    tag: "component",
-                                    attrs: {
-                                      config: subField.field,
-                                      value: field.value[subField.handle],
-                                      meta:
-                                        _vm.fieldDefaults.fieldsets[
-                                          field.config.handle
-                                        ]["meta"][subField.handle],
-                                      handle: subField.handle
-                                    },
-                                    on: {
-                                      input: function($event) {
-                                        return _vm.updateFieldSet(
-                                          fieldKey,
-                                          subField.handle,
-                                          $event
-                                        )
-                                      },
-                                      "meta-updated": function($event) {
-                                        return _vm.$emit("meta-updated", $event)
-                                      },
-                                      focus: function($event) {
-                                        return _vm.$emit("focus")
-                                      },
-                                      blur: function($event) {
-                                        return _vm.$emit("blur")
-                                      }
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ]
-                          )
-                        }
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn",
-                          on: {
-                            click: function($event) {
-                              return _vm.removeField(fieldKey)
-                            }
-                          }
-                        },
-                        [_vm._v("\n          Remove FieldSet\n        ")]
-                      )
-                    ],
-                    2
-                  )
+              _c("b-" + field.type, {
+                key: field.uuid,
+                tag: "component",
+                attrs: { field: field }
+              })
             ]
           })
         ],
         2
       ),
+      _vm._v(" "),
+      _c("module-selector", { attrs: { value: _vm.column.value } })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/BField.vue?vue&type=template&id=1f4dceb3&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/BField.vue?vue&type=template&id=1f4dceb3& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "buildamic-field p-5 bg-red",
+      class: [_vm.value.config.type + "-fieldtype"]
+    },
+    [
+      _c(_vm.value.config.type + "-fieldtype", {
+        tag: "component",
+        attrs: {
+          config: _vm.value.config,
+          value: _vm.value.value,
+          meta: _vm.value.meta,
+          handle: _vm.value.config.handle
+        },
+        on: {
+          input: function($event) {
+            return _vm.updateField(_vm.fieldKey, $event)
+          },
+          "meta-updated": function($event) {
+            return _vm.$emit("meta-updated", $event)
+          },
+          focus: function($event) {
+            return _vm.$emit("focus")
+          },
+          blur: function($event) {
+            return _vm.$emit("blur")
+          }
+        }
+      }),
       _vm._v(" "),
       _c(
         "button",
@@ -24584,98 +25023,12 @@ var render = function() {
           staticClass: "btn",
           on: {
             click: function($event) {
-              _vm.isSelectingNewField = true
+              return _vm.removeField(_vm.fieldKey)
             }
           }
         },
-        [_vm._v("Add Field")]
-      ),
-      _vm._v(" "),
-      _vm.isSelectingNewField
-        ? _c(
-            "stack",
-            {
-              attrs: { name: "field-stack" },
-              on: {
-                closed: function($event) {
-                  _vm.isSelectingNewField = false
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "h-full bg-white overflow-auto" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "bg-grey-20 px-3 py-1 border-b border-grey-30 text-lg font-medium flex items-center justify-between"
-                  },
-                  [
-                    _vm._v(
-                      "\n        " + _vm._s(_vm.__("Fieldtypes")) + "\n        "
-                    ),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn-close",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.isSelectingNewField = false
-                          }
-                        }
-                      },
-                      [_vm._v("\n          ×\n        ")]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "p-3 pt-0" }, [
-                  _c("div", { staticClass: "fieldtype-selector" }, [
-                    _c(
-                      "div",
-                      { staticClass: "fieldtype-list" },
-                      _vm._l(_vm.fieldDefaults.fields, function(field, key) {
-                        return _c("div", { key: key, staticClass: "p-1" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass:
-                                "border flex items-center group w-full rounded shadow-sm py-1 px-2",
-                              on: {
-                                click: function($event) {
-                                  return _vm.addField(field)
-                                }
-                              }
-                            },
-                            [
-                              _c("svg-icon", {
-                                staticClass:
-                                  "h-4 w-4 text-grey-80 group-hover:text-blue",
-                                attrs: { name: field.config.icon }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "span",
-                                {
-                                  staticClass:
-                                    "pl-2 text-grey-80 group-hover:text-blue"
-                                },
-                                [_vm._v(_vm._s(_vm.__(field.config.display)))]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      }),
-                      0
-                    )
-                  ])
-                ])
-              ])
-            ]
-          )
-        : _vm._e()
+        [_vm._v("\n    Remove Field\n  ")]
+      )
     ],
     1
   )
@@ -25115,6 +25468,41 @@ var render = function() {
         1
       )
     ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sets/BSet.vue?vue&type=template&id=3ad3bb03&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sets/BSet.vue?vue&type=template&id=3ad3bb03& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "buildamic-set p-5 bg-red",
+      class: [_vm.field.config.type + "-fieldtype"]
+    },
+    _vm._l(_vm.field.fields, function(field) {
+      return _c("b-field", { key: field.uuid, attrs: { field: field } })
+    }),
+    1
   )
 }
 var staticRenderFns = []

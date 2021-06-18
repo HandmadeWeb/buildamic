@@ -47,11 +47,15 @@ class BuildamicFieldType extends Fieldtype
                     'config' => $field->config(),
                 ];
             })->toArray(),
-            'fieldsets' => collect($this->config('sets'))->map(function ($fieldset, $handle) use ($instance) {
-                $fields = [];
+            'sets' => collect($this->config('sets'))->map(function ($set, $handle) use ($instance) {
+                $fields = [
+                    'handle' => $handle,
+                    'display' => $set['display'],
+                    'fields' => [],
+                ];
 
                 foreach ($instance->fieldset($handle)->all() as $field) {
-                    $fields[] = [
+                    $fields['fields'][] = [
                         'handle' => $field->handle(),
                         'meta' => $field->meta(),
                         'value' => $field->fieldtype()->preProcess($field->defaultValue()),
