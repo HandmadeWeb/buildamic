@@ -1,40 +1,52 @@
 <template>
-  <div class="buildamic-fieldtype-container">
-    <div v-for="(section, sectionKey) in value" :key="sectionKey" class="py-2"> 
-      <div class="p-5 bg-blue">
-        <buildamic-section :value="section" />
-        <button class="btn" v-on:click="removeSection(sectionKey)">Remove Section</button>
-      </div>
-    </div>    
-    
-    <button class="btn" @click.prevent="addSection">Add Section</button>
+  <div class="buildamic-fieldtype">
+    <vue-draggable
+      :list="sections"
+      :group="{ name: 'sections' }"
+      ghost-class="ghost"
+      class="flex flex-col gap-3"
+    >
+      <b-section
+        v-for="(section, sectionIndex) in sections"
+        :key="section.uuid"
+        :section="section"
+      >
+        <section-controls :value="sections" :index="sectionIndex"
+      /></b-section>
+    </vue-draggable>
+    <section-controls :value="sections" v-if="!sections.length" />
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
 
 <script>
-import { v4 as uuidv4 } from 'uuid';
-import collect from 'collect.js';
-import BuildamicSection from '../BuildamicSection.vue';
+import Fieldtype from "./fieldtype";
+import collect from "collect.js";
+import BSection from "../sections/BSection.vue";
+import SectionControls from "../sections/SectionControls.vue";
+import VueDraggable from "vuedraggable";
 
 export default {
-  mixins: [
-    Fieldtype
-  ],
-  
-  components: { 
-    BuildamicSection 
+  mixins: [Fieldtype],
+
+  components: {
+    BSection,
+    SectionControls,
+    VueDraggable,
   },
 
   data() {
-    return {};
+    return {
+      sections: this.value.value ?? [],
+    };
   },
 
   provide() {
     return {
+      fields: collect(this.config.fields),
+      fieldsets: collect(this.config.sets),
+      meta: collect(this.meta),
       fieldDefaults: collect(this.meta).map(function(metaVal, metaKey){ 
         if(metaKey === 'fields'){
           return collect(metaVal).map(function(field){ 
@@ -66,23 +78,27 @@ export default {
     },
 
     addSection() {
-      this.value.push({
+      this.value.sections.push({
         uuid: uuidv4(),
         type: 'section',
-        value: []
+        rows: []
       });
 
-      //this.update(this.value);
+      this.update(this.value);
     },
 
     removeSection(sectionKey) {
-      this.value.splice(sectionKey, 1);
-
-      //this.update(this.value);
+      this.value.sections.splice(sectionKey, 1);
+      this.update(this.value);
     },
   },
 
-  mounted() {}
+  mounted() {
+    //console.log(uuidv4());
+    // console.log('config:', this.config);
+    // console.log('meta:', this.meta);
+    // console.log('value:', this.value);
+  }
 
 };
 </script>
