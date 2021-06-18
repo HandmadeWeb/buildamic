@@ -86,7 +86,29 @@ class BuildamicFieldType extends Fieldtype
             return $this->defaultValue();
         }
 
-        return $data;
+        return collect($data)->map(function ($section) {
+            $section['value'] = collect($section['value'])->map(function ($row) {
+                $row['value'] = collect($row['value'])->map(function ($column) {
+                    $column['value'] = collect($column['value'])->map(function ($field) {
+                        if ($field['type'] === 'field') {
+                            $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->preProcess()->value();
+                        } elseif ($field['type'] === 'set') {
+                            $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
+                                return $item->setValue($field['value'][$item->handle()])->preProcess()->value();
+                            })->toArray();
+                        }
+
+                        return $field;
+                    })->toArray();
+
+                    return $column;
+                })->toArray();
+
+                return $row;
+            })->toArray();
+
+            return $section;
+        })->toArray();
     }
 
     /**
