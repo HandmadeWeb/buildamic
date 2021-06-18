@@ -38,7 +38,7 @@ export default {
 
   data() {
     return {
-      sections: this.value.value ?? [],
+      sections: this.value ?? [],
     };
   },
 
@@ -46,20 +46,6 @@ export default {
     return {
       fieldDefaults: this.meta,
     };
-  },
-
-  methods: {
-    addSection() {
-      this.value.push({
-        uuid: uuidv4(),
-        type: "section",
-        rows: [],
-      });
-    },
-
-    removeSection(sectionKey) {
-      this.value.splice(sectionKey, 1);
-    },
   },
 
   mounted() {

@@ -340,28 +340,16 @@ __webpack_require__.r(__webpack_exports__);
     VueDraggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_4___default())
   },
   data: function data() {
-    var _this$value$value;
+    var _this$value;
 
     return {
-      sections: (_this$value$value = this.value.value) !== null && _this$value$value !== void 0 ? _this$value$value : []
+      sections: (_this$value = this.value) !== null && _this$value !== void 0 ? _this$value : []
     };
   },
   provide: function provide() {
     return {
       fieldDefaults: this.meta
     };
-  },
-  methods: {
-    addSection: function addSection() {
-      this.value.push({
-        uuid: uuidv4(),
-        type: "section",
-        rows: []
-      });
-    },
-    removeSection: function removeSection(sectionKey) {
-      this.value.splice(sectionKey, 1);
-    }
   },
   mounted: function mounted() {//console.log(uuidv4());
     // console.log('config:', this.config);
