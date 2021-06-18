@@ -1,10 +1,13 @@
-const Field = function ({ UUID, ADMIN_LABEL, VALUE, CONFIG = {}, META = {} }) {
+const Field = function ({ ADMIN_LABEL, CONFIG = {}, HANDLE, META = {}, VALUE, UUID, }) {
+
+    console.log(VALUE)
     this.type = 'field'
     this.uuid = `${UUID}`
-    this.value = VALUE || []
-    this.meta = META
+    this.value = VALUE
+    // this.meta = META
     this.config = {
-        ...CONFIG,
+        type: CONFIG.type,
+        handle: HANDLE,
         admin_label: ADMIN_LABEL || this.type
     }
 }

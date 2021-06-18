@@ -1,15 +1,15 @@
 <template>
   <div class="buildamic-column" :class="columnClass">
     <vue-draggable
-      :list="column.value"
+      :list="fields"
       :group="{ name: 'columns' }"
       ghost-class="ghost"
     >
-      <template v-for="field in column.value" class="py-2">
+      <template v-for="field in fields" class="py-2">
         <component :is="`b-${field.type}`" :key="field.uuid" :field="field" />
       </template>
     </vue-draggable>
-    <module-selector :value="column.value" />
+    <module-selector :value="fields" />
   </div>
 </template>
 
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       isSelectingNewField: false,
+      fields: this.column.value,
     };
   },
 

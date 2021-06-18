@@ -42,6 +42,15 @@ export default {
     };
   },
 
+  watch: {
+    value: {
+      handler(val) {
+        console.log({ val });
+      },
+      deep: true,
+    },
+  },
+
   provide() {
     return {
       fieldDefaults: this.meta,

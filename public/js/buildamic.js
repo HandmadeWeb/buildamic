@@ -149,13 +149,15 @@ __webpack_require__.r(__webpack_exports__);
       var VALUE = field.fields ? field.fields : field.value;
       var CONFIG = (_field$config = field.config) !== null && _field$config !== void 0 ? _field$config : {};
       var META = (_field$meta = field.meta) !== null && _field$meta !== void 0 ? _field$meta : {};
+      var HANDLE = field.handle;
       var NEW_FIELD = (0,_factories_modules_moduleFactory__WEBPACK_IMPORTED_MODULE_0__.createModule)(MODULE, {
-        VALUE: VALUE,
         CONFIG: CONFIG,
-        META: META
+        META: META,
+        VALUE: VALUE,
+        HANDLE: HANDLE
       });
       this.value.push(NEW_FIELD);
-      console.log(this.value);
+      console.log(NEW_FIELD);
       this.toggleStack = false;
     },
     removeField: function removeField(fieldKey) {
@@ -212,7 +214,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      isSelectingNewField: false
+      isSelectingNewField: false,
+      fields: this.column.value
     };
   },
   computed: {
@@ -271,7 +274,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    value: {
+    field: {
       type: Object,
       required: true
     }
@@ -279,9 +282,15 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   },
-  mounted: function mounted() {
-    console.log(this.value);
+  methods: {
+    updateField: function updateField(key, val) {
+      console.log(val);
+      key.value = val;
+    }
   },
+  //   mounted() {
+  //     console.log("Field", this.field);
+  //   },
   inject: ["fieldDefaults"]
 });
 
@@ -346,6 +355,16 @@ __webpack_require__.r(__webpack_exports__);
       sections: (_this$value = this.value) !== null && _this$value !== void 0 ? _this$value : []
     };
   },
+  watch: {
+    value: {
+      handler: function handler(val) {
+        console.log({
+          val: val
+        });
+      },
+      deep: true
+    }
+  },
   provide: function provide() {
     return {
       fieldDefaults: this.meta
@@ -392,7 +411,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
@@ -969,27 +987,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Field": () => (/* binding */ Field)
 /* harmony export */ });
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var Field = function Field(_ref) {
-  var UUID = _ref.UUID,
-      ADMIN_LABEL = _ref.ADMIN_LABEL,
-      VALUE = _ref.VALUE,
+  var ADMIN_LABEL = _ref.ADMIN_LABEL,
       _ref$CONFIG = _ref.CONFIG,
       CONFIG = _ref$CONFIG === void 0 ? {} : _ref$CONFIG,
+      HANDLE = _ref.HANDLE,
       _ref$META = _ref.META,
-      META = _ref$META === void 0 ? {} : _ref$META;
+      META = _ref$META === void 0 ? {} : _ref$META,
+      VALUE = _ref.VALUE,
+      UUID = _ref.UUID;
+  console.log(VALUE);
   this.type = 'field';
   this.uuid = "".concat(UUID);
-  this.value = VALUE || [];
-  this.meta = META;
-  this.config = _objectSpread(_objectSpread({}, CONFIG), {}, {
+  this.value = VALUE; // this.meta = META
+
+  this.config = {
+    type: CONFIG.type,
+    handle: HANDLE,
     admin_label: ADMIN_LABEL || this.type
-  });
+  };
 };
 
 
@@ -24927,13 +24943,13 @@ var render = function() {
         "vue-draggable",
         {
           attrs: {
-            list: _vm.column.value,
+            list: _vm.fields,
             group: { name: "columns" },
             "ghost-class": "ghost"
           }
         },
         [
-          _vm._l(_vm.column.value, function(field) {
+          _vm._l(_vm.fields, function(field) {
             return [
               _c("b-" + field.type, {
                 key: field.uuid,
@@ -24946,7 +24962,7 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _c("module-selector", { attrs: { value: _vm.column.value } })
+      _c("module-selector", { attrs: { value: _vm.fields } })
     ],
     1
   )
@@ -24978,20 +24994,20 @@ var render = function() {
     "div",
     {
       staticClass: "buildamic-field p-5 bg-red",
-      class: [_vm.value.config.type + "-fieldtype"]
+      class: [_vm.field.config.type + "-fieldtype"]
     },
     [
-      _c(_vm.value.config.type + "-fieldtype", {
+      _c(_vm.field.config.type + "-fieldtype", {
         tag: "component",
         attrs: {
-          config: _vm.value.config,
-          value: _vm.value.value,
-          meta: _vm.value.meta,
-          handle: _vm.value.config.handle
+          config: _vm.fieldDefaults.fields[_vm.field.config.handle].config,
+          value: _vm.field.value,
+          meta: _vm.fieldDefaults.fields[_vm.field.config.handle].meta,
+          handle: _vm.field.config.handle
         },
         on: {
           input: function($event) {
-            return _vm.updateField(_vm.fieldKey, $event)
+            return _vm.updateField(_vm.field, $event)
           },
           "meta-updated": function($event) {
             return _vm.$emit("meta-updated", $event)

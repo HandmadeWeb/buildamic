@@ -17,7 +17,6 @@
 <style scoped></style>
 
 <script>
-import { v4 as uuidv4 } from "uuid";
 import BColumn from "../columns/BColumn.vue";
 import RowControls from "./RowControls.vue";
 import ColumnSelector from "./ColumnSelector.vue";

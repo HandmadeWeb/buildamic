@@ -73,11 +73,12 @@ export default {
       const VALUE = field.fields ? field.fields : field.value;
       const CONFIG = field.config ?? {};
       const META = field.meta ?? {};
-      const NEW_FIELD = createModule(MODULE, { VALUE, CONFIG, META });
+      const HANDLE = field.handle;
+      const NEW_FIELD = createModule(MODULE, { CONFIG, META, VALUE, HANDLE });
 
       this.value.push(NEW_FIELD);
 
-      console.log(this.value);
+      console.log(NEW_FIELD);
 
       this.toggleStack = false;
     },

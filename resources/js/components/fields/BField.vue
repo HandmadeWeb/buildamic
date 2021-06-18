@@ -1,15 +1,15 @@
 <template>
   <div
     class="buildamic-field p-5 bg-red"
-    :class="[`${value.config.type}-fieldtype`]"
+    :class="[`${field.config.type}-fieldtype`]"
   >
     <component
-      :is="`${value.config.type}-fieldtype`"
-      :config="value.config"
-      :value="value.value"
-      :meta="value.meta"
-      :handle="value.config.handle"
-      @input="updateField(fieldKey, $event)"
+      :is="`${field.config.type}-fieldtype`"
+      :config="fieldDefaults.fields[field.config.handle].config"
+      :value="field.value"
+      :meta="fieldDefaults.fields[field.config.handle].meta"
+      :handle="field.config.handle"
+      @input="updateField(field, $event)"
       @meta-updated="$emit('meta-updated', $event)"
       @focus="$emit('focus')"
       @blur="$emit('blur')"
@@ -23,7 +23,7 @@
 <script>
 export default {
   props: {
-    value: {
+    field: {
       type: Object,
       required: true,
     },
@@ -33,9 +33,16 @@ export default {
     return {};
   },
 
-  mounted() {
-    console.log(this.value);
+  methods: {
+    updateField(key, val) {
+      console.log(val);
+      key.value = val;
+    },
   },
+
+  //   mounted() {
+  //     console.log("Field", this.field);
+  //   },
 
   inject: ["fieldDefaults"],
 };
