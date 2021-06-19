@@ -4,13 +4,16 @@ export function generateID() {
 }
 
 export const recursifyID = (array) => {
-    array.uuid = generateID();
+    console.log(array)
+    if (array && array.uuid) {
+        array.uuid = generateID();
+    }
     if (!Array.isArray(array.value)) {
         return false
     }
     array.value.forEach((el) => {
-        if (el.id || el.id === '') {
-            el.id = generateModuleID(el.type);
+        if (el.uuid || el.uuid === '') {
+            el.uuid = generateID();
         }
         if (!Array.isArray(el.value)) {
             return false

@@ -4,17 +4,17 @@
       :list="sections"
       :group="{ name: 'sections' }"
       ghost-class="ghost"
-      class="flex flex-col gap-3"
+      class="flex flex-col gap-2"
     >
-      <b-section
+      <grid-section
         v-for="(section, sectionIndex) in sections"
         :key="section.uuid"
         :section="section"
-      >
-        <section-controls :value="sections" :index="sectionIndex"
-      /></b-section>
+        :sections="sections"
+        :sectionIndex="sectionIndex"
+      />
     </vue-draggable>
-    <section-controls :value="sections" v-if="!sections.length" />
+    <button @click="addSection" v-if="!sections.length">Add Section</button>
   </div>
 </template>
 
@@ -22,17 +22,15 @@
 
 <script>
 import Fieldtype from "./fieldtype";
-import collect from "collect.js";
-import BSection from "../sections/BSection.vue";
-import SectionControls from "../sections/SectionControls.vue";
+import GridSection from "../sections/GridSection.vue";
 import VueDraggable from "vuedraggable";
+import { createModule } from "../../factories/modules/moduleFactory";
 
 export default {
   mixins: [Fieldtype],
 
   components: {
-    BSection,
-    SectionControls,
+    GridSection,
     VueDraggable,
   },
 
@@ -40,6 +38,13 @@ export default {
     return {
       sections: this.value ?? [],
     };
+  },
+
+  methods: {
+    addSection() {
+      const newModule = createModule("Section");
+      this.sections.push(newModule);
+    },
   },
 
   watch: {
@@ -65,3 +70,35 @@ export default {
   },
 };
 </script>
+
+<style>
+.pulse:hover {
+  border-radius: 50%;
+  animation: pulse 1s 1;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+.list-item {
+  display: inline-block;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.4s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+</style>

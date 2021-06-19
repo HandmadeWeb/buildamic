@@ -1,5 +1,3 @@
-
-
 const Section = function ({ UUID, ADMIN_LABEL }) {
     this.type = 'section'
     this.uuid = `${UUID}`

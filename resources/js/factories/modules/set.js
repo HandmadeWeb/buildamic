@@ -1,10 +1,11 @@
-const Set = function ({ UUID, ADMIN_LABEL, VALUE, CONFIG = {} }) {
+const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {} }) {
     this.type = 'set'
     this.uuid = `${UUID}`
     this.value = VALUE || []
     this.config = {
         ...CONFIG,
-        admin_label: ADMIN_LABEL || this.type
+        handle: HANDLE,
+        admin_label: ADMIN_LABEL || HANDLE
     }
 }
 

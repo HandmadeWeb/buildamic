@@ -1,6 +1,13 @@
 <template>
   <div class="module-selector">
-    <button class="btn" @click="toggleStack = true">Add Field</button>
+    <eva-icon
+      class="flex cursor-pointer text-grey-80 pulse"
+      fill="currentColor"
+      name="plus-circle"
+      width="18"
+      height="18"
+      @click="toggleStack = true"
+    ></eva-icon>
     <stack name="field-stack" v-if="toggleStack" @closed="toggleStack = false">
       <div class="h-full bg-white overflow-auto">
         <div
@@ -40,7 +47,7 @@
               >
                 <a
                   class="border flex items-center group w-full rounded shadow-sm py-1 px-2"
-                  @click="addField(field)"
+                  @click="addField(field, key)"
                 >
                   <span class="pl-2 text-grey-80 group-hover:text-blue">{{
                     __(key)
@@ -56,34 +63,36 @@
 </template>
 
 <script>
+import { EvaIcon } from "vue-eva-icons";
 import { createModule } from "../factories/modules/moduleFactory";
 export default {
   props: {
     value: Array,
+    index: Number,
   },
   data() {
     return {
       toggleStack: false,
     };
   },
+  components: {
+    EvaIcon,
+  },
   inject: ["fieldDefaults"],
   methods: {
-    addField(field) {
+    addField(field, key) {
       const MODULE = field.fields ? "Set" : "Field";
       const VALUE = field.fields ? field.fields : field.value;
       const CONFIG = field.config ?? {};
       const META = field.meta ?? {};
-      const HANDLE = field.handle;
+      const HANDLE = field.handle || key;
       const NEW_FIELD = createModule(MODULE, { CONFIG, META, VALUE, HANDLE });
 
-      this.value.push(NEW_FIELD);
+      console.log({ NEW_FIELD });
 
-      console.log(NEW_FIELD);
+      this.value.splice(this.index + 1, 0, NEW_FIELD);
 
       this.toggleStack = false;
-    },
-    removeField(fieldKey) {
-      this.value.splice(fieldKey, 1);
     },
   },
 };

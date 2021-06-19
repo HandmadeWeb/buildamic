@@ -1,6 +1,4 @@
 const Field = function ({ ADMIN_LABEL, CONFIG = {}, HANDLE, META = {}, VALUE, UUID, }) {
-
-    console.log(VALUE)
     this.type = 'field'
     this.uuid = `${UUID}`
     this.value = VALUE
@@ -8,7 +6,7 @@ const Field = function ({ ADMIN_LABEL, CONFIG = {}, HANDLE, META = {}, VALUE, UU
     this.config = {
         type: CONFIG.type,
         handle: HANDLE,
-        admin_label: ADMIN_LABEL || this.type
+        admin_label: ADMIN_LABEL || HANDLE
     }
 }
 

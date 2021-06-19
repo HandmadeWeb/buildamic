@@ -7,11 +7,11 @@
     :height="'auto'"
     v-cloak
   >
-    <x-icon
+    <eva-icon
       @click="$modals.close(name)"
+      name="close-circle"
       class="text-grey-80 cursor-pointer inset-y-0 m-2 absolute right-0"
-      size="1.5x"
-    ></x-icon>
+    ></eva-icon>
     <div class="p-6 bg-grey-40 text-grey-80">
       <span class="block text-2xl text-grey-80 mb-4"
         >Choose column layout:</span
@@ -39,13 +39,9 @@
 
 <script>
 import { createModule } from "../../factories/modules/moduleFactory";
-import { XIcon } from "vue-feather-icons";
 
 export default {
   name: "column-selector",
-  components: {
-    XIcon,
-  },
   data: function() {
     return {
       // A simple array that turns whatever numbers are here into bootstrap columns that match
@@ -97,8 +93,8 @@ export default {
 
       if (colCount) {
         this.columns.forEach((component) => {
-          if (component.content.length) {
-            component.content.forEach((module) => {
+          if (component.value.length) {
+            component.value.forEach((module) => {
               oldModules.push(module);
             });
             component.content = [];
@@ -109,7 +105,9 @@ export default {
       // Change column layout
       this.columns.splice(0, colCount, ...newLayout);
       // Add old modules to new layout
-      this.columns[0].content = oldModules;
+      this.columns[0].value = oldModules;
+
+      this.$modals.close(this.name);
 
       // Send this off to vuex for mutatin'
       // this.changeColumnLayout({
