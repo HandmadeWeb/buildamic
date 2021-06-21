@@ -3,11 +3,13 @@
     class="flex justify-center items-center text-center mt-2"
     :data-testid="`${type || component.type}-controls`"
   >
-    <ul class="list-unstyled flex m-0 p-0" :class="[`flex-${direction}`]">
+    <ul
+      class="list-unstyled flex m-0 p-0 col-gap-2"
+      :class="[`flex-${direction}`]"
+    >
       <li
         v-for="(setting, i) in settings"
         :key="component.uuid + type + i"
-        class="mx-2"
         :title="setting.title"
       >
         <component

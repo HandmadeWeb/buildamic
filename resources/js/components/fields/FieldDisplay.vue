@@ -9,7 +9,6 @@
       :index="fieldIndex"
       :customSettings="customSettings"
     />
-    <!-- <field-controls :fields="fields" :fieldIndex="fieldIndex" /> -->
   </div>
 </template>
 
@@ -25,10 +24,8 @@ export default {
     return {
       customSettings: {
         add: {
-          icon: "plus-circle",
           component: "module-selector",
           title: "Add Module",
-          order: 20,
         },
       },
     };

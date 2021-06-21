@@ -10,14 +10,14 @@
       class="w-full flex flex-col gap-2 items-center"
     >
       <template v-for="(field, index) in fields">
-        <field-base
+        <field-display
           :key="field.uuid"
           :field="field"
           :fields="fields"
           :fieldIndex="index"
         >
           <module-controls :component="field" :value="fields" :index="index" />
-        </field-base>
+        </field-display>
       </template>
     </vue-draggable>
     <module-selector v-if="!fields.length" :value="fields" />
@@ -29,7 +29,7 @@
 <script>
 import VueDraggable from "vuedraggable";
 import ModuleSelector from "../ModuleSelector.vue";
-import FieldBase from "../fields/FieldBase.vue";
+import FieldDisplay from "../fields/FieldDisplay.vue";
 
 export default {
   props: {
@@ -55,7 +55,7 @@ export default {
   components: {
     VueDraggable,
     ModuleSelector,
-    FieldBase,
+    FieldDisplay,
   },
 };
 </script>

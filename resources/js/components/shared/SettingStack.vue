@@ -13,9 +13,8 @@
         <h2 class="mb-2 text-xl">
           Settings for {{ component.config.admin_label }}
         </h2>
-
         <component
-          :is="`b-${component.type}`"
+          :is="`${component.type}-settings`"
           :field="component"
           :fieldDefaults="fieldDefaults[`${component.type}s`]"
         />
@@ -26,8 +25,8 @@
 
 <script>
 import { EvaIcon } from "vue-eva-icons";
-import BField from "../fields/BField.vue";
-import BSet from "../fields/BSet.vue";
+import FieldSettings from "../fields/FieldSettings.vue";
+import SetSettings from "../fields/SetSettings.vue";
 
 export default {
   props: {
@@ -43,13 +42,10 @@ export default {
   inject: ["fieldDefaults"],
   components: {
     EvaIcon,
-    BField,
-    BSet,
+    FieldSettings,
+    SetSettings,
   },
   methods: {},
-  mounted() {
-    console.log(this.fieldDefaults);
-  },
 };
 </script>
 

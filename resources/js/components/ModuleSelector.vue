@@ -88,8 +88,6 @@ export default {
       const HANDLE = field.handle || key;
       const NEW_FIELD = createModule(MODULE, { CONFIG, META, VALUE, HANDLE });
 
-      console.log({ NEW_FIELD });
-
       this.value.splice(this.index + 1, 0, NEW_FIELD);
 
       this.toggleStack = false;
