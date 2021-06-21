@@ -91,8 +91,6 @@ class Altamic extends Fieldtype
             return $field;
         })->toArray();
 
-        dd($data);
-
         return $data;
     }
 }
