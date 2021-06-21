@@ -28,9 +28,9 @@ class ServiceProvider extends AddonServiceProvider
     protected $fieldtypes = [
         BuildamicFieldType::class,
         Altamic::class,
-        AltamicSection::class,
-        AltamicRow::class,
-        AltamicColumn::class,
+        // AltamicSection::class,
+        // AltamicRow::class,
+        // AltamicColumn::class,
     ];
 
     // protected $modifiers = [

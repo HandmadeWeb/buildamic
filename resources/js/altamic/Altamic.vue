@@ -13,9 +13,9 @@
                             <div :class="fieldtypeComponent(field)">
                                 <component
                                     :is="fieldtypeComponent(field)"
-                                    :config="{...meta.fields[field.handle].config, ...field.config}"
+                                    :config="{...fieldDefaults[field.handle].config, ...field.config}"
                                     :value="field.value"
-                                    :meta="meta.fields[field.handle]"
+                                    :meta="fieldDefaults[field.handle].meta"
                                     :handle="field.handle"
                                     @input="updateField(key, field, $event)"
                                     @meta-updated="$emit('meta-updated', $event)"
@@ -26,7 +26,7 @@
                                     :is="fieldtypeComponent(field)"
                                     :config="field.config"
                                     :value="field.value"
-                                    :meta="meta.fields[field.handle]"
+                                    :meta="fieldDefaults[field.handle]"
                                     :handle="field.handle"
                                     @input="$emit('updated', $event)"
                                     @meta-updated="$emit('meta-updated', $event)"
@@ -35,7 +35,9 @@
                                 /> -->
                             </div>
                         </div>
-                        <button @click="addField(meta.fields['markdown'], column.uuid)">Add Field</button>
+                        <div v-for="fieldType in fieldDefaults" :key="fieldType.config.handle">
+                            <button @click="addField(fieldType, column.uuid)">Add {{ fieldType.config.display }}</button>
+                        </div>
                     </div>
                     <button @click="addColumn(row.uuid)">Add Column</button>
                 </div>
@@ -43,6 +45,7 @@
             </div>
         </div>
         <button @click="addSection">Add Section</button>
+        <!-- <button v-if="sections.isEmpty()" @click="addSection">Add Section</button> -->
     </div>
 </template>
 
@@ -57,6 +60,7 @@ export default {
 
     data() {
         return {
+            'fieldDefaults': this.meta.fields,
             'sections': collect(this.value.sections),
             'rows': collect(this.value.rows),
             'columns': collect(this.value.columns),

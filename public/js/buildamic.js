@@ -63,6 +63,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
  // https://statamic.dev/extending/fieldtypes/
 
@@ -70,6 +73,7 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [Fieldtype],
   data: function data() {
     return {
+      'fieldDefaults': this.meta.fields,
       'sections': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.value.sections),
       'rows': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.value.rows),
       'columns': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.value.columns),
@@ -13050,11 +13054,13 @@ var render = function() {
                                       attrs: {
                                         config: Object.assign(
                                           {},
-                                          _vm.meta.fields[field.handle].config,
+                                          _vm.fieldDefaults[field.handle]
+                                            .config,
                                           field.config
                                         ),
                                         value: field.value,
-                                        meta: _vm.meta.fields[field.handle],
+                                        meta:
+                                          _vm.fieldDefaults[field.handle].meta,
                                         handle: field.handle
                                       },
                                       on: {
@@ -13086,20 +13092,28 @@ var render = function() {
                             }
                           ),
                           _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              on: {
-                                click: function($event) {
-                                  return _vm.addField(
-                                    _vm.meta.fields["markdown"],
-                                    column.uuid
+                          _vm._l(_vm.fieldDefaults, function(fieldType) {
+                            return _c("div", { key: fieldType.config.handle }, [
+                              _c(
+                                "button",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.addField(
+                                        fieldType,
+                                        column.uuid
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "Add " + _vm._s(fieldType.config.display)
                                   )
-                                }
-                              }
-                            },
-                            [_vm._v("Add Field")]
-                          )
+                                ]
+                              )
+                            ])
+                          })
                         ],
                         2
                       )
