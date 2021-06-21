@@ -159,16 +159,11 @@ class Altamic extends Fieldtype
 
     public function augment($value)
     {
-        return $this->performAugmentation($value, false);
+        return new AltamicRenderer($this, $value);
     }
 
     public function shallowAugment($value)
     {
-        return $this->performAugmentation($value, true);
-    }
-
-    private function performAugmentation($value, $shallow = false)
-    {
-        return new AltamicRenderer($this, $value, $shallow);
+        return $value;
     }
 }

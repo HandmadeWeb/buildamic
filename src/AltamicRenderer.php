@@ -12,19 +12,16 @@ class AltamicRenderer
     use Hydration;
 
     public $instance;
-    public $shallowAugment;
-    public $augmentMethod;
+
     public $sections;
     public $rows;
     public $columns;
     public $fields;
     protected $viewPrefix = 'buildamic::altamic.blade';
 
-    public function __construct(AltamicField $fieldInstance, array $value, bool $shallowAugment = false)
+    public function __construct(AltamicField $fieldInstance, array $value)
     {
         $this->instance = $fieldInstance;
-        $this->shallowAugment = $shallowAugment;
-        $this->augmentMethod = $this->shallowAugment ? 'shallowAugment' : 'augment';
 
         //$this->instance->field()->setValue($value);
 
@@ -101,7 +98,7 @@ class AltamicRenderer
             $field['config']['field'] ?? []
         );
 
-        $field['value'] = (new Field($field['handle'], $config))->setValue($field['value'])->{$this->augmentMethod}()->value();
+        $field['value'] = (new Field($field['handle'], $config))->setValue($field['value'])->augment()->value();
 
         return $field;
     }
