@@ -2029,11 +2029,6 @@ babel-core@^7.0.0-bridge.0:
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-7.0.0-bridge.0.tgz#95a492ddd90f9b4e9a4a1da14eb335b87b634ece"
   integrity sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg==
 
-babel-helper-vue-jsx-merge-props@^2.0.2:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-2.0.3.tgz#22aebd3b33902328e513293a8e4992b384f9f1b6"
-  integrity sha512-gsLiKK7Qrb7zYJNgiXKpXblxbV5ffSwR0f5whkPAaBAR4fhi6bwRZxX9wBlIc5M/v8CCkXUbXZL4N/nSE97cqg==
-
 babel-jest@^27.0.2:
   version "27.0.2"
   resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-27.0.2.tgz#7dc18adb01322acce62c2af76ea2c7cd186ade37"
@@ -8186,13 +8181,6 @@ vue-eva-icons@^1.1.1:
   dependencies:
     eva-icons "^1.1.0"
     vue "^2.5.17"
-
-vue-feather-icons@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/vue-feather-icons/-/vue-feather-icons-5.1.0.tgz#db658aca5f4c088c2f725f8b1f2967d4a1e4d398"
-  integrity sha512-ZyM2yFGmL9DYLZYHm63KV1zCQOj8czC2LzDSkxoIp9o6zMAOY4yv1FkxbX+XNUwcH3RRrAuvf25Ij7CnUUsQVA==
-  dependencies:
-    babel-helper-vue-jsx-merge-props "^2.0.2"
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
