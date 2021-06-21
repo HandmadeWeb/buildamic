@@ -86,10 +86,12 @@ class Altamic extends Fieldtype
 
         // Deduplicate Field Config
         $data['fields'] = collect($data['fields'])->map(function ($field) use ($instance) {
-            $field['config'] = array_diff(collect($instance->config('fields'))->firstWhere('handle', $field['handle'])['field'] ?? [], $field['config']);
+            $field['config'] = array_diff($field['config'], collect($instance->config('fields'))->firstWhere('handle', $field['handle'])['field'] ?? []);
 
             return $field;
         })->toArray();
+
+        dd($data);
 
         return $data;
     }

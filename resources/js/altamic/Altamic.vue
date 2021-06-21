@@ -3,11 +3,6 @@
         <!-- <text-input :value="value" @input="update" /> -->
         <div v-for="section in value.sections" :key="section.uuid">
             <div class="altamic-section-container">
-                <!-- <altamic-section 
-                    :handle="section.uuid"
-                    :config="section.config"
-                    :value="section"
-                />  -->
                 Section: {{ section.uuid }} <button @click="removeSection(section.uuid)">Remove Section</button>
                 <div v-for="row in rows.where('parent', section.uuid)" :key="row.uuid">
                     Row: {{ row.uuid }} <button @click="removeRow(row.uuid)">Remove Row</button>
