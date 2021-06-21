@@ -2,7 +2,7 @@
 
 namespace Michaelr0\Buildamic;
 
-use Michaelr0\Buildamic\Fieldtypes\Altamic as AltamicField;
+use Michaelr0\Buildamic\Fieldtypes\Altamic as AltamicFieldType;
 use Statamic\Fields\Field;
 use Statamic\Fields\Fields;
 
@@ -17,7 +17,7 @@ class AltamicRenderer
 
     protected $viewPrefix = 'buildamic::altamic.blade';
 
-    public function __construct(AltamicField $fieldInstance, array $value)
+    public function __construct(AltamicFieldType $fieldInstance, array $value)
     {
         $this->instance = $fieldInstance;
 
@@ -104,10 +104,6 @@ class AltamicRenderer
 
     protected function hydrateFieldSet($field)
     {
-        if (is_string($field['config']['field'])) {
-            return $this->hydrateFieldSetSingle($field);
-        }
-
         $config = [[
             'handle' => $field['handle'],
             'field' => $field['config']['field'],
@@ -162,7 +158,11 @@ class AltamicRenderer
     public function renderField(array $field)
     {
         if ($field['type'] === 'fieldset') {
-            $field = $this->hydrateFieldSet($field);
+            if (is_string($field['config']['field'])) {
+                $field = $this->hydrateFieldSetSingle($field);
+            } else {
+                $field = $this->hydrateFieldSet($field);
+            }
 
             return $this->renderFieldSet($field);
         } else {
