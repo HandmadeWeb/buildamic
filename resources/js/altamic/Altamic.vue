@@ -13,7 +13,7 @@
                             <div v-if="fieldDefaults[field.handle]" :class="fieldtypeComponent(field)">
                                 <component
                                     :is="fieldtypeComponent(field)"
-                                    :config="{...fieldDefaults[field.handle].config, ...field.config}"
+                                    :config="{...fieldDefaults[field.handle].config, ...field.config.field}"
                                     :value="field.value"
                                     :meta="fieldDefaults[field.handle].meta"
                                     :handle="field.handle"
@@ -22,17 +22,6 @@
                                     @focus="$emit('focus')"
                                     @blur="$emit('blur')"
                                 />
-                                <!-- <component
-                                    :is="fieldtypeComponent(field)"
-                                    :config="field.config"
-                                    :value="field.value"
-                                    :meta="fieldDefaults[field.handle]"
-                                    :handle="field.handle"
-                                    @input="$emit('updated', $event)"
-                                    @meta-updated="$emit('meta-updated', $event)"
-                                    @focus="$emit('focus')"
-                                    @blur="$emit('blur')"
-                                /> -->
                             </div>
                         </div>
                         <div v-for="fieldType in fieldDefaults" :key="fieldType.config.handle">
@@ -178,7 +167,10 @@ export default {
                 'type': 'field',
                 'handle': field.handle,
                 'component': field.config.type,
-                'config': field.config,
+                'config': {
+                    'enabled': true,
+                    'field': field.config,
+                },
                 'value': field.value
             });
 

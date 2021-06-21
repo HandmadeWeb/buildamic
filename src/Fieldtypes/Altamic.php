@@ -2,6 +2,7 @@
 
 namespace Michaelr0\Buildamic\Fieldtypes;
 
+use Michaelr0\Buildamic\AltamicRenderer;
 use Statamic\Fields\Fields;
 use Statamic\Fields\Fieldtype;
 
@@ -148,11 +149,26 @@ class Altamic extends Fieldtype
 
         // Deduplicate Field Config
         $data['fields'] = collect($data['fields'])->map(function ($field) use ($instance) {
-            $field['config'] = array_diff($field['config'], collect($instance->config('fields'))->firstWhere('handle', $field['handle'])['field'] ?? []);
+            $field['field'] = array_diff($field['config']['field'], collect($instance->config('fields'))->firstWhere('handle', $field['handle'])['field'] ?? []);
 
             return $field;
         })->toArray();
 
         return $data;
+    }
+
+    public function augment($value)
+    {
+        return $this->performAugmentation($value, false);
+    }
+
+    public function shallowAugment($value)
+    {
+        return $this->performAugmentation($value, true);
+    }
+
+    private function performAugmentation($value, $shallow = false)
+    {
+        return new AltamicRenderer($this, $value, $shallow);
     }
 }
