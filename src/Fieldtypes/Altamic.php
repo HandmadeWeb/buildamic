@@ -7,6 +7,54 @@ use Statamic\Fields\Fieldtype;
 
 class Altamic extends Fieldtype
 {
+    protected $allowed_fields = [
+        'array' => false,
+        'assets' => false,
+        'button-group' => false,
+        'checkboxes' => false,
+        'code' => false,
+        'collections' => false,
+        'color' => false,
+        'date' => false,
+        'entries' => false,
+        'float' => false,
+        'form' => false,
+        'grid' => false,
+        'hidden' => false,
+        'html' => false,
+        'integer' => false,
+        'link' => false,
+        'list' => false,
+        'markdown' => true,
+        'radio' => false,
+        'range' => false,
+        'replicator' => false,
+        'revealer' => false,
+        'section' => false,
+        'select' => false,
+        'sites' => false,
+        'slug' => false,
+        'structures' => false,
+        'table' => false,
+        'taggable' => false,
+        'taxonomies' => false,
+        'template' => false,
+        'taxonomy_terms' => false,
+        'text' => false,
+        'textarea' => false,
+        'time' => false,
+        'toggle' => false,
+        'user_groups' => false,
+        'user_roles' => false,
+        'users' => false,
+        'video' => false,
+        'yaml' => false,
+    ];
+
+    protected $blocked_fields = [
+        'buildamic' => true,
+    ];
+
     protected function configFieldItems(): array
     {
         return [
@@ -29,7 +77,19 @@ class Altamic extends Fieldtype
      */
     public function fields()
     {
-        return new Fields($this->config('fields'), $this->field()->parent(), $this->field());
+        $instance = $this;
+
+        $fields = collect($this->config('fields'))->filter(function ($field) use ($instance) {
+            if (isset($instance->allowed_fields[$field['field']['type']]) && $instance->allowed_fields[$field['field']['type']] === false) {
+                return false;
+            } elseif (isset($instance->blocked_fields[$field['field']['type']]) && $instance->blocked_fields[$field['field']['type']] === true) {
+                return false;
+            }
+
+            return true;
+        })->toArray();
+
+        return new Fields($fields, $this->field()->parent(), $this->field());
     }
 
     public function defaultValue()
@@ -60,6 +120,8 @@ class Altamic extends Fieldtype
                     'config' => $field->config(),
                 ];
             })->toArray(),
+            'allowed_fields' => $this->allowed_fields,
+            'blocked_fields' => $this->blocked_fields,
         ];
     }
 

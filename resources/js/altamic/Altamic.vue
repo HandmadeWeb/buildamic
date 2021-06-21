@@ -10,7 +10,7 @@
                         Column: {{ column.uuid }} <button @click="removeColumn(column.uuid)">Remove Column</button>
                         <div v-for="(field, key) in fields.where('parent', column.uuid)" :key="field.uuid">
                             Field: {{ field.uuid }} <button @click="removeField(field.uuid)">Remove Field</button>
-                            <div :class="fieldtypeComponent(field)">
+                            <div v-if="fieldDefaults[field.handle]" :class="fieldtypeComponent(field)">
                                 <component
                                     :is="fieldtypeComponent(field)"
                                     :config="{...fieldDefaults[field.handle].config, ...field.config}"
@@ -36,7 +36,10 @@
                             </div>
                         </div>
                         <div v-for="fieldType in fieldDefaults" :key="fieldType.config.handle">
-                            <button @click="addField(fieldType, column.uuid)">Add {{ fieldType.config.display }}</button>
+                            <button v-if="
+                                allowedFields.has(fieldType.config.type) && allowedFields.get(fieldType.config.type) || 
+                                blockedFields.has(fieldType.config.type) && ! blockedFields.get(fieldType.config.type)"
+                            @click="addField(fieldType, column.uuid)">Add {{ fieldType.config.display }}</button>
                         </div>
                     </div>
                     <button @click="addColumn(row.uuid)">Add Column</button>
@@ -61,6 +64,8 @@ export default {
     data() {
         return {
             'fieldDefaults': this.meta.fields,
+            'allowedFields': collect(this.meta.allowed_fields),
+            'blockedFields': collect(this.meta.blocked_fields),
             'sections': collect(this.value.sections),
             'rows': collect(this.value.rows),
             'columns': collect(this.value.columns),

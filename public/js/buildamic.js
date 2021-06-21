@@ -66,6 +66,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
  // https://statamic.dev/extending/fieldtypes/
 
@@ -74,6 +77,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       'fieldDefaults': this.meta.fields,
+      'allowedFields': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.meta.allowed_fields),
+      'blockedFields': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.meta.blocked_fields),
       'sections': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.value.sections),
       'rows': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.value.rows),
       'columns': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.value.columns),
@@ -13045,73 +13050,82 @@ var render = function() {
                                   [_vm._v("Remove Field")]
                                 ),
                                 _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { class: _vm.fieldtypeComponent(field) },
-                                  [
-                                    _c(_vm.fieldtypeComponent(field), {
-                                      tag: "component",
-                                      attrs: {
-                                        config: Object.assign(
-                                          {},
-                                          _vm.fieldDefaults[field.handle]
-                                            .config,
-                                          field.config
-                                        ),
-                                        value: field.value,
-                                        meta:
-                                          _vm.fieldDefaults[field.handle].meta,
-                                        handle: field.handle
-                                      },
-                                      on: {
-                                        input: function($event) {
-                                          return _vm.updateField(
-                                            key,
-                                            field,
-                                            $event
-                                          )
-                                        },
-                                        "meta-updated": function($event) {
-                                          return _vm.$emit(
-                                            "meta-updated",
-                                            $event
-                                          )
-                                        },
-                                        focus: function($event) {
-                                          return _vm.$emit("focus")
-                                        },
-                                        blur: function($event) {
-                                          return _vm.$emit("blur")
-                                        }
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
+                                _vm.fieldDefaults[field.handle]
+                                  ? _c(
+                                      "div",
+                                      { class: _vm.fieldtypeComponent(field) },
+                                      [
+                                        _c(_vm.fieldtypeComponent(field), {
+                                          tag: "component",
+                                          attrs: {
+                                            config: Object.assign(
+                                              {},
+                                              _vm.fieldDefaults[field.handle]
+                                                .config,
+                                              field.config
+                                            ),
+                                            value: field.value,
+                                            meta:
+                                              _vm.fieldDefaults[field.handle]
+                                                .meta,
+                                            handle: field.handle
+                                          },
+                                          on: {
+                                            input: function($event) {
+                                              return _vm.updateField(
+                                                key,
+                                                field,
+                                                $event
+                                              )
+                                            },
+                                            "meta-updated": function($event) {
+                                              return _vm.$emit(
+                                                "meta-updated",
+                                                $event
+                                              )
+                                            },
+                                            focus: function($event) {
+                                              return _vm.$emit("focus")
+                                            },
+                                            blur: function($event) {
+                                              return _vm.$emit("blur")
+                                            }
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e()
                               ])
                             }
                           ),
                           _vm._v(" "),
                           _vm._l(_vm.fieldDefaults, function(fieldType) {
                             return _c("div", { key: fieldType.config.handle }, [
-                              _c(
-                                "button",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.addField(
-                                        fieldType,
-                                        column.uuid
+                              (_vm.allowedFields.has(fieldType.config.type) &&
+                                _vm.allowedFields.get(fieldType.config.type)) ||
+                              (_vm.blockedFields.has(fieldType.config.type) &&
+                                !_vm.blockedFields.get(fieldType.config.type))
+                                ? _c(
+                                    "button",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.addField(
+                                            fieldType,
+                                            column.uuid
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "Add " +
+                                          _vm._s(fieldType.config.display)
                                       )
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "Add " + _vm._s(fieldType.config.display)
+                                    ]
                                   )
-                                ]
-                              )
+                                : _vm._e()
                             ])
                           })
                         ],
