@@ -1,6 +1,7 @@
 import Buildamic from './components/fieldtypes/Buildamic.vue';
 import VueTabs from './components/tabs/VueTabs.vue'
 import VueTab from './components/tabs/VueTab.vue'
+import Altamic from './altamic/Altamic.vue';
 
 Statamic.booting(() => {
     Statamic.$components.register('vue-tabs', VueTabs)
@@ -8,3 +9,6 @@ Statamic.booting(() => {
     Statamic.$components.register('buildamic-fieldtype', Buildamic);
 });
 
+Statamic.booting(() => {
+    Statamic.$components.register('altamic-fieldtype', Altamic);
+});
