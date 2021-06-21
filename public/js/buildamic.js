@@ -82,6 +82,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    collect: (collect_js__WEBPACK_IMPORTED_MODULE_0___default()),
     generateUUID: function generateUUID() {
       var uuid = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
@@ -13052,9 +13053,11 @@ var render = function() {
                                     _c(_vm.fieldtypeComponent(field), {
                                       tag: "component",
                                       attrs: {
-                                        config: _vm.meta.fields[
-                                          field.handle
-                                        ].config.concat(field.config),
+                                        config: Object.assign(
+                                          {},
+                                          _vm.meta.fields[field.handle].config,
+                                          field.config
+                                        ),
                                         value: field.value,
                                         meta: _vm.meta.fields[field.handle],
                                         handle: field.handle

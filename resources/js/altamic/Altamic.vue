@@ -18,7 +18,7 @@
                             <div :class="fieldtypeComponent(field)">
                                 <component
                                     :is="fieldtypeComponent(field)"
-                                    :config="meta.fields[field.handle].config.concat(field.config)"
+                                    :config="{...meta.fields[field.handle].config, ...field.config}"
                                     :value="field.value"
                                     :meta="meta.fields[field.handle]"
                                     :handle="field.handle"
@@ -70,6 +70,8 @@ export default {
     },
 
     methods: {
+        collect,
+
         generateUUID(uuid = null) {
             if(! uuid || typeof uuid !== 'string' || uuid.length === 0){
                 return this.generateUUID(uuidv4());
