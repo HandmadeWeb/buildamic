@@ -55,20 +55,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
  // https://statamic.dev/extending/fieldtypes/
 
@@ -77,8 +63,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       'fieldDefaults': this.meta.fields,
-      'allowedFields': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.meta.allowed_fields),
-      'blockedFields': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.meta.blocked_fields),
       'sections': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.value.sections),
       'rows': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.value.rows),
       'columns': collect_js__WEBPACK_IMPORTED_MODULE_0___default()(this.value.columns),
@@ -106,7 +90,9 @@ __webpack_require__.r(__webpack_exports__);
     addSection: function addSection() {
       this.sections.push({
         'uuid': this.generateUUID(),
-        'config': {}
+        'config': {
+          'enabled': true
+        }
       });
       this.value.sections = this.sections.toArray();
       this.update(this.value);
@@ -127,7 +113,9 @@ __webpack_require__.r(__webpack_exports__);
       this.rows.push({
         'uuid': this.generateUUID(),
         'parent': parent,
-        'config': {}
+        'config': {
+          'enabled': true
+        }
       });
       this.value.rows = this.rows.toArray();
       this.update(this.value);
@@ -148,7 +136,9 @@ __webpack_require__.r(__webpack_exports__);
       this.columns.push({
         'uuid': this.generateUUID(),
         'parent': parent,
-        'config': {}
+        'config': {
+          'enabled': true
+        }
       });
       this.value.columns = this.columns.toArray();
       this.update(this.value);
@@ -172,7 +162,10 @@ __webpack_require__.r(__webpack_exports__);
         'type': 'field',
         'handle': field.handle,
         'component': field.config.type,
-        'config': field.config,
+        'config': {
+          'enabled': true,
+          'field': field.config
+        },
         'value': field.value
       });
       this.value.fields = this.fields.toArray();
@@ -13062,7 +13055,7 @@ var render = function() {
                                               {},
                                               _vm.fieldDefaults[field.handle]
                                                 .config,
-                                              field.config
+                                              field.config.field
                                             ),
                                             value: field.value,
                                             meta:
@@ -13102,30 +13095,24 @@ var render = function() {
                           _vm._v(" "),
                           _vm._l(_vm.fieldDefaults, function(fieldType) {
                             return _c("div", { key: fieldType.config.handle }, [
-                              (_vm.allowedFields.has(fieldType.config.type) &&
-                                _vm.allowedFields.get(fieldType.config.type)) ||
-                              (_vm.blockedFields.has(fieldType.config.type) &&
-                                !_vm.blockedFields.get(fieldType.config.type))
-                                ? _c(
-                                    "button",
-                                    {
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.addField(
-                                            fieldType,
-                                            column.uuid
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "Add " +
-                                          _vm._s(fieldType.config.display)
+                              _c(
+                                "button",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.addField(
+                                        fieldType,
+                                        column.uuid
                                       )
-                                    ]
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "Add " + _vm._s(fieldType.config.display)
                                   )
-                                : _vm._e()
+                                ]
+                              )
                             ])
                           })
                         ],

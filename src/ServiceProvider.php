@@ -2,14 +2,8 @@
 
 namespace Michaelr0\Buildamic;
 
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Str;
 use Michaelr0\Buildamic\Fieldtypes\Altamic;
-use Michaelr0\Buildamic\Fieldtypes\AltamicColumn;
-use Michaelr0\Buildamic\Fieldtypes\AltamicRow;
-use Michaelr0\Buildamic\Fieldtypes\AltamicSection;
 use Michaelr0\Buildamic\Fieldtypes\BuildamicFieldType;
-use Michaelr0\Buildamic\Modifiers\Buildamic as BuildamicModifier;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
@@ -28,17 +22,5 @@ class ServiceProvider extends AddonServiceProvider
     protected $fieldtypes = [
         BuildamicFieldType::class,
         Altamic::class,
-        // AltamicSection::class,
-        // AltamicRow::class,
-        // AltamicColumn::class,
     ];
-
-    // protected $modifiers = [
-    //     BuildamicModifier::class,
-    // ];
-
-    // public function boot()
-    // {
-    //     parent::boot();
-    // }
 }

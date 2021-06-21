@@ -25,10 +25,7 @@
                             </div>
                         </div>
                         <div v-for="fieldType in fieldDefaults" :key="fieldType.config.handle">
-                            <button v-if="
-                                allowedFields.has(fieldType.config.type) && allowedFields.get(fieldType.config.type) || 
-                                blockedFields.has(fieldType.config.type) && ! blockedFields.get(fieldType.config.type)"
-                            @click="addField(fieldType, column.uuid)">Add {{ fieldType.config.display }}</button>
+                            <button @click="addField(fieldType, column.uuid)">Add {{ fieldType.config.display }}</button>
                         </div>
                     </div>
                     <button @click="addColumn(row.uuid)">Add Column</button>
@@ -53,8 +50,6 @@ export default {
     data() {
         return {
             'fieldDefaults': this.meta.fields,
-            'allowedFields': collect(this.meta.allowed_fields),
-            'blockedFields': collect(this.meta.blocked_fields),
             'sections': collect(this.value.sections),
             'rows': collect(this.value.rows),
             'columns': collect(this.value.columns),
@@ -88,7 +83,9 @@ export default {
         addSection() {
             this.sections.push({
                 'uuid': this.generateUUID(),
-                'config': {}
+                'config': {
+                    'enabled': true,
+                }
             });
 
             this.value.sections = this.sections.toArray();
@@ -113,7 +110,9 @@ export default {
             this.rows.push({
                 'uuid': this.generateUUID(),
                 'parent': parent,
-                'config': {}
+                'config': {
+                    'enabled': true,
+                }
             });
 
             this.value.rows = this.rows.toArray();
@@ -138,7 +137,9 @@ export default {
             this.columns.push({
                 'uuid': this.generateUUID(),
                 'parent': parent,
-                'config': {}
+                'config': {
+                    'enabled': true,
+                }
             });
 
             this.value.columns = this.columns.toArray();

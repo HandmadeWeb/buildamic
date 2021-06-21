@@ -8,53 +8,53 @@ use Statamic\Fields\Fieldtype;
 
 class Altamic extends Fieldtype
 {
-    protected $allowed_fields = [
-        'array' => false,
-        'assets' => false,
-        'button-group' => false,
-        'checkboxes' => false,
-        'code' => false,
-        'collections' => false,
-        'color' => false,
-        'date' => false,
-        'entries' => false,
-        'float' => false,
-        'form' => false,
-        'grid' => false,
-        'hidden' => false,
-        'html' => false,
-        'integer' => false,
-        'link' => false,
-        'list' => false,
-        'markdown' => true,
-        'radio' => false,
-        'range' => false,
-        'replicator' => false,
-        'revealer' => false,
-        'section' => false,
-        'select' => false,
-        'sites' => false,
-        'slug' => false,
-        'structures' => false,
-        'table' => false,
-        'taggable' => false,
-        'taxonomies' => false,
-        'template' => false,
-        'taxonomy_terms' => false,
-        'text' => false,
-        'textarea' => false,
-        'time' => false,
-        'toggle' => false,
-        'user_groups' => false,
-        'user_roles' => false,
-        'users' => false,
-        'video' => false,
-        'yaml' => false,
-    ];
+    // protected $allowed_fields = [
+    //     'array' => false,
+    //     'assets' => false,
+    //     'button-group' => false,
+    //     'checkboxes' => false,
+    //     'code' => false,
+    //     'collections' => false,
+    //     'color' => false,
+    //     'date' => false,
+    //     'entries' => false,
+    //     'float' => false,
+    //     'form' => false,
+    //     'grid' => false,
+    //     'hidden' => false,
+    //     'html' => false,
+    //     'integer' => false,
+    //     'link' => false,
+    //     'list' => false,
+    //     'markdown' => true,
+    //     'radio' => false,
+    //     'range' => false,
+    //     'replicator' => false,
+    //     'revealer' => false,
+    //     'section' => false,
+    //     'select' => false,
+    //     'sites' => false,
+    //     'slug' => false,
+    //     'structures' => false,
+    //     'table' => false,
+    //     'taggable' => false,
+    //     'taxonomies' => false,
+    //     'template' => false,
+    //     'taxonomy_terms' => false,
+    //     'text' => false,
+    //     'textarea' => false,
+    //     'time' => false,
+    //     'toggle' => false,
+    //     'user_groups' => false,
+    //     'user_roles' => false,
+    //     'users' => false,
+    //     'video' => false,
+    //     'yaml' => false,
+    // ];
 
-    protected $blocked_fields = [
-        'buildamic' => true,
-    ];
+    // protected $blocked_fields = [
+    //     'buildamic' => true,
+    // ];
 
     protected function configFieldItems(): array
     {
@@ -121,8 +121,8 @@ class Altamic extends Fieldtype
                     'config' => $field->config(),
                 ];
             })->toArray(),
-            'allowed_fields' => $this->allowed_fields,
-            'blocked_fields' => $this->blocked_fields,
+            // 'allowed_fields' => $this->allowed_fields,
+            // 'blocked_fields' => $this->blocked_fields,
         ];
     }
 
@@ -149,7 +149,7 @@ class Altamic extends Fieldtype
 
         // Deduplicate Field Config
         $data['fields'] = collect($data['fields'])->map(function ($field) use ($instance) {
-            $field['field'] = array_diff($field['config']['field'], collect($instance->config('fields'))->firstWhere('handle', $field['handle'])['field'] ?? []);
+            $field['config']['field'] = array_diff($field['config']['field'], collect($instance->config('fields'))->firstWhere('handle', $field['handle'])['field'] ?? []);
 
             return $field;
         })->toArray();
