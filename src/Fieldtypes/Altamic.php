@@ -78,19 +78,19 @@ class Altamic extends Fieldtype
      */
     public function fields()
     {
-        $instance = $this;
+        // $instance = $this;
 
-        $fields = collect($this->config('fields'))->filter(function ($field) use ($instance) {
-            if (isset($instance->allowed_fields[$field['field']['type']]) && $instance->allowed_fields[$field['field']['type']] === false) {
-                return false;
-            } elseif (isset($instance->blocked_fields[$field['field']['type']]) && $instance->blocked_fields[$field['field']['type']] === true) {
-                return false;
-            }
+        // $fields = collect($this->config('fields'))->filter(function ($field) use ($instance) {
+        //     if (isset($instance->allowed_fields[$field['field']['type']]) && $instance->allowed_fields[$field['field']['type']] === false) {
+        //         return false;
+        //     } elseif (isset($instance->blocked_fields[$field['field']['type']]) && $instance->blocked_fields[$field['field']['type']] === true) {
+        //         return false;
+        //     }
 
-            return true;
-        })->toArray();
+        //     return true;
+        // })->toArray();
 
-        return new Fields($fields, $this->field()->parent(), $this->field());
+        return new Fields($this->config('fields'), $this->field()->parent(), $this->field());
     }
 
     public function defaultValue()
