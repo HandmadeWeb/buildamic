@@ -6,6 +6,7 @@ use Michaelr0\Buildamic\Fieldtypes\Buildamic;
 use Michaelr0\Buildamic\Traits\Hydration;
 use Statamic\Facades\Antlers;
 use Statamic\Fields\Field;
+use Statamic\Fields\Fields;
 use Statamic\Fields\Value;
 
 class BuildamicRenderer
@@ -56,7 +57,16 @@ class BuildamicRenderer
         return view("{$this->viewPrefix}.layouts.column", ['buildamic' => $this, 'column' => $column]);
     }
 
-    public function renderField(Field $field)
+    public function renderField($field)
+    {
+        if ($field instanceof Field) {
+            return $this->renderSingleField($field);
+        } elseif ($field instanceof Fields) {
+            return $this->renderFields($field);
+        }
+    }
+
+    public function renderSingleField(Field $field)
     {
         // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
         if (view()->exists("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}")) {
@@ -74,28 +84,14 @@ class BuildamicRenderer
         return view($view, ['buildamic' => $this, 'field' => $field->value()]);
     }
 
-    // public function renderSet(array $set)
-    // {
-    //     if ($set['type'] === 'field') {
-    //         return $this->renderField($set);
-    //     }
+    public function renderFields(Fields $fields)
+    {
+        $html = '';
 
-    //     $viewPrefix = 'buildamic::blade';
-    //     $fieldHandle = $set['config']['handle'];
-    //     $view = "{$this->viewPrefix}.sets.{$fieldHandle}";
+        foreach ($fields->all() as $field) {
+            $html .= $this->renderSingleField($field);
+        }
 
-    //     if (! view()->exists($view)) {
-    //         $buildamic_html = '';
-    //         foreach ($set['value'] as $field) {
-    //             $buildamic_html .= $this->renderField($field);
-    //         }
-
-    //         return $buildamic_html;
-    //     }
-
-    //     //$additionalData = $this->additionalData($field->get('value'));
-    //     $additionalData = [];
-
-    //     return view($view, array_merge(['buildamic' => $this, 'set' => $set], $additionalData));
-    // }
+        return $html;
+    }
 }

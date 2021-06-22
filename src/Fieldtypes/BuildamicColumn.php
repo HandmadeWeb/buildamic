@@ -3,6 +3,7 @@
 namespace Michaelr0\Buildamic\Fieldtypes;
 
 use Statamic\Fields\Field;
+use Statamic\Fields\Fields;
 use Statamic\Fields\Fieldtype;
 
 class BuildamicColumn extends Fieldtype
@@ -37,17 +38,36 @@ class BuildamicColumn extends Fieldtype
                 return;
             }
 
-            $config = collect($buildamicConfig['fields'] ?? [])
-                    ->firstWhere('handle', $field['config']['handle']);
+            if ($field['type'] === 'set') {
+                $config = $buildamicConfig['sets'][$field['config']['handle']] ?? [];
 
-            $config = array_merge($config['field'], $field['config']['field']);
+                $fields = [];
+                foreach ($config['fields'] as $item) {
+                    $fields[] = (new Field($item['handle'], []))
+                        ->setConfig(array_merge($item['field'], $field['config']['field'][$item['handle']] ?? []))
+                        ->setParent($parent->field()->parent())
+                        ->setParentField($parent->field())
+                        ->setValue($field['value'][$item['handle']]);
+                }
 
-            return (new Field($field['config']['handle'], []))
-                ->setConfig($config)
-                ->setParent($parent->field()->parent())
-                ->setParentField($parent->field())
-                ->setValue($field['value'])
-                ->{$method}();
+                return (new Fields())
+                    ->setParent($parent->field()->parent())
+                    ->setParentField($parent->field())
+                    ->setFields(collect($fields))
+                    ->{$method}();
+            } else {
+                $config = collect($buildamicConfig['fields'] ?? [])
+                        ->firstWhere('handle', $field['config']['handle']);
+
+                $config = array_merge($config['field'], $field['config']['field']);
+
+                return (new Field($field['config']['handle'], []))
+                    ->setConfig($config)
+                    ->setParent($parent->field()->parent())
+                    ->setParentField($parent->field())
+                    ->setValue($field['value'])
+                    ->{$method}();
+            }
         })->filter()->all();
 
         return $this->field()->setValue($value)->value();

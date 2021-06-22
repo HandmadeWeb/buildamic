@@ -132,8 +132,9 @@ class Buildamic extends Fieldtype
                             // Deduplicate Field Config
                             $field['config']['field'] = array_diff($field['config']['field'], collect($instance->config('fields'))->firstWhere('handle', $field['config']['handle'])['field'] ?? []);
                         } elseif ($field['type'] === 'set') {
+                            $field['value'] = collect($field['value']);
                             $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
-                                return $item->setValue($field['value'][$item->handle()])->process()->value();
+                                return $item->setValue($field['value']->firstWhere('handle', $item->handle())['value'])->process()->value();
                             })->toArray();
                         }
 
