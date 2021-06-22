@@ -32,10 +32,7 @@ class Buildamic extends Fieldtype
      */
     public function defaultValue()
     {
-        return [
-            'config' => [],
-            'sections' => [],
-        ];
+        return [];
     }
 
     /**
@@ -86,35 +83,33 @@ class Buildamic extends Fieldtype
      */
     public function preProcess($data)
     {
-        return array_merge_recursive($this->defaultValue(), $data);
+        if (empty($data)) {
+            return $this->defaultValue();
+        }
 
-        // if (empty($data)) {
-        //     return $this->defaultValue();
-        // }
+        return collect($data)->map(function ($section) {
+            $section['value'] = collect($section['value'])->map(function ($row) {
+                $row['value'] = collect($row['value'])->map(function ($column) {
+                    $column['value'] = collect($column['value'])->map(function ($field) {
+                        if ($field['type'] === 'field') {
+                            $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->preProcess()->value();
+                        } elseif ($field['type'] === 'set') {
+                            $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
+                                return $item->setValue($field['value'][$item->handle()])->preProcess()->value();
+                            })->toArray();
+                        }
 
-        // return collect($data)->map(function ($section) {
-        //     $section['value'] = collect($section['value'])->map(function ($row) {
-        //         $row['value'] = collect($row['value'])->map(function ($column) {
-        //             $column['value'] = collect($column['value'])->map(function ($field) {
-        //                 if ($field['type'] === 'field') {
-        //                     $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->preProcess()->value();
-        //                 } elseif ($field['type'] === 'set') {
-        //                     $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
-        //                         return $item->setValue($field['value'][$item->handle()])->preProcess()->value();
-        //                     })->toArray();
-        //                 }
+                        return $field;
+                    })->toArray();
 
-        //                 return $field;
-        //             })->toArray();
+                    return $column;
+                })->toArray();
 
-        //             return $column;
-        //         })->toArray();
+                return $row;
+            })->toArray();
 
-        //         return $row;
-        //     })->toArray();
-
-        //     return $section;
-        // })->toArray();
+            return $section;
+        })->toArray();
     }
 
     /**
@@ -127,40 +122,32 @@ class Buildamic extends Fieldtype
     {
         $instance = $this;
 
-        // Deduplicate Field Config
-        $data['fields'] = collect($data['fields'])->map(function ($field) use ($instance) {
-            $field['config']['field'] = array_diff($field['config']['field'], collect($instance->config('fields'))->firstWhere('handle', $field['handle'])['field'] ?? []);
+        return collect($data)->map(function ($section) use ($instance) {
+            $section['value'] = collect($section['value'])->map(function ($row) use ($instance) {
+                $row['value'] = collect($row['value'])->map(function ($column) use ($instance) {
+                    $column['value'] = collect($column['value'])->map(function ($field) use ($instance) {
+                        if ($field['type'] === 'field') {
+                            $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->process()->value();
 
-            return $field;
+                            // Deduplicate Field Config
+                            $field['config']['field'] = array_diff($field['config']['field'], collect($instance->config('fields'))->firstWhere('handle', $field['config']['handle'])['field'] ?? []);
+                        } elseif ($field['type'] === 'set') {
+                            $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
+                                return $item->setValue($field['value'][$item->handle()])->process()->value();
+                            })->toArray();
+                        }
+
+                        return $field;
+                    })->toArray();
+
+                    return $column;
+                })->toArray();
+
+                return $row;
+            })->toArray();
+
+            return $section;
         })->toArray();
-
-        dd($data);
-
-        return $data;
-
-        // return collect($data)->map(function ($section) {
-        //     $section['value'] = collect($section['value'])->map(function ($row) {
-        //         $row['value'] = collect($row['value'])->map(function ($column) {
-        //             $column['value'] = collect($column['value'])->map(function ($field) {
-        //                 if ($field['type'] === 'field') {
-        //                     $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->process()->value();
-        //                 } elseif ($field['type'] === 'set') {
-        //                     $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
-        //                         return $item->setValue($field['value'][$item->handle()])->process()->value();
-        //                     })->toArray();
-        //                 }
-
-        //                 return $field;
-        //             })->toArray();
-
-        //             return $column;
-        //         })->toArray();
-
-        //         return $row;
-        //     })->toArray();
-
-        //     return $section;
-        // })->toArray();
     }
 
     public function augment($value)
