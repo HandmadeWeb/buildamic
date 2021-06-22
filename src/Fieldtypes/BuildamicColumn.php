@@ -2,6 +2,7 @@
 
 namespace Michaelr0\Buildamic\Fieldtypes;
 
+use Statamic\Facades\Fieldset;
 use Statamic\Fields\Field;
 use Statamic\Fields\Fields;
 use Statamic\Fields\Fieldtype;
@@ -40,28 +41,34 @@ class BuildamicColumn extends Fieldtype
             }
 
             if ($field['type'] === 'field') {
-                $type = $field['config']['type'];
                 $config = collect($buildamicConfig['fields'] ?? [])->firstWhere('handle', $field['config']['handle']);
-                $config = array_merge($config['field'], $field['config']['field']);
-                $fieldValue = $field['value'];
-            } elseif ($field['type'] === 'fieldset') {
-                $type = 'buildamic-fieldset';
-                $field['type'] = $type;
-                $config = $field;
-                $fieldValue = $field['value'];
-            } elseif ($field['type'] === 'set') {
-                $type = 'buildamic-set';
-                $field['type'] = $type;
-                $config = $field;
-                $fieldValue = $field['value'];
-            }
 
-            if (isset($type)) {
                 return (new Field($field['config']['handle'], []))
-                    ->setConfig($config)
+                    ->setConfig(array_merge($config['field'], $field['config']['field']))
                     ->setParent($parent->field()->parent())
                     ->setParentField($parent->field())
-                    ->setValue($fieldValue)
+                    ->setValue($field['value'])
+                    ->{$method}();
+            } elseif ($field['type'] === 'fieldset') {
+                if (isset($field['config']['field']['import'])) {
+                }
+
+                $fields = (new Fields([$field['config']['field']]))
+                    ->addValues($field['value']);
+                // $fields = (new Fields([[
+                //     'handle' => $field['config']['field']['import'],
+                //     'field' => $field['config']['field'],
+                // ]]))->addValues([$field['handle'] => $field['value']])->all();
+
+                dd(true, $fields, $field);
+            } elseif ($field['type'] === 'set') {
+                $field['type'] = 'buildamic-set';
+
+                return (new Field($field['config']['handle'], []))
+                    ->setConfig($field)
+                    ->setParent($parent->field()->parent())
+                    ->setParentField($parent->field())
+                    ->setValue($field['value'])
                     ->{$method}();
             }
         })->filter()->all();

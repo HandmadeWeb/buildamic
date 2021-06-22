@@ -31,6 +31,6 @@ class ServiceProvider extends AddonServiceProvider
         BuildamicColumn::class,
         BuildamicFieldset::class,
         BuildamicSet::class,
-        Altamic::class,
+        //Altamic::class,
     ];
 }
