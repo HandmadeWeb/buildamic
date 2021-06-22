@@ -1,12 +1,13 @@
 const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {} }) {
-    this.type = 'set'
     this.uuid = `${UUID}`
-    this.value = VALUE || []
+    this.type = 'set'
     this.config = {
+        enabled: true,
         ...CONFIG,
         handle: HANDLE,
         admin_label: ADMIN_LABEL || HANDLE
     }
+    this.value = VALUE || []
 }
 
 export { Set }

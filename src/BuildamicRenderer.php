@@ -2,26 +2,26 @@
 
 namespace Michaelr0\Buildamic;
 
-use Michaelr0\Buildamic\Fieldtypes\BuildamicFieldType;
+use Michaelr0\Buildamic\Fieldtypes\Buildamic;
 use Michaelr0\Buildamic\Traits\Hydration;
 use Statamic\Facades\Antlers;
+use Statamic\Fields\Field;
+use Statamic\Fields\Fields;
+use Statamic\Fields\Value;
 
 class BuildamicRenderer
 {
-    use Hydration;
-
     protected $instance;
-    protected $shallowAugment;
-    protected $augmentMethod;
     protected $sections = [];
+    protected $viewPrefix = 'buildamic::blade';
+    protected $augmentMethod;
 
-    public function __construct(BuildamicFieldType $fieldInstance, array $value, bool $shallowAugment = false)
+    public function __construct(Buildamic $fieldInstance, bool $shallowAugment = false)
     {
-        $this->instance = $fieldInstance;
-        $this->shallowAugment = $shallowAugment;
-        $this->augmentMethod = $this->shallowAugment ? 'shallowAugment' : 'augment';
+        $this->instance = $fieldInstance->field();
+        $this->augmentMethod = $shallowAugment ? 'shallowAugment' : 'augment';
 
-        $this->instance->field()->setValue($value);
+        $this->sections = $this->instance->value();
     }
 
     public function __toString()
@@ -33,83 +33,79 @@ class BuildamicRenderer
     {
         $buildamic_html = '';
 
-        foreach ($this->hydrateSections() as $section) {
-            $buildamic_html .= $section['type'] === 'section' ? $this->renderSection($section) : $this->renderGlobal($section);
+        foreach ($this->sections() as $section) {
+            $buildamic_html .= $this->renderSection($section);
         }
 
         return $buildamic_html;
     }
 
-    protected function renderGlobal(array $section)
+    public function sections()
     {
+        return $this->sections;
     }
 
-    protected function renderSection(array $section)
+    public function renderSection(Value $section)
     {
-        return view('buildamic::blade.layouts.section', ['buildamic' => $this, 'section' => $section]);
+        return view("{$this->viewPrefix}.layouts.section", ['buildamic' => $this, 'section' => $section]);
     }
 
-    public function renderRow(array $row)
+    public function renderRow(Value $row)
     {
-        return view('buildamic::blade.layouts.row', ['buildamic' => $this, 'row' => $row]);
+        return view("{$this->viewPrefix}.layouts.row", ['buildamic' => $this, 'row' => $row]);
     }
 
-    public function renderColumn(array $column)
+    public function renderColumn(Value $column)
     {
-        return view('buildamic::blade.layouts.column', ['buildamic' => $this, 'column' => $column]);
+        return view("{$this->viewPrefix}.layouts.column", ['buildamic' => $this, 'column' => $column]);
     }
 
-    public function renderField(array $field)
+    public function renderField(Field $field)
     {
-        if ($field['type'] === 'set') {
-            return $this->renderSet($field);
+        if ($field->type() === 'buildamic-set') {
+            return $this->renderFieldset($field);
         }
 
-        $viewPrefix = 'buildamic::blade';
-        $fieldHandle = $field['config']['handle'];
-        $fieldType = $field['config']['type'];
+        return $this->renderSingleField($field);
+    }
 
+    public function renderSingleField(Field $field)
+    {
         // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
-        if (view()->exists("{$viewPrefix}.fields.{$fieldType}-{$fieldHandle}")) {
-            $view = "{$viewPrefix}.fields.{$fieldType}-{$fieldHandle}";
+        if (view()->exists("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}")) {
+            $view = "{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}";
         }
         // type: markdown, file: markdown
-        elseif (view()->exists("{$viewPrefix}.fields.{$fieldType}")) {
-            $view = "{$viewPrefix}.fields.{$fieldType}";
+        elseif (view()->exists("{$this->viewPrefix}.fields.{$field->type()}")) {
+            $view = "{$this->viewPrefix}.fields.{$field->type()}";
         }
-        // catch all, file:default-field
+        // catch all, file: default-field
         else {
-            $view = "{$viewPrefix}.default-field";
+            $view = "{$this->viewPrefix}.default-field";
         }
 
-        //$additionalData = $this->additionalData($field->get('value'));
-        $additionalData = [];
-
-        return view($view, array_merge(['buildamic' => $this, 'field' => $field], $additionalData));
+        return view($view, ['buildamic' => $this, 'field' => $field]);
     }
 
-    public function renderSet(array $set)
+    public function renderFieldset(Field $fieldset)
     {
-        if ($set['type'] === 'field') {
-            return $this->renderField($set);
+        $fields = [];
+        foreach ($fieldset->value()->value()->value()->value() as $field) {
+            $fields[$field->handle()] = $field;
         }
 
-        $viewPrefix = 'buildamic::blade';
-        $fieldHandle = $set['config']['handle'];
-        $view = "{$viewPrefix}.sets.{$fieldHandle}";
-
-        if (! view()->exists($view)) {
-            $buildamic_html = '';
-            foreach ($set['value'] as $field) {
-                $buildamic_html .= $this->renderField($field);
-            }
-
-            return $buildamic_html;
+        // handle:blurb, file: blurb
+        if (view()->exists("{$this->viewPrefix}.sets.{$fieldset->handle()}")) {
+            return view("{$this->viewPrefix}.sets.{$fieldset->handle()}", ['buildamic' => $this, 'field' => $fieldset, 'fields' => $fields]);
         }
 
-        //$additionalData = $this->additionalData($field->get('value'));
-        $additionalData = [];
+        // catch all, render individual fields.
+        $html = '';
 
-        return view($view, array_merge(['buildamic' => $this, 'set' => $set], $additionalData));
+        foreach ($fields as $field) {
+            $html .= $this->renderSingleField($field);
+        }
+
+        return $html;
     }
 }

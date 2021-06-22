@@ -1,8 +1,8 @@
 const Column = function ({ UUID, ADMIN_LABEL }) {
-    this.type = 'column'
     this.uuid = `${UUID}`
-    this.value = []
+    this.type = 'column'
     this.config = {
+        enabled: true,
         columnSizes: {
             "xs": 12,
             "sm": '',
@@ -12,6 +12,7 @@ const Column = function ({ UUID, ADMIN_LABEL }) {
         },
         admin_label: ADMIN_LABEL || this.type
     }
+    this.value = []
 }
 
 export { Column }

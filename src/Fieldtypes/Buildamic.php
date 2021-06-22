@@ -3,10 +3,11 @@
 namespace Michaelr0\Buildamic\Fieldtypes;
 
 use Michaelr0\Buildamic\BuildamicRenderer;
+use Statamic\Fields\Field;
 use Statamic\Fields\Fields;
 use Statamic\Fields\Fieldtype;
 
-class BuildamicFieldType extends Fieldtype
+class Buildamic extends Fieldtype
 {
     protected static $handle = 'buildamic';
 
@@ -119,15 +120,21 @@ class BuildamicFieldType extends Fieldtype
      */
     public function process($data)
     {
-        return collect($data)->map(function ($section) {
-            $section['value'] = collect($section['value'])->map(function ($row) {
-                $row['value'] = collect($row['value'])->map(function ($column) {
-                    $column['value'] = collect($column['value'])->map(function ($field) {
+        $instance = $this;
+
+        return collect($data)->map(function ($section) use ($instance) {
+            $section['value'] = collect($section['value'])->map(function ($row) use ($instance) {
+                $row['value'] = collect($row['value'])->map(function ($column) use ($instance) {
+                    $column['value'] = collect($column['value'])->map(function ($field) use ($instance) {
                         if ($field['type'] === 'field') {
                             $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->process()->value();
+
+                            // Deduplicate Field Config
+                            $field['config']['field'] = array_diff($field['config']['field'] ?? [], collect($instance->config('fields'))->firstWhere('handle', $field['config']['handle'])['field'] ?? []);
                         } elseif ($field['type'] === 'set') {
+                            $field['value'] = collect($field['value']);
                             $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
-                                return $item->setValue($field['value'][$item->handle()])->process()->value();
+                                return $item->setValue($field['value']->firstWhere('handle', $item->handle())['value'])->process()->value();
                             })->toArray();
                         }
 
@@ -156,7 +163,33 @@ class BuildamicFieldType extends Fieldtype
 
     private function performAugmentation($value, $shallow = false)
     {
-        return new BuildamicRenderer($this, $value, $shallow);
+        $parent = $this;
+
+        $method = $shallow ? 'shallowAugment' : 'augment';
+
+        $value = collect($value)->map(function ($section) use ($parent, $method) {
+            if (! $section['config']['enabled'] ?? false) {
+                return;
+            }
+
+            return (new Field($section['uuid'], []))
+                ->setConfig(array_merge(
+                    [
+                    'type' => 'buildamic-section',
+                    ],
+                    collect($section['config'])
+                    ->except(['admin_label'])
+                    ->toArray()
+                ))
+                ->setParent($parent->field()->parent())
+                ->setParentField($parent->field())
+                ->setValue($section['value'])
+                ->{$method}()->value();
+        })->filter()->all();
+
+        $this->field()->setValue($value);
+
+        return new BuildamicRenderer($this, $shallow);
     }
 
     /**
