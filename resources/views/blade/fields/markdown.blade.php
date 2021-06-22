@@ -1,5 +1,5 @@
 @extends('buildamic::blade.layouts.field')
 
 @section('field_content')
-    {!! $field['value']->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($field['value']) : $field['value'] !!}
+    {!! $field->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($field->value()) : $field !!}
 @overwrite

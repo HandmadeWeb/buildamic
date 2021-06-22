@@ -3,7 +3,10 @@
 namespace Michaelr0\Buildamic;
 
 use Michaelr0\Buildamic\Fieldtypes\Altamic;
-use Michaelr0\Buildamic\Fieldtypes\BuildamicFieldType;
+use Michaelr0\Buildamic\Fieldtypes\Buildamic;
+use Michaelr0\Buildamic\Fieldtypes\BuildamicColumn;
+use Michaelr0\Buildamic\Fieldtypes\BuildamicRow;
+use Michaelr0\Buildamic\Fieldtypes\BuildamicSection;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
@@ -20,7 +23,10 @@ class ServiceProvider extends AddonServiceProvider
     ];
 
     protected $fieldtypes = [
-        BuildamicFieldType::class,
+        Buildamic::class,
+        BuildamicSection::class,
+        BuildamicRow::class,
+        BuildamicColumn::class,
         Altamic::class,
     ];
 }
