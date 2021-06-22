@@ -59,7 +59,7 @@ class BuildamicRenderer
 
     public function renderField(Field $field)
     {
-        if ($field->type() === 'sets') {
+        if ($field->type() === 'buildamic-set') {
             return $this->renderFieldset($field);
         }
 
@@ -81,20 +81,25 @@ class BuildamicRenderer
             $view = "{$this->viewPrefix}.default-field";
         }
 
-        return view($view, ['buildamic' => $this, 'field' => $field->value()]);
+        return view($view, ['buildamic' => $this, 'field' => $field]);
     }
 
     public function renderFieldset(Field $fieldset)
     {
+        $fields = [];
+        foreach ($fieldset->value()->value()->value()->value() as $field) {
+            $fields[$field->handle()] = $field;
+        }
+
         // handle:blurb, file: blurb
         if (view()->exists("{$this->viewPrefix}.sets.{$fieldset->handle()}")) {
-            return view("{$this->viewPrefix}.sets.{$fieldset->handle()}", ['buildamic' => $this, 'field' => $fieldset->value(), 'fields' => $fieldset->value()->value()]);
+            return view("{$this->viewPrefix}.sets.{$fieldset->handle()}", ['buildamic' => $this, 'field' => $fieldset, 'fields' => $fields]);
         }
 
         // catch all, render individual fields.
         $html = '';
 
-        foreach ($fieldset->value()->value() as $field) {
+        foreach ($fields as $field) {
             $html .= $this->renderSingleField($field);
         }
 

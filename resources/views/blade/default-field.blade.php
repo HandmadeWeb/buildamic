@@ -2,6 +2,6 @@
 
 @section('field_content')
     <!-- Field could not be rendered, View not found -->
-    <!-- Type: {{ $field->field()->type() }} -->
+    <!-- Type: {{ $field->type() }} -->
     <!-- Handle: {{ $field->handle() }} -->
 @overwrite
