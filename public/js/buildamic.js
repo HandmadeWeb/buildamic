@@ -2124,7 +2124,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_fieldtypes_Buildamic_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/fieldtypes/Buildamic.vue */ "./resources/js/components/fieldtypes/Buildamic.vue");
 /* harmony import */ var _components_tabs_VueTabs_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/tabs/VueTabs.vue */ "./resources/js/components/tabs/VueTabs.vue");
 /* harmony import */ var _components_tabs_VueTab_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/tabs/VueTab.vue */ "./resources/js/components/tabs/VueTab.vue");
-/* harmony import */ var _altamic_Altamic_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./altamic/Altamic.vue */ "./resources/js/altamic/Altamic.vue");
+/* harmony import */ var _altamic_Altamic_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./altamic/Altamic.vue */ "./resources/js/altamic/Altamic.vue");
+
 
 
 
@@ -2134,7 +2135,7 @@ Statamic.booting(function () {
   Statamic.$components.register('buildamic-fieldtype', _components_fieldtypes_Buildamic_vue__WEBPACK_IMPORTED_MODULE_0__.default);
 });
 Statamic.booting(function () {
-  Statamic.$components.register('altamic-fieldtype', _altamic_Altamic_vue__WEBPACK_IMPORTED_MODULE_1__.default);
+  Statamic.$components.register('altamic-fieldtype', _altamic_Altamic_vue__WEBPACK_IMPORTED_MODULE_3__.default);
 });
 
 /***/ }),
@@ -2230,9 +2231,8 @@ __webpack_require__.r(__webpack_exports__);
 var Column = function Column(_ref) {
   var UUID = _ref.UUID,
       ADMIN_LABEL = _ref.ADMIN_LABEL;
-  this.type = 'column';
   this.uuid = "".concat(UUID);
-  this.value = [];
+  this.type = 'column';
   this.config = {
     columnSizes: {
       "xs": 12,
@@ -2243,6 +2243,7 @@ var Column = function Column(_ref) {
     },
     admin_label: ADMIN_LABEL || this.type
   };
+  this.value = [];
 };
 
 
@@ -2269,15 +2270,15 @@ var Field = function Field(_ref) {
       META = _ref$META === void 0 ? {} : _ref$META,
       VALUE = _ref.VALUE,
       UUID = _ref.UUID;
-  this.type = 'field';
   this.uuid = "".concat(UUID);
-  this.value = VALUE; // this.meta = META
-
+  this.type = 'field';
   this.config = {
     type: CONFIG.type,
     handle: HANDLE,
     admin_label: ADMIN_LABEL || HANDLE
-  };
+  }; // this.meta = META
+
+  this.value = VALUE;
 };
 
 
@@ -2346,12 +2347,12 @@ __webpack_require__.r(__webpack_exports__);
 var Row = function Row(_ref) {
   var UUID = _ref.UUID,
       ADMIN_LABEL = _ref.ADMIN_LABEL;
-  this.type = 'row';
   this.uuid = "".concat(UUID);
-  this.value = [];
+  this.type = 'row';
   this.config = {
     admin_label: ADMIN_LABEL || this.type
   };
+  this.value = [];
 };
 
 
@@ -2372,12 +2373,12 @@ __webpack_require__.r(__webpack_exports__);
 var Section = function Section(_ref) {
   var UUID = _ref.UUID,
       ADMIN_LABEL = _ref.ADMIN_LABEL;
-  this.type = 'section';
   this.uuid = "".concat(UUID);
-  this.value = [];
+  this.type = 'section';
   this.config = {
     admin_label: ADMIN_LABEL || this.type
   };
+  this.value = [];
 };
 
 
@@ -2408,13 +2409,13 @@ var Set = function Set(_ref) {
       HANDLE = _ref.HANDLE,
       _ref$CONFIG = _ref.CONFIG,
       CONFIG = _ref$CONFIG === void 0 ? {} : _ref$CONFIG;
-  this.type = 'set';
   this.uuid = "".concat(UUID);
-  this.value = VALUE || [];
+  this.type = 'set';
   this.config = _objectSpread(_objectSpread({}, CONFIG), {}, {
     handle: HANDLE,
     admin_label: ADMIN_LABEL || HANDLE
   });
+  this.value = VALUE || [];
 };
 
 
@@ -2686,9 +2687,14 @@ var fullConfig = tailwindcss_resolveConfig__WEBPACK_IMPORTED_MODULE_0___default(
 /***/ ((module) => {
 
 module.exports = {
-  purge: {
-    content: ['./resources/**/*.antlers.html', './resources/**/*.blade.php', './content/**/*.md']
-  },
+  // mode: 'jit',
+  // purge: {
+  //   content: [
+  //     './resources/**/*.antlers.html',
+  //     './resources/**/*.blade.php',
+  //     './content/**/*.md'
+  //   ]
+  // },
   important: true,
   theme: {
     extend: {}
@@ -2696,30 +2702,6 @@ module.exports = {
   variants: {},
   plugins: []
 };
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-simple-accordion/dist/vue-simple-accordion.css":
-/*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-simple-accordion/dist/vue-simple-accordion.css ***!
-  \*********************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".vsa-item__heading{width:100%;height:100%}.vsa-item__heading,.vsa-item__trigger{display:flex;justify-content:flex-start;align-items:center}.vsa-item__trigger{margin:0;padding:0;color:inherit;font-family:inherit;font-size:100%;line-height:1.15;border-width:0;background-color:transparent;background-image:none;overflow:visible;text-transform:none;flex:1 1 auto;color:var(--vsa-text-color);transition:all .2s linear;padding:var(--vsa-heading-padding)}.vsa-item__trigger[role=button]{cursor:pointer}.vsa-item__trigger[type=button],.vsa-item__trigger[type=reset],.vsa-item__trigger[type=submit]{-webkit-appearance:button}.vsa-item__trigger:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}.vsa-item__trigger::-moz-focus-inner,.vsa-item__trigger[type=button]::-moz-focus-inner,.vsa-item__trigger[type=reset]::-moz-focus-inner,.vsa-item__trigger[type=submit]::-moz-focus-inner{border-style:none;padding:0}.vsa-item__trigger:-moz-focusring,.vsa-item__trigger[type=button]:-moz-focusring,.vsa-item__trigger[type=reset]:-moz-focusring,.vsa-item__trigger[type=submit]:-moz-focusring{outline:1px dotted ButtonText}.vsa-item__trigger:focus,.vsa-item__trigger:hover{outline:none;background-color:var(--vsa-highlight-color);color:var(--vsa-bg-color)}.vsa-item__trigger__icon--is-default{width:40px;height:40px;transform:scale(var(--vsa-default-icon-size))}.vsa-item__trigger__icon--is-default:after,.vsa-item__trigger__icon--is-default:before{background-color:var(--vsa-text-color);content:\"\";height:3px;position:absolute;top:10px;transition:all .13333s ease-in-out;width:30px}.vsa-item__trigger__icon--is-default:before{left:0;transform:rotate(45deg) translate3d(8px,22px,0);transform-origin:100%}.vsa-item__trigger__icon--is-default:after{transform:rotate(-45deg) translate3d(-8px,22px,0);right:0;transform-origin:0}.vsa-item__trigger[aria-expanded=true] .vsa-item__trigger__icon--is-default:before{transform:rotate(45deg) translate3d(14px,14px,0)}.vsa-item__trigger[aria-expanded=true] .vsa-item__trigger__icon--is-default:after{transform:rotate(-45deg) translate3d(-14px,14px,0)}.vsa-item__trigger__icon{display:block;margin-left:auto;position:relative;transition:all .2s ease-in-out}.vsa-item__trigger:focus .vsa-item__trigger__icon--is-default:after,.vsa-item__trigger:focus .vsa-item__trigger__icon--is-default:before,.vsa-item__trigger:hover .vsa-item__trigger__icon--is-default:after,.vsa-item__trigger:hover .vsa-item__trigger__icon--is-default:before{background-color:var(--vsa-bg-color)}.vsa-item__trigger__content{font-weight:700;font-size:1.25rem}.vsa-item__content{margin:0;padding:var(--vsa-content-padding)}.vsa-item--is-active .vsa-item__heading,.vsa-item:not(:last-of-type){border-bottom:var(--vsa-border)}.vsa-collapse-enter-active,.vsa-collapse-leave-active{transition-property:opacity,height,padding-top,padding-bottom;transition-duration:.3s;transition-timing-function:ease-in-out}.vsa-collapse-enter,.vsa-collapse-leave-active{opacity:0;height:0;padding-top:0;padding-bottom:0;overflow:hidden}.vsa-list{--vsa-max-width:720px;--vsa-min-width:300px;--vsa-heading-padding:1rem 1rem;--vsa-text-color:#373737;--vsa-highlight-color:#57a;--vsa-bg-color:#fff;--vsa-border-color:rgba(0,0,0,0.2);--vsa-border-width:1px;--vsa-border-style:solid;--vsa-border:var(--vsa-border-width) var(--vsa-border-style) var(--vsa-border-color);--vsa-content-padding:1rem 1rem;--vsa-default-icon-size:1;display:block;max-width:var(--vsa-max-width);min-width:var(--vsa-min-width);width:100%;padding:0;margin:0;list-style:none;border:var(--vsa-border);color:var(--vsa-text-color);background-color:var(--vsa-bg-color)}.vsa-list [hidden]{display:none}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 
@@ -6635,6 +6617,30 @@ module.exports = function zip(array) {
 
   return new this.constructor(collection);
 };
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-simple-accordion/dist/vue-simple-accordion.css":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-simple-accordion/dist/vue-simple-accordion.css ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".vsa-item__heading{width:100%;height:100%}.vsa-item__heading,.vsa-item__trigger{display:flex;justify-content:flex-start;align-items:center}.vsa-item__trigger{margin:0;padding:0;color:inherit;font-family:inherit;font-size:100%;line-height:1.15;border-width:0;background-color:transparent;background-image:none;overflow:visible;text-transform:none;flex:1 1 auto;color:var(--vsa-text-color);transition:all .2s linear;padding:var(--vsa-heading-padding)}.vsa-item__trigger[role=button]{cursor:pointer}.vsa-item__trigger[type=button],.vsa-item__trigger[type=reset],.vsa-item__trigger[type=submit]{-webkit-appearance:button}.vsa-item__trigger:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}.vsa-item__trigger::-moz-focus-inner,.vsa-item__trigger[type=button]::-moz-focus-inner,.vsa-item__trigger[type=reset]::-moz-focus-inner,.vsa-item__trigger[type=submit]::-moz-focus-inner{border-style:none;padding:0}.vsa-item__trigger:-moz-focusring,.vsa-item__trigger[type=button]:-moz-focusring,.vsa-item__trigger[type=reset]:-moz-focusring,.vsa-item__trigger[type=submit]:-moz-focusring{outline:1px dotted ButtonText}.vsa-item__trigger:focus,.vsa-item__trigger:hover{outline:none;background-color:var(--vsa-highlight-color);color:var(--vsa-bg-color)}.vsa-item__trigger__icon--is-default{width:40px;height:40px;transform:scale(var(--vsa-default-icon-size))}.vsa-item__trigger__icon--is-default:after,.vsa-item__trigger__icon--is-default:before{background-color:var(--vsa-text-color);content:\"\";height:3px;position:absolute;top:10px;transition:all .13333s ease-in-out;width:30px}.vsa-item__trigger__icon--is-default:before{left:0;transform:rotate(45deg) translate3d(8px,22px,0);transform-origin:100%}.vsa-item__trigger__icon--is-default:after{transform:rotate(-45deg) translate3d(-8px,22px,0);right:0;transform-origin:0}.vsa-item__trigger[aria-expanded=true] .vsa-item__trigger__icon--is-default:before{transform:rotate(45deg) translate3d(14px,14px,0)}.vsa-item__trigger[aria-expanded=true] .vsa-item__trigger__icon--is-default:after{transform:rotate(-45deg) translate3d(-14px,14px,0)}.vsa-item__trigger__icon{display:block;margin-left:auto;position:relative;transition:all .2s ease-in-out}.vsa-item__trigger:focus .vsa-item__trigger__icon--is-default:after,.vsa-item__trigger:focus .vsa-item__trigger__icon--is-default:before,.vsa-item__trigger:hover .vsa-item__trigger__icon--is-default:after,.vsa-item__trigger:hover .vsa-item__trigger__icon--is-default:before{background-color:var(--vsa-bg-color)}.vsa-item__trigger__content{font-weight:700;font-size:1.25rem}.vsa-item__content{margin:0;padding:var(--vsa-content-padding)}.vsa-item--is-active .vsa-item__heading,.vsa-item:not(:last-of-type){border-bottom:var(--vsa-border)}.vsa-collapse-enter-active,.vsa-collapse-leave-active{transition-property:opacity,height,padding-top,padding-bottom;transition-duration:.3s;transition-timing-function:ease-in-out}.vsa-collapse-enter,.vsa-collapse-leave-active{opacity:0;height:0;padding-top:0;padding-bottom:0;overflow:hidden}.vsa-list{--vsa-max-width:720px;--vsa-min-width:300px;--vsa-heading-padding:1rem 1rem;--vsa-text-color:#373737;--vsa-highlight-color:#57a;--vsa-bg-color:#fff;--vsa-border-color:rgba(0,0,0,0.2);--vsa-border-width:1px;--vsa-border-style:solid;--vsa-border:var(--vsa-border-width) var(--vsa-border-style) var(--vsa-border-color);--vsa-content-padding:1rem 1rem;--vsa-default-icon-size:1;display:block;max-width:var(--vsa-max-width);min-width:var(--vsa-min-width);width:100%;padding:0;margin:0;list-style:none;border:var(--vsa-border);color:var(--vsa-text-color);background-color:var(--vsa-bg-color)}.vsa-list [hidden]{display:none}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ }),
 
@@ -39210,6 +39216,457 @@ module.exports = function (fromModel) {
 
 /***/ }),
 
+/***/ "../../../node_modules/chalk/node_modules/supports-color/browser.js":
+/*!**************************************************************************!*\
+  !*** ../../../node_modules/chalk/node_modules/supports-color/browser.js ***!
+  \**************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+module.exports = {
+	stdout: false,
+	stderr: false
+};
+
+
+/***/ }),
+
+/***/ "../../../node_modules/chalk/source/index.js":
+/*!***************************************************!*\
+  !*** ../../../node_modules/chalk/source/index.js ***!
+  \***************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+const ansiStyles = __webpack_require__(/*! ansi-styles */ "../../../node_modules/ansi-styles/index.js");
+const {stdout: stdoutColor, stderr: stderrColor} = __webpack_require__(/*! supports-color */ "../../../node_modules/chalk/node_modules/supports-color/browser.js");
+const {
+	stringReplaceAll,
+	stringEncaseCRLFWithFirstIndex
+} = __webpack_require__(/*! ./util */ "../../../node_modules/chalk/source/util.js");
+
+const {isArray} = Array;
+
+// `supportsColor.level` → `ansiStyles.color[name]` mapping
+const levelMapping = [
+	'ansi',
+	'ansi',
+	'ansi256',
+	'ansi16m'
+];
+
+const styles = Object.create(null);
+
+const applyOptions = (object, options = {}) => {
+	if (options.level && !(Number.isInteger(options.level) && options.level >= 0 && options.level <= 3)) {
+		throw new Error('The `level` option should be an integer from 0 to 3');
+	}
+
+	// Detect level if not set manually
+	const colorLevel = stdoutColor ? stdoutColor.level : 0;
+	object.level = options.level === undefined ? colorLevel : options.level;
+};
+
+class ChalkClass {
+	constructor(options) {
+		// eslint-disable-next-line no-constructor-return
+		return chalkFactory(options);
+	}
+}
+
+const chalkFactory = options => {
+	const chalk = {};
+	applyOptions(chalk, options);
+
+	chalk.template = (...arguments_) => chalkTag(chalk.template, ...arguments_);
+
+	Object.setPrototypeOf(chalk, Chalk.prototype);
+	Object.setPrototypeOf(chalk.template, chalk);
+
+	chalk.template.constructor = () => {
+		throw new Error('`chalk.constructor()` is deprecated. Use `new chalk.Instance()` instead.');
+	};
+
+	chalk.template.Instance = ChalkClass;
+
+	return chalk.template;
+};
+
+function Chalk(options) {
+	return chalkFactory(options);
+}
+
+for (const [styleName, style] of Object.entries(ansiStyles)) {
+	styles[styleName] = {
+		get() {
+			const builder = createBuilder(this, createStyler(style.open, style.close, this._styler), this._isEmpty);
+			Object.defineProperty(this, styleName, {value: builder});
+			return builder;
+		}
+	};
+}
+
+styles.visible = {
+	get() {
+		const builder = createBuilder(this, this._styler, true);
+		Object.defineProperty(this, 'visible', {value: builder});
+		return builder;
+	}
+};
+
+const usedModels = ['rgb', 'hex', 'keyword', 'hsl', 'hsv', 'hwb', 'ansi', 'ansi256'];
+
+for (const model of usedModels) {
+	styles[model] = {
+		get() {
+			const {level} = this;
+			return function (...arguments_) {
+				const styler = createStyler(ansiStyles.color[levelMapping[level]][model](...arguments_), ansiStyles.color.close, this._styler);
+				return createBuilder(this, styler, this._isEmpty);
+			};
+		}
+	};
+}
+
+for (const model of usedModels) {
+	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
+	styles[bgModel] = {
+		get() {
+			const {level} = this;
+			return function (...arguments_) {
+				const styler = createStyler(ansiStyles.bgColor[levelMapping[level]][model](...arguments_), ansiStyles.bgColor.close, this._styler);
+				return createBuilder(this, styler, this._isEmpty);
+			};
+		}
+	};
+}
+
+const proto = Object.defineProperties(() => {}, {
+	...styles,
+	level: {
+		enumerable: true,
+		get() {
+			return this._generator.level;
+		},
+		set(level) {
+			this._generator.level = level;
+		}
+	}
+});
+
+const createStyler = (open, close, parent) => {
+	let openAll;
+	let closeAll;
+	if (parent === undefined) {
+		openAll = open;
+		closeAll = close;
+	} else {
+		openAll = parent.openAll + open;
+		closeAll = close + parent.closeAll;
+	}
+
+	return {
+		open,
+		close,
+		openAll,
+		closeAll,
+		parent
+	};
+};
+
+const createBuilder = (self, _styler, _isEmpty) => {
+	const builder = (...arguments_) => {
+		if (isArray(arguments_[0]) && isArray(arguments_[0].raw)) {
+			// Called as a template literal, for example: chalk.red`2 + 3 = {bold ${2+3}}`
+			return applyStyle(builder, chalkTag(builder, ...arguments_));
+		}
+
+		// Single argument is hot path, implicit coercion is faster than anything
+		// eslint-disable-next-line no-implicit-coercion
+		return applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
+	};
+
+	// We alter the prototype because we must return a function, but there is
+	// no way to create a function with a different prototype
+	Object.setPrototypeOf(builder, proto);
+
+	builder._generator = self;
+	builder._styler = _styler;
+	builder._isEmpty = _isEmpty;
+
+	return builder;
+};
+
+const applyStyle = (self, string) => {
+	if (self.level <= 0 || !string) {
+		return self._isEmpty ? '' : string;
+	}
+
+	let styler = self._styler;
+
+	if (styler === undefined) {
+		return string;
+	}
+
+	const {openAll, closeAll} = styler;
+	if (string.indexOf('\u001B') !== -1) {
+		while (styler !== undefined) {
+			// Replace any instances already present with a re-opening code
+			// otherwise only the part of the string until said closing code
+			// will be colored, and the rest will simply be 'plain'.
+			string = stringReplaceAll(string, styler.close, styler.open);
+
+			styler = styler.parent;
+		}
+	}
+
+	// We can move both next actions out of loop, because remaining actions in loop won't have
+	// any/visible effect on parts we add here. Close the styling before a linebreak and reopen
+	// after next line to fix a bleed issue on macOS: https://github.com/chalk/chalk/pull/92
+	const lfIndex = string.indexOf('\n');
+	if (lfIndex !== -1) {
+		string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIndex);
+	}
+
+	return openAll + string + closeAll;
+};
+
+let template;
+const chalkTag = (chalk, ...strings) => {
+	const [firstString] = strings;
+
+	if (!isArray(firstString) || !isArray(firstString.raw)) {
+		// If chalk() was called by itself or with a string,
+		// return the string itself as a string.
+		return strings.join(' ');
+	}
+
+	const arguments_ = strings.slice(1);
+	const parts = [firstString.raw[0]];
+
+	for (let i = 1; i < firstString.length; i++) {
+		parts.push(
+			String(arguments_[i - 1]).replace(/[{}\\]/g, '\\$&'),
+			String(firstString.raw[i])
+		);
+	}
+
+	if (template === undefined) {
+		template = __webpack_require__(/*! ./templates */ "../../../node_modules/chalk/source/templates.js");
+	}
+
+	return template(chalk, parts.join(''));
+};
+
+Object.defineProperties(Chalk.prototype, styles);
+
+const chalk = Chalk(); // eslint-disable-line new-cap
+chalk.supportsColor = stdoutColor;
+chalk.stderr = Chalk({level: stderrColor ? stderrColor.level : 0}); // eslint-disable-line new-cap
+chalk.stderr.supportsColor = stderrColor;
+
+module.exports = chalk;
+
+
+/***/ }),
+
+/***/ "../../../node_modules/chalk/source/templates.js":
+/*!*******************************************************!*\
+  !*** ../../../node_modules/chalk/source/templates.js ***!
+  \*******************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+const TEMPLATE_REGEX = /(?:\\(u(?:[a-f\d]{4}|\{[a-f\d]{1,6}\})|x[a-f\d]{2}|.))|(?:\{(~)?(\w+(?:\([^)]*\))?(?:\.\w+(?:\([^)]*\))?)*)(?:[ \t]|(?=\r?\n)))|(\})|((?:.|[\r\n\f])+?)/gi;
+const STYLE_REGEX = /(?:^|\.)(\w+)(?:\(([^)]*)\))?/g;
+const STRING_REGEX = /^(['"])((?:\\.|(?!\1)[^\\])*)\1$/;
+const ESCAPE_REGEX = /\\(u(?:[a-f\d]{4}|{[a-f\d]{1,6}})|x[a-f\d]{2}|.)|([^\\])/gi;
+
+const ESCAPES = new Map([
+	['n', '\n'],
+	['r', '\r'],
+	['t', '\t'],
+	['b', '\b'],
+	['f', '\f'],
+	['v', '\v'],
+	['0', '\0'],
+	['\\', '\\'],
+	['e', '\u001B'],
+	['a', '\u0007']
+]);
+
+function unescape(c) {
+	const u = c[0] === 'u';
+	const bracket = c[1] === '{';
+
+	if ((u && !bracket && c.length === 5) || (c[0] === 'x' && c.length === 3)) {
+		return String.fromCharCode(parseInt(c.slice(1), 16));
+	}
+
+	if (u && bracket) {
+		return String.fromCodePoint(parseInt(c.slice(2, -1), 16));
+	}
+
+	return ESCAPES.get(c) || c;
+}
+
+function parseArguments(name, arguments_) {
+	const results = [];
+	const chunks = arguments_.trim().split(/\s*,\s*/g);
+	let matches;
+
+	for (const chunk of chunks) {
+		const number = Number(chunk);
+		if (!Number.isNaN(number)) {
+			results.push(number);
+		} else if ((matches = chunk.match(STRING_REGEX))) {
+			results.push(matches[2].replace(ESCAPE_REGEX, (m, escape, character) => escape ? unescape(escape) : character));
+		} else {
+			throw new Error(`Invalid Chalk template style argument: ${chunk} (in style '${name}')`);
+		}
+	}
+
+	return results;
+}
+
+function parseStyle(style) {
+	STYLE_REGEX.lastIndex = 0;
+
+	const results = [];
+	let matches;
+
+	while ((matches = STYLE_REGEX.exec(style)) !== null) {
+		const name = matches[1];
+
+		if (matches[2]) {
+			const args = parseArguments(name, matches[2]);
+			results.push([name].concat(args));
+		} else {
+			results.push([name]);
+		}
+	}
+
+	return results;
+}
+
+function buildStyle(chalk, styles) {
+	const enabled = {};
+
+	for (const layer of styles) {
+		for (const style of layer.styles) {
+			enabled[style[0]] = layer.inverse ? null : style.slice(1);
+		}
+	}
+
+	let current = chalk;
+	for (const [styleName, styles] of Object.entries(enabled)) {
+		if (!Array.isArray(styles)) {
+			continue;
+		}
+
+		if (!(styleName in current)) {
+			throw new Error(`Unknown Chalk style: ${styleName}`);
+		}
+
+		current = styles.length > 0 ? current[styleName](...styles) : current[styleName];
+	}
+
+	return current;
+}
+
+module.exports = (chalk, temporary) => {
+	const styles = [];
+	const chunks = [];
+	let chunk = [];
+
+	// eslint-disable-next-line max-params
+	temporary.replace(TEMPLATE_REGEX, (m, escapeCharacter, inverse, style, close, character) => {
+		if (escapeCharacter) {
+			chunk.push(unescape(escapeCharacter));
+		} else if (style) {
+			const string = chunk.join('');
+			chunk = [];
+			chunks.push(styles.length === 0 ? string : buildStyle(chalk, styles)(string));
+			styles.push({inverse, styles: parseStyle(style)});
+		} else if (close) {
+			if (styles.length === 0) {
+				throw new Error('Found extraneous } in Chalk template literal');
+			}
+
+			chunks.push(buildStyle(chalk, styles)(chunk.join('')));
+			chunk = [];
+			styles.pop();
+		} else {
+			chunk.push(character);
+		}
+	});
+
+	chunks.push(chunk.join(''));
+
+	if (styles.length > 0) {
+		const errMessage = `Chalk template literal is missing ${styles.length} closing bracket${styles.length === 1 ? '' : 's'} (\`}\`)`;
+		throw new Error(errMessage);
+	}
+
+	return chunks.join('');
+};
+
+
+/***/ }),
+
+/***/ "../../../node_modules/chalk/source/util.js":
+/*!**************************************************!*\
+  !*** ../../../node_modules/chalk/source/util.js ***!
+  \**************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+const stringReplaceAll = (string, substring, replacer) => {
+	let index = string.indexOf(substring);
+	if (index === -1) {
+		return string;
+	}
+
+	const substringLength = substring.length;
+	let endIndex = 0;
+	let returnValue = '';
+	do {
+		returnValue += string.substr(endIndex, index - endIndex) + substring + replacer;
+		endIndex = index + substringLength;
+		index = string.indexOf(substring, endIndex);
+	} while (index !== -1);
+
+	returnValue += string.substr(endIndex);
+	return returnValue;
+};
+
+const stringEncaseCRLFWithFirstIndex = (string, prefix, postfix, index) => {
+	let endIndex = 0;
+	let returnValue = '';
+	do {
+		const gotCR = string[index - 1] === '\r';
+		returnValue += string.substr(endIndex, (gotCR ? index - 1 : index) - endIndex) + prefix + (gotCR ? '\r\n' : '\n') + postfix;
+		endIndex = index + 1;
+		index = string.indexOf('\n', endIndex);
+	} while (index !== -1);
+
+	returnValue += string.substr(endIndex);
+	return returnValue;
+};
+
+module.exports = {
+	stringReplaceAll,
+	stringEncaseCRLFWithFirstIndex
+};
+
+
+/***/ }),
+
 /***/ "../../../node_modules/color-name/index.js":
 /*!*************************************************!*\
   !*** ../../../node_modules/color-name/index.js ***!
@@ -62970,454 +63427,6 @@ module.exports = uniq;
 
 /***/ }),
 
-/***/ "../../../node_modules/postcss-value-parser/lib/index.js":
-/*!***************************************************************!*\
-  !*** ../../../node_modules/postcss-value-parser/lib/index.js ***!
-  \***************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var parse = __webpack_require__(/*! ./parse */ "../../../node_modules/postcss-value-parser/lib/parse.js");
-var walk = __webpack_require__(/*! ./walk */ "../../../node_modules/postcss-value-parser/lib/walk.js");
-var stringify = __webpack_require__(/*! ./stringify */ "../../../node_modules/postcss-value-parser/lib/stringify.js");
-
-function ValueParser(value) {
-  if (this instanceof ValueParser) {
-    this.nodes = parse(value);
-    return this;
-  }
-  return new ValueParser(value);
-}
-
-ValueParser.prototype.toString = function() {
-  return Array.isArray(this.nodes) ? stringify(this.nodes) : "";
-};
-
-ValueParser.prototype.walk = function(cb, bubble) {
-  walk(this.nodes, cb, bubble);
-  return this;
-};
-
-ValueParser.unit = __webpack_require__(/*! ./unit */ "../../../node_modules/postcss-value-parser/lib/unit.js");
-
-ValueParser.walk = walk;
-
-ValueParser.stringify = stringify;
-
-module.exports = ValueParser;
-
-
-/***/ }),
-
-/***/ "../../../node_modules/postcss-value-parser/lib/parse.js":
-/*!***************************************************************!*\
-  !*** ../../../node_modules/postcss-value-parser/lib/parse.js ***!
-  \***************************************************************/
-/***/ ((module) => {
-
-var openParentheses = "(".charCodeAt(0);
-var closeParentheses = ")".charCodeAt(0);
-var singleQuote = "'".charCodeAt(0);
-var doubleQuote = '"'.charCodeAt(0);
-var backslash = "\\".charCodeAt(0);
-var slash = "/".charCodeAt(0);
-var comma = ",".charCodeAt(0);
-var colon = ":".charCodeAt(0);
-var star = "*".charCodeAt(0);
-
-module.exports = function(input) {
-  var tokens = [];
-  var value = input;
-
-  var next, quote, prev, token, escape, escapePos, whitespacePos;
-  var pos = 0;
-  var code = value.charCodeAt(pos);
-  var max = value.length;
-  var stack = [{ nodes: tokens }];
-  var balanced = 0;
-  var parent;
-
-  var name = "";
-  var before = "";
-  var after = "";
-
-  while (pos < max) {
-    // Whitespaces
-    if (code <= 32) {
-      next = pos;
-      do {
-        next += 1;
-        code = value.charCodeAt(next);
-      } while (code <= 32);
-      token = value.slice(pos, next);
-
-      prev = tokens[tokens.length - 1];
-      if (code === closeParentheses && balanced) {
-        after = token;
-      } else if (prev && prev.type === "div") {
-        prev.after = token;
-      } else if (
-        code === comma ||
-        code === colon ||
-        (code === slash && value.charCodeAt(next + 1) !== star)
-      ) {
-        before = token;
-      } else {
-        tokens.push({
-          type: "space",
-          sourceIndex: pos,
-          value: token
-        });
-      }
-
-      pos = next;
-
-      // Quotes
-    } else if (code === singleQuote || code === doubleQuote) {
-      next = pos;
-      quote = code === singleQuote ? "'" : '"';
-      token = {
-        type: "string",
-        sourceIndex: pos,
-        quote: quote
-      };
-      do {
-        escape = false;
-        next = value.indexOf(quote, next + 1);
-        if (~next) {
-          escapePos = next;
-          while (value.charCodeAt(escapePos - 1) === backslash) {
-            escapePos -= 1;
-            escape = !escape;
-          }
-        } else {
-          value += quote;
-          next = value.length - 1;
-          token.unclosed = true;
-        }
-      } while (escape);
-      token.value = value.slice(pos + 1, next);
-
-      tokens.push(token);
-      pos = next + 1;
-      code = value.charCodeAt(pos);
-
-      // Comments
-    } else if (code === slash && value.charCodeAt(pos + 1) === star) {
-      token = {
-        type: "comment",
-        sourceIndex: pos
-      };
-
-      next = value.indexOf("*/", pos);
-      if (next === -1) {
-        token.unclosed = true;
-        next = value.length;
-      }
-
-      token.value = value.slice(pos + 2, next);
-      tokens.push(token);
-
-      pos = next + 2;
-      code = value.charCodeAt(pos);
-
-      // Dividers
-    } else if (code === slash || code === comma || code === colon) {
-      token = value[pos];
-
-      tokens.push({
-        type: "div",
-        sourceIndex: pos - before.length,
-        value: token,
-        before: before,
-        after: ""
-      });
-      before = "";
-
-      pos += 1;
-      code = value.charCodeAt(pos);
-
-      // Open parentheses
-    } else if (openParentheses === code) {
-      // Whitespaces after open parentheses
-      next = pos;
-      do {
-        next += 1;
-        code = value.charCodeAt(next);
-      } while (code <= 32);
-      token = {
-        type: "function",
-        sourceIndex: pos - name.length,
-        value: name,
-        before: value.slice(pos + 1, next)
-      };
-      pos = next;
-
-      if (name === "url" && code !== singleQuote && code !== doubleQuote) {
-        next -= 1;
-        do {
-          escape = false;
-          next = value.indexOf(")", next + 1);
-          if (~next) {
-            escapePos = next;
-            while (value.charCodeAt(escapePos - 1) === backslash) {
-              escapePos -= 1;
-              escape = !escape;
-            }
-          } else {
-            value += ")";
-            next = value.length - 1;
-            token.unclosed = true;
-          }
-        } while (escape);
-        // Whitespaces before closed
-        whitespacePos = next;
-        do {
-          whitespacePos -= 1;
-          code = value.charCodeAt(whitespacePos);
-        } while (code <= 32);
-        if (pos !== whitespacePos + 1) {
-          token.nodes = [
-            {
-              type: "word",
-              sourceIndex: pos,
-              value: value.slice(pos, whitespacePos + 1)
-            }
-          ];
-        } else {
-          token.nodes = [];
-        }
-        if (token.unclosed && whitespacePos + 1 !== next) {
-          token.after = "";
-          token.nodes.push({
-            type: "space",
-            sourceIndex: whitespacePos + 1,
-            value: value.slice(whitespacePos + 1, next)
-          });
-        } else {
-          token.after = value.slice(whitespacePos + 1, next);
-        }
-        pos = next + 1;
-        code = value.charCodeAt(pos);
-        tokens.push(token);
-      } else {
-        balanced += 1;
-        token.after = "";
-        tokens.push(token);
-        stack.push(token);
-        tokens = token.nodes = [];
-        parent = token;
-      }
-      name = "";
-
-      // Close parentheses
-    } else if (closeParentheses === code && balanced) {
-      pos += 1;
-      code = value.charCodeAt(pos);
-
-      parent.after = after;
-      after = "";
-      balanced -= 1;
-      stack.pop();
-      parent = stack[balanced];
-      tokens = parent.nodes;
-
-      // Words
-    } else {
-      next = pos;
-      do {
-        if (code === backslash) {
-          next += 1;
-        }
-        next += 1;
-        code = value.charCodeAt(next);
-      } while (
-        next < max &&
-        !(
-          code <= 32 ||
-          code === singleQuote ||
-          code === doubleQuote ||
-          code === comma ||
-          code === colon ||
-          code === slash ||
-          code === openParentheses ||
-          (code === closeParentheses && balanced)
-        )
-      );
-      token = value.slice(pos, next);
-
-      if (openParentheses === code) {
-        name = token;
-      } else {
-        tokens.push({
-          type: "word",
-          sourceIndex: pos,
-          value: token
-        });
-      }
-
-      pos = next;
-    }
-  }
-
-  for (pos = stack.length - 1; pos; pos -= 1) {
-    stack[pos].unclosed = true;
-  }
-
-  return stack[0].nodes;
-};
-
-
-/***/ }),
-
-/***/ "../../../node_modules/postcss-value-parser/lib/stringify.js":
-/*!*******************************************************************!*\
-  !*** ../../../node_modules/postcss-value-parser/lib/stringify.js ***!
-  \*******************************************************************/
-/***/ ((module) => {
-
-function stringifyNode(node, custom) {
-  var type = node.type;
-  var value = node.value;
-  var buf;
-  var customResult;
-
-  if (custom && (customResult = custom(node)) !== undefined) {
-    return customResult;
-  } else if (type === "word" || type === "space") {
-    return value;
-  } else if (type === "string") {
-    buf = node.quote || "";
-    return buf + value + (node.unclosed ? "" : buf);
-  } else if (type === "comment") {
-    return "/*" + value + (node.unclosed ? "" : "*/");
-  } else if (type === "div") {
-    return (node.before || "") + value + (node.after || "");
-  } else if (Array.isArray(node.nodes)) {
-    buf = stringify(node.nodes);
-    if (type !== "function") {
-      return buf;
-    }
-    return (
-      value +
-      "(" +
-      (node.before || "") +
-      buf +
-      (node.after || "") +
-      (node.unclosed ? "" : ")")
-    );
-  }
-  return value;
-}
-
-function stringify(nodes, custom) {
-  var result, i;
-
-  if (Array.isArray(nodes)) {
-    result = "";
-    for (i = nodes.length - 1; ~i; i -= 1) {
-      result = stringifyNode(nodes[i], custom) + result;
-    }
-    return result;
-  }
-  return stringifyNode(nodes, custom);
-}
-
-module.exports = stringify;
-
-
-/***/ }),
-
-/***/ "../../../node_modules/postcss-value-parser/lib/unit.js":
-/*!**************************************************************!*\
-  !*** ../../../node_modules/postcss-value-parser/lib/unit.js ***!
-  \**************************************************************/
-/***/ ((module) => {
-
-var minus = "-".charCodeAt(0);
-var plus = "+".charCodeAt(0);
-var dot = ".".charCodeAt(0);
-var exp = "e".charCodeAt(0);
-var EXP = "E".charCodeAt(0);
-
-module.exports = function(value) {
-  var pos = 0;
-  var length = value.length;
-  var dotted = false;
-  var sciPos = -1;
-  var containsNumber = false;
-  var code;
-
-  while (pos < length) {
-    code = value.charCodeAt(pos);
-
-    if (code >= 48 && code <= 57) {
-      containsNumber = true;
-    } else if (code === exp || code === EXP) {
-      if (sciPos > -1) {
-        break;
-      }
-      sciPos = pos;
-    } else if (code === dot) {
-      if (dotted) {
-        break;
-      }
-      dotted = true;
-    } else if (code === plus || code === minus) {
-      if (pos !== 0) {
-        break;
-      }
-    } else {
-      break;
-    }
-
-    pos += 1;
-  }
-
-  if (sciPos + 1 === pos) pos--;
-
-  return containsNumber
-    ? {
-        number: value.slice(0, pos),
-        unit: value.slice(pos)
-      }
-    : false;
-};
-
-
-/***/ }),
-
-/***/ "../../../node_modules/postcss-value-parser/lib/walk.js":
-/*!**************************************************************!*\
-  !*** ../../../node_modules/postcss-value-parser/lib/walk.js ***!
-  \**************************************************************/
-/***/ ((module) => {
-
-module.exports = function walk(nodes, cb, bubble) {
-  var i, max, node, result;
-
-  for (i = 0, max = nodes.length; i < max; i += 1) {
-    node = nodes[i];
-    if (!bubble) {
-      result = cb(node, i, nodes);
-    }
-
-    if (
-      result !== false &&
-      node.type === "function" &&
-      Array.isArray(node.nodes)
-    ) {
-      walk(node.nodes, cb, bubble);
-    }
-
-    if (bubble) {
-      cb(node, i, nodes);
-    }
-  }
-};
-
-
-/***/ }),
-
 /***/ "../../../node_modules/process/browser.js":
 /*!************************************************!*\
   !*** ../../../node_modules/process/browser.js ***!
@@ -63625,7 +63634,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var _postcssValueParser = __webpack_require__(/*! postcss-value-parser */ "../../../node_modules/postcss-value-parser/lib/index.js");
+var _postcssValueParser = __webpack_require__(/*! postcss-value-parser */ "../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/index.js");
 
 var _postcssValueParser2 = _interopRequireDefault(_postcssValueParser);
 
@@ -67945,6 +67954,454 @@ if (true) {
 
 /***/ }),
 
+/***/ "../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/index.js":
+/*!********************************************************************************************!*\
+  !*** ../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/index.js ***!
+  \********************************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var parse = __webpack_require__(/*! ./parse */ "../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/parse.js");
+var walk = __webpack_require__(/*! ./walk */ "../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/walk.js");
+var stringify = __webpack_require__(/*! ./stringify */ "../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/stringify.js");
+
+function ValueParser(value) {
+  if (this instanceof ValueParser) {
+    this.nodes = parse(value);
+    return this;
+  }
+  return new ValueParser(value);
+}
+
+ValueParser.prototype.toString = function() {
+  return Array.isArray(this.nodes) ? stringify(this.nodes) : "";
+};
+
+ValueParser.prototype.walk = function(cb, bubble) {
+  walk(this.nodes, cb, bubble);
+  return this;
+};
+
+ValueParser.unit = __webpack_require__(/*! ./unit */ "../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/unit.js");
+
+ValueParser.walk = walk;
+
+ValueParser.stringify = stringify;
+
+module.exports = ValueParser;
+
+
+/***/ }),
+
+/***/ "../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/parse.js":
+/*!********************************************************************************************!*\
+  !*** ../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/parse.js ***!
+  \********************************************************************************************/
+/***/ ((module) => {
+
+var openParentheses = "(".charCodeAt(0);
+var closeParentheses = ")".charCodeAt(0);
+var singleQuote = "'".charCodeAt(0);
+var doubleQuote = '"'.charCodeAt(0);
+var backslash = "\\".charCodeAt(0);
+var slash = "/".charCodeAt(0);
+var comma = ",".charCodeAt(0);
+var colon = ":".charCodeAt(0);
+var star = "*".charCodeAt(0);
+
+module.exports = function(input) {
+  var tokens = [];
+  var value = input;
+
+  var next, quote, prev, token, escape, escapePos, whitespacePos;
+  var pos = 0;
+  var code = value.charCodeAt(pos);
+  var max = value.length;
+  var stack = [{ nodes: tokens }];
+  var balanced = 0;
+  var parent;
+
+  var name = "";
+  var before = "";
+  var after = "";
+
+  while (pos < max) {
+    // Whitespaces
+    if (code <= 32) {
+      next = pos;
+      do {
+        next += 1;
+        code = value.charCodeAt(next);
+      } while (code <= 32);
+      token = value.slice(pos, next);
+
+      prev = tokens[tokens.length - 1];
+      if (code === closeParentheses && balanced) {
+        after = token;
+      } else if (prev && prev.type === "div") {
+        prev.after = token;
+      } else if (
+        code === comma ||
+        code === colon ||
+        (code === slash && value.charCodeAt(next + 1) !== star)
+      ) {
+        before = token;
+      } else {
+        tokens.push({
+          type: "space",
+          sourceIndex: pos,
+          value: token
+        });
+      }
+
+      pos = next;
+
+      // Quotes
+    } else if (code === singleQuote || code === doubleQuote) {
+      next = pos;
+      quote = code === singleQuote ? "'" : '"';
+      token = {
+        type: "string",
+        sourceIndex: pos,
+        quote: quote
+      };
+      do {
+        escape = false;
+        next = value.indexOf(quote, next + 1);
+        if (~next) {
+          escapePos = next;
+          while (value.charCodeAt(escapePos - 1) === backslash) {
+            escapePos -= 1;
+            escape = !escape;
+          }
+        } else {
+          value += quote;
+          next = value.length - 1;
+          token.unclosed = true;
+        }
+      } while (escape);
+      token.value = value.slice(pos + 1, next);
+
+      tokens.push(token);
+      pos = next + 1;
+      code = value.charCodeAt(pos);
+
+      // Comments
+    } else if (code === slash && value.charCodeAt(pos + 1) === star) {
+      token = {
+        type: "comment",
+        sourceIndex: pos
+      };
+
+      next = value.indexOf("*/", pos);
+      if (next === -1) {
+        token.unclosed = true;
+        next = value.length;
+      }
+
+      token.value = value.slice(pos + 2, next);
+      tokens.push(token);
+
+      pos = next + 2;
+      code = value.charCodeAt(pos);
+
+      // Dividers
+    } else if (code === slash || code === comma || code === colon) {
+      token = value[pos];
+
+      tokens.push({
+        type: "div",
+        sourceIndex: pos - before.length,
+        value: token,
+        before: before,
+        after: ""
+      });
+      before = "";
+
+      pos += 1;
+      code = value.charCodeAt(pos);
+
+      // Open parentheses
+    } else if (openParentheses === code) {
+      // Whitespaces after open parentheses
+      next = pos;
+      do {
+        next += 1;
+        code = value.charCodeAt(next);
+      } while (code <= 32);
+      token = {
+        type: "function",
+        sourceIndex: pos - name.length,
+        value: name,
+        before: value.slice(pos + 1, next)
+      };
+      pos = next;
+
+      if (name === "url" && code !== singleQuote && code !== doubleQuote) {
+        next -= 1;
+        do {
+          escape = false;
+          next = value.indexOf(")", next + 1);
+          if (~next) {
+            escapePos = next;
+            while (value.charCodeAt(escapePos - 1) === backslash) {
+              escapePos -= 1;
+              escape = !escape;
+            }
+          } else {
+            value += ")";
+            next = value.length - 1;
+            token.unclosed = true;
+          }
+        } while (escape);
+        // Whitespaces before closed
+        whitespacePos = next;
+        do {
+          whitespacePos -= 1;
+          code = value.charCodeAt(whitespacePos);
+        } while (code <= 32);
+        if (pos !== whitespacePos + 1) {
+          token.nodes = [
+            {
+              type: "word",
+              sourceIndex: pos,
+              value: value.slice(pos, whitespacePos + 1)
+            }
+          ];
+        } else {
+          token.nodes = [];
+        }
+        if (token.unclosed && whitespacePos + 1 !== next) {
+          token.after = "";
+          token.nodes.push({
+            type: "space",
+            sourceIndex: whitespacePos + 1,
+            value: value.slice(whitespacePos + 1, next)
+          });
+        } else {
+          token.after = value.slice(whitespacePos + 1, next);
+        }
+        pos = next + 1;
+        code = value.charCodeAt(pos);
+        tokens.push(token);
+      } else {
+        balanced += 1;
+        token.after = "";
+        tokens.push(token);
+        stack.push(token);
+        tokens = token.nodes = [];
+        parent = token;
+      }
+      name = "";
+
+      // Close parentheses
+    } else if (closeParentheses === code && balanced) {
+      pos += 1;
+      code = value.charCodeAt(pos);
+
+      parent.after = after;
+      after = "";
+      balanced -= 1;
+      stack.pop();
+      parent = stack[balanced];
+      tokens = parent.nodes;
+
+      // Words
+    } else {
+      next = pos;
+      do {
+        if (code === backslash) {
+          next += 1;
+        }
+        next += 1;
+        code = value.charCodeAt(next);
+      } while (
+        next < max &&
+        !(
+          code <= 32 ||
+          code === singleQuote ||
+          code === doubleQuote ||
+          code === comma ||
+          code === colon ||
+          code === slash ||
+          code === openParentheses ||
+          (code === closeParentheses && balanced)
+        )
+      );
+      token = value.slice(pos, next);
+
+      if (openParentheses === code) {
+        name = token;
+      } else {
+        tokens.push({
+          type: "word",
+          sourceIndex: pos,
+          value: token
+        });
+      }
+
+      pos = next;
+    }
+  }
+
+  for (pos = stack.length - 1; pos; pos -= 1) {
+    stack[pos].unclosed = true;
+  }
+
+  return stack[0].nodes;
+};
+
+
+/***/ }),
+
+/***/ "../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/stringify.js":
+/*!************************************************************************************************!*\
+  !*** ../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/stringify.js ***!
+  \************************************************************************************************/
+/***/ ((module) => {
+
+function stringifyNode(node, custom) {
+  var type = node.type;
+  var value = node.value;
+  var buf;
+  var customResult;
+
+  if (custom && (customResult = custom(node)) !== undefined) {
+    return customResult;
+  } else if (type === "word" || type === "space") {
+    return value;
+  } else if (type === "string") {
+    buf = node.quote || "";
+    return buf + value + (node.unclosed ? "" : buf);
+  } else if (type === "comment") {
+    return "/*" + value + (node.unclosed ? "" : "*/");
+  } else if (type === "div") {
+    return (node.before || "") + value + (node.after || "");
+  } else if (Array.isArray(node.nodes)) {
+    buf = stringify(node.nodes);
+    if (type !== "function") {
+      return buf;
+    }
+    return (
+      value +
+      "(" +
+      (node.before || "") +
+      buf +
+      (node.after || "") +
+      (node.unclosed ? "" : ")")
+    );
+  }
+  return value;
+}
+
+function stringify(nodes, custom) {
+  var result, i;
+
+  if (Array.isArray(nodes)) {
+    result = "";
+    for (i = nodes.length - 1; ~i; i -= 1) {
+      result = stringifyNode(nodes[i], custom) + result;
+    }
+    return result;
+  }
+  return stringifyNode(nodes, custom);
+}
+
+module.exports = stringify;
+
+
+/***/ }),
+
+/***/ "../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/unit.js":
+/*!*******************************************************************************************!*\
+  !*** ../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/unit.js ***!
+  \*******************************************************************************************/
+/***/ ((module) => {
+
+var minus = "-".charCodeAt(0);
+var plus = "+".charCodeAt(0);
+var dot = ".".charCodeAt(0);
+var exp = "e".charCodeAt(0);
+var EXP = "E".charCodeAt(0);
+
+module.exports = function(value) {
+  var pos = 0;
+  var length = value.length;
+  var dotted = false;
+  var sciPos = -1;
+  var containsNumber = false;
+  var code;
+
+  while (pos < length) {
+    code = value.charCodeAt(pos);
+
+    if (code >= 48 && code <= 57) {
+      containsNumber = true;
+    } else if (code === exp || code === EXP) {
+      if (sciPos > -1) {
+        break;
+      }
+      sciPos = pos;
+    } else if (code === dot) {
+      if (dotted) {
+        break;
+      }
+      dotted = true;
+    } else if (code === plus || code === minus) {
+      if (pos !== 0) {
+        break;
+      }
+    } else {
+      break;
+    }
+
+    pos += 1;
+  }
+
+  if (sciPos + 1 === pos) pos--;
+
+  return containsNumber
+    ? {
+        number: value.slice(0, pos),
+        unit: value.slice(pos)
+      }
+    : false;
+};
+
+
+/***/ }),
+
+/***/ "../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/walk.js":
+/*!*******************************************************************************************!*\
+  !*** ../../../node_modules/reduce-css-calc/node_modules/postcss-value-parser/lib/walk.js ***!
+  \*******************************************************************************************/
+/***/ ((module) => {
+
+module.exports = function walk(nodes, cb, bubble) {
+  var i, max, node, result;
+
+  for (i = 0, max = nodes.length; i < max; i += 1) {
+    node = nodes[i];
+    if (!bubble) {
+      result = cb(node, i, nodes);
+    }
+
+    if (
+      result !== false &&
+      node.type === "function" &&
+      Array.isArray(node.nodes)
+    ) {
+      walk(node.nodes, cb, bubble);
+    }
+
+    if (bubble) {
+      cb(node, i, nodes);
+    }
+  }
+};
+
+
+/***/ }),
+
 /***/ "../../../node_modules/tailwindcss/colors.js":
 /*!***************************************************!*\
   !*** ../../../node_modules/tailwindcss/colors.js ***!
@@ -68260,7 +68717,7 @@ exports.default = void 0;
 
 var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash */ "../../../node_modules/lodash/lodash.js"));
 
-var _chalk = _interopRequireDefault(__webpack_require__(/*! chalk */ "../../../node_modules/tailwindcss/node_modules/chalk/source/index.js"));
+var _chalk = _interopRequireDefault(__webpack_require__(/*! chalk */ "../../../node_modules/chalk/source/index.js"));
 
 var _log = _interopRequireDefault(__webpack_require__(/*! ./util/log */ "../../../node_modules/tailwindcss/lib/util/log.js"));
 
@@ -68387,7 +68844,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.default = void 0;
 
-var _chalk = _interopRequireDefault(__webpack_require__(/*! chalk */ "../../../node_modules/tailwindcss/node_modules/chalk/source/index.js"));
+var _chalk = _interopRequireDefault(__webpack_require__(/*! chalk */ "../../../node_modules/chalk/source/index.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -68728,457 +69185,6 @@ function resolveConfig(configs) {
     plugins: resolvePluginLists(configs.map(c => (0, _get.default)(c, 'plugins', [])))
   }, ...allConfigs);
 }
-
-/***/ }),
-
-/***/ "../../../node_modules/tailwindcss/node_modules/chalk/source/index.js":
-/*!****************************************************************************!*\
-  !*** ../../../node_modules/tailwindcss/node_modules/chalk/source/index.js ***!
-  \****************************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-const ansiStyles = __webpack_require__(/*! ansi-styles */ "../../../node_modules/ansi-styles/index.js");
-const {stdout: stdoutColor, stderr: stderrColor} = __webpack_require__(/*! supports-color */ "../../../node_modules/tailwindcss/node_modules/supports-color/browser.js");
-const {
-	stringReplaceAll,
-	stringEncaseCRLFWithFirstIndex
-} = __webpack_require__(/*! ./util */ "../../../node_modules/tailwindcss/node_modules/chalk/source/util.js");
-
-const {isArray} = Array;
-
-// `supportsColor.level` → `ansiStyles.color[name]` mapping
-const levelMapping = [
-	'ansi',
-	'ansi',
-	'ansi256',
-	'ansi16m'
-];
-
-const styles = Object.create(null);
-
-const applyOptions = (object, options = {}) => {
-	if (options.level && !(Number.isInteger(options.level) && options.level >= 0 && options.level <= 3)) {
-		throw new Error('The `level` option should be an integer from 0 to 3');
-	}
-
-	// Detect level if not set manually
-	const colorLevel = stdoutColor ? stdoutColor.level : 0;
-	object.level = options.level === undefined ? colorLevel : options.level;
-};
-
-class ChalkClass {
-	constructor(options) {
-		// eslint-disable-next-line no-constructor-return
-		return chalkFactory(options);
-	}
-}
-
-const chalkFactory = options => {
-	const chalk = {};
-	applyOptions(chalk, options);
-
-	chalk.template = (...arguments_) => chalkTag(chalk.template, ...arguments_);
-
-	Object.setPrototypeOf(chalk, Chalk.prototype);
-	Object.setPrototypeOf(chalk.template, chalk);
-
-	chalk.template.constructor = () => {
-		throw new Error('`chalk.constructor()` is deprecated. Use `new chalk.Instance()` instead.');
-	};
-
-	chalk.template.Instance = ChalkClass;
-
-	return chalk.template;
-};
-
-function Chalk(options) {
-	return chalkFactory(options);
-}
-
-for (const [styleName, style] of Object.entries(ansiStyles)) {
-	styles[styleName] = {
-		get() {
-			const builder = createBuilder(this, createStyler(style.open, style.close, this._styler), this._isEmpty);
-			Object.defineProperty(this, styleName, {value: builder});
-			return builder;
-		}
-	};
-}
-
-styles.visible = {
-	get() {
-		const builder = createBuilder(this, this._styler, true);
-		Object.defineProperty(this, 'visible', {value: builder});
-		return builder;
-	}
-};
-
-const usedModels = ['rgb', 'hex', 'keyword', 'hsl', 'hsv', 'hwb', 'ansi', 'ansi256'];
-
-for (const model of usedModels) {
-	styles[model] = {
-		get() {
-			const {level} = this;
-			return function (...arguments_) {
-				const styler = createStyler(ansiStyles.color[levelMapping[level]][model](...arguments_), ansiStyles.color.close, this._styler);
-				return createBuilder(this, styler, this._isEmpty);
-			};
-		}
-	};
-}
-
-for (const model of usedModels) {
-	const bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
-	styles[bgModel] = {
-		get() {
-			const {level} = this;
-			return function (...arguments_) {
-				const styler = createStyler(ansiStyles.bgColor[levelMapping[level]][model](...arguments_), ansiStyles.bgColor.close, this._styler);
-				return createBuilder(this, styler, this._isEmpty);
-			};
-		}
-	};
-}
-
-const proto = Object.defineProperties(() => {}, {
-	...styles,
-	level: {
-		enumerable: true,
-		get() {
-			return this._generator.level;
-		},
-		set(level) {
-			this._generator.level = level;
-		}
-	}
-});
-
-const createStyler = (open, close, parent) => {
-	let openAll;
-	let closeAll;
-	if (parent === undefined) {
-		openAll = open;
-		closeAll = close;
-	} else {
-		openAll = parent.openAll + open;
-		closeAll = close + parent.closeAll;
-	}
-
-	return {
-		open,
-		close,
-		openAll,
-		closeAll,
-		parent
-	};
-};
-
-const createBuilder = (self, _styler, _isEmpty) => {
-	const builder = (...arguments_) => {
-		if (isArray(arguments_[0]) && isArray(arguments_[0].raw)) {
-			// Called as a template literal, for example: chalk.red`2 + 3 = {bold ${2+3}}`
-			return applyStyle(builder, chalkTag(builder, ...arguments_));
-		}
-
-		// Single argument is hot path, implicit coercion is faster than anything
-		// eslint-disable-next-line no-implicit-coercion
-		return applyStyle(builder, (arguments_.length === 1) ? ('' + arguments_[0]) : arguments_.join(' '));
-	};
-
-	// We alter the prototype because we must return a function, but there is
-	// no way to create a function with a different prototype
-	Object.setPrototypeOf(builder, proto);
-
-	builder._generator = self;
-	builder._styler = _styler;
-	builder._isEmpty = _isEmpty;
-
-	return builder;
-};
-
-const applyStyle = (self, string) => {
-	if (self.level <= 0 || !string) {
-		return self._isEmpty ? '' : string;
-	}
-
-	let styler = self._styler;
-
-	if (styler === undefined) {
-		return string;
-	}
-
-	const {openAll, closeAll} = styler;
-	if (string.indexOf('\u001B') !== -1) {
-		while (styler !== undefined) {
-			// Replace any instances already present with a re-opening code
-			// otherwise only the part of the string until said closing code
-			// will be colored, and the rest will simply be 'plain'.
-			string = stringReplaceAll(string, styler.close, styler.open);
-
-			styler = styler.parent;
-		}
-	}
-
-	// We can move both next actions out of loop, because remaining actions in loop won't have
-	// any/visible effect on parts we add here. Close the styling before a linebreak and reopen
-	// after next line to fix a bleed issue on macOS: https://github.com/chalk/chalk/pull/92
-	const lfIndex = string.indexOf('\n');
-	if (lfIndex !== -1) {
-		string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIndex);
-	}
-
-	return openAll + string + closeAll;
-};
-
-let template;
-const chalkTag = (chalk, ...strings) => {
-	const [firstString] = strings;
-
-	if (!isArray(firstString) || !isArray(firstString.raw)) {
-		// If chalk() was called by itself or with a string,
-		// return the string itself as a string.
-		return strings.join(' ');
-	}
-
-	const arguments_ = strings.slice(1);
-	const parts = [firstString.raw[0]];
-
-	for (let i = 1; i < firstString.length; i++) {
-		parts.push(
-			String(arguments_[i - 1]).replace(/[{}\\]/g, '\\$&'),
-			String(firstString.raw[i])
-		);
-	}
-
-	if (template === undefined) {
-		template = __webpack_require__(/*! ./templates */ "../../../node_modules/tailwindcss/node_modules/chalk/source/templates.js");
-	}
-
-	return template(chalk, parts.join(''));
-};
-
-Object.defineProperties(Chalk.prototype, styles);
-
-const chalk = Chalk(); // eslint-disable-line new-cap
-chalk.supportsColor = stdoutColor;
-chalk.stderr = Chalk({level: stderrColor ? stderrColor.level : 0}); // eslint-disable-line new-cap
-chalk.stderr.supportsColor = stderrColor;
-
-module.exports = chalk;
-
-
-/***/ }),
-
-/***/ "../../../node_modules/tailwindcss/node_modules/chalk/source/templates.js":
-/*!********************************************************************************!*\
-  !*** ../../../node_modules/tailwindcss/node_modules/chalk/source/templates.js ***!
-  \********************************************************************************/
-/***/ ((module) => {
-
-"use strict";
-
-const TEMPLATE_REGEX = /(?:\\(u(?:[a-f\d]{4}|\{[a-f\d]{1,6}\})|x[a-f\d]{2}|.))|(?:\{(~)?(\w+(?:\([^)]*\))?(?:\.\w+(?:\([^)]*\))?)*)(?:[ \t]|(?=\r?\n)))|(\})|((?:.|[\r\n\f])+?)/gi;
-const STYLE_REGEX = /(?:^|\.)(\w+)(?:\(([^)]*)\))?/g;
-const STRING_REGEX = /^(['"])((?:\\.|(?!\1)[^\\])*)\1$/;
-const ESCAPE_REGEX = /\\(u(?:[a-f\d]{4}|{[a-f\d]{1,6}})|x[a-f\d]{2}|.)|([^\\])/gi;
-
-const ESCAPES = new Map([
-	['n', '\n'],
-	['r', '\r'],
-	['t', '\t'],
-	['b', '\b'],
-	['f', '\f'],
-	['v', '\v'],
-	['0', '\0'],
-	['\\', '\\'],
-	['e', '\u001B'],
-	['a', '\u0007']
-]);
-
-function unescape(c) {
-	const u = c[0] === 'u';
-	const bracket = c[1] === '{';
-
-	if ((u && !bracket && c.length === 5) || (c[0] === 'x' && c.length === 3)) {
-		return String.fromCharCode(parseInt(c.slice(1), 16));
-	}
-
-	if (u && bracket) {
-		return String.fromCodePoint(parseInt(c.slice(2, -1), 16));
-	}
-
-	return ESCAPES.get(c) || c;
-}
-
-function parseArguments(name, arguments_) {
-	const results = [];
-	const chunks = arguments_.trim().split(/\s*,\s*/g);
-	let matches;
-
-	for (const chunk of chunks) {
-		const number = Number(chunk);
-		if (!Number.isNaN(number)) {
-			results.push(number);
-		} else if ((matches = chunk.match(STRING_REGEX))) {
-			results.push(matches[2].replace(ESCAPE_REGEX, (m, escape, character) => escape ? unescape(escape) : character));
-		} else {
-			throw new Error(`Invalid Chalk template style argument: ${chunk} (in style '${name}')`);
-		}
-	}
-
-	return results;
-}
-
-function parseStyle(style) {
-	STYLE_REGEX.lastIndex = 0;
-
-	const results = [];
-	let matches;
-
-	while ((matches = STYLE_REGEX.exec(style)) !== null) {
-		const name = matches[1];
-
-		if (matches[2]) {
-			const args = parseArguments(name, matches[2]);
-			results.push([name].concat(args));
-		} else {
-			results.push([name]);
-		}
-	}
-
-	return results;
-}
-
-function buildStyle(chalk, styles) {
-	const enabled = {};
-
-	for (const layer of styles) {
-		for (const style of layer.styles) {
-			enabled[style[0]] = layer.inverse ? null : style.slice(1);
-		}
-	}
-
-	let current = chalk;
-	for (const [styleName, styles] of Object.entries(enabled)) {
-		if (!Array.isArray(styles)) {
-			continue;
-		}
-
-		if (!(styleName in current)) {
-			throw new Error(`Unknown Chalk style: ${styleName}`);
-		}
-
-		current = styles.length > 0 ? current[styleName](...styles) : current[styleName];
-	}
-
-	return current;
-}
-
-module.exports = (chalk, temporary) => {
-	const styles = [];
-	const chunks = [];
-	let chunk = [];
-
-	// eslint-disable-next-line max-params
-	temporary.replace(TEMPLATE_REGEX, (m, escapeCharacter, inverse, style, close, character) => {
-		if (escapeCharacter) {
-			chunk.push(unescape(escapeCharacter));
-		} else if (style) {
-			const string = chunk.join('');
-			chunk = [];
-			chunks.push(styles.length === 0 ? string : buildStyle(chalk, styles)(string));
-			styles.push({inverse, styles: parseStyle(style)});
-		} else if (close) {
-			if (styles.length === 0) {
-				throw new Error('Found extraneous } in Chalk template literal');
-			}
-
-			chunks.push(buildStyle(chalk, styles)(chunk.join('')));
-			chunk = [];
-			styles.pop();
-		} else {
-			chunk.push(character);
-		}
-	});
-
-	chunks.push(chunk.join(''));
-
-	if (styles.length > 0) {
-		const errMessage = `Chalk template literal is missing ${styles.length} closing bracket${styles.length === 1 ? '' : 's'} (\`}\`)`;
-		throw new Error(errMessage);
-	}
-
-	return chunks.join('');
-};
-
-
-/***/ }),
-
-/***/ "../../../node_modules/tailwindcss/node_modules/chalk/source/util.js":
-/*!***************************************************************************!*\
-  !*** ../../../node_modules/tailwindcss/node_modules/chalk/source/util.js ***!
-  \***************************************************************************/
-/***/ ((module) => {
-
-"use strict";
-
-
-const stringReplaceAll = (string, substring, replacer) => {
-	let index = string.indexOf(substring);
-	if (index === -1) {
-		return string;
-	}
-
-	const substringLength = substring.length;
-	let endIndex = 0;
-	let returnValue = '';
-	do {
-		returnValue += string.substr(endIndex, index - endIndex) + substring + replacer;
-		endIndex = index + substringLength;
-		index = string.indexOf(substring, endIndex);
-	} while (index !== -1);
-
-	returnValue += string.substr(endIndex);
-	return returnValue;
-};
-
-const stringEncaseCRLFWithFirstIndex = (string, prefix, postfix, index) => {
-	let endIndex = 0;
-	let returnValue = '';
-	do {
-		const gotCR = string[index - 1] === '\r';
-		returnValue += string.substr(endIndex, (gotCR ? index - 1 : index) - endIndex) + prefix + (gotCR ? '\r\n' : '\n') + postfix;
-		endIndex = index + 1;
-		index = string.indexOf('\n', endIndex);
-	} while (index !== -1);
-
-	returnValue += string.substr(endIndex);
-	return returnValue;
-};
-
-module.exports = {
-	stringReplaceAll,
-	stringEncaseCRLFWithFirstIndex
-};
-
-
-/***/ }),
-
-/***/ "../../../node_modules/tailwindcss/node_modules/supports-color/browser.js":
-/*!********************************************************************************!*\
-  !*** ../../../node_modules/tailwindcss/node_modules/supports-color/browser.js ***!
-  \********************************************************************************/
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = {
-	stdout: false,
-	stderr: false
-};
-
 
 /***/ }),
 

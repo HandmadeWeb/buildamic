@@ -1,10 +1,10 @@
 const Section = function ({ UUID, ADMIN_LABEL }) {
-    this.type = 'section'
     this.uuid = `${UUID}`
-    this.value = []
+    this.type = 'section'
     this.config = {
         admin_label: ADMIN_LABEL || this.type
     }
+    this.value = []
 }
 
 export { Section }
