@@ -4,7 +4,11 @@
       <Field :field="field" :fieldDefaults="fieldDefaults" />
     </vue-tab>
     <vue-tab name="Design">
-      <design-tab :field="field" :overRideDefaultOptions="optionsOverRides" />
+      <design-tab
+        :field="field"
+        :fieldDefaults="fieldDefaults"
+        :overRideDefaultOptions="optionsOverRides"
+      />
     </vue-tab>
     <vue-tab name="Options">
       <options-tab :field="field" :overRideDesignOptions="designOverRides" />

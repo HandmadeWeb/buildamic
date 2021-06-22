@@ -15,7 +15,8 @@
         "uuid": "^8.3.2",
         "vue-eva-icons": "^1.1.1",
         "vue-simple-accordion": "^0.1.0",
-        "vuedraggable": "^2.24.3"
+        "vuedraggable": "^2.24.3",
+        "vuex": "^3.6.2"
     },
     "devDependencies": {
         "@vue/test-utils": "^1.2.1",

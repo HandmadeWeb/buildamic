@@ -13,7 +13,7 @@
         </li>
       </ul>
     </div>
-    <div class="tabs-details p-4">
+    <div class="tabs-details p-4 px-8">
       <slot></slot>
     </div>
   </div>

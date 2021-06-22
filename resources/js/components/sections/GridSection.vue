@@ -1,10 +1,19 @@
 <template>
-  <div class="buildamic-section p-2 border border-t-4 rounded border-blue-500">
+  <div
+    class="buildamic-section p-2 border border-t-4 rounded border-blue-500 flex flex-col items-center"
+  >
+    <button
+      class="py-1 px-2 border border-dashed"
+      @click="addRow"
+      v-if="!rows.length"
+    >
+      Add Row
+    </button>
     <vue-draggable
       :list="rows"
       :group="{ name: 'rows' }"
       ghost-class="ghost"
-      class="flex flex-col gap-2"
+      class="flex flex-col gap-2 w-full"
     >
       <grid-row
         v-for="(row, rowIndex) in rows"
@@ -19,7 +28,6 @@
         :index="sectionIndex"
       />
     </vue-draggable>
-    <button @click="addRow" v-if="!rows.length">Add Row</button>
   </div>
 </template>
 

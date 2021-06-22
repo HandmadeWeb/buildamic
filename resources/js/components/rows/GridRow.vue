@@ -1,8 +1,15 @@
 <template>
   <div class="border rounded border-t-4 border-green-light p-2">
-    <div class="flex gap-2">
-      <template v-for="(column, columnKey) in columns">
-        <grid-column :key="columnKey" :column="column" />
+    <div class="flex justify-center gap-2">
+      <button
+        class="py-1 px-2 border border-dashed"
+        v-if="!columns.length"
+        @click="$modals.open(row.uuid + '-column-layouts')"
+      >
+        Select columns
+      </button>
+      <template v-for="column in columns">
+        <grid-column :key="column.uuid" :column="column" />
       </template>
     </div>
     <module-controls

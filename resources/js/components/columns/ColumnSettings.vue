@@ -3,20 +3,11 @@
     <vue-tab name="Options" selected="selected">
       <options-tab :field="field" />
     </vue-tab>
-    <vue-tab name="Columns">
-      <column-settings
-        class="bg-grey-20 mb-4"
-        v-for="column in columns"
-        :field="column"
-        :key="'row-cols' + column.uuid"
-      />
-    </vue-tab>
   </vue-tabs>
 </template>
 
 <script>
 import OptionsTab from "../shared/OptionsTab.vue";
-import ColumnSettings from "../columns/ColumnSettings.vue";
 export default {
   props: {
     field: {
@@ -25,14 +16,8 @@ export default {
     },
     fieldDefaults: Object,
   },
-  data() {
-    return {
-      columns: this.field.value,
-    };
-  },
   components: {
     OptionsTab,
-    ColumnSettings,
   },
 };
 </script>

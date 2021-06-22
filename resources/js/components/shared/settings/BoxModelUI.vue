@@ -1,20 +1,30 @@
 <template>
-  <div class="boxmodel-ui">
+  <div
+    @click="focus = true"
+    class="boxmodel-ui"
+    :class="{ 'boxmodel-ui--focus': focus }"
+  >
     <div
       style="position: relative; display: grid; margin-top: 8px; margin-right: 8px; width: 224px; height: 120px; grid-template-columns: 36px 4px 36px 1fr 36px 4px 36px; grid-template-rows: 24px 4px 24px 1fr 24px 4px 24px; outline-style: none; cursor: default; user-select: none;"
     >
-      <a
-        :class="{ margin_y_locked: lockMarginY }"
-        @click="lockMarginY = !lockMarginY"
-        class="lockMarginY"
-        >|</a
-      >
+      <a @click="lockMarginY = !lockMarginY" class="lockMarginY">
+        <eva-icon
+          width="15"
+          height="15"
+          :class="{ margin_y_locked: lockMarginY }"
+          name="link-outline"
+        />
+      </a>
       <a
         :class="{ margin_x_locked: lockMarginX }"
         @click="lockMarginX = !lockMarginX"
         class="lockMarginX"
-        >|</a
-      >
+        ><eva-icon
+          width="15"
+          height="15"
+          :class="{ margin_x_locked: lockMarginX }"
+          name="link-outline"
+      /></a>
       <div
         width="224"
         height="120"
@@ -30,7 +40,6 @@
           <g style="">
             <g style="">
               <path
-                cursor="n-resize"
                 mode="delta"
                 fill="currentColor"
                 d="
@@ -44,14 +53,12 @@
                 data-automation-id="margin-top-button"
                 aria-label="Margin top button"
                 delay="0"
-                style="cursor: n-resize;"
               ></path>
             </g>
           </g>
           <g>
             <g>
               <path
-                cursor="e-resize"
                 mode="delta"
                 fill="currentColor"
                 d="
@@ -65,14 +72,12 @@
                 data-automation-id="margin-right-button"
                 aria-label="Margin right button"
                 delay="0"
-                style="cursor: e-resize;"
               ></path>
             </g>
           </g>
           <g style="">
             <g style="">
               <path
-                cursor="s-resize"
                 mode="delta"
                 fill="currentColor"
                 d="
@@ -86,14 +91,12 @@
                 data-automation-id="margin-bottom-button"
                 aria-label="Margin bottom button"
                 delay="0"
-                style="cursor: s-resize;"
               ></path>
             </g>
           </g>
           <g>
             <g>
               <path
-                cursor="w-resize"
                 mode="delta"
                 fill="currentColor"
                 d="
@@ -107,7 +110,6 @@
                 data-automation-id="margin-left-button"
                 aria-label="Margin left button"
                 delay="0"
-                style="cursor: w-resize;"
               ></path>
             </g>
           </g>
@@ -160,14 +162,17 @@
         </svg>
         <component
           v-for="(m, key) in margin"
-          :key="key"
+          :key="m.value + breakpoint"
           :is="`${m.type}-fieldtype`"
           :style="m.style"
           :handle="m.handle"
           :config="m"
-          v-model="m.value"
+          :value="
+            getDeep(field.config, `inline.margin.${breakpoint}.${key}`) || 'N/A'
+          "
           @input="handleInput('margin', key, $event)"
-          class="control-input text-center"
+          class="control-input
+        text-center"
           aria-label="Margin right edit"
         />
       </div>
@@ -180,14 +185,22 @@
           :class="{ padding_y_locked: lockPaddingY }"
           @click="lockPaddingY = !lockPaddingY"
           class="lockPaddingY"
-          >|</a
-        >
+          ><eva-icon
+            width="15"
+            height="15"
+            :class="{ padding_x_locked: lockPaddingX }"
+            name="link-outline"
+        /></a>
         <a
           :class="{ padding_x_locked: lockPaddingX }"
           @click="lockPaddingX = !lockPaddingX"
           class="lockPaddingX"
-          >|</a
-        >
+          ><eva-icon
+            width="15"
+            height="15"
+            :class="{ padding_x_locked: lockPaddingX }"
+            name="link-outline"
+        /></a>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="144"
@@ -198,7 +211,6 @@
           <g style="">
             <g style="">
               <path
-                cursor="s-resize"
                 mode="delta"
                 fill="currentColor"
                 d="
@@ -212,14 +224,12 @@
                 data-automation-id="padding-top-button"
                 aria-label="Padding top button"
                 delay="0"
-                style="cursor: s-resize;"
               ></path>
             </g>
           </g>
           <g>
             <g>
               <path
-                cursor="w-resize"
                 mode="delta"
                 fill="currentColor"
                 d="
@@ -233,14 +243,12 @@
                 data-automation-id="padding-right-button"
                 aria-label="Padding right button"
                 delay="0"
-                style="cursor: w-resize;"
               ></path>
             </g>
           </g>
           <g style="">
             <g style="">
               <path
-                cursor="n-resize"
                 mode="delta"
                 fill="currentColor"
                 d="
@@ -254,14 +262,12 @@
                 data-automation-id="padding-bottom-button"
                 aria-label="Padding bottom button"
                 delay="0"
-                style="cursor: n-resize;"
               ></path>
             </g>
           </g>
           <g>
             <g>
               <path
-                cursor="e-resize"
                 mode="delta"
                 fill="currentColor"
                 d="
@@ -275,7 +281,6 @@
                 data-automation-id="padding-left-button"
                 aria-label="Padding left button"
                 delay="0"
-                style="cursor: e-resize;"
               ></path>
             </g>
           </g>
@@ -328,12 +333,15 @@
         </svg>
         <component
           v-for="(p, key) in padding"
-          :key="key"
+          :key="p.value + breakpoint"
           :is="`${p.type}-fieldtype`"
           :style="p.style"
           :handle="p.handle"
           :config="p"
-          v-model="p.value"
+          :value="
+            getDeep(field.config, `inline.padding.${breakpoint}.${key}`) ||
+              'N/A'
+          "
           @input="handleInput('padding', key, $event)"
           class="control-input text-center"
           aria-label="Padding right edit"
@@ -379,13 +387,15 @@
 </template>
 
 <script>
-import OptionsFields from "../../mixins/OptionsFields";
+import OptionsFields from "../../../mixins/OptionsFields";
+import { EvaIcon } from "vue-eva-icons";
 export default {
   props: {
     field: Object,
   },
   data() {
     return {
+      focus: false,
       lockMarginY: false,
       lockMarginX: false,
       lockPaddingY: false,
@@ -403,7 +413,7 @@ export default {
           handle: "mt",
           display: "Margin Top",
           multiple: false,
-          value: this.field.config?.inline?.margin?.mt?.value || "N/A",
+          value: "N/A",
           style: "grid-area: 1 / 2 / 2 / 3;",
         },
         mr: {
@@ -417,7 +427,7 @@ export default {
           options: this.getTWClasses("margin", "mr"),
           handle: "mr",
           display: "Margin Right",
-          value: this.field.config?.inline?.margin?.mr?.value || "N/A",
+          value: "N/A",
           style: "grid-area: 2 / 3 / 3 / 4;",
         },
         mb: {
@@ -431,7 +441,7 @@ export default {
           options: this.getTWClasses("margin", "mb"),
           handle: "mb",
           display: "Margin Bottom",
-          value: this.field.config?.inline?.margin?.mb?.value || "N/A",
+          value: "N/A",
           style: "grid-area: 3 / 2 / 4 / 3;",
         },
         ml: {
@@ -445,7 +455,7 @@ export default {
           options: this.getTWClasses("margin", "ml"),
           handle: "ml",
           display: "Margin Left",
-          value: this.field.config?.inline?.margin?.ml?.value || "N/A",
+          value: "N/A",
           style: 'grid-area: 2 / 1 / 3 / 2;"',
         },
       },
@@ -461,7 +471,7 @@ export default {
           options: this.getTWClasses("padding", "pt"),
           handle: "paddingTop",
           display: "Padding Top",
-          value: this.field.config?.inline?.padding?.pt?.value || "N/A",
+          value: "N/A",
           style: "grid-area: 1 / 2 / 2 / 3;",
         },
         pr: {
@@ -475,7 +485,7 @@ export default {
           options: this.getTWClasses("padding", "pr"),
           handle: "paddingRight",
           display: "Padding Right",
-          value: this.field.config?.inline?.padding?.pr?.value || "N/A",
+          value: "N/A",
           style: "grid-area: 2 / 3 / 3 / 4;",
         },
         pb: {
@@ -489,7 +499,7 @@ export default {
           options: this.getTWClasses("padding", "pb"),
           handle: "paddingBottom",
           display: "Padding Bottom",
-          value: this.field.config?.inline?.padding?.pb?.value || "N/A",
+          value: "N/A",
           style: "grid-area: 3 / 2 / 4 / 3;",
         },
         pl: {
@@ -503,16 +513,22 @@ export default {
           options: this.getTWClasses("padding", "pl"),
           handle: "paddingLeft",
           display: "Padding Left",
-          value: this.field.config?.inline?.padding?.pl?.value || "N/A",
+          value: "N/A",
           style: 'grid-area: 2 / 1 / 3 / 2;"',
         },
       },
     };
   },
   mixins: [OptionsFields],
+  components: {
+    EvaIcon,
+  },
 
   methods: {
     handleInput(setting, key, value) {
+      if (!key) {
+        return;
+      }
       if (setting === "margin") {
         if (this.lockMarginY && this.lockMarginX) {
           this.margin.mt.value = value;
@@ -520,6 +536,7 @@ export default {
           this.margin.mb.value = value;
           this.margin.ml.value = value;
         } else if (this.lockMarginY) {
+          console.log("trigggered");
           if (key === "mt" || key === "mb") {
             this.margin.mt.value = value;
             this.margin.mb.value = value;
@@ -529,9 +546,9 @@ export default {
             this.margin.ml.value = value;
             this.margin.mr.value = value;
           }
-        } else {
-          this.margin[key].value = value;
         }
+
+        this.margin[key].value = value;
       }
       if (setting === "padding") {
         if (this.lockPaddingY && this.lockPaddingX) {
@@ -549,16 +566,41 @@ export default {
             this.padding.pl.value = value;
             this.padding.pr.value = value;
           }
-        } else {
-          this.padding[key].value = value;
         }
+
+        this.padding[key].value = value;
       }
+
+      const newVals = Object.keys(this[setting]).reduce((acc, cur) => {
+        if (this[setting][cur].value === value) {
+          acc[cur] = this[setting][cur].value;
+        }
+        return acc;
+      }, {});
+
+      const oldVals = this.getDeep(
+        this.field.config,
+        `inline.${setting}.${this.breakpoint}`
+      );
+
+      const payload = { ...oldVals, ...newVals };
+
       this.$emit("input", {
-        option: "inline",
-        key: setting,
-        val: this[setting],
+        path: `inline.${setting}`,
+        val: payload,
       });
     },
+    checkOutsideClick(e) {
+      if (!e.target.closest(".boxmodel-ui")) {
+        this.focus = false;
+      }
+    },
+  },
+  mounted() {
+    window.addEventListener("click", this.checkOutsideClick);
+  },
+  destroy() {
+    window.removeEventListener("click", this.checkOutsideClick);
   },
 };
 </script>
@@ -574,11 +616,17 @@ export default {
 
 .lockMarginY,
 .lockMarginX {
+  top: 1px;
   right: 5rem;
+}
+.lockMarginY,
+.lockPaddingY {
+  transform: rotate(90deg);
+  transform-origin: center;
 }
 .lockMarginX,
 .lockPaddingX {
-  transform: rotate(90deg) translate(0px, -1rem);
+  transform: translate(1.3rem, 0.16rem);
   transform-origin: center;
 }
 
@@ -593,6 +641,7 @@ export default {
 .padding_y_locked,
 .padding_x_locked {
   color: red !important;
+  fill: red;
 }
 
 .control-input {
@@ -635,5 +684,13 @@ export default {
   background: none;
   align-items: center;
   padding: 0 !important;
+}
+
+.boxmodel-ui {
+  transition: all 0.4s ease;
+}
+
+.boxmodel-ui--focus {
+  transform: scale(1.5);
 }
 </style>

@@ -88,16 +88,16 @@ export default {
         newLayout.push(newCol);
       });
 
-      const oldModules = [];
+      const oldModules = {};
       const colCount = this.columns.length;
 
       if (colCount) {
-        this.columns.forEach((component) => {
+        this.columns.forEach((component, index) => {
           if (component.value.length) {
+            oldModules[index] = [];
             component.value.forEach((module) => {
-              oldModules.push(module);
+              oldModules[index].push(module);
             });
-            component.content = [];
           }
         });
       }
@@ -105,7 +105,15 @@ export default {
       // Change column layout
       this.columns.splice(0, colCount, ...newLayout);
       // Add old modules to new layout
-      this.columns[0].value = oldModules;
+      console.log(this.columns);
+      console.log(oldModules);
+      Object.keys(oldModules).forEach((key) => {
+        if (this.columns[key]) {
+          this.columns[key].value.push(...oldModules[key]);
+        } else {
+          this.columns[0].value.push(...oldModules[key]);
+        }
+      });
 
       this.$modals.close(this.name);
 
