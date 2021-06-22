@@ -2232,6 +2232,7 @@ var Column = function Column(_ref) {
   this.uuid = "".concat(UUID);
   this.type = 'column';
   this.config = {
+    enabled: true,
     columnSizes: {
       "xs": 12,
       "sm": '',
@@ -2271,6 +2272,7 @@ var Field = function Field(_ref) {
   this.uuid = "".concat(UUID);
   this.type = 'field';
   this.config = {
+    enabled: true,
     type: CONFIG.type,
     handle: HANDLE,
     admin_label: ADMIN_LABEL || HANDLE
@@ -2348,6 +2350,7 @@ var Row = function Row(_ref) {
   this.uuid = "".concat(UUID);
   this.type = 'row';
   this.config = {
+    enabled: true,
     admin_label: ADMIN_LABEL || this.type
   };
   this.value = [];
@@ -2374,6 +2377,7 @@ var Section = function Section(_ref) {
   this.uuid = "".concat(UUID);
   this.type = 'section';
   this.config = {
+    enabled: true,
     admin_label: ADMIN_LABEL || this.type
   };
   this.value = [];
@@ -2409,7 +2413,9 @@ var Set = function Set(_ref) {
       CONFIG = _ref$CONFIG === void 0 ? {} : _ref$CONFIG;
   this.uuid = "".concat(UUID);
   this.type = 'set';
-  this.config = _objectSpread(_objectSpread({}, CONFIG), {}, {
+  this.config = _objectSpread(_objectSpread({
+    enabled: true
+  }, CONFIG), {}, {
     handle: HANDLE,
     admin_label: ADMIN_LABEL || HANDLE
   });

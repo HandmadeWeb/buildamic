@@ -32,28 +32,36 @@ class BuildamicColumn extends Fieldtype
     {
         $parent = $this;
         $method = $shallow ? 'shallowAugment' : 'augment';
+        $buildamicConfig = $parent->field()->parentField()->parentField()->parentField()->config();
 
-        $value = collect($value)->map(function ($field) use ($parent, $method) {
-            if ($section['config']['enabled'] ?? false) {
+        $value = collect($value)->map(function ($field) use ($parent, $method, $buildamicConfig) {
+            if (! $field['config']['enabled'] ?? false) {
                 return;
             }
 
             if ($field['type'] === 'field') {
-                $type = 'buildamic-field';
+                $type = $field['config']['type'];
+                $config = collect($buildamicConfig['fields'] ?? [])->firstWhere('handle', $field['config']['handle']);
+                $config = array_merge($config['field'], $field['config']['field']);
+                $fieldValue = $field['value'];
             } elseif ($field['type'] === 'fieldset') {
                 $type = 'buildamic-fieldset';
+                $field['type'] = $type;
+                $config = $field;
+                $fieldValue = $field['value'];
             } elseif ($field['type'] === 'set') {
                 $type = 'buildamic-set';
+                $field['type'] = $type;
+                $config = $field;
+                $fieldValue = $field['value'];
             }
 
             if (isset($type)) {
-                $field['type'] = $type;
-
                 return (new Field($field['config']['handle'], []))
-                    ->setConfig($field)
+                    ->setConfig($config)
                     ->setParent($parent->field()->parent())
                     ->setParentField($parent->field())
-                    ->setValue($field['value'])
+                    ->setValue($fieldValue)
                     ->{$method}();
             }
         })->filter()->all();

@@ -33,7 +33,7 @@ class BuildamicRow extends Fieldtype
         $method = $shallow ? 'shallowAugment' : 'augment';
 
         $value = collect($value)->map(function ($column) use ($parent, $method) {
-            if ($section['config']['enabled'] ?? false) {
+            if (! $column['config']['enabled'] ?? false) {
                 return;
             }
 

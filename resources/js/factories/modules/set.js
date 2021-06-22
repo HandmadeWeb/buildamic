@@ -2,6 +2,7 @@ const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {} }) {
     this.uuid = `${UUID}`
     this.type = 'set'
     this.config = {
+        enabled: true,
         ...CONFIG,
         handle: HANDLE,
         admin_label: ADMIN_LABEL || HANDLE

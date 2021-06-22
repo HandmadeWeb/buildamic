@@ -14,10 +14,13 @@ class BuildamicRenderer
     protected $instance;
     protected $sections = [];
     protected $viewPrefix = 'buildamic::blade';
+    protected $augmentMethod;
 
     public function __construct(Buildamic $fieldInstance, bool $shallowAugment = false)
     {
         $this->instance = $fieldInstance->field();
+        $this->augmentMethod = $shallowAugment ? 'shallowAugment' : 'augment';
+
         $this->sections = $this->instance->value();
     }
 

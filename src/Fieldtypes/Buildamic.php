@@ -130,7 +130,7 @@ class Buildamic extends Fieldtype
                             $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->process()->value();
 
                             // Deduplicate Field Config
-                            $field['config']['field'] = array_diff($field['config']['field'], collect($instance->config('fields'))->firstWhere('handle', $field['config']['handle'])['field'] ?? []);
+                            $field['config']['field'] = array_diff($field['config']['field'] ?? [], collect($instance->config('fields'))->firstWhere('handle', $field['config']['handle'])['field'] ?? []);
                         } elseif ($field['type'] === 'set') {
                             $field['value'] = collect($field['value']);
                             $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
@@ -168,28 +168,28 @@ class Buildamic extends Fieldtype
         $method = $shallow ? 'shallowAugment' : 'augment';
 
         $value = collect($value)->map(function ($section) use ($parent, $method) {
-            if ($section['config']['enabled'] ?? false) {
+            if (! $section['config']['enabled'] ?? false) {
                 return;
             }
 
             return (new Field($section['uuid'], []))
-            ->setConfig(array_merge(
-                [
-                'type' => 'buildamic-section',
-                ],
-                collect($section['config'])
-                ->except(['admin_label'])
-                ->toArray()
-            ))
-            ->setParent($parent->field()->parent())
-            ->setParentField($parent->field())
-            ->setValue($section['value'])
-            ->{$method}()->value();
+                ->setConfig(array_merge(
+                    [
+                    'type' => 'buildamic-section',
+                    ],
+                    collect($section['config'])
+                    ->except(['admin_label'])
+                    ->toArray()
+                ))
+                ->setParent($parent->field()->parent())
+                ->setParentField($parent->field())
+                ->setValue($section['value'])
+                ->{$method}()->value();
         })->filter()->all();
 
         $this->field()->setValue($value);
 
-        return new BuildamicRenderer($this);
+        return new BuildamicRenderer($this, $shallow);
     }
 
     /**

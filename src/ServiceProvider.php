@@ -5,7 +5,6 @@ namespace Michaelr0\Buildamic;
 use Michaelr0\Buildamic\Fieldtypes\Altamic;
 use Michaelr0\Buildamic\Fieldtypes\Buildamic;
 use Michaelr0\Buildamic\Fieldtypes\BuildamicColumn;
-use Michaelr0\Buildamic\Fieldtypes\BuildamicField;
 use Michaelr0\Buildamic\Fieldtypes\BuildamicFieldset;
 use Michaelr0\Buildamic\Fieldtypes\BuildamicRow;
 use Michaelr0\Buildamic\Fieldtypes\BuildamicSection;
@@ -30,7 +29,6 @@ class ServiceProvider extends AddonServiceProvider
         BuildamicSection::class,
         BuildamicRow::class,
         BuildamicColumn::class,
-        BuildamicField::class,
         BuildamicFieldset::class,
         BuildamicSet::class,
         Altamic::class,
