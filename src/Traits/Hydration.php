@@ -8,35 +8,6 @@ use Statamic\Fields\Fields;
 
 trait Hydration
 {
-    protected function hydrateSections()
-    {
-        return collect($this->instance->field()->value())->map(function ($section) {
-            if ($section['type'] === 'section') {
-                $section['value'] = $this->hydrateRows($section['value'] ?? []);
-            }
-
-            return $section;
-        })->toArray();
-    }
-
-    protected function hydrateRows(array $rows)
-    {
-        return collect($rows)->map(function ($row) {
-            $row['value'] = $this->hydrateColumns($row['value'] ?? []);
-
-            return $row;
-        })->toArray();
-    }
-
-    protected function hydrateColumns(array $columns)
-    {
-        return collect($columns)->map(function ($column) {
-            $column['value'] = $this->hydrateFields($column['value'] ?? []);
-
-            return $column;
-        })->toArray();
-    }
-
     protected function hydrateFields(array $fields)
     {
         return collect($fields)->map(function ($field) {
