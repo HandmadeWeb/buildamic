@@ -11,7 +11,7 @@ import Vue from 'vue'
 const setDeep = (obj, path, value, force = true, overwrite = false) => {
 
     // If it's already an array, good game. Otherwise make it one from the .
-    !Array.isArray(path) ? path = path.split('.') : path
+    !Array.isArray(path) ? path = path.split('.').filter(path => path) : path
     path.reduce((a, b, i) => {
 
         // Start index at 1
@@ -54,13 +54,14 @@ const setDeep = (obj, path, value, force = true, overwrite = false) => {
 }
 
 const getDeep = (obj, path) => {
-    path = Array.isArray(path) ? path : path.split('.')
+    path = Array.isArray(path) ? path : path.split('.').filter(path => path)
+    console.log('GD', path.reduce((a, b) => a && a[b], obj))
     return path.reduce((a, b) => a && a[b], obj);
 }
 
 const getDeepAsync = (obj, path) => {
     return new Promise((res, rej) => {
-        path = Array.isArray(path) ? path : path.split('.')
+        path = Array.isArray(path) ? path : path.split('.').filter(path => path)
         let search = path.reduce((a, b) => a && a[b], obj)
         search ? res(search) : rej()
     })

@@ -27,6 +27,7 @@
 import { EvaIcon } from "vue-eva-icons";
 import FieldSettings from "../fields/FieldSettings.vue";
 import SetSettings from "../fields/SetSettings.vue";
+import RowSettings from "../rows/RowSettings.vue";
 
 export default {
   props: {
@@ -44,6 +45,7 @@ export default {
     EvaIcon,
     FieldSettings,
     SetSettings,
+    RowSettings,
   },
   methods: {},
 };

@@ -1,18 +1,21 @@
+import Vue from 'vue'
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../../../../../tailwind.config";
 
 const fullConfig = resolveConfig(tailwindConfig);
 
-import { setDeep } from '../functions/objectHelpers'
+import { getDeep, setDeep } from '../functions/objectHelpers'
+import { mapGetters } from 'vuex'
 
 export default {
+    computed: {
+        ...mapGetters(["breakpoint"])
+    },
     methods: {
-        updateField({ option, key, val }) {
-            console.log(`${option}.${key}`)
-            if (option) {
-                return setDeep(this.field.config, `${option}.${key}`, val)
-            }
-            setDeep(this.field.config, `${key}`, val)
+        getDeep,
+        updateField({ path, val }, responsive) {
+            const fullPath = responsive ? `${path}.${this.breakpoint}` : path
+            return setDeep(this.field.config, fullPath, val)
         },
         getTWClasses(type, prefix) {
             const options = Object.keys(fullConfig.theme[type]).reduce(
@@ -24,9 +27,9 @@ export default {
                     }
                     return acc;
                 },
-                { "N/A": "N/A" }
+                {}
             );
-            return options;
+            return Object.assign({ 'none': 'N/A' }, options);
         },
     }
 }
