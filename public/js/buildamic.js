@@ -413,8 +413,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     field: {
@@ -15141,16 +15139,19 @@ var render = function() {
       _c(_vm.fieldData.config.type + "-fieldtype", {
         tag: "component",
         attrs: {
-          config:
+          config: Object.assign(
+            {},
             _vm.fieldDefaults[
               _vm.fieldData.config.handle || _vm.fieldData.handle
             ].config,
+            _vm.fieldData.config.field
+          ),
           value: _vm.fieldData.value,
           meta:
             _vm.fieldDefaults[
               _vm.fieldData.config.handle || _vm.fieldData.handle
             ].meta,
-          handle: _vm.fieldData.config.handle
+          handle: _vm.fieldData.config.handle || _vm.fieldData.handle
         },
         on: {
           input: function($event) {

@@ -3,12 +3,10 @@
     <label>{{ fieldDisplay }}</label>
     <component
       :is="`${fieldData.config.type}-fieldtype`"
-      :config="
-        fieldDefaults[fieldData.config.handle || fieldData.handle].config
-      "
+      :config="{...fieldDefaults[fieldData.config.handle || fieldData.handle].config, ...fieldData.config.field}"
       :value="fieldData.value"
       :meta="fieldDefaults[fieldData.config.handle || fieldData.handle].meta"
-      :handle="fieldData.config.handle"
+      :handle="fieldData.config.handle || fieldData.handle"
       @input="updateField(field, $event)"
       @meta-updated="$emit('meta-updated', $event)"
       @focus="$emit('focus')"
