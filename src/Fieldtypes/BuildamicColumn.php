@@ -5,6 +5,7 @@ namespace Michaelr0\Buildamic\Fieldtypes;
 use Statamic\Fields\Field;
 use Statamic\Fields\Fields;
 use Statamic\Fields\Fieldtype;
+use Statamic\Fields\Value;
 
 class BuildamicColumn extends Fieldtype
 {
@@ -47,13 +48,14 @@ class BuildamicColumn extends Fieldtype
                         ->setConfig(array_merge($item['field'], $field['config']['field'][$item['handle']] ?? []))
                         ->setParent($parent->field()->parent())
                         ->setParentField($parent->field())
-                        ->setValue($field['value'][$item['handle']]);
+                        ->setValue($field['value'][$item['handle']])
+                        ->{$method}();
                 }
 
-                return (new Fields())
+                return (new Field($field['config']['handle'], ['type' => 'sets']))
                     ->setParent($parent->field()->parent())
                     ->setParentField($parent->field())
-                    ->setFields(collect($fields))
+                    ->setValue($fields)
                     ->{$method}();
             } else {
                 $config = collect($buildamicConfig['fields'] ?? [])

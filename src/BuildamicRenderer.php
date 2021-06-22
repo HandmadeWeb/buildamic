@@ -57,13 +57,13 @@ class BuildamicRenderer
         return view("{$this->viewPrefix}.layouts.column", ['buildamic' => $this, 'column' => $column]);
     }
 
-    public function renderField($field)
+    public function renderField(Field $field)
     {
-        if ($field instanceof Field) {
-            return $this->renderSingleField($field);
-        } elseif ($field instanceof Fields) {
-            return $this->renderFields($field);
+        if ($field->type() === 'sets') {
+            return $this->renderFieldset($field);
         }
+
+        return $this->renderSingleField($field);
     }
 
     public function renderSingleField(Field $field)
@@ -84,11 +84,17 @@ class BuildamicRenderer
         return view($view, ['buildamic' => $this, 'field' => $field->value()]);
     }
 
-    public function renderFields(Fields $fields)
+    public function renderFieldset(Field $fieldset)
     {
+        // handle:blurb, file: blurb
+        if (view()->exists("{$this->viewPrefix}.sets.{$fieldset->handle()}")) {
+            return view("{$this->viewPrefix}.sets.{$fieldset->handle()}", ['buildamic' => $this, 'field' => $fieldset->value(), 'fields' => $fieldset->value()->value()]);
+        }
+
+        // catch all, render individual fields.
         $html = '';
 
-        foreach ($fields->all() as $field) {
+        foreach ($fieldset->value()->value() as $field) {
             $html .= $this->renderSingleField($field);
         }
 
