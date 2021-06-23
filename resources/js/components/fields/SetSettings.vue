@@ -3,9 +3,9 @@
     <vue-tabs :id="field.uuid">
       <vue-tab name="Content" selected="selected">
         <Field
-          v-for="field in field.value"
-          :key="field.uuid"
-          :field="field"
+          v-for="f in field.value"
+          :key="f.uuid"
+          :field="f"
           :fieldDefaults="setFieldDefaults"
         />
       </vue-tab>
@@ -42,6 +42,9 @@ export default {
       );
       return test;
     },
+  },
+  mounted() {
+    console.log("set", this.field);
   },
 };
 </script>

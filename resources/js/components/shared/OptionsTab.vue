@@ -10,7 +10,7 @@
             :handle="option.handle"
             :config="option"
             v-model="option.value"
-            @input="updateField({ option: 'attributes', key, val: $event })"
+            @input="updateField({ path: `attributes.${key}`, val: $event })"
           />
         </div>
       </div>
@@ -21,7 +21,7 @@
           :config="admin_label"
           v-model="admin_label.value"
           :meta="null"
-          @input="updateField({ key: 'admin_label', val: $event })"
+          @input="updateField({ path: 'admin_label', val: $event })"
         />
       </div>
     </div>
