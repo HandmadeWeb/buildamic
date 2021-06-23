@@ -5,11 +5,21 @@ namespace Michaelr0\Buildamic\Fieldtypes;
 use Michaelr0\Buildamic\BuildamicRenderer;
 use Michaelr0\Buildamic\Fields\Field;
 use Michaelr0\Buildamic\Fields\Fields;
-use Statamic\Fields\Fieldtype;
 
-class Buildamic extends Fieldtype
+class Buildamic extends BuildamicBase
 {
     protected static $handle = 'buildamic';
+    protected $selectable = true;
+
+    public function fields()
+    {
+        return new Fields($this->config('fields'), $this->field()->parent(), $this->field());
+    }
+
+    public function set(string $setHandle)
+    {
+        return new Fields($this->config("sets.{$setHandle}.fields"), $this->field()->parent(), $this->field());
+    }
 
     protected function configFieldItems(): array
     {
@@ -26,20 +36,10 @@ class Buildamic extends Fieldtype
     }
 
     /**
-     * The blank/default value.
-     *
-     * @return array
-     */
-    public function defaultValue()
-    {
-        return [];
-    }
-
-    /**
      * Load data into meta.
      *
      * @param mixed $data
-     * @return array|mixed
+     * @return array
      */
     public function preload()
     {
@@ -76,33 +76,15 @@ class Buildamic extends Fieldtype
     }
 
     /**
-     * Pre-process the data before it gets sent to the publish page.
+     * $preProcess = true: Pre-process the data before it gets sent to the publish page.
+     * $preProcess = true: Process the data before it gets saved.
      *
      * @param mixed $data
-     * @return array|mixed
+     * @param bool $preProcess
+     * @return array
      */
-    public function preProcess($data)
-    {
-        return $this->processData($data, true);
-    }
-
-    /**
-     * Process the data before it gets saved.
-     *
-     * @param mixed $data
-     * @return array|mixed
-     */
-    public function process($data)
-    {
-        return $this->processData($data, false);
-    }
-
     protected function processData($data, bool $preProcess = false)
     {
-        if (empty($data)) {
-            return $this->defaultValue();
-        }
-
         $method = $preProcess ? 'preProcess' : 'process';
 
         $instance = $this;
@@ -153,17 +135,7 @@ class Buildamic extends Fieldtype
         })->toArray();
     }
 
-    public function augment($value)
-    {
-        return $this->performAugmentation($value, false);
-    }
-
-    public function shallowAugment($value)
-    {
-        return $this->performAugmentation($value, true);
-    }
-
-    private function performAugmentation($value, $shallow = false)
+    protected function performAugmentation($value, $shallow = false)
     {
         $parent = $this;
 
@@ -185,27 +157,5 @@ class Buildamic extends Fieldtype
         $this->field()->setValue($value);
 
         return new BuildamicRenderer($this, $shallow);
-    }
-
-    /**
-     * Get Fields from config.
-     *
-     * @param mixed $data
-     * @return Fields
-     */
-    public function fields()
-    {
-        return new Fields($this->config('fields'), $this->field()->parent(), $this->field());
-    }
-
-    /**
-     * Get the Set from config by handle.
-     *
-     * @param string $setHandle
-     * @return Fields
-     */
-    public function set(string $setHandle)
-    {
-        return new Fields($this->config("sets.{$setHandle}.fields"), $this->field()->parent(), $this->field());
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Michaelr0\Buildamic\Fields;
 
-use Michaelr0\Buildamic\Fields\Field;
 use Statamic\Fields\Fields as StatamicFields;
 
 class Fields extends StatamicFields
@@ -21,7 +20,12 @@ class Fields extends StatamicFields
         return $this->buildamicSettings;
     }
 
-    public function buildamicSetting(string $key = null, $fallback = null)
+    /**
+     * @param string|null $key
+     * @param mixed $fallback
+     * @return mixed
+     */
+    public function buildamicSetting(string | null $key = null, $fallback = null)
     {
         if (is_null($key)) {
             return $this->buildamicSettings();
@@ -33,7 +37,7 @@ class Fields extends StatamicFields
     // Working
     public function newInstance()
     {
-        return (new static)
+        return (new static())
             ->setBuildamicSettings($this->buildamicSettings())
             ->setParent($this->parent)
             ->setParentField($this->parentField)

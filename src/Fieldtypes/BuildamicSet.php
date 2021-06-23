@@ -3,30 +3,12 @@
 namespace Michaelr0\Buildamic\Fieldtypes;
 
 use Michaelr0\Buildamic\Fields\Field;
-use Statamic\Fields\Fieldtype;
 
-class BuildamicSet extends Fieldtype
+class BuildamicSet extends BuildamicBase
 {
     protected static $handle = 'buildamic-set';
 
-    protected $localizable = false;
-    protected $validatable = false;
-    protected $defaultable = false;
-    protected $selectable = false;
-    protected $selectableInForms = false;
-    protected $categories = [];
-
-    public function augment($value)
-    {
-        return $this->performAugmentation($value, false);
-    }
-
-    public function shallowAugment($value)
-    {
-        return $this->performAugmentation($value, true);
-    }
-
-    private function performAugmentation($value, $shallow = false)
+    protected function performAugmentation($value, $shallow = false)
     {
         $parent = $this;
         $method = $shallow ? 'shallowAugment' : 'augment';

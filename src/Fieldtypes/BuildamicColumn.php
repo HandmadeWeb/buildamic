@@ -5,30 +5,12 @@ namespace Michaelr0\Buildamic\Fieldtypes;
 use Illuminate\Support\Collection;
 use Michaelr0\Buildamic\Fields\Field;
 use Michaelr0\Buildamic\Fields\Fields;
-use Statamic\Fields\Fieldtype;
 
-class BuildamicColumn extends Fieldtype
+class BuildamicColumn extends BuildamicBase
 {
     protected static $handle = 'buildamic-column';
 
-    protected $localizable = false;
-    protected $validatable = false;
-    protected $defaultable = false;
-    protected $selectable = false;
-    protected $selectableInForms = false;
-    protected $categories = [];
-
-    public function augment($value)
-    {
-        return $this->performAugmentation($value, false);
-    }
-
-    public function shallowAugment($value)
-    {
-        return $this->performAugmentation($value, true);
-    }
-
-    private function performAugmentation($value, $shallow = false)
+    protected function performAugmentation($value, $shallow = false)
     {
         $parent = $this;
         $method = $shallow ? 'shallowAugment' : 'augment';
@@ -59,7 +41,9 @@ class BuildamicColumn extends Fieldtype
                     ->setParentField($parent->field())
                     ->setValue($field['value'] ?? null)
                     ->{$method}();
-            } elseif ($field['type'] === 'fieldset') {
+            }
+
+            if ($field['type'] === 'fieldset') {
                 //   -
                 //     uuid: 77290cd8-583d-4ad8-9137-cfa24097bf78
                 //     type: fieldset
@@ -96,7 +80,9 @@ class BuildamicColumn extends Fieldtype
                     ->setItems([$field['config']['statamic_settings']])
                     ->addValues($field['value'] ?? [])
                     ->{$method}();
-            } elseif ($field['type'] === 'set') {
+            }
+
+            if ($field['type'] === 'set') {
                 $field['config']['statmic_settings']['field']['type'] = 'buildamic-set';
 
                 // uuid: 98962c4d-2b1d-4579-b119-1757ee6cd608

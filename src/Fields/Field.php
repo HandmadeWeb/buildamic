@@ -20,7 +20,12 @@ class Field extends StatamicField
         return $this->buildamicSettings;
     }
 
-    public function buildamicSetting(string $key = null, $fallback = null)
+    /**
+     * @param string|null $key
+     * @param mixed $fallback
+     * @return mixed
+     */
+    public function buildamicSetting(string | null $key = null, $fallback = null)
     {
         if (is_null($key)) {
             return $this->buildamicSettings();

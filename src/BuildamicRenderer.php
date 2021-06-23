@@ -59,11 +59,13 @@ class BuildamicRenderer
         return View::make("{$this->viewPrefix}.layouts.column", ['buildamic' => $this, 'column' => $column]);
     }
 
-    public function renderField($field)
+    public function renderField(Field | Fields $field)
     {
         if ($field instanceof Field && $field->type() === 'buildamic-set') {
             return $this->renderSet($field);
-        } elseif ($field instanceof Fields) {
+        }
+
+        if ($field instanceof Fields) {
             return $this->renderFieldset($field);
         }
 
