@@ -71,28 +71,20 @@ class BuildamicColumn extends Fieldtype
                 //     value:
                 //       fieldset_example.bio: '123456'
 
-                // Fieldset (might be prefixed)
-                if (isset($field['config']['field']['import'])) {
-                    return (new Fields([$field['config']['field']]))
-                        ->setParent($parent->field()->parent())
-                        ->setParentField($parent->field())
-                        ->addValues($field['value'])
-                        ->{$method}();
-                }
                 // Fieldset (single field)
-                elseif (is_string($field['config']['field'])) {
-                    $config = [
+                if (is_string($field['config']['field'])) {
+                    $singleField = [
                         'handle' => $field['config']['field'],
                         'field' => $field['config']['field'],
                         'config' => $field['config']['config'] ?? [],
                     ];
-
-                    return (new Fields([$config]))
-                        ->setParent($parent->field()->parent())
-                        ->setParentField($parent->field())
-                        ->addValues($field['value'])
-                        ->{$method}();
                 }
+
+                return (new Fields([$singleField ?? $field['config']['field']]))
+                    ->setParent($parent->field()->parent())
+                    ->setParentField($parent->field())
+                    ->addValues($field['value'])
+                    ->{$method}();
             } elseif ($field['type'] === 'set') {
                 $field['type'] = 'buildamic-set';
 

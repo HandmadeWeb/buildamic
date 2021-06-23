@@ -99,26 +99,19 @@ class Buildamic extends Fieldtype
                                 return $item->setValue($field['value'][$item->handle()])->preProcess()->value();
                             })->toArray();
                         } elseif ($field['type'] === 'fieldset') {
-                            // Fieldset (might be prefixed)
-                            if (isset($field['config']['field']['import'])) {
-                                $field['value'] = (new Fields([$field['config']['field']]))
-                                    ->addValues($field['value'])
-                                    ->preProcess()
-                                    ->values();
-                            }
                             // Fieldset (single field)
-                            elseif (is_string($field['config']['field'])) {
-                                $config = [
+                            if (is_string($field['config']['field'])) {
+                                $singleField = [
                                     'handle' => $field['config']['field'],
                                     'field' => $field['config']['field'],
                                     'config' => $field['config']['config'] ?? [],
                                 ];
-
-                                $field['value'] = (new Fields([$config]))
-                                    ->addValues($field['value'])
-                                    ->preProcess()
-                                    ->values();
                             }
+
+                            $field['value'] = (new Fields([$singleField ?? $field['config']['field']]))
+                                ->addValues($field['value'])
+                                ->preProcess()
+                                ->values();
                         }
 
                         return $field;
@@ -159,26 +152,19 @@ class Buildamic extends Fieldtype
                                 return $item->setValue($field['value']->firstWhere('handle', $item->handle())['value'])->process()->value();
                             })->toArray();
                         } elseif ($field['type'] === 'fieldset') {
-                            // Fieldset (might be prefixed)
-                            if (isset($field['config']['field']['import'])) {
-                                $field['value'] = (new Fields([$field['config']['field']]))
-                                    ->addValues($field['value'])
-                                    ->process()
-                                    ->values();
-                            }
                             // Fieldset (single field)
-                            elseif (is_string($field['config']['field'])) {
-                                $config = [
+                            if (is_string($field['config']['field'])) {
+                                $singleField = [
                                     'handle' => $field['config']['field'],
                                     'field' => $field['config']['field'],
                                     'config' => $field['config']['config'] ?? [],
                                 ];
-
-                                $field['value'] = (new Fields([$config]))
-                                    ->addValues($field['value'])
-                                    ->process()
-                                    ->values();
                             }
+
+                            $field['value'] = (new Fields([$singleField ?? $field['config']['field']]))
+                                ->addValues($field['value'])
+                                ->process()
+                                ->values();
                         }
 
                         return $field;
