@@ -2,18 +2,23 @@
 
 namespace Michaelr0\Buildamic;
 
+use Facades\Statamic\View\Cascade;
+use Illuminate\Support\Facades\View;
 use Michaelr0\Buildamic\Fields\Field;
 use Michaelr0\Buildamic\Fields\Fields;
 use Michaelr0\Buildamic\Fieldtypes\Buildamic;
 use Statamic\Fields\Value;
-use Statamic\View\View;
+
+// use Statamic\View\View;
 
 class BuildamicRenderer
 {
+    protected $augmentMethod;
+    protected $cascade;
+    protected $cascadeContent = [];
     protected $instance;
     protected $sections = [];
     protected $viewPrefix = 'buildamic::blade';
-    protected $augmentMethod;
 
     public function __construct(Buildamic $fieldInstance, bool $shallowAugment = false)
     {
@@ -21,6 +26,24 @@ class BuildamicRenderer
         $this->augmentMethod = $shallowAugment ? 'shallowAugment' : 'augment';
 
         $this->sections = $this->instance->value();
+    }
+
+    public function sections()
+    {
+        return $this->sections;
+    }
+
+    protected function cascade()
+    {
+        return $this->cascade = $this->cascade ?? Cascade::instance()
+            ->withContent($this->cascadeContent)
+            ->hydrate()
+            ->toArray();
+    }
+
+    public function gatherData(array $data)
+    {
+        return array_merge(['cascade' => $this->cascade()], $data);
     }
 
     public function __toString()
@@ -39,24 +62,19 @@ class BuildamicRenderer
         return $buildamic_html;
     }
 
-    public function sections()
-    {
-        return $this->sections;
-    }
-
     public function renderSection(Value $section)
     {
-        return View::make("{$this->viewPrefix}.layouts.section", ['buildamic' => $this, 'section' => $section]);
+        return View::make("{$this->viewPrefix}.layouts.section", $this->gatherData(['buildamic' => $this, 'section' => $section]));
     }
 
     public function renderRow(Value $row)
     {
-        return View::make("{$this->viewPrefix}.layouts.row", ['buildamic' => $this, 'row' => $row]);
+        return View::make("{$this->viewPrefix}.layouts.row", $this->gatherData(['buildamic' => $this, 'row' => $row]));
     }
 
     public function renderColumn(Value $column)
     {
-        return View::make("{$this->viewPrefix}.layouts.column", ['buildamic' => $this, 'column' => $column]);
+        return View::make("{$this->viewPrefix}.layouts.column", $this->gatherData(['buildamic' => $this, 'column' => $column]));
     }
 
     public function renderField(Field | Fields $field)
@@ -83,7 +101,7 @@ class BuildamicRenderer
         // catch all, file: default-field
         $fallbackView = "{$this->viewPrefix}.default-field";
 
-        return View::first([$viewFromTypeAndHandle, $viewFromType, $fallbackView], ['buildamic' => $this, 'field' => $field]);
+        return View::first([$viewFromTypeAndHandle, $viewFromType, $fallbackView], $this->gatherData(['buildamic' => $this, 'field' => $field]));
     }
 
     public function renderFieldset(Fields $fieldset)
@@ -97,7 +115,7 @@ class BuildamicRenderer
 
         // handle:blurb, file: blurb
         if (view()->exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
-            return View::make("{$this->viewPrefix}.fieldsets.{$handle}", ['buildamic' => $this, 'field' => $fieldset, 'fields' => $fieldset->all()]);
+            return View::make("{$this->viewPrefix}.fieldsets.{$handle}", $this->gatherData(['buildamic' => $this, 'field' => $fieldset, 'fields' => $fieldset->all()]));
         }
 
         // catch all, render individual fields.
@@ -119,7 +137,7 @@ class BuildamicRenderer
 
         // handle:blurb, file: blurb
         if (view()->exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
-            return View::make("{$this->viewPrefix}.sets.{$set->handle()}", ['buildamic' => $this, 'field' => $set, 'fields' => collect($fields)]);
+            return View::make("{$this->viewPrefix}.sets.{$set->handle()}", $this->gatherData(['buildamic' => $this, 'field' => $set, 'fields' => collect($fields)]));
         }
 
         // catch all, render individual fields.
