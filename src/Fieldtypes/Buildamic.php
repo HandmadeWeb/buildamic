@@ -179,7 +179,9 @@ class Buildamic extends Fieldtype
                             }
 
                             $field['value'] = $this->set($field['config']['statamic_settings']['handle'])->all()->map(function ($item) use ($field) {
-                                return $item->setValue($field['value'][$item->handle()])->process()->value();
+                                $_item = collect($field['value'])->firstWhere('config.statamic_settings.handle', 'title');
+
+                                return $item->setValue($_item['value'])->process()->value();
                             })->toArray();
                         } elseif ($field['type'] === 'fieldset') {
                             // Fieldset (single field)
