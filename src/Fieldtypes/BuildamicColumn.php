@@ -44,23 +44,47 @@ class BuildamicColumn extends Fieldtype
                 $config = collect($buildamicConfig['fields'] ?? [])->firstWhere('handle', $field['config']['handle']);
 
                 return (new Field($field['config']['handle'], []))
-                    ->setConfig(array_merge($config['field'], $field['config']['field']))
+                    ->setConfig($config['field'])
                     ->setParent($parent->field()->parent())
                     ->setParentField($parent->field())
                     ->setValue($field['value'])
                     ->{$method}();
             } elseif ($field['type'] === 'fieldset') {
-                if (isset($field['config']['field']['import'])) {
+                //   -
+                //     uuid: 77290cd8-583d-4ad8-9137-cfa24097bf78
+                //     type: fieldset
+                //     config:
+                //       enabled: true
+                //       field:
+                //         import: fieldset_example
+                //         prefix: prefix
+                //     value:
+                //       prefixbio: '123456'
+                //   -
+                //     uuid: 77290cd8-583d-4ad8-9137-cfa24097bf781
+                //     type: fieldset
+                //     config:
+                //       enabled: true
+                //       field: fieldset_example.bio
+                //       config:
+                //         antlers: true
+                //     value:
+                //       fieldset_example.bio: '123456'
+
+                // Fieldset (single field)
+                if (is_string($field['config']['field'])) {
+                    $singleField = [
+                        'handle' => $field['config']['field'],
+                        'field' => $field['config']['field'],
+                        'config' => $field['config']['config'] ?? [],
+                    ];
                 }
 
-                $fields = (new Fields([$field['config']['field']]))
-                    ->addValues($field['value']);
-                // $fields = (new Fields([[
-                //     'handle' => $field['config']['field']['import'],
-                //     'field' => $field['config']['field'],
-                // ]]))->addValues([$field['handle'] => $field['value']])->all();
-
-                dd(true, $fields, $field);
+                return (new Fields([$singleField ?? $field['config']['field']]))
+                    ->setParent($parent->field()->parent())
+                    ->setParentField($parent->field())
+                    ->addValues($field['value'])
+                    ->{$method}();
             } elseif ($field['type'] === 'set') {
                 $field['type'] = 'buildamic-set';
 

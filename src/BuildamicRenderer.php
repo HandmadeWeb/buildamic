@@ -60,9 +60,11 @@ class BuildamicRenderer
         return view("{$this->viewPrefix}.layouts.column", ['buildamic' => $this, 'column' => $column]);
     }
 
-    public function renderField(Field $field)
+    public function renderField($field)
     {
-        if ($field->type() === 'buildamic-set') {
+        if ($field instanceof Field && $field->type() === 'buildamic-set') {
+            return $this->renderSet($field);
+        } elseif ($field instanceof Fields) {
             return $this->renderFieldset($field);
         }
 
@@ -87,16 +89,41 @@ class BuildamicRenderer
         return view($view, ['buildamic' => $this, 'field' => $field]);
     }
 
-    public function renderFieldset(Field $fieldset)
+    public function renderFieldset(Fields $fieldset)
+    {
+        $config = $fieldset->items()->first();
+
+        if (isset($config['import'])) {
+            $handle = ($config['prefix'] ?? '').$config['import'];
+        } elseif (isset($config['handle']) && is_string($config['field'])) {
+            $handle = $config['handle'];
+        }
+
+        // handle:blurb, file: blurb
+        if (view()->exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
+            return view("{$this->viewPrefix}.fieldsets.{$handle}", ['buildamic' => $this, 'field' => $fieldset, 'fields' => $fieldset->all()]);
+        }
+
+        // catch all, render individual fields.
+        $html = '';
+
+        foreach ($fieldset->all() as $field) {
+            $html .= $this->renderSingleField($field);
+        }
+
+        return $html;
+    }
+
+    public function renderSet(Field $set)
     {
         $fields = [];
-        foreach ($fieldset->value()->value()->value()->value() as $field) {
+        foreach ($set->value()->value()->value()->value() as $field) {
             $fields[$field->handle()] = $field;
         }
 
         // handle:blurb, file: blurb
-        if (view()->exists("{$this->viewPrefix}.sets.{$fieldset->handle()}")) {
-            return view("{$this->viewPrefix}.sets.{$fieldset->handle()}", ['buildamic' => $this, 'field' => $fieldset, 'fields' => $fields]);
+        if (view()->exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
+            return view("{$this->viewPrefix}.sets.{$set->handle()}", ['buildamic' => $this, 'field' => $set, 'fields' => collect($fields)]);
         }
 
         // catch all, render individual fields.
