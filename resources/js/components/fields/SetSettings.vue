@@ -5,10 +5,12 @@
   >
     <vue-tabs :id="field.uuid">
       <vue-tab name="Content" selected="selected">
-        <Field
-          v-for="f in field.value"
-          :key="f.uuid"
-          :field="f"
+        <field-lite
+          v-for="(val, key) in field.value"
+          :key="key + field.uuid"
+          :value="val"
+          :handle="key"
+          :type="field.config.statamic_settings.handle"
           :fieldDefaults="setFieldDefaults"
         />
       </vue-tab>
@@ -20,8 +22,9 @@
 </template>
 
 <script>
-import Field from "./Field.vue";
+import FieldLite from "./FieldLite.vue";
 import OptionsTab from "../shared/OptionsTab.vue";
+import { createModule } from "../../factories/modules/moduleFactory";
 export default {
   props: {
     field: {
@@ -31,7 +34,7 @@ export default {
     fieldDefaults: Object,
   },
   components: {
-    Field,
+    FieldLite,
     OptionsTab,
   },
   computed: {
@@ -45,8 +48,28 @@ export default {
       return test;
     },
   },
+  methods: {
+    createField(f, i) {
+      if (typeof i !== "number") {
+        console.log("test", f);
+      }
+      return createModule("Field", {
+        ADMIN_LABEL: f,
+        CONFIG: this.fieldDefaults.sets[
+          this.field.config.statamic_settings.handle
+        ].fields[i].config,
+        VALUE: this.fieldDefaults.sets[
+          this.field.config.statamic_settings.handle
+        ].fields[i].value,
+        HANDLE: f,
+        TYPE: this.fieldDefaults.sets[
+          this.field.config.statamic_settings.handle
+        ].fields[i].config.type,
+      });
+    },
+  },
   mounted() {
-    // console.log("set", this.field);
+    console.log("set", this.field);
   },
 };
 </script>

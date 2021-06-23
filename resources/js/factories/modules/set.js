@@ -1,6 +1,7 @@
 import { createModule } from './moduleFactory'
 
 const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {} }) {
+    console.log({ VALUE })
     this.uuid = `${UUID}`
     this.type = 'set'
     this.config = {
@@ -14,14 +15,17 @@ const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {} }) {
         }
 
     }
-    this.value = []
+    this.value = (VALUE).reduce((acc, cur) => {
+        acc[cur.handle] = cur.value
+        return acc
+    }, {})
 
-    if (VALUE.length) {
-        let vm = this;
-        Object.keys(VALUE).forEach(field => {
-            vm.value.push(createModule('Field', { ADMIN_LABEL: VALUE[field].handle, CONFIG: VALUE[field].config, VALUE: VALUE[field].value, HANDLE: VALUE[field].handle, TYPE: VALUE[field].config.type }))
-        })
-    }
+    // if (VALUE.length) {
+    //     let vm = this;
+    //     Object.keys(VALUE).forEach(field => {
+    //         vm.value.push()
+    //     })
+    // }
 }
 
 export { Set }

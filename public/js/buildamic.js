@@ -629,6 +629,62 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    handle: String,
+    type: String,
+    fieldDefaults: {
+      type: Object
+    }
+  },
+  data: function data() {
+    return {
+      fieldData: this.field
+    };
+  },
+  methods: {
+    updateField: function updateField(key, val) {
+      key.value = val;
+    },
+    getFieldDefault: function getFieldDefault() {
+      return this.fieldDefaults[this.handle];
+    }
+  },
+  mounted: function mounted() {
+    console.log("FieldLite", this.field);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldSettings.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldSettings.vue?vue&type=script&lang=js& ***!
@@ -704,8 +760,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Field_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Field.vue */ "./resources/js/components/fields/Field.vue");
+/* harmony import */ var _FieldLite_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FieldLite.vue */ "./resources/js/components/fields/FieldLite.vue");
 /* harmony import */ var _shared_OptionsTab_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/OptionsTab.vue */ "./resources/js/components/shared/OptionsTab.vue");
+/* harmony import */ var _factories_modules_moduleFactory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../factories/modules/moduleFactory */ "./resources/js/factories/modules/moduleFactory.js");
 //
 //
 //
@@ -727,6 +784,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -738,7 +798,7 @@ __webpack_require__.r(__webpack_exports__);
     fieldDefaults: Object
   },
   components: {
-    Field: _Field_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    FieldLite: _FieldLite_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     OptionsTab: _shared_OptionsTab_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   computed: {
@@ -750,7 +810,23 @@ __webpack_require__.r(__webpack_exports__);
       return test;
     }
   },
-  mounted: function mounted() {// console.log("set", this.field);
+  methods: {
+    createField: function createField(f, i) {
+      if (typeof i !== "number") {
+        console.log("test", f);
+      }
+
+      return (0,_factories_modules_moduleFactory__WEBPACK_IMPORTED_MODULE_2__.createModule)("Field", {
+        ADMIN_LABEL: f,
+        CONFIG: this.fieldDefaults.sets[this.field.config.statamic_settings.handle].fields[i].config,
+        VALUE: this.fieldDefaults.sets[this.field.config.statamic_settings.handle].fields[i].value,
+        HANDLE: f,
+        TYPE: this.fieldDefaults.sets[this.field.config.statamic_settings.handle].fields[i].config.type
+      });
+    }
+  },
+  mounted: function mounted() {
+    console.log("set", this.field);
   }
 });
 
@@ -2700,12 +2776,11 @@ var Field = function Field(_ref) {
   this.uuid = "".concat(UUID);
   this.type = 'field';
   this.config = {
-    statamic_settings: _objectSpread(_objectSpread({
-      enabled: true
-    }, CONFIG), {}, {
+    statamic_settings: _objectSpread(_objectSpread({}, CONFIG), {}, {
       handle: HANDLE
     }),
     buildamic_settings: {
+      enabled: true,
       admin_label: ADMIN_LABEL || HANDLE
     }
   }; // this.meta = META
@@ -2846,6 +2921,9 @@ var Set = function Set(_ref) {
       HANDLE = _ref.HANDLE,
       _ref$CONFIG = _ref.CONFIG,
       CONFIG = _ref$CONFIG === void 0 ? {} : _ref$CONFIG;
+  console.log({
+    VALUE: VALUE
+  });
   this.uuid = "".concat(UUID);
   this.type = 'set';
   this.config = {
@@ -2857,20 +2935,15 @@ var Set = function Set(_ref) {
       admin_label: ADMIN_LABEL || HANDLE
     }
   };
-  this.value = [];
-
-  if (VALUE.length) {
-    var vm = this;
-    Object.keys(VALUE).forEach(function (field) {
-      vm.value.push((0,_moduleFactory__WEBPACK_IMPORTED_MODULE_0__.createModule)('Field', {
-        ADMIN_LABEL: VALUE[field].handle,
-        CONFIG: VALUE[field].config,
-        VALUE: VALUE[field].value,
-        HANDLE: VALUE[field].handle,
-        TYPE: VALUE[field].config.type
-      }));
-    });
-  }
+  this.value = VALUE.reduce(function (acc, cur) {
+    acc[cur.handle] = cur.value;
+    return acc;
+  }, {}); // if (VALUE.length) {
+  //     let vm = this;
+  //     Object.keys(VALUE).forEach(field => {
+  //         vm.value.push()
+  //     })
+  // }
 };
 
 
@@ -7543,6 +7616,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.buildamic-field + .buildamic-field[data-v-d7385862] {\n  margin-top: 2rem;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.buildamic-field + .buildamic-field[data-v-628923c6] {\n  margin-top: 2rem;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -14422,6 +14519,47 @@ component.options.__file = "resources/js/components/fields/FieldDisplay.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/fields/FieldLite.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/fields/FieldLite.vue ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _FieldLite_vue_vue_type_template_id_628923c6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FieldLite.vue?vue&type=template&id=628923c6&scoped=true& */ "./resources/js/components/fields/FieldLite.vue?vue&type=template&id=628923c6&scoped=true&");
+/* harmony import */ var _FieldLite_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldLite.vue?vue&type=script&lang=js& */ "./resources/js/components/fields/FieldLite.vue?vue&type=script&lang=js&");
+/* harmony import */ var _FieldLite_vue_vue_type_style_index_0_id_628923c6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css& */ "./resources/js/components/fields/FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _FieldLite_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _FieldLite_vue_vue_type_template_id_628923c6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _FieldLite_vue_vue_type_template_id_628923c6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "628923c6",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/fields/FieldLite.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/fields/FieldSettings.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/components/fields/FieldSettings.vue ***!
@@ -15221,6 +15359,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/fields/FieldLite.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/fields/FieldLite.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FieldLite_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FieldLite.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FieldLite_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/fields/FieldSettings.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************!*\
   !*** ./resources/js/components/fields/FieldSettings.vue?vue&type=script&lang=js& ***!
@@ -15629,6 +15783,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/fields/FieldLite.vue?vue&type=template&id=628923c6&scoped=true&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/fields/FieldLite.vue?vue&type=template&id=628923c6&scoped=true& ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FieldLite_vue_vue_type_template_id_628923c6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FieldLite_vue_vue_type_template_id_628923c6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FieldLite_vue_vue_type_template_id_628923c6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FieldLite.vue?vue&type=template&id=628923c6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=template&id=628923c6&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/fields/FieldSettings.vue?vue&type=template&id=643818dc&":
 /*!*****************************************************************************************!*\
   !*** ./resources/js/components/fields/FieldSettings.vue?vue&type=template&id=643818dc& ***!
@@ -15947,6 +16118,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Field_vue_vue_type_style_index_0_id_d7385862_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Field_vue_vue_type_style_index_0_id_d7385862_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Field_vue_vue_type_style_index_0_id_d7385862_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Field_vue_vue_type_style_index_0_id_d7385862_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./resources/js/components/fields/FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/components/fields/FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css& ***!
+  \***************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FieldLite_vue_vue_type_style_index_0_id_628923c6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-style-loader/index.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FieldLite_vue_vue_type_style_index_0_id_628923c6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FieldLite_vue_vue_type_style_index_0_id_628923c6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FieldLite_vue_vue_type_style_index_0_id_628923c6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FieldLite_vue_vue_type_style_index_0_id_628923c6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
 
@@ -16573,6 +16761,62 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=template&id=628923c6&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=template&id=628923c6&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "buildamic-field", class: [_vm.fieldData + "-fieldtype"] },
+    [
+      _c("label", [_vm._v(_vm._s(_vm.handle))]),
+      _vm._v(" "),
+      _c(_vm.getFieldDefault().config.type + "-fieldtype", {
+        tag: "component",
+        attrs: {
+          config: _vm.getFieldDefault().config,
+          value: _vm.value,
+          meta: _vm.getFieldDefault().config,
+          handle: _vm.handle
+        },
+        on: {
+          input: function($event) {
+            return _vm.updateField(_vm.field, $event)
+          },
+          "meta-updated": function($event) {
+            return _vm.$emit("meta-updated", $event)
+          },
+          focus: function($event) {
+            return _vm.$emit("focus")
+          },
+          blur: function($event) {
+            return _vm.$emit("blur")
+          }
+        }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldSettings.vue?vue&type=template&id=643818dc&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldSettings.vue?vue&type=template&id=643818dc& ***!
@@ -16673,10 +16917,15 @@ var render = function() {
           _c(
             "vue-tab",
             { attrs: { name: "Content", selected: "selected" } },
-            _vm._l(_vm.field.value, function(f) {
-              return _c("Field", {
-                key: f.uuid,
-                attrs: { field: f, fieldDefaults: _vm.setFieldDefaults }
+            _vm._l(_vm.field.value, function(val, key) {
+              return _c("field-lite", {
+                key: key + _vm.field.uuid,
+                attrs: {
+                  value: val,
+                  handle: key,
+                  type: _vm.field.config.statamic_settings.handle,
+                  fieldDefaults: _vm.setFieldDefaults
+                }
               })
             }),
             1
@@ -18374,6 +18623,27 @@ if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(/*! !../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
 var update = add("efc51762", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/fields/FieldLite.vue?vue&type=style&index=0&id=628923c6&scoped=true&lang=css&");
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! !../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("ca6bb25e", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
