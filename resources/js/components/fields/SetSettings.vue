@@ -37,7 +37,7 @@ export default {
   computed: {
     setFieldDefaults() {
       const test = this.fieldDefaults[
-        this.field.config.buildamic_settings.handle
+        this.field.config.statamic_settings.handle
       ].fields.reduce((acc, cur) => {
         acc[cur.handle] = cur;
         return acc;

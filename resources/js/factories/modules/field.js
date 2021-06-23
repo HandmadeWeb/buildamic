@@ -2,8 +2,8 @@ const Field = function ({ ADMIN_LABEL, CONFIG = {}, HANDLE, META = {}, VALUE, UU
     this.uuid = `${UUID}`
     this.type = 'field'
     this.config = {
-        enabled: true,
         statamic_settings: {
+            enabled: true,
             ...CONFIG,
             handle: HANDLE,
         },

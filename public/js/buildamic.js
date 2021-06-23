@@ -743,7 +743,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     setFieldDefaults: function setFieldDefaults() {
-      var test = this.fieldDefaults[this.field.config.buildamic_settings.handle].fields.reduce(function (acc, cur) {
+      var test = this.fieldDefaults[this.field.config.statamic_settings.handle].fields.reduce(function (acc, cur) {
         acc[cur.handle] = cur;
         return acc;
       }, {});
@@ -2655,17 +2655,14 @@ var Column = function Column(_ref) {
   this.type = 'column';
   this.config = {
     enabled: true,
-    statamic_settings: {},
-    buildamic_settings: {
-      columnSizes: {
-        "xs": 12,
-        "sm": '',
-        "md": '',
-        "lg": '',
-        "xl": ''
-      },
-      admin_label: ADMIN_LABEL || this.type
-    }
+    columnSizes: {
+      "xs": 12,
+      "sm": '',
+      "md": '',
+      "lg": '',
+      "xl": ''
+    },
+    admin_label: ADMIN_LABEL || this.type
   };
   this.value = [];
 };
@@ -2703,8 +2700,9 @@ var Field = function Field(_ref) {
   this.uuid = "".concat(UUID);
   this.type = 'field';
   this.config = {
-    enabled: true,
-    statamic_settings: _objectSpread(_objectSpread({}, CONFIG), {}, {
+    statamic_settings: _objectSpread(_objectSpread({
+      enabled: true
+    }, CONFIG), {}, {
       handle: HANDLE
     }),
     buildamic_settings: {
@@ -2785,10 +2783,7 @@ var Row = function Row(_ref) {
   this.type = 'row';
   this.config = {
     enabled: true,
-    statamic_settings: {},
-    buildamic_settings: {
-      admin_label: ADMIN_LABEL || this.type
-    }
+    admin_label: ADMIN_LABEL || this.type
   };
   this.value = [];
 };
@@ -2815,10 +2810,7 @@ var Section = function Section(_ref) {
   this.type = 'section';
   this.config = {
     enabled: true,
-    statamic_settings: {},
-    buildamic_settings: {
-      admin_label: ADMIN_LABEL || this.type
-    }
+    admin_label: ADMIN_LABEL || this.type
   };
   this.value = [];
 };
@@ -2857,11 +2849,12 @@ var Set = function Set(_ref) {
   this.uuid = "".concat(UUID);
   this.type = 'set';
   this.config = {
-    enabled: true,
-    statamic_settings: _objectSpread({}, CONFIG),
-    buildamic_settings: {
-      admin_label: ADMIN_LABEL || HANDLE,
+    statamic_settings: _objectSpread(_objectSpread({}, CONFIG), {}, {
       handle: HANDLE
+    }),
+    buildamic_settings: {
+      enabled: true,
+      admin_label: ADMIN_LABEL || HANDLE
     }
   };
   this.value = [];
