@@ -3,6 +3,7 @@
 namespace Michaelr0\Buildamic\Fieldtypes;
 
 use Michaelr0\Buildamic\BuildamicRenderer;
+use Statamic\Facades\Fieldset;
 use Statamic\Fields\Field;
 use Statamic\Fields\Fields;
 use Statamic\Fields\Fieldtype;
@@ -97,6 +98,27 @@ class Buildamic extends Fieldtype
                             $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
                                 return $item->setValue($field['value'][$item->handle()])->preProcess()->value();
                             })->toArray();
+                        } elseif ($field['type'] === 'fieldset') {
+                            // Fieldset (might be prefixed)
+                            if (isset($field['config']['field']['import'])) {
+                                $field['value'] = (new Fields([$field['config']['field']]))
+                                    ->addValues($field['value'])
+                                    ->preProcess()
+                                    ->values();
+                            }
+                            // Fieldset (single field)
+                            elseif (is_string($field['config']['field'])) {
+                                $config = [
+                                    'handle' => $field['config']['field'],
+                                    'field' => $field['config']['field'],
+                                    'config' => $field['config']['config'] ?? [],
+                                ];
+
+                                $field['value'] = (new Fields([$config]))
+                                    ->addValues($field['value'])
+                                    ->preProcess()
+                                    ->values();
+                            }
                         }
 
                         return $field;
@@ -136,6 +158,27 @@ class Buildamic extends Fieldtype
                             $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
                                 return $item->setValue($field['value']->firstWhere('handle', $item->handle())['value'])->process()->value();
                             })->toArray();
+                        } elseif ($field['type'] === 'fieldset') {
+                            // Fieldset (might be prefixed)
+                            if (isset($field['config']['field']['import'])) {
+                                $field['value'] = (new Fields([$field['config']['field']]))
+                                    ->addValues($field['value'])
+                                    ->process()
+                                    ->values();
+                            }
+                            // Fieldset (single field)
+                            elseif (is_string($field['config']['field'])) {
+                                $config = [
+                                    'handle' => $field['config']['field'],
+                                    'field' => $field['config']['field'],
+                                    'config' => $field['config']['config'] ?? [],
+                                ];
+
+                                $field['value'] = (new Fields([$config]))
+                                    ->addValues($field['value'])
+                                    ->process()
+                                    ->values();
+                            }
                         }
 
                         return $field;
@@ -173,14 +216,7 @@ class Buildamic extends Fieldtype
             }
 
             return (new Field($section['uuid'], []))
-                ->setConfig(array_merge(
-                    [
-                    'type' => 'buildamic-section',
-                    ],
-                    collect($section['config'])
-                    ->except(['admin_label'])
-                    ->toArray()
-                ))
+                ->setConfig(array_merge(['type' => 'buildamic-section'], collect($section['config'])->except(['admin_label'])->toArray()))
                 ->setParent($parent->field()->parent())
                 ->setParentField($parent->field())
                 ->setValue($section['value'])
