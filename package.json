@@ -5,6 +5,7 @@
         "dev": "mix",
         "development": "mix",
         "hot": "mix watch --hot",
+        "prod": "mix --production",
         "production": "mix --production",
         "test": "jest",
         "watch": "mix watch",
