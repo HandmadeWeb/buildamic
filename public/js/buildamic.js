@@ -502,9 +502,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     columnClass: function columnClass() {
-      var _this$column, _this$column$config, _this$column$config$b;
+      var _this$column, _this$column$config, _this$column$config$c;
 
-      return "col col-".concat((_this$column = this.column) === null || _this$column === void 0 ? void 0 : (_this$column$config = _this$column.config) === null || _this$column$config === void 0 ? void 0 : (_this$column$config$b = _this$column$config.buildamic_settings.columnSizes) === null || _this$column$config$b === void 0 ? void 0 : _this$column$config$b.lg);
+      return "col col-".concat((_this$column = this.column) === null || _this$column === void 0 ? void 0 : (_this$column$config = _this$column.config) === null || _this$column$config === void 0 ? void 0 : (_this$column$config$c = _this$column$config.columnSizes) === null || _this$column$config$c === void 0 ? void 0 : _this$column$config$c.lg);
     }
   },
   components: {
@@ -926,11 +926,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var newCol = (0,_factories_modules_moduleFactory__WEBPACK_IMPORTED_MODULE_0__.createModule)("Column"); // If we are divisible by 2, set the md breakpoint to 6 (translates to col-md-6)
 
         if (layoutArr.length % 2 === 0) {
-          newCol.config.buildamic_settings.columnSizes.md = 6;
+          newCol.config.columnSizes.md = 6;
         } // Set the lg size to seleted value
 
 
-        newCol.config.buildamic_settings.columnSizes.lg = col; // Not the smallest "xs" (mobile) size will remain unchanged from the newColumnStructure object which is 12
+        newCol.config.columnSizes.lg = col; // Not the smallest "xs" (mobile) size will remain unchanged from the newColumnStructure object which is 12
 
         newLayout.push(newCol);
       });
