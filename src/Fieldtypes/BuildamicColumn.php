@@ -69,7 +69,7 @@ class BuildamicColumn extends Fieldtype
                 //       config:
                 //         antlers: true
                 //     value:
-                //       bio: '123456'
+                //       fieldset_example.bio: '123456'
 
                 // Fieldset (might be prefixed)
                 if (isset($field['config']['field']['import'])) {
@@ -84,6 +84,7 @@ class BuildamicColumn extends Fieldtype
                     $config = [
                         'handle' => $field['config']['field'],
                         'field' => $field['config']['field'],
+                        'config' => $field['config']['config'] ?? [],
                     ];
 
                     return (new Fields([$config]))

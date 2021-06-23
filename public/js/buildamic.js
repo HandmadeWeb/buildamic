@@ -2597,6 +2597,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_tabs_VueTabs_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/tabs/VueTabs.vue */ "./resources/js/components/tabs/VueTabs.vue");
 /* harmony import */ var _components_tabs_VueTab_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/tabs/VueTab.vue */ "./resources/js/components/tabs/VueTab.vue");
 /* harmony import */ var _altamic_Altamic_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./altamic/Altamic.vue */ "./resources/js/altamic/Altamic.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+
 
 
 
@@ -7151,30 +7153,6 @@ module.exports = function zip(array) {
 
   return new this.constructor(collection);
 };
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-simple-accordion/dist/vue-simple-accordion.css":
-/*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-simple-accordion/dist/vue-simple-accordion.css ***!
-  \*********************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".vsa-item__heading{width:100%;height:100%}.vsa-item__heading,.vsa-item__trigger{display:flex;justify-content:flex-start;align-items:center}.vsa-item__trigger{margin:0;padding:0;color:inherit;font-family:inherit;font-size:100%;line-height:1.15;border-width:0;background-color:transparent;background-image:none;overflow:visible;text-transform:none;flex:1 1 auto;color:var(--vsa-text-color);transition:all .2s linear;padding:var(--vsa-heading-padding)}.vsa-item__trigger[role=button]{cursor:pointer}.vsa-item__trigger[type=button],.vsa-item__trigger[type=reset],.vsa-item__trigger[type=submit]{-webkit-appearance:button}.vsa-item__trigger:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}.vsa-item__trigger::-moz-focus-inner,.vsa-item__trigger[type=button]::-moz-focus-inner,.vsa-item__trigger[type=reset]::-moz-focus-inner,.vsa-item__trigger[type=submit]::-moz-focus-inner{border-style:none;padding:0}.vsa-item__trigger:-moz-focusring,.vsa-item__trigger[type=button]:-moz-focusring,.vsa-item__trigger[type=reset]:-moz-focusring,.vsa-item__trigger[type=submit]:-moz-focusring{outline:1px dotted ButtonText}.vsa-item__trigger:focus,.vsa-item__trigger:hover{outline:none;background-color:var(--vsa-highlight-color);color:var(--vsa-bg-color)}.vsa-item__trigger__icon--is-default{width:40px;height:40px;transform:scale(var(--vsa-default-icon-size))}.vsa-item__trigger__icon--is-default:after,.vsa-item__trigger__icon--is-default:before{background-color:var(--vsa-text-color);content:\"\";height:3px;position:absolute;top:10px;transition:all .13333s ease-in-out;width:30px}.vsa-item__trigger__icon--is-default:before{left:0;transform:rotate(45deg) translate3d(8px,22px,0);transform-origin:100%}.vsa-item__trigger__icon--is-default:after{transform:rotate(-45deg) translate3d(-8px,22px,0);right:0;transform-origin:0}.vsa-item__trigger[aria-expanded=true] .vsa-item__trigger__icon--is-default:before{transform:rotate(45deg) translate3d(14px,14px,0)}.vsa-item__trigger[aria-expanded=true] .vsa-item__trigger__icon--is-default:after{transform:rotate(-45deg) translate3d(-14px,14px,0)}.vsa-item__trigger__icon{display:block;margin-left:auto;position:relative;transition:all .2s ease-in-out}.vsa-item__trigger:focus .vsa-item__trigger__icon--is-default:after,.vsa-item__trigger:focus .vsa-item__trigger__icon--is-default:before,.vsa-item__trigger:hover .vsa-item__trigger__icon--is-default:after,.vsa-item__trigger:hover .vsa-item__trigger__icon--is-default:before{background-color:var(--vsa-bg-color)}.vsa-item__trigger__content{font-weight:700;font-size:1.25rem}.vsa-item__content{margin:0;padding:var(--vsa-content-padding)}.vsa-item--is-active .vsa-item__heading,.vsa-item:not(:last-of-type){border-bottom:var(--vsa-border)}.vsa-collapse-enter-active,.vsa-collapse-leave-active{transition-property:opacity,height,padding-top,padding-bottom;transition-duration:.3s;transition-timing-function:ease-in-out}.vsa-collapse-enter,.vsa-collapse-leave-active{opacity:0;height:0;padding-top:0;padding-bottom:0;overflow:hidden}.vsa-list{--vsa-max-width:720px;--vsa-min-width:300px;--vsa-heading-padding:1rem 1rem;--vsa-text-color:#373737;--vsa-highlight-color:#57a;--vsa-bg-color:#fff;--vsa-border-color:rgba(0,0,0,0.2);--vsa-border-width:1px;--vsa-border-style:solid;--vsa-border:var(--vsa-border-width) var(--vsa-border-style) var(--vsa-border-color);--vsa-content-padding:1rem 1rem;--vsa-default-icon-size:1;display:block;max-width:var(--vsa-max-width);min-width:var(--vsa-min-width);width:100%;padding:0;margin:0;list-style:none;border:var(--vsa-border);color:var(--vsa-text-color);background-color:var(--vsa-bg-color)}.vsa-list [hidden]{display:none}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 

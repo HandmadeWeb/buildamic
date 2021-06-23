@@ -64,7 +64,7 @@ class BuildamicRenderer
     {
         if (false && $field instanceof Field && $field->type() === 'buildamic-set') {
             //return $this->renderFieldset($field);
-        } elseif ($field instanceof Fields && $config = $field->items()->first()) {
+        } elseif ($field instanceof Fields) {
             return $this->renderFieldset($field);
         }
 
