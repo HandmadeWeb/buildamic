@@ -38,14 +38,7 @@ class BuildamicRow extends Fieldtype
             }
 
             return (new Field($column['uuid'], []))
-                ->setConfig(array_merge(
-                    [
-                        'type' => 'buildamic-column',
-                    ],
-                    collect($column['config'])
-                    ->except(['admin_label'])
-                    ->toArray()
-                ))
+                ->setConfig(array_merge(['type' => 'buildamic-column'], $column['config']))
                 ->setParent($parent->field()->parent())
                 ->setParentField($parent->field())
                 ->setValue($column['value'])

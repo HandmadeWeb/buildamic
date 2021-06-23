@@ -99,7 +99,7 @@ class Buildamic extends Fieldtype
                             })->toArray();
                         } elseif ($field['type'] === 'fieldset') {
                             // Fieldset (single field)
-                            if (is_string($field['config']['statamic_settings']['field'])) {
+                            if (isset($field['config']['statamic_settings']['field']) && is_string($field['config']['statamic_settings']['field'])) {
                                 $singleField = [
                                     'handle' => $field['config']['statamic_settings']['field'],
                                     'field' => $field['config']['statamic_settings']['field'],
@@ -107,8 +107,9 @@ class Buildamic extends Fieldtype
                                 ];
                             }
 
-                            $field['value'] = (new Fields([$singleField ?? $field['config']['statamic_settings']]))
+                            $field['value'] = (new Fields([]))
                                 ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
+                                ->setItems([$singleField ?? $field['config']['statamic_settings']])
                                 ->addValues($field['value'])
                                 ->preProcess()
                                 ->values();
@@ -147,22 +148,22 @@ class Buildamic extends Fieldtype
                             // Deduplicate Field Config
                             $field['config']['statamic_settings']['field'] = array_diff($field['config']['statamic_settings']['field'] ?? [], collect($instance->config('fields'))->firstWhere('handle', $field['config']['statamic_settings']['handle'])['field'] ?? []);
                         } elseif ($field['type'] === 'set') {
-                            $field['value'] = collect($field['value']);
                             $field['value'] = $this->set($field['config']['statamic_settings']['handle'])->all()->map(function ($item) use ($field) {
-                                return $item->setValue($field['value']->firstWhere('handle', $item->handle())['value'])->process()->value();
+                                return $item->setValue($field['value'][$item->handle()])->process()->value();
                             })->toArray();
                         } elseif ($field['type'] === 'fieldset') {
                             // Fieldset (single field)
-                            if (is_string($field['config']['statamic_settings']['field'])) {
+                            if (isset($field['config']['statamic_settings']['field']) && is_string($field['config']['statamic_settings']['field'])) {
                                 $singleField = [
                                     'handle' => $field['config']['statamic_settings']['field'],
                                     'field' => $field['config']['statamic_settings']['field'],
-                                    'config' => $field['config']['statamic_settings']['config'] ?? [],
+                                    'config' => $field['config']['statamic_settings'] ?? [],
                                 ];
                             }
 
-                            $field['value'] = (new Fields([$singleField ?? ($field['config']['statamic_settings']['field'] ?? [])]))
+                            $field['value'] = (new Fields([]))
                                 ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
+                                ->setItems([$singleField ?? $field['config']['statamic_settings']])
                                 ->addValues($field['value'])
                                 ->process()
                                 ->values();
@@ -203,7 +204,7 @@ class Buildamic extends Fieldtype
             }
 
             return (new Field($section['uuid'], []))
-                ->setConfig(array_merge(['type' => 'buildamic-section'], collect($section['config'])->except(['admin_label'])->toArray()))
+                ->setConfig(array_merge(['type' => 'buildamic-section'], $section['config']))
                 ->setParent($parent->field()->parent())
                 ->setParentField($parent->field())
                 ->setValue($section['value'])
