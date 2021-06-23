@@ -161,7 +161,7 @@
           ></rect>
         </svg>
         <component
-          v-for="(m, key) in margin"
+          v-for="(m, key) in inline.margin"
           :key="m.value + breakpoint"
           :is="`${m.type}-fieldtype`"
           :style="m.style"
@@ -332,7 +332,7 @@
           ></rect>
         </svg>
         <component
-          v-for="(p, key) in padding"
+          v-for="(p, key) in inline.padding"
           :key="p.value + breakpoint"
           :is="`${p.type}-fieldtype`"
           :style="p.style"
@@ -400,121 +400,123 @@ export default {
       lockMarginX: false,
       lockPaddingY: false,
       lockPaddingX: false,
-      margin: {
-        mt: {
-          cast_booleans: false,
-          clearable: false,
-          listable: "hidden",
-          taggable: false,
-          push_tags: false,
-          type: "select",
-          icon: "select",
-          options: this.getTWClasses("margin", "mt"),
-          handle: "mt",
-          display: "Margin Top",
-          multiple: false,
-          value: "N/A",
-          style: "grid-area: 1 / 2 / 2 / 3;",
+      inline: {
+        margin: {
+          mt: {
+            cast_booleans: false,
+            clearable: false,
+            listable: "hidden",
+            taggable: false,
+            push_tags: false,
+            type: "select",
+            icon: "select",
+            options: this.getTWClasses("margin", "mt"),
+            handle: "mt",
+            display: "Margin Top",
+            multiple: false,
+            value: "N/A",
+            style: "grid-area: 1 / 2 / 2 / 3;",
+          },
+          mr: {
+            cast_booleans: false,
+            clearable: false,
+            listable: "hidden",
+            taggable: false,
+            push_tags: false,
+            type: "select",
+            icon: "select",
+            options: this.getTWClasses("margin", "mr"),
+            handle: "mr",
+            display: "Margin Right",
+            value: "N/A",
+            style: "grid-area: 2 / 3 / 3 / 4;",
+          },
+          mb: {
+            cast_booleans: false,
+            clearable: false,
+            listable: "hidden",
+            taggable: false,
+            push_tags: false,
+            type: "select",
+            icon: "select",
+            options: this.getTWClasses("margin", "mb"),
+            handle: "mb",
+            display: "Margin Bottom",
+            value: "N/A",
+            style: "grid-area: 3 / 2 / 4 / 3;",
+          },
+          ml: {
+            cast_booleans: false,
+            clearable: false,
+            listable: "hidden",
+            taggable: false,
+            push_tags: false,
+            type: "select",
+            icon: "select",
+            options: this.getTWClasses("margin", "ml"),
+            handle: "ml",
+            display: "Margin Left",
+            value: "N/A",
+            style: 'grid-area: 2 / 1 / 3 / 2;"',
+          },
         },
-        mr: {
-          cast_booleans: false,
-          clearable: false,
-          listable: "hidden",
-          taggable: false,
-          push_tags: false,
-          type: "select",
-          icon: "select",
-          options: this.getTWClasses("margin", "mr"),
-          handle: "mr",
-          display: "Margin Right",
-          value: "N/A",
-          style: "grid-area: 2 / 3 / 3 / 4;",
-        },
-        mb: {
-          cast_booleans: false,
-          clearable: false,
-          listable: "hidden",
-          taggable: false,
-          push_tags: false,
-          type: "select",
-          icon: "select",
-          options: this.getTWClasses("margin", "mb"),
-          handle: "mb",
-          display: "Margin Bottom",
-          value: "N/A",
-          style: "grid-area: 3 / 2 / 4 / 3;",
-        },
-        ml: {
-          cast_booleans: false,
-          clearable: false,
-          listable: "hidden",
-          taggable: false,
-          push_tags: false,
-          type: "select",
-          icon: "select",
-          options: this.getTWClasses("margin", "ml"),
-          handle: "ml",
-          display: "Margin Left",
-          value: "N/A",
-          style: 'grid-area: 2 / 1 / 3 / 2;"',
-        },
-      },
-      padding: {
-        pt: {
-          cast_booleans: false,
-          clearable: false,
-          listable: "hidden",
-          taggable: false,
-          push_tags: false,
-          type: "select",
-          icon: "select",
-          options: this.getTWClasses("padding", "pt"),
-          handle: "paddingTop",
-          display: "Padding Top",
-          value: "N/A",
-          style: "grid-area: 1 / 2 / 2 / 3;",
-        },
-        pr: {
-          cast_booleans: false,
-          clearable: false,
-          listable: "hidden",
-          taggable: false,
-          push_tags: false,
-          type: "select",
-          icon: "select",
-          options: this.getTWClasses("padding", "pr"),
-          handle: "paddingRight",
-          display: "Padding Right",
-          value: "N/A",
-          style: "grid-area: 2 / 3 / 3 / 4;",
-        },
-        pb: {
-          cast_booleans: false,
-          clearable: false,
-          listable: "hidden",
-          taggable: false,
-          push_tags: false,
-          type: "select",
-          icon: "select",
-          options: this.getTWClasses("padding", "pb"),
-          handle: "paddingBottom",
-          display: "Padding Bottom",
-          value: "N/A",
-          style: "grid-area: 3 / 2 / 4 / 3;",
-        },
-        pl: {
-          cast_booleans: false,
-          clearable: false,
-          listable: "hidden",
-          taggable: false,
-          push_tags: false,
-          type: "select",
-          icon: "select",
-          options: this.getTWClasses("padding", "pl"),
-          handle: "paddingLeft",
-          display: "Padding Left",
-          value: "N/A",
-          style: 'grid-area: 2 / 1 / 3 / 2;"',
+        padding: {
+          pt: {
+            cast_booleans: false,
+            clearable: false,
+            listable: "hidden",
+            taggable: false,
+            push_tags: false,
+            type: "select",
+            icon: "select",
+            options: this.getTWClasses("padding", "pt"),
+            handle: "paddingTop",
+            display: "Padding Top",
+            value: "N/A",
+            style: "grid-area: 1 / 2 / 2 / 3;",
+          },
+          pr: {
+            cast_booleans: false,
+            clearable: false,
+            listable: "hidden",
+            taggable: false,
+            push_tags: false,
+            type: "select",
+            icon: "select",
+            options: this.getTWClasses("padding", "pr"),
+            handle: "paddingRight",
+            display: "Padding Right",
+            value: "N/A",
+            style: "grid-area: 2 / 3 / 3 / 4;",
+          },
+          pb: {
+            cast_booleans: false,
+            clearable: false,
+            listable: "hidden",
+            taggable: false,
+            push_tags: false,
+            type: "select",
+            icon: "select",
+            options: this.getTWClasses("padding", "pb"),
+            handle: "paddingBottom",
+            display: "Padding Bottom",
+            value: "N/A",
+            style: "grid-area: 3 / 2 / 4 / 3;",
+          },
+          pl: {
+            cast_booleans: false,
+            clearable: false,
+            listable: "hidden",
+            taggable: false,
+            push_tags: false,
+            type: "select",
+            icon: "select",
+            options: this.getTWClasses("padding", "pl"),
+            handle: "paddingLeft",
+            display: "Padding Left",
+            value: "N/A",
+            style: 'grid-area: 2 / 1 / 3 / 2;"',
+          },
         },
       },
     };
@@ -531,49 +533,48 @@ export default {
       }
       if (setting === "margin") {
         if (this.lockMarginY && this.lockMarginX) {
-          this.margin.mt.value = value;
-          this.margin.mr.value = value;
-          this.margin.mb.value = value;
-          this.margin.ml.value = value;
+          this.inline.margin.mt.value = value;
+          this.inline.margin.mr.value = value;
+          this.inline.margin.mb.value = value;
+          this.inline.margin.ml.value = value;
         } else if (this.lockMarginY) {
-          console.log("trigggered");
           if (key === "mt" || key === "mb") {
-            this.margin.mt.value = value;
-            this.margin.mb.value = value;
+            this.inline.margin.mt.value = value;
+            this.inline.margin.mb.value = value;
           }
         } else if (this.lockMarginX) {
           if (key === "ml" || key === "mr") {
-            this.margin.ml.value = value;
-            this.margin.mr.value = value;
+            this.inline.margin.ml.value = value;
+            this.inline.margin.mr.value = value;
           }
         }
 
-        this.margin[key].value = value;
+        this.inline.margin[key].value = value;
       }
       if (setting === "padding") {
         if (this.lockPaddingY && this.lockPaddingX) {
-          this.padding.pt.value = value;
-          this.padding.pr.value = value;
-          this.padding.pb.value = value;
-          this.padding.pl.value = value;
+          this.inline.padding.pt.value = value;
+          this.inline.padding.pr.value = value;
+          this.inline.padding.pb.value = value;
+          this.inline.padding.pl.value = value;
         } else if (this.lockPaddingY) {
           if (key === "pt" || key === "pb") {
-            this.padding.pt.value = value;
-            this.padding.pb.value = value;
+            this.inline.padding.pt.value = value;
+            this.inline.padding.pb.value = value;
           }
         } else if (this.lockPaddingX) {
           if (key === "pl" || key === "pr") {
-            this.padding.pl.value = value;
-            this.padding.pr.value = value;
+            this.inline.padding.pl.value = value;
+            this.inline.padding.pr.value = value;
           }
         }
 
-        this.padding[key].value = value;
+        this.inline.padding[key].value = value;
       }
 
-      const newVals = Object.keys(this[setting]).reduce((acc, cur) => {
-        if (this[setting][cur].value === value) {
-          acc[cur] = this[setting][cur].value;
+      const newVals = Object.keys(this.inline[setting]).reduce((acc, cur) => {
+        if (this.inline[setting][cur].value === value) {
+          acc[cur] = this.inline[setting][cur].value;
         }
         return acc;
       }, {});
@@ -587,7 +588,9 @@ export default {
 
       this.$emit("input", {
         path: `inline.${setting}`,
+        key,
         val: payload,
+        vm: this,
       });
     },
     checkOutsideClick(e) {

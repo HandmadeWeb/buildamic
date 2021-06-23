@@ -1,6 +1,6 @@
-import Vue from 'vue'
 import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "../../../../../../tailwind.config";
+import tailwindConfig from "../../../../../../vendor/statamic/cms/tailwind.config.js";
+
 
 const fullConfig = resolveConfig(tailwindConfig);
 
@@ -13,8 +13,20 @@ export default {
     },
     methods: {
         getDeep,
-        updateField({ path, val }, responsive) {
+        updateField({ path, key = '', val, vm = this }, responsive) {
             const fullPath = responsive ? `${path}.${this.breakpoint}` : path
+            const localPath = `${path}.${key}`.split('.').filter(path => path)
+
+            // Update local value
+            localPath.reduce((a, b, i) => {
+                i++
+                if (i !== localPath.length) {
+                    return a[b]
+                }
+                a[b].value = val
+            }, vm);
+
+            // Update actual field settings
             return setDeep(this.field.config, fullPath, val)
         },
         getTWClasses(type, prefix) {

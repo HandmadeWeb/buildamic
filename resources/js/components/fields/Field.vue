@@ -3,7 +3,10 @@
     <label>{{ fieldDisplay }}</label>
     <component
       :is="`${fieldData.config.type}-fieldtype`"
-      :config="{...fieldDefaults[fieldData.config.handle || fieldData.handle].config, ...fieldData.config.field}"
+      :config="{
+        ...fieldDefaults[fieldData.config.handle || fieldData.handle].config,
+        ...fieldData.config.field,
+      }"
       :value="fieldData.value"
       :meta="fieldDefaults[fieldData.config.handle || fieldData.handle].meta"
       :handle="fieldData.config.handle || fieldData.handle"
@@ -35,12 +38,7 @@ export default {
 
   computed: {
     fieldDisplay() {
-      return (
-        this.fieldData.config.handle ||
-        this.fieldDefaults[
-          this.fieldData.config.handle || this.fieldData.handle
-        ].config.display
-      );
+      return this.field.config.admin_label || this.field.config.handle;
     },
   },
   methods: {

@@ -65,6 +65,7 @@ export default {
           options: this.getTWClasses("width", "w"),
           handle: "width",
           display: "Width",
+          value: "",
         },
         height: {
           cast_booleans: false,
@@ -78,6 +79,7 @@ export default {
           options: this.getTWClasses("height", "h"),
           handle: "height",
           display: "Height",
+          value: "",
         },
       },
     };
