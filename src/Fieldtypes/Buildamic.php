@@ -3,9 +3,8 @@
 namespace Michaelr0\Buildamic\Fieldtypes;
 
 use Michaelr0\Buildamic\BuildamicRenderer;
-use Statamic\Facades\Fieldset;
-use Statamic\Fields\Field;
-use Statamic\Fields\Fields;
+use Michaelr0\Buildamic\Fields\Field;
+use Michaelr0\Buildamic\Fields\Fields;
 use Statamic\Fields\Fieldtype;
 
 class Buildamic extends Fieldtype
@@ -93,22 +92,23 @@ class Buildamic extends Fieldtype
                 $row['value'] = collect($row['value'])->map(function ($column) {
                     $column['value'] = collect($column['value'])->map(function ($field) {
                         if ($field['type'] === 'field') {
-                            $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->preProcess()->value();
+                            $field['value'] = $this->fields()->get($field['config']['statamic_settings']['handle'])->setValue($field['value'])->preProcess()->value();
                         } elseif ($field['type'] === 'set') {
-                            $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
+                            $field['value'] = $this->set($field['config']['statamic_settings']['handle'])->all()->map(function ($item) use ($field) {
                                 return $item->setValue($field['value'][$item->handle()])->preProcess()->value();
                             })->toArray();
                         } elseif ($field['type'] === 'fieldset') {
                             // Fieldset (single field)
-                            if (is_string($field['config']['field'])) {
+                            if (is_string($field['config']['statamic_settings']['field'])) {
                                 $singleField = [
-                                    'handle' => $field['config']['field'],
-                                    'field' => $field['config']['field'],
-                                    'config' => $field['config']['config'] ?? [],
+                                    'handle' => $field['config']['statamic_settings']['field'],
+                                    'field' => $field['config']['statamic_settings']['field'],
+                                    'config' => $field['config']['statamic_settings']['config'] ?? [],
                                 ];
                             }
 
-                            $field['value'] = (new Fields([$singleField ?? $field['config']['field']]))
+                            $field['value'] = (new Fields([$singleField ?? $field['config']['statamic_settings']['field']]))
+                                ->setBuildamicSettings($field['config']['buildamic_settings'])
                                 ->addValues($field['value'])
                                 ->preProcess()
                                 ->values();
@@ -142,26 +142,27 @@ class Buildamic extends Fieldtype
                 $row['value'] = collect($row['value'])->map(function ($column) use ($instance) {
                     $column['value'] = collect($column['value'])->map(function ($field) use ($instance) {
                         if ($field['type'] === 'field') {
-                            $field['value'] = $this->fields()->get($field['config']['handle'])->setValue($field['value'])->process()->value();
+                            $field['value'] = $this->fields()->get($field['config']['statamic_settings']['handle'])->setValue($field['value'])->process()->value();
 
                             // Deduplicate Field Config
-                            $field['config']['field'] = array_diff($field['config']['field'] ?? [], collect($instance->config('fields'))->firstWhere('handle', $field['config']['handle'])['field'] ?? []);
+                            $field['config']['statamic_settings']['field'] = array_diff($field['config']['statamic_settings']['field'] ?? [], collect($instance->config('fields'))->firstWhere('handle', $field['config']['statamic_settings']['handle'])['field'] ?? []);
                         } elseif ($field['type'] === 'set') {
                             $field['value'] = collect($field['value']);
-                            $field['value'] = $this->set($field['config']['handle'])->all()->map(function ($item) use ($field) {
+                            $field['value'] = $this->set($field['config']['statamic_settings']['handle'])->all()->map(function ($item) use ($field) {
                                 return $item->setValue($field['value']->firstWhere('handle', $item->handle())['value'])->process()->value();
                             })->toArray();
                         } elseif ($field['type'] === 'fieldset') {
                             // Fieldset (single field)
-                            if (is_string($field['config']['field'])) {
+                            if (is_string($field['config']['statamic_settings']['field'])) {
                                 $singleField = [
-                                    'handle' => $field['config']['field'],
-                                    'field' => $field['config']['field'],
-                                    'config' => $field['config']['config'] ?? [],
+                                    'handle' => $field['config']['statamic_settings']['field'],
+                                    'field' => $field['config']['statamic_settings']['field'],
+                                    'config' => $field['config']['statamic_settings']['config'] ?? [],
                                 ];
                             }
 
-                            $field['value'] = (new Fields([$singleField ?? $field['config']['field']]))
+                            $field['value'] = (new Fields([$singleField ?? $field['config']['statamic_settings']['field']]))
+                                ->setBuildamicSettings($field['config']['buildamic_settings'])
                                 ->addValues($field['value'])
                                 ->process()
                                 ->values();

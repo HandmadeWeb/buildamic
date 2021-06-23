@@ -2,10 +2,8 @@
 
 namespace Michaelr0\Buildamic\Fieldtypes;
 
-use Statamic\Fields\Field;
-use Statamic\Fields\Fields;
+use Michaelr0\Buildamic\Fields\Field;
 use Statamic\Fields\Fieldtype;
-use Statamic\Fields\Value;
 
 class BuildamicSet extends Fieldtype
 {
@@ -34,15 +32,17 @@ class BuildamicSet extends Fieldtype
         $method = $shallow ? 'shallowAugment' : 'augment';
 
         $buildamicConfig = $parent->field()->parentField()->parentField()->parentField()->parentField()->config();
-        $setConfg = collect($buildamicConfig['sets'][$this->config('config.handle')]['fields'] ?? []);
+        $setConfg = collect($buildamicConfig['sets'][$this->config('config.statamic_settings.handle')]['fields'] ?? []);
 
         $fields = [];
 
         foreach ($value as $handle => $value) {
-            $config = array_merge($setConfg->firstWhere('handle', $handle)['field'] ?? [], $this->config("config.field.{$handle}") ?? []);
+            $fieldConfig = $setConfg->firstWhere('handle', $handle);
+            $config = array_merge($fieldConfig['field'] ?? [], $this->config("config.statamic_settings.field.{$handle}") ?? []);
 
             $fields[] = (new Field($handle, []))
                 ->setConfig($config)
+                ->setBuildamicSettings($this->config('config.buildamic_settings'))
                 ->setParent($parent->field()->parent())
                 ->setParentField($parent->field())
                 ->setValue($value)
@@ -50,7 +50,8 @@ class BuildamicSet extends Fieldtype
         }
 
         $value = (new Field($this->handle(), []))
-            ->setConfig(array_merge($this->config(), ['type' => 'sets']))
+            ->setConfig(array_merge($this->config('config.statamic_settings'), ['type' => 'sets']))
+            ->setBuildamicSettings($this->config('config.buildamic_settings'))
             ->setParent($parent->field()->parent())
             ->setParentField($parent->field())
             ->setValue($fields)
