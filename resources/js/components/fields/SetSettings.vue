@@ -1,5 +1,8 @@
 <template>
-  <div class="buildamic-set" :class="[`${field.config.type}-fieldtype`]">
+  <div
+    class="buildamic-set"
+    :class="[`${field.config.statamic_settings.type}-fieldtype`]"
+  >
     <vue-tabs :id="field.uuid">
       <vue-tab name="Content" selected="selected">
         <Field
@@ -33,18 +36,17 @@ export default {
   },
   computed: {
     setFieldDefaults() {
-      const test = this.fieldDefaults[this.field.config.handle].fields.reduce(
-        (acc, cur) => {
-          acc[cur.handle] = cur;
-          return acc;
-        },
-        {}
-      );
+      const test = this.fieldDefaults[
+        this.field.config.buildamic_settings.handle
+      ].fields.reduce((acc, cur) => {
+        acc[cur.handle] = cur;
+        return acc;
+      }, {});
       return test;
     },
   },
   mounted() {
-    console.log("set", this.field);
+    // console.log("set", this.field);
   },
 };
 </script>

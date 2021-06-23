@@ -4,7 +4,6 @@ export function generateID() {
 }
 
 export const recursifyID = (array) => {
-    console.log(array)
     if (array && array.uuid) {
         array.uuid = generateID();
     }

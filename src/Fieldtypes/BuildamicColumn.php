@@ -44,7 +44,7 @@ class BuildamicColumn extends Fieldtype
                 $config = collect($buildamicConfig['fields'] ?? [])->firstWhere('handle', $field['config']['handle']);
 
                 return (new Field($field['config']['handle'], []))
-                    ->setConfig($config['field'])
+                    ->setConfig(array_merge($config['field'], ['buildamic_settings' => $field['config']['buildamic_settings'] ?? []]))
                     ->setParent($parent->field()->parent())
                     ->setParentField($parent->field())
                     ->setValue($field['value'])

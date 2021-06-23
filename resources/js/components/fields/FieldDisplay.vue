@@ -2,7 +2,7 @@
   <div
     class="field border border-t-4 border-grey-70 rounded w-full p-1 text-center"
   >
-    <span class="">{{ field.config.admin_label }}</span>
+    <span class="">{{ field.config.buildamic_settings.admin_label }}</span>
     <module-controls
       :component="field"
       :value="fields"

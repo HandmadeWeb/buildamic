@@ -78,11 +78,11 @@ export default {
 
         // If we are divisible by 2, set the md breakpoint to 6 (translates to col-md-6)
         if (layoutArr.length % 2 === 0) {
-          newCol.config.columnSizes.md = 6;
+          newCol.config.buildamic_settings.columnSizes.md = 6;
         }
 
         // Set the lg size to seleted value
-        newCol.config.columnSizes.lg = col;
+        newCol.config.buildamic_settings.columnSizes.lg = col;
 
         // Not the smallest "xs" (mobile) size will remain unchanged from the newColumnStructure object which is 12
         newLayout.push(newCol);

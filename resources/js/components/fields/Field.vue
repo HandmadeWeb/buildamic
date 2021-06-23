@@ -1,15 +1,15 @@
 <template>
-  <div class="buildamic-field" :class="[`${fieldData.config.type}-fieldtype`]">
+  <div
+    class="buildamic-field"
+    :class="[`${fieldData.config.statamic_settings.type}-fieldtype`]"
+  >
     <label>{{ fieldDisplay }}</label>
     <component
-      :is="`${fieldData.config.type}-fieldtype`"
-      :config="{
-        ...fieldDefaults[fieldData.config.handle || fieldData.handle].config,
-        ...fieldData.config.field,
-      }"
+      :is="`${fieldData.config.statamic_settings.type}-fieldtype`"
+      :config="fieldData.config.statamic_settings"
       :value="fieldData.value"
-      :meta="fieldDefaults[fieldData.config.handle || fieldData.handle].meta"
-      :handle="fieldData.config.handle || fieldData.handle"
+      :meta="fieldDefaults[fieldData.config.statamic_settings.handle].meta"
+      :handle="fieldData.config.statamic_settings.handle"
       @input="updateField(field, $event)"
       @meta-updated="$emit('meta-updated', $event)"
       @focus="$emit('focus')"
@@ -38,7 +38,10 @@ export default {
 
   computed: {
     fieldDisplay() {
-      return this.field.config.admin_label || this.field.config.handle;
+      return (
+        this.field.config.buildamic_settings.admin_label ||
+        this.field.config.statamic_settings.handle
+      );
     },
   },
   methods: {
@@ -47,7 +50,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.fieldData);
+    console.log("fieldData", this.fieldData);
   },
 };
 </script>

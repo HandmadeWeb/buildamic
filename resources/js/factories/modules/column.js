@@ -3,14 +3,17 @@ const Column = function ({ UUID, ADMIN_LABEL }) {
     this.type = 'column'
     this.config = {
         enabled: true,
-        columnSizes: {
-            "xs": 12,
-            "sm": '',
-            "md": '',
-            "lg": '',
-            "xl": ''
-        },
-        admin_label: ADMIN_LABEL || this.type
+        statamic_settings: {},
+        buildamic_settings: {
+            columnSizes: {
+                "xs": 12,
+                "sm": '',
+                "md": '',
+                "lg": '',
+                "xl": ''
+            },
+            admin_label: ADMIN_LABEL || this.type
+        }
     }
     this.value = []
 }

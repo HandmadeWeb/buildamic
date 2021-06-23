@@ -385,6 +385,7 @@ __webpack_require__.r(__webpack_exports__);
     addField: function addField(field, key) {
       var _field$config, _field$meta;
 
+      console.log("replicator", field);
       var MODULE = field.fields ? "Set" : "Field";
       var VALUE = field.fields ? field.fields : field.value;
       var CONFIG = (_field$config = field.config) !== null && _field$config !== void 0 ? _field$config : {};
@@ -501,9 +502,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     columnClass: function columnClass() {
-      var _this$column, _this$column$config, _this$column$config$c;
+      var _this$column, _this$column$config, _this$column$config$b;
 
-      return "col col-".concat((_this$column = this.column) === null || _this$column === void 0 ? void 0 : (_this$column$config = _this$column.config) === null || _this$column$config === void 0 ? void 0 : (_this$column$config$c = _this$column$config.columnSizes) === null || _this$column$config$c === void 0 ? void 0 : _this$column$config$c.lg);
+      return "col col-".concat((_this$column = this.column) === null || _this$column === void 0 ? void 0 : (_this$column$config = _this$column.config) === null || _this$column$config === void 0 ? void 0 : (_this$column$config$b = _this$column$config.buildamic_settings.columnSizes) === null || _this$column$config$b === void 0 ? void 0 : _this$column$config$b.lg);
     }
   },
   components: {
@@ -563,7 +564,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     fieldDisplay: function fieldDisplay() {
-      return this.field.config.admin_label || this.field.config.handle;
+      return this.field.config.buildamic_settings.admin_label || this.field.config.statamic_settings.handle;
     }
   },
   methods: {
@@ -572,7 +573,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log(this.fieldData);
+    console.log("fieldData", this.fieldData);
   }
 });
 
@@ -723,6 +724,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -739,15 +743,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     setFieldDefaults: function setFieldDefaults() {
-      var test = this.fieldDefaults[this.field.config.handle].fields.reduce(function (acc, cur) {
+      var test = this.fieldDefaults[this.field.config.buildamic_settings.handle].fields.reduce(function (acc, cur) {
         acc[cur.handle] = cur;
         return acc;
       }, {});
       return test;
     }
   },
-  mounted: function mounted() {
-    console.log("set", this.field);
+  mounted: function mounted() {// console.log("set", this.field);
   }
 });
 
@@ -923,11 +926,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var newCol = (0,_factories_modules_moduleFactory__WEBPACK_IMPORTED_MODULE_0__.createModule)("Column"); // If we are divisible by 2, set the md breakpoint to 6 (translates to col-md-6)
 
         if (layoutArr.length % 2 === 0) {
-          newCol.config.columnSizes.md = 6;
+          newCol.config.buildamic_settings.columnSizes.md = 6;
         } // Set the lg size to seleted value
 
 
-        newCol.config.columnSizes.lg = col; // Not the smallest "xs" (mobile) size will remain unchanged from the newColumnStructure object which is 12
+        newCol.config.buildamic_settings.columnSizes.lg = col; // Not the smallest "xs" (mobile) size will remain unchanged from the newColumnStructure object which is 12
 
         newLayout.push(newCol);
       });
@@ -1076,58 +1079,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rows/RowSettings.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rows/RowSettings.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _shared_OptionsTab_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../shared/OptionsTab.vue */ "./resources/js/components/shared/OptionsTab.vue");
-/* harmony import */ var _columns_ColumnSettings_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../columns/ColumnSettings.vue */ "./resources/js/components/columns/ColumnSettings.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    field: {
-      type: Object,
-      required: true
-    },
-    fieldDefaults: Object
-  },
-  data: function data() {
-    return {
-      columns: this.field.value
-    };
-  },
-  components: {
-    OptionsTab: _shared_OptionsTab_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    ColumnSettings: _columns_ColumnSettings_vue__WEBPACK_IMPORTED_MODULE_1__.default
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sections/GridSection.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/sections/GridSection.vue?vue&type=script&lang=js& ***!
@@ -1259,8 +1210,7 @@ __webpack_require__.r(__webpack_exports__);
     SettingsLayout: _settings_SettingsLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     SettingsBackground: _settings_SettingsBackground__WEBPACK_IMPORTED_MODULE_1__.default
   },
-  mounted: function mounted() {
-    console.log("fd", this.fieldDefaults);
+  mounted: function mounted() {// console.log("fd", this.fieldDefaults);
   }
 });
 
@@ -1427,12 +1377,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _mixins_OptionsFields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/OptionsFields */ "./resources/js/mixins/OptionsFields.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -1476,28 +1420,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   data: function data() {
-    var _this$field$config$at, _this$field$config, _this$field$config$at2, _this$overRideDefault, _this$overRideDefault2, _this$field$config$at3, _this$field$config2, _this$field$config2$a, _this$overRideDefault3, _this$overRideDefault4, _this$field$config$ad, _this$field$config3;
+    var _this$getDeep;
 
     return {
       attributes: {
-        "class": _objectSpread({
+        "class": {
           placeholder: "Add any custom classes to this module",
           input_type: "text",
           type: "text",
           icon: "text",
           handle: "class",
           display: "Class",
-          value: (_this$field$config$at = (_this$field$config = this.field.config) === null || _this$field$config === void 0 ? void 0 : (_this$field$config$at2 = _this$field$config.attributes) === null || _this$field$config$at2 === void 0 ? void 0 : _this$field$config$at2["class"]) !== null && _this$field$config$at !== void 0 ? _this$field$config$at : null
-        }, (_this$overRideDefault = this.overRideDefaultOptions) === null || _this$overRideDefault === void 0 ? void 0 : (_this$overRideDefault2 = _this$overRideDefault.attributes) === null || _this$overRideDefault2 === void 0 ? void 0 : _this$overRideDefault2["class"]),
-        id: _objectSpread({
+          value: this.getDeep("attributes.class")
+        },
+        id: {
           placeholder: "Add a custom ID to this module",
           input_type: "text",
           type: "text",
           icon: "text",
           handle: "id",
           display: "ID",
-          value: (_this$field$config$at3 = (_this$field$config2 = this.field.config) === null || _this$field$config2 === void 0 ? void 0 : (_this$field$config2$a = _this$field$config2.attributes) === null || _this$field$config2$a === void 0 ? void 0 : _this$field$config2$a.id) !== null && _this$field$config$at3 !== void 0 ? _this$field$config$at3 : null
-        }, (_this$overRideDefault3 = this.overRideDefaultOptions) === null || _this$overRideDefault3 === void 0 ? void 0 : (_this$overRideDefault4 = _this$overRideDefault3.attributes) === null || _this$overRideDefault4 === void 0 ? void 0 : _this$overRideDefault4.id)
+          value: this.getDeep("attributes.id")
+        }
       },
       admin_label: {
         placeholder: "Admin Label",
@@ -1505,7 +1449,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: "text",
         icon: "text",
         handle: "admin_label",
-        value: (_this$field$config$ad = (_this$field$config3 = this.field.config) === null || _this$field$config3 === void 0 ? void 0 : _this$field$config3.admin_label) !== null && _this$field$config$ad !== void 0 ? _this$field$config$ad : null
+        value: (_this$getDeep = this.getDeep("admin_label")) !== null && _this$getDeep !== void 0 ? _this$getDeep : null
       }
     };
   },
@@ -1529,7 +1473,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_eva_icons__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_eva_icons__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _fields_FieldSettings_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../fields/FieldSettings.vue */ "./resources/js/components/fields/FieldSettings.vue");
 /* harmony import */ var _fields_SetSettings_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../fields/SetSettings.vue */ "./resources/js/components/fields/SetSettings.vue");
-/* harmony import */ var _rows_RowSettings_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../rows/RowSettings.vue */ "./resources/js/components/rows/RowSettings.vue");
+/* harmony import */ var _columns_ColumnSettings_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../columns/ColumnSettings.vue */ "./resources/js/components/columns/ColumnSettings.vue");
 //
 //
 //
@@ -1575,7 +1519,7 @@ __webpack_require__.r(__webpack_exports__);
     EvaIcon: vue_eva_icons__WEBPACK_IMPORTED_MODULE_0__.EvaIcon,
     FieldSettings: _fields_FieldSettings_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     SetSettings: _fields_SetSettings_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    RowSettings: _rows_RowSettings_vue__WEBPACK_IMPORTED_MODULE_3__.default
+    RowSettings: _columns_ColumnSettings_vue__WEBPACK_IMPORTED_MODULE_3__.default
   },
   methods: {}
 });
@@ -1602,11 +1546,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2185,7 +2124,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         return acc;
       }, {});
-      var oldVals = this.getDeep(this.field.config, "inline.".concat(setting, ".").concat(this.breakpoint));
+      var oldVals = this.getDeep("inline.".concat(setting, ".").concat(this.breakpoint));
 
       var payload = _objectSpread(_objectSpread({}, oldVals), newVals);
 
@@ -2334,9 +2273,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2407,7 +2343,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SettingsGroup_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SettingsGroup.vue */ "./resources/js/components/shared/settings/SettingsGroup.vue");
 /* harmony import */ var _BoxModelUI_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BoxModelUI.vue */ "./resources/js/components/shared/settings/BoxModelUI.vue");
 /* harmony import */ var _mixins_OptionsFields__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../mixins/OptionsFields */ "./resources/js/mixins/OptionsFields.js");
-//
 //
 //
 //
@@ -2720,14 +2655,17 @@ var Column = function Column(_ref) {
   this.type = 'column';
   this.config = {
     enabled: true,
-    columnSizes: {
-      "xs": 12,
-      "sm": '',
-      "md": '',
-      "lg": '',
-      "xl": ''
-    },
-    admin_label: ADMIN_LABEL || this.type
+    statamic_settings: {},
+    buildamic_settings: {
+      columnSizes: {
+        "xs": 12,
+        "sm": '',
+        "md": '',
+        "lg": '',
+        "xl": ''
+      },
+      admin_label: ADMIN_LABEL || this.type
+    }
   };
   this.value = [];
 };
@@ -2747,6 +2685,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Field": () => (/* binding */ Field)
 /* harmony export */ });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var Field = function Field(_ref) {
   var ADMIN_LABEL = _ref.ADMIN_LABEL,
       _ref$CONFIG = _ref.CONFIG,
@@ -2760,9 +2704,12 @@ var Field = function Field(_ref) {
   this.type = 'field';
   this.config = {
     enabled: true,
-    type: CONFIG.type,
-    handle: HANDLE,
-    admin_label: ADMIN_LABEL || HANDLE
+    statamic_settings: _objectSpread(_objectSpread({}, CONFIG), {}, {
+      handle: HANDLE
+    }),
+    buildamic_settings: {
+      admin_label: ADMIN_LABEL || HANDLE
+    }
   }; // this.meta = META
 
   this.value = VALUE;
@@ -2838,7 +2785,10 @@ var Row = function Row(_ref) {
   this.type = 'row';
   this.config = {
     enabled: true,
-    admin_label: ADMIN_LABEL || this.type
+    statamic_settings: {},
+    buildamic_settings: {
+      admin_label: ADMIN_LABEL || this.type
+    }
   };
   this.value = [];
 };
@@ -2865,7 +2815,10 @@ var Section = function Section(_ref) {
   this.type = 'section';
   this.config = {
     enabled: true,
-    admin_label: ADMIN_LABEL || this.type
+    statamic_settings: {},
+    buildamic_settings: {
+      admin_label: ADMIN_LABEL || this.type
+    }
   };
   this.value = [];
 };
@@ -2903,12 +2856,14 @@ var Set = function Set(_ref) {
       CONFIG = _ref$CONFIG === void 0 ? {} : _ref$CONFIG;
   this.uuid = "".concat(UUID);
   this.type = 'set';
-  this.config = _objectSpread(_objectSpread({
-    enabled: true
-  }, CONFIG), {}, {
-    handle: HANDLE,
-    admin_label: ADMIN_LABEL || HANDLE
-  });
+  this.config = {
+    enabled: true,
+    statamic_settings: _objectSpread({}, CONFIG),
+    buildamic_settings: {
+      admin_label: ADMIN_LABEL || HANDLE,
+      handle: HANDLE
+    }
+  };
   this.value = [];
 
   if (VALUE.length) {
@@ -3023,8 +2978,6 @@ function generateID() {
   return (0,uuid__WEBPACK_IMPORTED_MODULE_0__.default)();
 }
 var recursifyID = function recursifyID(array) {
-  console.log(array);
-
   if (array && array.uuid) {
     array.uuid = generateID();
   }
@@ -3119,10 +3072,16 @@ var getDeep = function getDeep(obj, path) {
   path = Array.isArray(path) ? path : path.split('.').filter(function (path) {
     return path;
   });
-  console.log('GD', path);
-  return path.reduce(function (a, b) {
+  var data = path.reduce(function (a, b) {
     return a && a[b];
   }, obj);
+
+  if (!data) {
+    return;
+  }
+
+  console.log(data);
+  return data;
 };
 
 var getDeepAsync = function getDeepAsync(obj, path) {
@@ -3172,7 +3131,10 @@ var fullConfig = tailwindcss_resolveConfig__WEBPACK_IMPORTED_MODULE_0___default(
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)(["breakpoint"])),
   methods: {
-    getDeep: _functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__.getDeep,
+    getDeep: function getDeep(e) {
+      var obj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.field.config.buildamic_settings;
+      return (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__.getDeep)(obj, e);
+    },
     updateField: function updateField(_ref, responsive) {
       var path = _ref.path,
           _ref$key = _ref.key,
@@ -3195,7 +3157,7 @@ var fullConfig = tailwindcss_resolveConfig__WEBPACK_IMPORTED_MODULE_0___default(
         a[b].value = val;
       }, vm); // Update actual field settings
 
-      return (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__.setDeep)(this.field.config, fullPath, val);
+      return (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__.setDeep)(this.field.config.buildamic_settings, fullPath, val);
     },
     getTWClasses: function getTWClasses(type, prefix) {
       var options = Object.keys(fullConfig.theme[type]).reduce(function (acc, cur) {
@@ -14666,45 +14628,6 @@ component.options.__file = "resources/js/components/rows/GridRow.vue"
 
 /***/ }),
 
-/***/ "./resources/js/components/rows/RowSettings.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/components/rows/RowSettings.vue ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _RowSettings_vue_vue_type_template_id_4e278b92___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RowSettings.vue?vue&type=template&id=4e278b92& */ "./resources/js/components/rows/RowSettings.vue?vue&type=template&id=4e278b92&");
-/* harmony import */ var _RowSettings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RowSettings.vue?vue&type=script&lang=js& */ "./resources/js/components/rows/RowSettings.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
-  _RowSettings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _RowSettings_vue_vue_type_template_id_4e278b92___WEBPACK_IMPORTED_MODULE_0__.render,
-  _RowSettings_vue_vue_type_template_id_4e278b92___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/rows/RowSettings.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
 /***/ "./resources/js/components/sections/GridSection.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/components/sections/GridSection.vue ***!
@@ -15385,22 +15308,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/rows/RowSettings.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/rows/RowSettings.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RowSettings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RowSettings.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rows/RowSettings.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RowSettings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
-
-/***/ }),
-
 /***/ "./resources/js/components/sections/GridSection.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************!*\
   !*** ./resources/js/components/sections/GridSection.vue?vue&type=script&lang=js& ***!
@@ -15810,23 +15717,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GridRow_vue_vue_type_template_id_7e9031ae_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GridRow_vue_vue_type_template_id_7e9031ae_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GridRow.vue?vue&type=template&id=7e9031ae&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rows/GridRow.vue?vue&type=template&id=7e9031ae&scoped=true&");
-
-
-/***/ }),
-
-/***/ "./resources/js/components/rows/RowSettings.vue?vue&type=template&id=4e278b92&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/rows/RowSettings.vue?vue&type=template&id=4e278b92& ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RowSettings_vue_vue_type_template_id_4e278b92___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RowSettings_vue_vue_type_template_id_4e278b92___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RowSettings_vue_vue_type_template_id_4e278b92___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RowSettings.vue?vue&type=template&id=4e278b92& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rows/RowSettings.vue?vue&type=template&id=4e278b92&");
 
 
 /***/ }),
@@ -16603,27 +16493,20 @@ var render = function() {
     "div",
     {
       staticClass: "buildamic-field",
-      class: [_vm.fieldData.config.type + "-fieldtype"]
+      class: [_vm.fieldData.config.statamic_settings.type + "-fieldtype"]
     },
     [
       _c("label", [_vm._v(_vm._s(_vm.fieldDisplay))]),
       _vm._v(" "),
-      _c(_vm.fieldData.config.type + "-fieldtype", {
+      _c(_vm.fieldData.config.statamic_settings.type + "-fieldtype", {
         tag: "component",
         attrs: {
-          config: Object.assign(
-            {},
-            _vm.fieldDefaults[
-              _vm.fieldData.config.handle || _vm.fieldData.handle
-            ].config,
-            _vm.fieldData.config.field
-          ),
+          config: _vm.fieldData.config.statamic_settings,
           value: _vm.fieldData.value,
           meta:
-            _vm.fieldDefaults[
-              _vm.fieldData.config.handle || _vm.fieldData.handle
-            ].meta,
-          handle: _vm.fieldData.config.handle || _vm.fieldData.handle
+            _vm.fieldDefaults[_vm.fieldData.config.statamic_settings.handle]
+              .meta,
+          handle: _vm.fieldData.config.statamic_settings.handle
         },
         on: {
           input: function($event) {
@@ -16674,7 +16557,9 @@ var render = function() {
         "field border border-t-4 border-grey-70 rounded w-full p-1 text-center"
     },
     [
-      _c("span", {}, [_vm._v(_vm._s(_vm.field.config.admin_label))]),
+      _c("span", {}, [
+        _vm._v(_vm._s(_vm.field.config.buildamic_settings.admin_label))
+      ]),
       _vm._v(" "),
       _c("module-controls", {
         attrs: {
@@ -16785,7 +16670,7 @@ var render = function() {
     "div",
     {
       staticClass: "buildamic-set",
-      class: [_vm.field.config.type + "-fieldtype"]
+      class: [_vm.field.config.statamic_settings.type + "-fieldtype"]
     },
     [
       _c(
@@ -17036,56 +16921,6 @@ var render = function() {
       _c("column-selector", {
         attrs: { columns: _vm.columns, name: _vm.row.uuid + "-column-layouts" }
       })
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rows/RowSettings.vue?vue&type=template&id=4e278b92&":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/rows/RowSettings.vue?vue&type=template&id=4e278b92& ***!
-  \****************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "vue-tabs",
-    { attrs: { id: _vm.field.uuid } },
-    [
-      _c(
-        "vue-tab",
-        { attrs: { name: "Options", selected: "selected" } },
-        [_c("options-tab", { attrs: { field: _vm.field } })],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "vue-tab",
-        { attrs: { name: "Columns" } },
-        _vm._l(_vm.columns, function(column) {
-          return _c("column-settings", {
-            key: "row-cols" + column.uuid,
-            staticClass: "bg-grey-20 mb-4",
-            attrs: { field: column }
-          })
-        }),
-        1
-      )
     ],
     1
   )
@@ -17427,7 +17262,9 @@ var render = function() {
                   _c("h2", { staticClass: "mb-2 text-xl" }, [
                     _vm._v(
                       "\n        Settings for " +
-                        _vm._s(_vm.component.config.admin_label) +
+                        _vm._s(
+                          _vm.component.config.buildamic_settings.admin_label
+                        ) +
                         "\n      "
                     )
                   ]),
@@ -17715,7 +17552,6 @@ var render = function() {
                     config: m,
                     value:
                       _vm.getDeep(
-                        _vm.field.config,
                         "inline.margin." + _vm.breakpoint + "." + key
                       ) || "N/A",
                     "aria-label": "Margin right edit"
@@ -17945,7 +17781,6 @@ var render = function() {
                     config: p,
                     value:
                       _vm.getDeep(
-                        _vm.field.config,
                         "inline.padding." + _vm.breakpoint + "." + key
                       ) || "N/A",
                     "aria-label": "Padding right edit"
@@ -18123,10 +17958,7 @@ var render = function() {
                 config: _vm.fieldDefaults["color"].config,
                 meta: _vm.fieldDefaults["color"].meta,
                 value:
-                  _vm.getDeep(
-                    _vm.field.config,
-                    "inline.backgroundColor." + _vm.breakpoint
-                  ) || ""
+                  _vm.getDeep("inline.backgroundColor." + _vm.breakpoint) || ""
               },
               on: {
                 input: function($event) {
@@ -18149,13 +17981,12 @@ var render = function() {
           },
           [
             _c("assets-fieldtype", {
-              class: _vm.getDeep(_vm.field.config, "inline.backgroundImage"),
+              class: _vm.getDeep("inline.backgroundImage"),
               attrs: {
                 handle: _vm.inline.backgroundImage.handle,
                 config: _vm.fieldDefaults["assets"].config,
                 meta: _vm.fieldDefaults["assets"].meta,
-                value:
-                  _vm.getDeep(_vm.field.config, "inline.backgroundImage") || []
+                value: _vm.getDeep("inline.backgroundImage") || []
               },
               on: {
                 input: function($event) {
@@ -18252,6 +18083,7 @@ var render = function() {
                   _c("label", [_vm._v(_vm._s(option.display))]),
                   _vm._v(" "),
                   _c(option.type + "-fieldtype", {
+                    key: option.value,
                     tag: "component",
                     staticClass: "mb-2",
                     class: _vm.breakpoint,
@@ -18259,7 +18091,6 @@ var render = function() {
                       handle: option.handle,
                       config: option,
                       value: _vm.getDeep(
-                        _vm.field.config,
                         "inline." + option.handle + "." + _vm.breakpoint
                       )
                     },

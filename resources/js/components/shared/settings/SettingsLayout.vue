@@ -14,10 +14,9 @@
               :class="breakpoint"
               :is="`${option.type}-fieldtype`"
               :handle="option.handle"
+              :key="option.value"
               :config="option"
-              :value="
-                getDeep(field.config, `inline.${option.handle}.${breakpoint}`)
-              "
+              :value="getDeep(`inline.${option.handle}.${breakpoint}`)"
               @input="
                 updateField(
                   {

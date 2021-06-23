@@ -51,8 +51,7 @@ export default {
           icon: "text",
           handle: "class",
           display: "Class",
-          value: this.field.config?.attributes?.class ?? null,
-          ...this.overRideDefaultOptions?.attributes?.class,
+          value: this.getDeep("attributes.class"),
         },
         id: {
           placeholder: "Add a custom ID to this module",
@@ -61,8 +60,7 @@ export default {
           icon: "text",
           handle: "id",
           display: "ID",
-          value: this.field.config?.attributes?.id ?? null,
-          ...this.overRideDefaultOptions?.attributes?.id,
+          value: this.getDeep("attributes.id"),
         },
       },
       admin_label: {
@@ -71,7 +69,7 @@ export default {
         type: "text",
         icon: "text",
         handle: "admin_label",
-        value: this.field.config?.admin_label ?? null,
+        value: this.getDeep("admin_label") ?? null,
       },
     };
   },

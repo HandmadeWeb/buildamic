@@ -81,6 +81,7 @@ export default {
   inject: ["fieldDefaults"],
   methods: {
     addField(field, key) {
+      console.log("replicator", field);
       const MODULE = field.fields ? "Set" : "Field";
       const VALUE = field.fields ? field.fields : field.value;
       const CONFIG = field.config ?? {};

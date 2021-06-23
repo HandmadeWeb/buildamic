@@ -10,10 +10,7 @@
             :handle="inline.backgroundColor.handle"
             :config="fieldDefaults['color'].config"
             :meta="fieldDefaults['color'].meta"
-            :value="
-              getDeep(field.config, `inline.backgroundColor.${breakpoint}`) ||
-                ''
-            "
+            :value="getDeep(`inline.backgroundColor.${breakpoint}`) || ''"
             @input="
               updateField({ path: `inline.backgroundColor`, val: $event }, true)
             "
@@ -24,11 +21,11 @@
           class="attributes__inline"
         >
           <assets-fieldtype
-            :class="getDeep(field.config, `inline.backgroundImage`)"
+            :class="getDeep(`inline.backgroundImage`)"
             :handle="inline.backgroundImage.handle"
             :config="fieldDefaults['assets'].config"
             :meta="fieldDefaults['assets'].meta"
-            :value="getDeep(field.config, `inline.backgroundImage`) || []"
+            :value="getDeep(`inline.backgroundImage`) || []"
             @input="
               updateField({ path: `inline.backgroundImage`, val: $event })
             "

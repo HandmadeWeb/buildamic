@@ -55,8 +55,12 @@ const setDeep = (obj, path, value, force = true, overwrite = false) => {
 
 const getDeep = (obj, path) => {
     path = Array.isArray(path) ? path : path.split('.').filter(path => path)
-    console.log('GD', path)
-    return path.reduce((a, b) => a && a[b], obj);
+    const data = path.reduce((a, b) => a && a[b], obj)
+    if (!data) {
+        return
+    }
+    console.log(data)
+    return data;
 }
 
 const getDeepAsync = (obj, path) => {

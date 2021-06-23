@@ -26,7 +26,7 @@ export default {
     SettingsBackground,
   },
   mounted() {
-    console.log("fd", this.fieldDefaults);
+    // console.log("fd", this.fieldDefaults);
   },
 };
 </script>

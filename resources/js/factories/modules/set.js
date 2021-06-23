@@ -5,9 +5,11 @@ const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {} }) {
     this.type = 'set'
     this.config = {
         enabled: true,
-        ...CONFIG,
-        handle: HANDLE,
-        admin_label: ADMIN_LABEL || HANDLE
+        statamic_settings: {
+            ...CONFIG,
+        },
+        buildamic_settings: { admin_label: ADMIN_LABEL || HANDLE, handle: HANDLE }
+
     }
     this.value = []
 

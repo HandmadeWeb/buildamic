@@ -167,9 +167,7 @@
           :style="m.style"
           :handle="m.handle"
           :config="m"
-          :value="
-            getDeep(field.config, `inline.margin.${breakpoint}.${key}`) || 'N/A'
-          "
+          :value="getDeep(`inline.margin.${breakpoint}.${key}`) || 'N/A'"
           @input="handleInput('margin', key, $event)"
           class="control-input
         text-center"
@@ -338,10 +336,7 @@
           :style="p.style"
           :handle="p.handle"
           :config="p"
-          :value="
-            getDeep(field.config, `inline.padding.${breakpoint}.${key}`) ||
-              'N/A'
-          "
+          :value="getDeep(`inline.padding.${breakpoint}.${key}`) || 'N/A'"
           @input="handleInput('padding', key, $event)"
           class="control-input text-center"
           aria-label="Padding right edit"
@@ -579,10 +574,7 @@ export default {
         return acc;
       }, {});
 
-      const oldVals = this.getDeep(
-        this.field.config,
-        `inline.${setting}.${this.breakpoint}`
-      );
+      const oldVals = this.getDeep(`inline.${setting}.${this.breakpoint}`);
 
       const payload = { ...oldVals, ...newVals };
 
