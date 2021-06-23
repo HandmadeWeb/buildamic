@@ -45,7 +45,7 @@ class BuildamicSet extends Fieldtype
                 ->setBuildamicSettings($this->field()->buildamicSettings())
                 ->setParent($parent->field()->parent())
                 ->setParentField($parent->field())
-                ->setValue($value)
+                ->setValue($value ?? null)
                 ->{$method}();
         }
 
@@ -54,7 +54,7 @@ class BuildamicSet extends Fieldtype
             ->setBuildamicSettings($this->field()->buildamicSettings())
             ->setParent($parent->field()->parent())
             ->setParentField($parent->field())
-            ->setValue($fields)
+            ->setValue($fields ?? null)
             ->{$method}();
 
         return $this->field()->setValue($value)->value();
