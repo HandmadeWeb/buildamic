@@ -1,5 +1,12 @@
 {
     "name": "michaelr0/buildamic",
+    "license": "MIT",
+    "description": "",
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "laravel/framework": "^8.0",
+        "statamic/cms": "^3.1.26"
+    },
     "autoload": {
         "files": [
             "src/helpers.php"
@@ -16,10 +23,7 @@
         "laravel": {
             "providers": [
                 "Michaelr0\\Buildamic\\ServiceProvider"
-            ],
-            "aliases": {
-                "Buildamic": "Michaelr0\\Buildamic\\Buildamic"
-            }
+            ]
         }
     }
 }
