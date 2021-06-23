@@ -52,8 +52,8 @@ class BuildamicColumn extends Fieldtype
                 //     admin_label: markdown
                 // value: 'Markdown Value'
                 return (new Field($field['config']['statamic_settings']['handle'], []))
-                    ->setConfig(array_merge($config['field'], $field['config']['statamic_settings']['field']))
-                    ->setBuildamicSettings($field['config']['buildamic_settings'])
+                    ->setConfig(array_merge($config['field'], $field['config']['statamic_settings']['field'] ?? []))
+                    ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
                     ->setParent($parent->field()->parent())
                     ->setParentField($parent->field())
                     ->setValue($field['value'])
@@ -85,7 +85,7 @@ class BuildamicColumn extends Fieldtype
                 //       bio: '123456'
 
                 return (new Fields([]))
-                    ->setBuildamicSettings($field['config']['buildamic_settings'])
+                    ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
                     ->setParent($parent->field()->parent())
                     ->setParentField($parent->field())
                     ->setItems([$field['config']['statamic_settings']])
@@ -107,7 +107,7 @@ class BuildamicColumn extends Fieldtype
                 //   content: Testing
                 return (new Field($field['config']['statamic_settings']['handle'], []))
                     ->setConfig($field['config']['statmic_settings']['field'])
-                    ->setBuildamicSettings($field['config']['buildamic_settings'])
+                    ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
                     ->setParent($parent->field()->parent())
                     ->setParentField($parent->field())
                     ->setValue($field['value'])

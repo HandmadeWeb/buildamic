@@ -108,7 +108,7 @@ class Buildamic extends Fieldtype
                             }
 
                             $field['value'] = (new Fields([$singleField ?? $field['config']['statamic_settings']]))
-                                ->setBuildamicSettings($field['config']['buildamic_settings'])
+                                ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
                                 ->addValues($field['value'])
                                 ->preProcess()
                                 ->values();
@@ -161,8 +161,8 @@ class Buildamic extends Fieldtype
                                 ];
                             }
 
-                            $field['value'] = (new Fields([$singleField ?? $field['config']['statamic_settings']['field']]))
-                                ->setBuildamicSettings($field['config']['buildamic_settings'])
+                            $field['value'] = (new Fields([$singleField ?? ($field['config']['statamic_settings']['field'] ?? [])]))
+                                ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
                                 ->addValues($field['value'])
                                 ->process()
                                 ->values();
