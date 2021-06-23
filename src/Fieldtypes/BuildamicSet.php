@@ -50,7 +50,7 @@ class BuildamicSet extends Fieldtype
         }
 
         $value = (new Field($this->handle(), []))
-            ->setConfig(array_merge($this->config('config.statamic_settings'), ['type' => 'sets']))
+            ->setConfig(array_merge($this->config('config.statamic_settings.field'), ['type' => 'sets']))
             ->setBuildamicSettings($this->config('config.buildamic_settings'))
             ->setParent($parent->field()->parent())
             ->setParentField($parent->field())

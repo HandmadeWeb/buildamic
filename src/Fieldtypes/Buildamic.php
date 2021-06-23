@@ -103,11 +103,11 @@ class Buildamic extends Fieldtype
                                 $singleField = [
                                     'handle' => $field['config']['statamic_settings']['field'],
                                     'field' => $field['config']['statamic_settings']['field'],
-                                    'config' => $field['config']['statamic_settings']['config'] ?? [],
+                                    'config' => $field['config']['statamic_settings'] ?? [],
                                 ];
                             }
 
-                            $field['value'] = (new Fields([$singleField ?? $field['config']['statamic_settings']['field']]))
+                            $field['value'] = (new Fields([$singleField ?? $field['config']['statamic_settings']]))
                                 ->setBuildamicSettings($field['config']['buildamic_settings'])
                                 ->addValues($field['value'])
                                 ->preProcess()
