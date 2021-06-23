@@ -123,7 +123,7 @@ class BuildamicRenderer
 
         // handle:blurb, file: blurb
         if (view()->exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
-            return view("{$this->viewPrefix}.sets.{$set->handle()}", ['buildamic' => $this, 'field' => $set, 'fields' => $fields]);
+            return view("{$this->viewPrefix}.sets.{$set->handle()}", ['buildamic' => $this, 'field' => $set, 'fields' => collect($fields)]);
         }
 
         // catch all, render individual fields.
