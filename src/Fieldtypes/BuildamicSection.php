@@ -38,14 +38,7 @@ class BuildamicSection extends Fieldtype
             }
 
             return (new Field($row['uuid'], []))
-            ->setConfig(array_merge(
-                [
-                    'type' => 'buildamic-row',
-                ],
-                collect($row['config'])
-                ->except(['admin_label'])
-                ->toArray()
-            ))
+            ->setConfig(array_merge(['type' => 'buildamic-row'], $row['config']))
             ->setParent($parent->field()->parent())
             ->setParentField($parent->field())
             ->setValue($row['value'])

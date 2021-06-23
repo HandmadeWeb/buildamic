@@ -54,7 +54,7 @@ class Fields extends StatamicFields
                 ->setBuildamicSettings($buildamicSettings)
                 ->setParent($field->parent())
                 ->setParentField($field->parentField())
-                ->setValue($field->value());
+                ->setValue($field->value() ?? null);
         })->all();
     }
 

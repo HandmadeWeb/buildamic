@@ -92,24 +92,47 @@ class Buildamic extends Fieldtype
                 $row['value'] = collect($row['value'])->map(function ($column) {
                     $column['value'] = collect($column['value'])->map(function ($field) {
                         if ($field['type'] === 'field') {
+                            if (empty($field['config']['buildamic_settings']['admin_label'])) {
+                                $field['config']['buildamic_settings']['admin_label'] = $field['config']['statamic_settings']['handle'];
+                            }
+
                             $field['value'] = $this->fields()->get($field['config']['statamic_settings']['handle'])->setValue($field['value'])->preProcess()->value();
                         } elseif ($field['type'] === 'set') {
+                            if (empty($field['config']['buildamic_settings']['admin_label'])) {
+                                $field['config']['buildamic_settings']['admin_label'] = $field['config']['statamic_settings']['handle'];
+                            }
+
                             $field['value'] = $this->set($field['config']['statamic_settings']['handle'])->all()->map(function ($item) use ($field) {
                                 return $item->setValue($field['value'][$item->handle()])->preProcess()->value();
                             })->toArray();
                         } elseif ($field['type'] === 'fieldset') {
                             // Fieldset (single field)
-                            if (is_string($field['config']['statamic_settings']['field'])) {
+                            if (isset($field['config']['statamic_settings']['field']) && is_string($field['config']['statamic_settings']['field'])) {
                                 $singleField = [
                                     'handle' => $field['config']['statamic_settings']['field'],
                                     'field' => $field['config']['statamic_settings']['field'],
-                                    'config' => $field['config']['statamic_settings']['config'] ?? [],
+                                    'config' => $field['config']['statamic_settings'] ?? [],
                                 ];
                             }
 
-                            $field['value'] = (new Fields([$singleField ?? $field['config']['statamic_settings']['field']]))
+                            if (empty($field['config']['buildamic_settings']['admin_label'])) {
+                                if (! empty($field['config']['statamic_settings']['import'])) {
+                                    if (! empty($field['config']['statamic_settings']['prefix'])) {
+                                        $field['config']['buildamic_settings']['admin_label'] = "{$field['config']['statamic_settings']['prefix']}_{$field['config']['statamic_settings']['import']}";
+                                    } else {
+                                        $field['config']['buildamic_settings']['admin_label'] = $field['config']['statamic_settings']['import'];
+                                    }
+                                } elseif (isset($singleField)) {
+                                    $field['config']['buildamic_settings']['admin_label'] = $singleField['handle'];
+                                } else {
+                                    $field['config']['buildamic_settings']['admin_label'] = 'fieldset';
+                                }
+                            }
+
+                            $field['value'] = (new Fields([]))
                                 ->setBuildamicSettings($field['config']['buildamic_settings'])
-                                ->addValues($field['value'])
+                                ->setItems([$singleField ?? $field['config']['statamic_settings']])
+                                ->addValues($field['value'] ?? [])
                                 ->preProcess()
                                 ->values();
                         }
@@ -142,27 +165,51 @@ class Buildamic extends Fieldtype
                 $row['value'] = collect($row['value'])->map(function ($column) use ($instance) {
                     $column['value'] = collect($column['value'])->map(function ($field) use ($instance) {
                         if ($field['type'] === 'field') {
+                            if (empty($field['config']['buildamic_settings']['admin_label'])) {
+                                $field['config']['buildamic_settings']['admin_label'] = $field['config']['statamic_settings']['handle'];
+                            }
+
                             $field['value'] = $this->fields()->get($field['config']['statamic_settings']['handle'])->setValue($field['value'])->process()->value();
 
                             // Deduplicate Field Config
                             $field['config']['statamic_settings']['field'] = array_diff($field['config']['statamic_settings']['field'] ?? [], collect($instance->config('fields'))->firstWhere('handle', $field['config']['statamic_settings']['handle'])['field'] ?? []);
                         } elseif ($field['type'] === 'set') {
-                            $field['value'] = collect($field['value']);
+                            if (empty($field['config']['buildamic_settings']['admin_label'])) {
+                                $field['config']['buildamic_settings']['admin_label'] = $field['config']['statamic_settings']['handle'];
+                            }
+
                             $field['value'] = $this->set($field['config']['statamic_settings']['handle'])->all()->map(function ($item) use ($field) {
-                                return $item->setValue($field['value']->firstWhere('handle', $item->handle())['value'])->process()->value();
+                                $_item = collect($field['value'])->firstWhere('config.statamic_settings.handle', 'title');
+
+                                return $item->setValue($_item['value'])->process()->value();
                             })->toArray();
                         } elseif ($field['type'] === 'fieldset') {
                             // Fieldset (single field)
-                            if (is_string($field['config']['statamic_settings']['field'])) {
+                            if (isset($field['config']['statamic_settings']['field']) && is_string($field['config']['statamic_settings']['field'])) {
                                 $singleField = [
                                     'handle' => $field['config']['statamic_settings']['field'],
                                     'field' => $field['config']['statamic_settings']['field'],
-                                    'config' => $field['config']['statamic_settings']['config'] ?? [],
+                                    'config' => $field['config']['statamic_settings'] ?? [],
                                 ];
                             }
 
-                            $field['value'] = (new Fields([$singleField ?? $field['config']['statamic_settings']['field']]))
-                                ->setBuildamicSettings($field['config']['buildamic_settings'])
+                            if (empty($field['config']['buildamic_settings']['admin_label'])) {
+                                if (! empty($field['config']['statamic_settings']['import'])) {
+                                    if (! empty($field['config']['statamic_settings']['prefix'])) {
+                                        $field['config']['buildamic_settings']['admin_label'] = "{$field['config']['statamic_settings']['prefix']}_{$field['config']['statamic_settings']['import']}";
+                                    } else {
+                                        $field['config']['buildamic_settings']['admin_label'] = $field['config']['statamic_settings']['import'];
+                                    }
+                                } elseif (isset($singleField)) {
+                                    $field['config']['buildamic_settings']['admin_label'] = $singleField['handle'];
+                                } else {
+                                    $field['config']['buildamic_settings']['admin_label'] = 'fieldset';
+                                }
+                            }
+
+                            $field['value'] = (new Fields([]))
+                                ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
+                                ->setItems([$singleField ?? $field['config']['statamic_settings']])
                                 ->addValues($field['value'])
                                 ->process()
                                 ->values();
@@ -203,7 +250,7 @@ class Buildamic extends Fieldtype
             }
 
             return (new Field($section['uuid'], []))
-                ->setConfig(array_merge(['type' => 'buildamic-section'], collect($section['config'])->except(['admin_label'])->toArray()))
+                ->setConfig(array_merge(['type' => 'buildamic-section'], $section['config']))
                 ->setParent($parent->field()->parent())
                 ->setParentField($parent->field())
                 ->setValue($section['value'])

@@ -2,6 +2,7 @@
 
 namespace Michaelr0\Buildamic\Fieldtypes;
 
+use Illuminate\Support\Collection;
 use Michaelr0\Buildamic\Fields\Field;
 use Michaelr0\Buildamic\Fields\Fields;
 use Statamic\Fields\Fieldtype;
@@ -52,11 +53,11 @@ class BuildamicColumn extends Fieldtype
                 //     admin_label: markdown
                 // value: 'Markdown Value'
                 return (new Field($field['config']['statamic_settings']['handle'], []))
-                    ->setConfig(array_merge($config['field'], $field['config']['statamic_settings']))
-                    ->setBuildamicSettings($field['config']['buildamic_settings'])
+                    ->setConfig(array_merge($config['field'], $field['config']['statamic_settings']['field'] ?? []))
+                    ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
                     ->setParent($parent->field()->parent())
                     ->setParentField($parent->field())
-                    ->setValue($field['value'])
+                    ->setValue($field['value'] ?? null)
                     ->{$method}();
             } elseif ($field['type'] === 'fieldset') {
                 //   -
@@ -84,15 +85,19 @@ class BuildamicColumn extends Fieldtype
                 //     value:
                 //       bio: '123456'
 
+                if ($field['value'] instanceof Collection) {
+                    $field['value'] = $field['value']->all();
+                }
+
                 return (new Fields([]))
-                    ->setBuildamicSettings($field['config']['buildamic_settings'])
+                    ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
                     ->setParent($parent->field()->parent())
                     ->setParentField($parent->field())
                     ->setItems([$field['config']['statamic_settings']])
-                    ->addValues($field['value'])
+                    ->addValues($field['value'] ?? [])
                     ->{$method}();
             } elseif ($field['type'] === 'set') {
-                $field['type'] = 'buildamic-set';
+                $field['config']['statmic_settings']['field']['type'] = 'buildamic-set';
 
                 // uuid: 98962c4d-2b1d-4579-b119-1757ee6cd608
                 // type: set
@@ -106,11 +111,11 @@ class BuildamicColumn extends Fieldtype
                 //   title: Test
                 //   content: Testing
                 return (new Field($field['config']['statamic_settings']['handle'], []))
-                    ->setConfig($field)
-                    ->setBuildamicSettings($field['config']['buildamic_settings'])
+                    ->setConfig($field['config']['statmic_settings']['field'])
+                    ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
                     ->setParent($parent->field()->parent())
                     ->setParentField($parent->field())
-                    ->setValue($field['value'])
+                    ->setValue($field['value'] ?? null)
                     ->{$method}();
             }
         })->filter()->all();

@@ -35,6 +35,6 @@ class Field extends StatamicField
             ->setBuildamicSettings($this->buildamicSettings())
             ->setParent($this->parent)
             ->setParentField($this->parentField)
-            ->setValue($this->value);
+            ->setValue($this->value ?? null);
     }
 }
