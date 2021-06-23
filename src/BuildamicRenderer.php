@@ -2,11 +2,11 @@
 
 namespace Michaelr0\Buildamic;
 
+use Michaelr0\Buildamic\Fields\Field;
+use Michaelr0\Buildamic\Fields\Fields;
 use Michaelr0\Buildamic\Fieldtypes\Buildamic;
 use Michaelr0\Buildamic\Traits\Hydration;
 use Statamic\Facades\Antlers;
-use Statamic\Fields\Field;
-use Statamic\Fields\Fields;
 use Statamic\Fields\Value;
 
 class BuildamicRenderer
@@ -92,7 +92,6 @@ class BuildamicRenderer
     public function renderFieldset(Fields $fieldset)
     {
         $config = $fieldset->items()->first();
-
         if (isset($config['import'])) {
             $handle = ($config['prefix'] ?? '').$config['import'];
         } elseif (isset($config['handle']) && is_string($config['field'])) {

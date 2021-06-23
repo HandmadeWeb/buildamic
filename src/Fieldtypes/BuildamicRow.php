@@ -2,7 +2,7 @@
 
 namespace Michaelr0\Buildamic\Fieldtypes;
 
-use Statamic\Fields\Field;
+use Michaelr0\Buildamic\Fields\Field;
 use Statamic\Fields\Fieldtype;
 
 class BuildamicRow extends Fieldtype
@@ -33,7 +33,7 @@ class BuildamicRow extends Fieldtype
         $method = $shallow ? 'shallowAugment' : 'augment';
 
         $value = collect($value)->map(function ($column) use ($parent, $method) {
-            if (! $column['config']['enabled'] ?? false) {
+            if (isset($column['config']['enabled']) && ! $column['config']['enabled']) {
                 return;
             }
 
