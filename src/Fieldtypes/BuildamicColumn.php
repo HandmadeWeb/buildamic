@@ -10,13 +10,65 @@ class BuildamicColumn extends BuildamicBase
 {
     protected static $handle = 'buildamic-column';
 
+    /**
+     * $preProcess = true: Pre-process the data before it gets sent to the publish page.
+     * $preProcess = true: Process the data before it gets saved.
+     *
+     * @param mixed $data
+     * @param bool $preProcess
+     * @return array
+     */
+    protected function processData($data, bool $preProcess = false)
+    {
+        $buildamicInstance = $this->field()->parentField()->parentField()->parentField();
+
+        $method = $preProcess ? 'preProcess' : 'process';
+
+        return collect($data)->map(function ($field) use ($buildamicInstance, $method) {
+            if ($field['type'] === 'field') {
+                $field['value'] = $buildamicInstance->fieldType()->fields()->get($field['config']['statamic_settings']['handle'])->setValue($field['value'])->{$method}()->value();
+
+                if ($method === 'process') {
+
+                    // Deduplicate Field Config
+                    $type = $field['config']['statamic_settings']['field']['type'];
+                    $field['config']['statamic_settings']['field'] = array_diff($field['config']['statamic_settings']['field'] ?? [], collect($buildamicInstance->get('fields'))->firstWhere('handle', $field['config']['statamic_settings']['handle'])['field'] ?? []);
+                    $field['config']['statamic_settings']['field']['type'] = $type;
+                }
+            } elseif ($field['type'] === 'set') {
+                $field['value'] = $buildamicInstance->fieldType()->set($field['config']['statamic_settings']['handle'])->all()->map(function ($item) use ($field, $method) {
+                    return $item->setValue($field['value'][$item->handle()])->{$method}()->value();
+                })->toArray();
+            } elseif ($field['type'] === 'fieldset') {
+                // Fieldset (single field)
+                if (isset($field['config']['statamic_settings']['field']) && is_string($field['config']['statamic_settings']['field'])) {
+                    $singleField = [
+                        'handle' => $field['config']['statamic_settings']['field'],
+                        'field' => $field['config']['statamic_settings']['field'],
+                        'config' => $field['config']['statamic_settings'] ?? [],
+                    ];
+                }
+
+                $field['value'] = (new Fields([]))
+                    ->setBuildamicSettings($field['config']['buildamic_settings'])
+                    ->setItems([$singleField ?? $field['config']['statamic_settings']])
+                    ->addValues($field['value'] ?? [])
+                    ->{$method}()
+                    ->values();
+            }
+
+            return $field;
+        })->toArray();
+    }
+
     protected function performAugmentation($value, $shallow = false)
     {
-        $parent = $this;
-        $method = $shallow ? 'shallowAugment' : 'augment';
-        $buildamicConfig = $parent->field()->parentField()->parentField()->parentField()->config();
+        $buildamicInstance = $this->field()->parentField()->parentField()->parentField();
+        $buildamicConfig = $buildamicInstance->config();
 
-        $value = collect($value)->map(function ($field) use ($parent, $method, $buildamicConfig) {
+        $method = $shallow ? 'shallowAugment' : 'augment';
+
+        $value = collect($value)->map(function ($field) use ($buildamicConfig, $method) {
             if (isset($field['config']['buildamic_settings']['enabled']) && ! $field['config']['buildamic_settings']['enabled']) {
                 return;
             }
@@ -29,7 +81,8 @@ class BuildamicColumn extends BuildamicBase
                 // config:
                 //   statamic_settings:
                 //     handle: markdown
-                //     type: markdown
+                //       field:
+                //         type: markdown
                 //   buildamic_settings:
                 //     enabled: true
                 //     admin_label: markdown
@@ -37,8 +90,8 @@ class BuildamicColumn extends BuildamicBase
                 return (new Field($field['config']['statamic_settings']['handle'], []))
                     ->setConfig(array_merge($config['field'], $field['config']['statamic_settings']['field'] ?? []))
                     ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
-                    ->setParent($parent->field()->parent())
-                    ->setParentField($parent->field())
+                    ->setParent($this->field()->parent())
+                    ->setParentField($this->field())
                     ->setValue($field['value'] ?? null)
                     ->{$method}();
             }
@@ -75,8 +128,8 @@ class BuildamicColumn extends BuildamicBase
 
                 return (new Fields([]))
                     ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
-                    ->setParent($parent->field()->parent())
-                    ->setParentField($parent->field())
+                    ->setParent($this->field()->parent())
+                    ->setParentField($this->field())
                     ->setItems([$field['config']['statamic_settings']])
                     ->addValues($field['value'] ?? [])
                     ->{$method}();
@@ -99,8 +152,8 @@ class BuildamicColumn extends BuildamicBase
                 return (new Field($field['config']['statamic_settings']['handle'], []))
                     ->setConfig($field['config']['statmic_settings']['field'])
                     ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
-                    ->setParent($parent->field()->parent())
-                    ->setParentField($parent->field())
+                    ->setParent($this->field()->parent())
+                    ->setParentField($this->field())
                     ->setValue($field['value'] ?? null)
                     ->{$method}();
             }

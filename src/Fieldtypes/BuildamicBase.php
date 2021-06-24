@@ -14,10 +14,11 @@ class BuildamicBase extends Fieldtype
     protected $selectable = false;
     protected $selectableInForms = false;
     protected $categories = [];
+    protected $defaultValue;
 
     public function defaultValue()
     {
-        return [];
+        return $this->defaultValue;
     }
 
     /**
@@ -28,7 +29,7 @@ class BuildamicBase extends Fieldtype
      */
     public function preProcess($data)
     {
-        if (! is_array($data)) {
+        if (empty($data)) {
             return $this->defaultValue();
         }
 

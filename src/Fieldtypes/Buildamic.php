@@ -10,6 +10,7 @@ class Buildamic extends BuildamicBase
 {
     protected static $handle = 'buildamic';
     protected $selectable = true;
+    protected $defaultValue = [];
 
     public function fields()
     {
@@ -87,49 +88,14 @@ class Buildamic extends BuildamicBase
     {
         $method = $preProcess ? 'preProcess' : 'process';
 
-        $instance = $this;
-
-        return collect($data)->map(function ($section) use ($instance, $method) {
-            $section['value'] = collect($section['value'])->map(function ($row) use ($instance, $method) {
-                $row['value'] = collect($row['value'])->map(function ($column) use ($instance, $method) {
-                    $column['value'] = collect($column['value'])->map(function ($field) use ($instance, $method) {
-                        if ($field['type'] === 'field') {
-                            $field['value'] = $this->fields()->get($field['config']['statamic_settings']['handle'])->setValue($field['value'])->{$method}()->value();
-
-                        // if($method === 'process'){
-                        //     // Deduplicate Field Config
-                        //     $field['config']['statamic_settings']['field'] = array_diff($field['config']['statamic_settings']['field'] ?? [], collect($instance->config('fields'))->firstWhere('handle', $field['config']['statamic_settings']['handle'])['field'] ?? []);
-                        // }
-                        } elseif ($field['type'] === 'set') {
-                            $field['value'] = $this->set($field['config']['statamic_settings']['handle'])->all()->map(function ($item) use ($field, $method) {
-                                return $item->setValue($field['value'][$item->handle()])->{$method}()->value();
-                            })->toArray();
-                        } elseif ($field['type'] === 'fieldset') {
-                            // Fieldset (single field)
-                            if (isset($field['config']['statamic_settings']['field']) && is_string($field['config']['statamic_settings']['field'])) {
-                                $singleField = [
-                                    'handle' => $field['config']['statamic_settings']['field'],
-                                    'field' => $field['config']['statamic_settings']['field'],
-                                    'config' => $field['config']['statamic_settings'] ?? [],
-                                ];
-                            }
-
-                            $field['value'] = (new Fields([]))
-                                ->setBuildamicSettings($field['config']['buildamic_settings'])
-                                ->setItems([$singleField ?? $field['config']['statamic_settings']])
-                                ->addValues($field['value'] ?? [])
-                                ->{$method}()
-                                ->values();
-                        }
-
-                        return $field;
-                    })->toArray();
-
-                    return $column;
-                })->toArray();
-
-                return $row;
-            })->toArray();
+        return collect($data)->map(function ($section) use ($method) {
+            $section['value'] = (new Field($section['uuid'], []))
+                ->setConfig(array_merge(['type' => 'buildamic-section'], $section['config']))
+                ->setParent($this->field()->parent())
+                ->setParentField($this->field())
+                ->setValue($section['value'])
+                ->{$method}()
+                ->value();
 
             return $section;
         })->toArray();

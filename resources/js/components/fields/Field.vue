@@ -1,12 +1,12 @@
 <template>
   <div
     class="buildamic-field"
-    :class="[`${fieldData.config.statamic_settings.type}-fieldtype`]"
+    :class="[`${fieldData.config.statamic_settings.field.type}-fieldtype`]"
   >
     <label>{{ fieldDisplay }}</label>
     <component
-      :is="`${fieldData.config.statamic_settings.type}-fieldtype`"
-      :config="fieldData.config.statamic_settings"
+      :is="`${fieldData.config.statamic_settings.field.type}-fieldtype`"
+      :config="fieldDefaults[fieldData.config.statamic_settings.handle].config"
       :value="fieldData.value"
       :meta="fieldDefaults[fieldData.config.statamic_settings.handle].meta"
       :handle="fieldData.config.statamic_settings.handle"

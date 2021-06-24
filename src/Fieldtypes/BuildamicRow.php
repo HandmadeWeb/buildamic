@@ -8,21 +8,44 @@ class BuildamicRow extends BuildamicBase
 {
     protected static $handle = 'buildamic-row';
 
+    /**
+     * $preProcess = true: Pre-process the data before it gets sent to the publish page.
+     * $preProcess = true: Process the data before it gets saved.
+     *
+     * @param mixed $data
+     * @param bool $preProcess
+     * @return array
+     */
+    protected function processData($data, bool $preProcess = false)
+    {
+        $method = $preProcess ? 'preProcess' : 'process';
+
+        return collect($data)->map(function ($column) use ($method) {
+            $column['value'] = (new Field($column['uuid'], []))
+                ->setConfig(array_merge(['type' => 'buildamic-column'], $column['config']))
+                ->setParent($this->field()->parent())
+                ->setParentField($this->field())
+                ->setValue($column['value'])
+                ->{$method}()
+                ->value();
+
+            return $column;
+        })->toArray();
+    }
+
     protected function performAugmentation($value, $shallow = false)
     {
-        $parent = $this;
-
         $method = $shallow ? 'shallowAugment' : 'augment';
 
-        $value = collect($value)->map(function ($column) use ($parent, $method) {
+        $value = collect($value)->map(function ($column) use ($method) {
             if (isset($column['config']['enabled']) && ! $column['config']['enabled']) {
                 return;
             }
 
             return (new Field($column['uuid'], []))
                 ->setConfig(array_merge(['type' => 'buildamic-column'], $column['config']))
-                ->setParent($parent->field()->parent())
-                ->setParentField($parent->field())
+                ->setParent($this->field()->parent())
+                ->setParentField($this->field())
                 ->setValue($column['value'])
                 ->{$method}()->value();
         })->filter()->all();
