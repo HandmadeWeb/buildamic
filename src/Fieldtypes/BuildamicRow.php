@@ -23,6 +23,7 @@ class BuildamicRow extends BuildamicBase
         return collect($data)->map(function ($column) use ($method) {
             $column['value'] = (new Field($column['uuid'], []))
                 ->setConfig(array_merge(['type' => 'buildamic-column'], $column['config']))
+                ->setBuildamicSettings($column['config']['buildamic_settings'] ?? [])
                 ->setParent($this->field()->parent())
                 ->setParentField($this->field())
                 ->setValue($column['value'])
@@ -44,10 +45,12 @@ class BuildamicRow extends BuildamicBase
 
             return (new Field($column['uuid'], []))
                 ->setConfig(array_merge(['type' => 'buildamic-column'], $column['config']))
+                ->setBuildamicSettings($column['config']['buildamic_settings'] ?? [])
                 ->setParent($this->field()->parent())
                 ->setParentField($this->field())
                 ->setValue($column['value'])
-                ->{$method}()->value();
+                ->{$method}()
+                ->value();
         })->filter()->all();
 
         return $this->field()->setValue($value)->value();

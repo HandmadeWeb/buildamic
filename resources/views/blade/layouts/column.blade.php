@@ -1,4 +1,4 @@
-<div id="{{ $column->buildamicSetting('attributes.id') ?? '' }}" class="buildamic-column {{ $column->buildamicSetting('attributes.class') ?? '' }}">
+<div id="{{ $column->field()->buildamicSetting('attributes.id') ?? '' }}" class="buildamic-column {{ $column->field()->buildamicSetting('attributes.class') ?? '' }}">
     @foreach($column->value() as $field)
         {!! $buildamic->renderField($field) !!}   
     @endforeach
