@@ -71,8 +71,8 @@ class Buildamic extends BuildamicBase
                     ];
                 }
 
-                return $fields;
-            })->toArray(),
+                return ! empty($fields['fields']) ? $fields : null;
+            })->filter()->toArray(),
         ];
     }
 
