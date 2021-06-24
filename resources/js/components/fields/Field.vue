@@ -40,7 +40,7 @@ export default {
     fieldDisplay() {
       return (
         this.field.config.buildamic_settings.admin_label ||
-        this.field.config.statamic_settings.display ||
+        this.field.config.statamic_settings.field.display ||
         this.field.config.statamic_settings.handle
       );
     },

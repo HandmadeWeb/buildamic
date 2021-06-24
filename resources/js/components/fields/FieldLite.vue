@@ -5,7 +5,7 @@
       :is="`${getFieldDefault().config.type}-fieldtype`"
       :config="getFieldDefault().config"
       :value="value"
-      :meta="getFieldDefault().config"
+      :meta="getFieldDefault().meta"
       :handle="handle"
       @input="updateField(field, $event)"
       @meta-updated="$emit('meta-updated', $event)"

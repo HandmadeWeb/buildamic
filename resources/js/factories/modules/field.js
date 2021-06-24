@@ -3,12 +3,12 @@ const Field = function ({ ADMIN_LABEL, CONFIG = {}, HANDLE, META = {}, VALUE, UU
     this.type = 'field'
     this.config = {
         statamic_settings: {
-            ...CONFIG,
             handle: HANDLE,
+            field: {handle: HANDLE, ...CONFIG}
         },
         buildamic_settings: {
             enabled: true,
-            admin_label: ADMIN_LABEL || HANDLE,
+            admin_label: ADMIN_LABEL || CONFIG.DISPLAY || HANDLE,
         }
     }
     // this.meta = META
