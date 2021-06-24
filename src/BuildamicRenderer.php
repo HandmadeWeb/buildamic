@@ -48,18 +48,17 @@ class BuildamicRenderer
 
     public function __toString()
     {
-        return $this->render();
+        return $this->render()->render();
     }
 
     public function render()
     {
-        $buildamic_html = '';
+        return $this->renderContainer();
+    }
 
-        foreach ($this->sections() as $section) {
-            $buildamic_html .= $this->renderSection($section);
-        }
-
-        return $buildamic_html;
+    public function renderContainer()
+    {
+        return View::make("{$this->viewPrefix}.layouts.container", $this->gatherData(['buildamic' => $this, 'sections' => $this->sections()]));
     }
 
     public function renderSection(Value $section)
