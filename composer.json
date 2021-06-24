@@ -5,7 +5,15 @@
     "require": {
         "php": "^8.0",
         "laravel/framework": "^8.0",
-        "statamic/cms": "^3.1.26"
+        "statamic/cms": "^3.1.20"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.18",
+        "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "autoload": {
         "files": [
@@ -13,6 +21,11 @@
         ],
         "psr-4": {
             "Michaelr0\\Buildamic\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Michaelr0\\Buildamic\\Tests\\": "tests"
         }
     },
     "extra": {
