@@ -21,6 +21,11 @@ class BuildamicBase extends Fieldtype
         return $this->defaultValue;
     }
 
+    // Don't display anything on the Collections index page.
+    public function preProcessIndex($data)
+    {
+    }
+
     /**
      * Pre-process the data before it gets sent to the publish page.
      *

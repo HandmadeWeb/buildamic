@@ -16,16 +16,40 @@ class BuildamicRenderer
     protected $augmentMethod;
     protected $cascade;
     protected $cascadeContent = [];
+    protected $containerId;
+    protected $containerClass;
     protected $instance;
     protected $sections = [];
-    protected $viewPrefix = 'buildamic::blade';
+    protected $viewEngine;
+    protected $viewPrefix;
 
     public function __construct(Buildamic $fieldInstance, bool $shallowAugment = false)
     {
         $this->instance = $fieldInstance->field();
         $this->augmentMethod = $shallowAugment ? 'shallowAugment' : 'augment';
 
+        $this->viewEngine = $this->instance->get('view_engine') ?? 'blade';
+        $this->viewPrefix = "buildamic::{$this->viewEngine}";
+
+        $this->containerId = $this->instance->get('container_id');
+        $this->containerClass = $this->instance->get('container_class');
+
         $this->sections = $this->instance->value();
+    }
+
+    public function containerId()
+    {
+        return $this->containerId;
+    }
+
+    public function containerClass()
+    {
+        return $this->containerClass;
+    }
+
+    public function viewEngine()
+    {
+        return $this->viewEngine;
     }
 
     public function sections()
