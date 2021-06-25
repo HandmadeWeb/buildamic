@@ -21,7 +21,6 @@
 <style scoped></style>
 
 <script>
-import Fieldtype from "./fieldtype";
 import GridSection from "../sections/GridSection.vue";
 import VueDraggable from "vuedraggable";
 import { createModule } from "../../factories/modules/moduleFactory";
