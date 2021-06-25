@@ -13,7 +13,7 @@ mix.disableNotifications();
  |
  */
 
-mix.js('resources/js/buildamic.js', 'public/js').vue();
+mix.js('resources/js/buildamic.js', 'public/js').vue().sourceMaps();
 mix.css('resources/css/buildamic.css', 'public/css')
 
 // mix.postCss('resources/css/buildamic.css', 'public/css', [

@@ -55,7 +55,7 @@ export default {
 
   data() {
     return {
-      rows: [],
+      rows: this.section.value ?? [],
     };
   },
 
@@ -64,10 +64,7 @@ export default {
       const newModule = createModule("Row");
       this.rows.push(newModule);
     },
-  },
-
-  mounted() {
-    this.rows = this.section.value ?? [];
-  },
+  }
+  
 };
 </script>

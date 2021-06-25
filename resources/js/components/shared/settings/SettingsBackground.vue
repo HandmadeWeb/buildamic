@@ -8,8 +8,8 @@
         >
           <color-fieldtype
             :handle="inline.backgroundColor.handle"
-            :config="fieldDefaults['color'].config"
-            :meta="fieldDefaults['color'].meta"
+            :config='{"theme":"nano","lock_opacity":false,"default_color_mode":"HEXA","color_modes":["hex","rgba","hsla"],"display":"Color","type":"color","icon":"color","listable":"hidden"}'
+            :meta="null"
             :value="getDeep(`inline.backgroundColor.${breakpoint}`) || ''"
             @input="
               updateField({ path: `inline.backgroundColor`, val: $event }, true)
@@ -23,8 +23,8 @@
           <assets-fieldtype
             :class="getDeep(`inline.backgroundImage`)"
             :handle="inline.backgroundImage.handle"
-            :config="fieldDefaults['assets'].config"
-            :meta="fieldDefaults['assets'].meta"
+            :config='{"mode":"grid","container":"assets","restrict":false,"allow_uploads":true,"max_files":1,"display":"Assets","type":"assets","icon":"assets","listable":"hidden"}'
+            :meta='{"data":[],"container":"assets"}'
             :value="getDeep(`inline.backgroundImage`) || []"
             @input="
               updateField({ path: `inline.backgroundImage`, val: $event })

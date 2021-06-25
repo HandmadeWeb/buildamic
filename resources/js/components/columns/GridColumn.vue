@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       isSelectingNewField: false,
-      fields: this.column.value,
+      fields: this.column.value ?? [],
     };
   },
 
