@@ -26,15 +26,14 @@ class BuildamicColumn extends BuildamicBase
 
         return collect($data)->map(function ($field) use ($buildamicInstance, $method) {
             if ($field['type'] === 'field') {
+                $field['config']['statamic_settings'] = [
+                    'handle' => $field['config']['statamic_settings']['field']['handle'] ?? $field['config']['statamic_settings']['handle'],
+                    'field' => [
+                        'type' => $field['config']['statamic_settings']['field']['type'],
+                    ],
+                ];
+
                 $field['value'] = $buildamicInstance->fieldType()->fields()->get($field['config']['statamic_settings']['handle'])->setValue($field['value'])->{$method}()->value();
-
-                if ($method === 'process') {
-
-                    // Deduplicate Field Config
-                    $type = $field['config']['statamic_settings']['field']['type'];
-                    $field['config']['statamic_settings']['field'] = array_diff($field['config']['statamic_settings']['field'] ?? [], collect($buildamicInstance->get('fields'))->firstWhere('handle', $field['config']['statamic_settings']['handle'])['field'] ?? []);
-                    $field['config']['statamic_settings']['field']['type'] = $type;
-                }
             } elseif ($field['type'] === 'set') {
                 $field['value'] = $buildamicInstance->fieldType()->set($field['config']['statamic_settings']['handle'])->all()->map(function ($item) use ($field, $method) {
                     return $item->setValue($field['value'][$item->handle()])->{$method}()->value();
