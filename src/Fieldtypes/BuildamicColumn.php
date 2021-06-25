@@ -54,7 +54,7 @@ class BuildamicColumn extends BuildamicBase
                     ->setItems([$singleField ?? $field['config']['statamic_settings']])
                     ->addValues($field['value'] ?? [])
                     ->{$method}()
-                    ->values();
+                    ->values() ?? [];
             }
 
             return $field;

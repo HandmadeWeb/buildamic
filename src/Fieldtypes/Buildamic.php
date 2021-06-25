@@ -118,7 +118,7 @@ class Buildamic extends BuildamicBase
                 ->setParentField($this->field())
                 ->setValue($section['value'])
                 ->{$method}()
-                ->value();
+                ->value() ?? [];
 
             return $section;
         })->toArray();
