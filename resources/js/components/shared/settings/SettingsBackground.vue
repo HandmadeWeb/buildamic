@@ -39,7 +39,7 @@
 <script>
 import SettingsGroup from "./SettingsGroup.vue";
 import OptionsFields from "../../../mixins/OptionsFields";
-
+import ColorFieldtype from "../../fields/overrides/ColorFieldtype.vue";
 export default {
   name: "settings-layout",
   props: {
@@ -48,6 +48,7 @@ export default {
   },
   components: {
     SettingsGroup,
+    ColorFieldtype,
   },
   data: function() {
     return {
