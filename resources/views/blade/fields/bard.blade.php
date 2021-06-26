@@ -1,5 +1,16 @@
 @extends('buildamic::blade.layouts.field')
 
 @section('field_content')
-    {!! $field->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($field->value()) : $field !!}
+    {{-- @dd($field->get('sets')) --}}
+    @if(is_array($field->value()->value()))
+        @foreach($field->value()->value() as $bardItem)
+            @if(isset($bardItem['text']))
+                {!! $bardItem['text'] !!}
+            @else
+                @dd($bardItem)
+            @endif
+        @endforeach
+    @else
+        {!! $field->value() !!}
+    @endif
 @overwrite

@@ -28,7 +28,7 @@ class BuildamicRow extends BuildamicBase
                 ->setParentField($this->field())
                 ->setValue($column['value'])
                 ->{$method}()
-                ->value();
+                ->value() ?? [];
 
             return $column;
         })->toArray();

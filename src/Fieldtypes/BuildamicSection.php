@@ -29,7 +29,7 @@ class BuildamicSection extends BuildamicBase
                 ->setParentField($this->field())
                 ->setValue($row['value'])
                 ->{$method}()
-                ->value();
+                ->value() ?? [];
 
             return $row;
         })->toArray();
