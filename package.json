@@ -12,6 +12,7 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000"
     },
     "dependencies": {
+        "@simonwep/pickr": "^1.8.1",
         "collect.js": "^4.28.6",
         "uuid": "^8.3.2",
         "vue-eva-icons": "^1.1.1",

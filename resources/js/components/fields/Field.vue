@@ -19,6 +19,8 @@
 </template>
 
 <script>
+// Overrides
+import ColorFieldtype from "./overrides/ColorFieldtype";
 export default {
   props: {
     field: {
@@ -28,6 +30,10 @@ export default {
     fieldDefaults: {
       type: Object,
     },
+  },
+
+  components: {
+    ColorFieldtype,
   },
 
   data() {
