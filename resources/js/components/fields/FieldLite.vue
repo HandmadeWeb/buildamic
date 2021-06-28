@@ -18,8 +18,10 @@
 <script>
 export default {
   props: {
+    field: Object,
     handle: String,
     type: String,
+    value: [Number, String, Array, Object],
     fieldDefaults: {
       type: Object,
     },
@@ -32,7 +34,8 @@ export default {
   },
   methods: {
     updateField(key, val) {
-      key.value = val;
+      this.field.value[this.handle] = val;
+      console.log(this.field);
     },
     getFieldDefault() {
       return this.fieldDefaults[this.handle];

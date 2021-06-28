@@ -1,7 +1,9 @@
 <template>
   <div
     class="buildamic-set"
-    :class="[`buildamic-set-${field.config.statamic_settings.handle}-fieldtype`]"
+    :class="[
+      `buildamic-set-${field.config.statamic_settings.handle}-fieldtype`,
+    ]"
   >
     <vue-tabs :id="field.uuid">
       <vue-tab name="Content" selected="selected">
@@ -10,6 +12,7 @@
           :key="key + field.uuid"
           :value="val"
           :handle="key"
+          :field="field"
           :type="field.config.statamic_settings.handle"
           :fieldDefaults="setFieldDefaults"
         />
