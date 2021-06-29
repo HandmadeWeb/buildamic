@@ -6,12 +6,17 @@
       :fieldDefaults="fieldDefaults"
       :field="field"
     ></settings-background>
+    <settings-text
+      :fieldDefaults="fieldDefaults"
+      :field="field"
+    ></settings-text>
   </div>
 </template>
 
 <script>
 import SettingsLayout from "./settings/SettingsLayout";
 import SettingsBackground from "./settings/SettingsBackground";
+import SettingsText from "./settings/SettingsText";
 import breakpointSwitcher from "./settings/BreakpointSwitcher.vue";
 export default {
   props: {
@@ -24,6 +29,7 @@ export default {
     breakpointSwitcher,
     SettingsLayout,
     SettingsBackground,
+    SettingsText,
   },
   mounted() {
     // console.log("fd", this.fieldDefaults);

@@ -578,12 +578,7 @@ export default {
 
       const payload = { ...oldVals, ...newVals };
 
-      this.$emit("input", {
-        path: `inline.${setting}`,
-        key,
-        val: payload,
-        vm: this,
-      });
+      this.updateField({ path: `inline.${setting}`, key, val: payload }, true);
     },
     checkOutsideClick(e) {
       if (!e.target.closest(".boxmodel-ui")) {

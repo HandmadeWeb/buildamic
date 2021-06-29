@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <BoxModelUI :field="field" @input="updateField($event, true)" />
+      <BoxModelUI :field="field" />
     </div>
   </settings-group>
 </template>

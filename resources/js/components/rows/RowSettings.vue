@@ -1,11 +1,14 @@
 <template>
   <vue-tabs :id="field.uuid">
-    <vue-tab name="Options" selected="selected">
+    <vue-tab name="Design" selected="selected">
+      <design-tab :field="field" :fieldDefaults="fieldDefaults" />
+    </vue-tab>
+    <vue-tab name="Options">
       <options-tab :field="field" />
     </vue-tab>
     <vue-tab name="Columns">
       <column-settings
-        class="bg-grey-20 mb-4"
+        class="mb-4"
         v-for="column in columns"
         :field="column"
         :key="'row-cols' + column.uuid"
@@ -16,8 +19,10 @@
 
 <script>
 import OptionsTab from "../shared/OptionsTab.vue";
+import DesignTab from "../shared/DesignTab.vue";
 import ColumnSettings from "../columns/ColumnSettings.vue";
 export default {
+  name: "row-settings",
   props: {
     field: {
       type: Object,
@@ -30,8 +35,12 @@ export default {
       columns: this.field.value,
     };
   },
+  mounted() {
+    console.log("row", this.field);
+  },
   components: {
     OptionsTab,
+    DesignTab,
     ColumnSettings,
   },
 };

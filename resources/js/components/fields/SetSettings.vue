@@ -7,15 +7,19 @@
   >
     <vue-tabs :id="field.uuid">
       <vue-tab name="Content" selected="selected">
-        <field-lite
+        <set-field
           v-for="(val, key) in field.value"
           :key="key + field.uuid"
           :value="val"
           :handle="key"
           :field="field"
           :type="field.config.statamic_settings.handle"
-          :fieldDefaults="setFieldDefaults"
+          :setDefaults="setFieldDefaults"
+          :fieldDefaults="fieldDefaults"
         />
+      </vue-tab>
+      <vue-tab name="Design">
+        <design-tab :field="field" :fieldDefaults="setDefaults" />
       </vue-tab>
       <vue-tab name="Options">
         <options-tab :field="field" />
@@ -25,8 +29,9 @@
 </template>
 
 <script>
-import FieldLite from "./FieldLite.vue";
+import SetField from "./SetField.vue";
 import OptionsTab from "../shared/OptionsTab.vue";
+import DesignTab from "../shared/DesignTab.vue";
 import { createModule } from "../../factories/modules/moduleFactory";
 export default {
   props: {
@@ -37,8 +42,9 @@ export default {
     fieldDefaults: Object,
   },
   components: {
-    FieldLite,
+    SetField,
     OptionsTab,
+    DesignTab,
   },
   computed: {
     setFieldDefaults() {

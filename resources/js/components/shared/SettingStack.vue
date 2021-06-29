@@ -10,9 +10,7 @@
     ></eva-icon>
     <stack name="field-stack" v-if="toggleStack" @closed="toggleStack = false">
       <div class="h-full p-4 bg-white overflow-auto">
-        <h2 class="mb-2 text-xl">
-          Settings for {{ component.config.buildamic_settings.admin_label }}
-        </h2>
+        <h2 class="mb-2 text-xl">Settings for {{ admin_label }}</h2>
         <component
           :is="`${component.type}-settings`"
           :field="component"
@@ -27,7 +25,8 @@
 import { EvaIcon } from "vue-eva-icons";
 import FieldSettings from "../fields/FieldSettings.vue";
 import SetSettings from "../fields/SetSettings.vue";
-import RowSettings from "../columns/ColumnSettings.vue";
+import RowSettings from "../rows/RowSettings.vue";
+import SectionSettings from "../sections/SectionSettings.vue";
 
 export default {
   props: {
@@ -40,12 +39,21 @@ export default {
       toggleStack: false,
     };
   },
+  computed: {
+    admin_label() {
+      return (
+        this.component.config?.buildamic_settings?.admin_label ||
+        this.component.config.admin_label
+      );
+    },
+  },
   inject: ["fieldDefaults"],
   components: {
     EvaIcon,
     FieldSettings,
     SetSettings,
     RowSettings,
+    SectionSettings,
   },
   methods: {},
 };

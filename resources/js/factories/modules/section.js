@@ -3,7 +3,9 @@ const Section = function ({ UUID, ADMIN_LABEL }) {
     this.type = 'section'
     this.config = {
         enabled: true,
-        admin_label: ADMIN_LABEL || this.type
+        buildamic_settings: {
+            admin_label: ADMIN_LABEL || this.type
+        }
     }
     this.value = []
 }

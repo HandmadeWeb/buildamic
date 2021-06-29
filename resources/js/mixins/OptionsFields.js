@@ -25,7 +25,9 @@ export default {
                 if (i !== localPath.length) {
                     return a[b]
                 }
-                a[b].value = val
+                if (a && a[b]) {
+                    a[b].value = val
+                }
             }, vm);
 
             // Update actual field settings

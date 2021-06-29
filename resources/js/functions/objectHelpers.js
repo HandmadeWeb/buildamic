@@ -59,7 +59,7 @@ const getDeep = (obj, path) => {
     if (!data) {
         return
     }
-    console.log(data)
+    console.log({ data })
     return data;
 }
 

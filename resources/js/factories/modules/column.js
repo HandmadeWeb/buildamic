@@ -10,7 +10,9 @@ const Column = function ({ UUID, ADMIN_LABEL }) {
             "lg": '',
             "xl": ''
         },
-        admin_label: ADMIN_LABEL || this.type
+        buildamic_settings: {
+            admin_label: ADMIN_LABEL || this.type
+        }
     }
     this.value = []
 }

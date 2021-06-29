@@ -1,23 +1,19 @@
 <template>
   <vue-tabs :id="field.uuid">
     <vue-tab name="Content" selected="selected">
-      <Field :field="field" :fieldDefaults="fieldDefaults" />
+      <single-field :field="field" :fieldDefaults="fieldDefaults" />
     </vue-tab>
     <vue-tab name="Design">
-      <design-tab
-        :field="field"
-        :fieldDefaults="fieldDefaults"
-        :overRideDefaultOptions="optionsOverRides"
-      />
+      <design-tab :field="field" :fieldDefaults="fieldDefaults" />
     </vue-tab>
     <vue-tab name="Options">
-      <options-tab :field="field" :overRideDesignOptions="designOverRides" />
+      <options-tab :field="field" />
     </vue-tab>
   </vue-tabs>
 </template>
 
 <script>
-import Field from "./Field.vue";
+import SingleField from "./SingleField.vue";
 import OptionsTab from "../shared/OptionsTab.vue";
 import DesignTab from "../shared/DesignTab.vue";
 export default {
@@ -29,21 +25,9 @@ export default {
     fieldDefaults: Object,
   },
   components: {
-    Field,
+    SingleField,
     OptionsTab,
     DesignTab,
-  },
-  data() {
-    return {
-      optionsOverRides: {
-        attributes: {
-          class: {
-            placeholder: "OogyBoogy",
-          },
-        },
-      },
-      designOverRides: {},
-    };
   },
 };
 </script>
