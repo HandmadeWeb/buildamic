@@ -56,3 +56,20 @@
 .col-1 {
     width: 8.33333333%;
 }
+
+.buildamic-field {
+    display: flex;
+    align-items: center;
+}
+
+.buildamic-field+.buildamic-field {
+    margin-top: 2rem;
+}
+
+.buildamic-field label {
+    flex-basis: 12rem;
+}
+
+.buildamic-field label~* {
+    flex-grow: 1;
+}

@@ -5,7 +5,7 @@
     :class="{ 'boxmodel-ui--focus': focus }"
   >
     <div
-      style="position: relative; display: grid; margin-top: 8px; margin-right: 8px; width: 224px; height: 120px; grid-template-columns: 36px 4px 36px 1fr 36px 4px 36px; grid-template-rows: 24px 4px 24px 1fr 24px 4px 24px; outline-style: none; cursor: default; user-select: none;"
+      style="position: relative; display: grid; width: 224px; height: 120px; grid-template-columns: 36px 4px 36px 1fr 36px 4px 36px; grid-template-rows: 24px 4px 24px 1fr 24px 4px 24px; outline-style: none; cursor: default; user-select: none;"
     >
       <a @click="lockMarginY = !lockMarginY" class="lockMarginY">
         <eva-icon

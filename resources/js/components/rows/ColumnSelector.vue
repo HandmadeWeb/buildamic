@@ -105,8 +105,6 @@ export default {
       // Change column layout
       this.columns.splice(0, colCount, ...newLayout);
       // Add old modules to new layout
-      console.log(this.columns);
-      console.log(oldModules);
       Object.keys(oldModules).forEach((key) => {
         if (this.columns[key]) {
           this.columns[key].value.push(...oldModules[key]);

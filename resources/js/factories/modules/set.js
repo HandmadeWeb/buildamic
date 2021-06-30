@@ -1,4 +1,5 @@
-import { createModule } from './moduleFactory'
+// import { createModule } from './moduleFactory'
+import { InlineDefaults } from './moduleDefaults.js'
 
 const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {} }) {
     console.log({ VALUE })
@@ -12,6 +13,7 @@ const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {} }) {
         buildamic_settings: {
             enabled: true,
             admin_label: ADMIN_LABEL || HANDLE,
+            ...InlineDefaults
         }
 
     }
@@ -19,13 +21,6 @@ const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {} }) {
         acc[cur.handle] = cur.value
         return acc
     }, {})
-
-    // if (VALUE.length) {
-    //     let vm = this;
-    //     Object.keys(VALUE).forEach(field => {
-    //         vm.value.push()
-    //     })
-    // }
 }
 
 export { Set }

@@ -1,7 +1,14 @@
 <template>
   <div class="design__tab">
     <breakpoint-switcher />
-    <settings-layout :field="field"></settings-layout>
+    <settings-layout :field="field">
+      <template v-slot:layout-top>
+        <slot name="layout-top" />
+      </template>
+      <template v-slot:layout-bottom>
+        <slot name="layout-bottom" />
+      </template>
+    </settings-layout>
     <settings-background
       :fieldDefaults="fieldDefaults"
       :field="field"

@@ -35,9 +35,6 @@ export default {
       columns: this.field.value,
     };
   },
-  mounted() {
-    console.log("row", this.field);
-  },
   components: {
     OptionsTab,
     DesignTab,

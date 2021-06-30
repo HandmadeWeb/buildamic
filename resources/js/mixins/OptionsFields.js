@@ -9,7 +9,10 @@ import { mapGetters } from 'vuex'
 
 export default {
     computed: {
-        ...mapGetters(["breakpoint"])
+        ...mapGetters(["breakpoint"]),
+        breakpoint_test() {
+            return this.breakpoint
+        }
     },
     methods: {
         getDeep(e, obj = this.field.config.buildamic_settings) {
@@ -18,6 +21,7 @@ export default {
         updateField({ path, key = '', val, vm = this }, responsive) {
             const fullPath = responsive ? `${path}.${this.breakpoint}` : path
             const localPath = `${path}.${key}`.split('.').filter(path => path)
+
 
             // Update local value
             localPath.reduce((a, b, i) => {
@@ -30,6 +34,7 @@ export default {
                 }
             }, vm);
 
+            console.log({ val })
             // Update actual field settings
             return setDeep(this.field.config.buildamic_settings, fullPath, val)
         },

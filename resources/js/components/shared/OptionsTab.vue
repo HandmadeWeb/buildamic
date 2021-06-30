@@ -2,7 +2,11 @@
   <div class="options flex col-gap-6">
     <div class="flex-grow">
       <div class="attributes mb-6">
-        <div v-for="(option, key) in attributes" :key="key" class="attribute">
+        <div
+          v-for="(option, key) in attributes"
+          :key="key"
+          class="buildamic-field"
+        >
           <label>{{ option.display }}</label>
           <component
             class="mb-2"

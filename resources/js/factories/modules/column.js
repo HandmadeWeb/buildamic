@@ -1,3 +1,5 @@
+import { InlineDefaults } from './moduleDefaults.js'
+
 const Column = function ({ UUID, ADMIN_LABEL }) {
     this.uuid = `${UUID}`
     this.type = 'column'
@@ -11,7 +13,8 @@ const Column = function ({ UUID, ADMIN_LABEL }) {
             "xl": ''
         },
         buildamic_settings: {
-            admin_label: ADMIN_LABEL || this.type
+            admin_label: ADMIN_LABEL || this.type,
+            ...InlineDefaults
         }
     }
     this.value = []

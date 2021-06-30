@@ -1,12 +1,4 @@
 <template>
-  <!-- <radio-fieldtype
-    :handle="`breakpoint-switcher`"
-    :config="config"
-    :value="breakpoint"
-    hideLabel
-    class="border-2 justify-center border-dashed py-2 pl-2 rounded"
-    @input="switchBreakpoint($event)"
-  /> -->
   <div class="breakpoint-switcher flex justify-center mb-2 sticky z-top">
     <ul class="flex col-gap-3 rounded border border-dashed p-2 bg-white">
       <li
@@ -51,6 +43,9 @@ export default {
   },
   methods: {
     ...mapActions(["switchBreakpoint"]),
+  },
+  beforeDestroy() {
+    this.switchBreakpoint("xs");
   },
 };
 </script>

@@ -49,7 +49,6 @@ const setDeep = (obj, path, value, force = true, overwrite = false) => {
         }
 
     }, obj);
-    console.log(obj)
     return obj
 }
 
@@ -59,7 +58,6 @@ const getDeep = (obj, path) => {
     if (!data) {
         return
     }
-    console.log({ data })
     return data;
 }
 

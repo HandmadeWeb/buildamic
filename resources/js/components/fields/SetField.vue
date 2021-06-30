@@ -7,8 +7,7 @@
       :value="value"
       :meta="getMeta"
       :handle="handle"
-      @input="updateField(field, $event)"
-      @meta-updated="$emit('meta-updated', $event)"
+      @input="updateField({ path: `value.${handle}`, val: $event })"
       @focus="$emit('focus')"
       @blur="$emit('blur')"
     />
@@ -17,6 +16,7 @@
 
 <script>
 import ColorFieldtype from "./overrides/ColorFieldtype.vue";
+import Fields from "../../mixins/Fields.js";
 
 export default {
   props: {
@@ -34,7 +34,7 @@ export default {
   components: {
     ColorFieldtype,
   },
-
+  mixins: [Fields],
   data() {
     return {
       fieldData: this.field,
@@ -45,44 +45,19 @@ export default {
       return [this.fieldDefaults[this.field.config.statamic_settings.handle]];
     },
     getConfig() {
-      if (this.sets) {
-        this.field.config.sets = this.sets;
-      }
-      console.log("config", {
-        ...this.getFieldDefault().config,
-        ...this.field.config,
-      });
       return { ...this.getFieldDefault().config, ...this.field.config };
     },
     getMeta() {
-      return {
-        defaults: {
-          slider: {
-            default: null,
-          },
-        },
-        new: {
-          slider: {
-            default: null,
-          },
-        },
-        existing: [],
-        collapsed: [],
-        slide_title: null,
-      };
+      if (this.field.type === "asset") {
+        return undefined;
+      }
+      return this.getFieldDefault().meta;
     },
   },
   methods: {
-    updateField(key, val) {
-      this.field.value[this.handle] = val;
-      console.log(this.field);
-    },
     getFieldDefault() {
       return this.setDefaults[this.handle];
     },
-  },
-  mounted() {
-    console.log("FieldLite", this.getMeta);
   },
 };
 </script>

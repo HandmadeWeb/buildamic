@@ -5,26 +5,41 @@
         <vue-tabs :id="field.uuid">
           <vue-tab name="Color" selected="selected">
             <div
-              :key="color.value"
-              class="attribute__inline flex items-center mb-2"
+              :key="inline.background.color.value"
+              class="buidlamic-field flex items-center mb-2"
             >
               <label class="mr-2">Background Color: </label>
               <color-fieldtype
                 handle="settings_background_color"
-                :config="color"
+                :config="inline.background.color.config"
                 :meta="null"
-                :value="color.value"
-                @input="color = $event"
+                :value="inline.background.color.value"
+                @input="
+                  updateField({ path: 'inline.background.color', val: $event })
+                "
               />
             </div>
           </vue-tab>
           <vue-tab name="Gradient">
             <div class="flex items-center">
-              <vue-gpickr v-model="gradient" />
+              <toggle-fieldtype
+                :value="gradientToggle"
+                @input="toggleGradient($event)"
+                :config="{
+                  handle: 'gradient-enabled',
+                  type: 'toggle',
+                }"
+              />
+              <vue-gpickr
+                v-if="gradientToggle"
+                :class="{ disabled: gradientEnabled }"
+                disabled
+                :value="gradient"
+                @input="gradient = $event"
+              />
               <div class="ml-2 gradient-controls">
-                <label
-                  >Current Gradient:
-                  {{ getDeep(`inline.background.gradient`) || "Empty" }}</label
+                <label>
+                  {{ getDeep(`inline.background.gradient.value`) || "" }}</label
                 >
                 <button class=" flex items-center" @click="gradient = ''">
                   <eva-icon
@@ -38,27 +53,26 @@
                 </button>
               </div>
             </div>
+            <div class="gradient-controls__toggle"></div>
           </vue-tab>
           <vue-tab name="Image">
-            <div :key="inline.background.image.value" class="attribute__inline">
+            <div :key="inline.background.image.value" class="buidlamic-field">
               <assets-fieldtype
-                :class="getDeep(`inline.background.image`)"
                 handle="settings_background_image"
-                :config="{
-                  mode: 'grid',
-                  container: 'assets',
-                  restrict: false,
-                  allow_uploads: true,
-                  max_files: 1,
-                  display: 'Assets',
-                  type: 'assets',
-                  icon: 'assets',
-                  listable: 'hidden',
-                }"
-                :meta="{ data: [], container: 'assets' }"
-                :value="getDeep(`inline.background.image`) || []"
+                :config="inline.background.image.config"
+                :meta="undefined"
+                :value="inline.background.image.value"
                 @input="
-                  updateField({ path: `inline.background.image`, val: $event })
+                  updateField({
+                    path: 'inline.background.image.value',
+                    val: $event,
+                  })
+                "
+                @meta-updated="
+                  updateField({
+                    path: `inline.background.image.meta`,
+                    val: $event,
+                  })
                 "
               />
             </div>
@@ -93,39 +107,47 @@ export default {
   },
   data: function() {
     return {
+      gradientToggle: false,
       inline: {
         background: {
+          color: {
+            config: {
+              theme: "nano",
+              lock_opacity: false,
+              default_color_mode: "HEXA",
+              color_modes: ["hex", "rgba", "hsla"],
+              display: "Color",
+              type: "color",
+              icon: "color",
+              listable: "hidden",
+            },
+            value: this.getDeep("inline.background.color") || "",
+          },
           image: {
-            value: "",
+            config: {
+              mode: "grid",
+              container: "assets",
+              restrict: false,
+              allow_uploads: true,
+              max_files: 1,
+              display: "Assets",
+              type: "assets",
+              icon: "assets",
+              listable: "hidden",
+            },
+            value: this.getDeep(`inline.background.image.value`) || [],
           },
         },
       },
     };
   },
   computed: {
-    color: {
-      get() {
-        return {
-          theme: "nano",
-          lock_opacity: false,
-          default_color_mode: "HEXA",
-          color_modes: ["hex", "rgba", "hsla"],
-          display: "Color",
-          type: "color",
-          icon: "color",
-          listable: "hidden",
-          value: this.getDeep("inline.background.color") || "",
-        };
-      },
-      set(val) {
-        this.updateField({ path: "inline.background.color", val });
-      },
-    },
     gradient: {
       get() {
         return new LinearGradient(
           this.convertGradientStringToObject(
-            this.getDeep(`inline.background.gradient`) || ""
+            this.getDeep(`inline.background.gradient.value`) ||
+              "linear-gradient(0deg, #000 0%,#fff 100%)"
           )
         );
       },
@@ -159,12 +181,7 @@ export default {
         .replace(/[()|%]/g, "")
         .split(",");
 
-      const angle = parseInt(
-        data
-          .shift()
-          .match(/\d/g)
-          .join()
-      );
+      const angle = parseInt(data.shift());
       const stops = data.map((stop) => {
         const [color, position] = stop.trim().split(" ");
         return [color, position ? position / 100 : 0];
@@ -176,13 +193,28 @@ export default {
         stops,
       };
     },
+    toggleGradient(val) {
+      this.gradientToggle = val;
+    },
     handleGradient($event) {
+      if (!this.gradientToggle) {
+        return;
+      }
+      let val = {
+        value:
+          typeof $event === "string" ? $event : this.getGradientString($event),
+      };
       this.updateField({
         path: `inline.background.gradient`,
-        val:
-          typeof $event === "string" ? $event : this.getGradientString($event),
+        val,
       });
     },
+  },
+  mounted() {
+    const val = this.getDeep(`inline.background.gradient.value`);
+    if (val) {
+      this.gradientToggle = true;
+    }
   },
   mixins: [OptionsFields],
 };

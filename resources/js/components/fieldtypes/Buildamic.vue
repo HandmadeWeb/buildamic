@@ -63,6 +63,7 @@ export default {
 
   mounted() {
     console.log(this.meta);
+    // console.log(this.value);
     //console.log(uuidv4());
     // console.log('config:', this.config);
     // console.log('meta:', this.meta);

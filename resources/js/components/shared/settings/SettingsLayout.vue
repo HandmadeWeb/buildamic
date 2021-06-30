@@ -2,15 +2,15 @@
   <settings-group heading="Layout">
     <div class="flex col-gap-4">
       <div class="flex-grow">
-        <div class="attributes__inline">
+        <div class="attributes attributes__inline">
+          <slot name="layout-top" />
           <div
             v-for="(option, key) in inline"
             :key="`${field.uuid}-${key}-${breakpoint}`"
-            class="attribute__inline"
+            class="buildamic-field"
           >
             <label>{{ option.display }}</label>
             <component
-              class="mb-2"
               :class="breakpoint"
               :is="`${option.type}-fieldtype`"
               :handle="option.handle"
@@ -28,6 +28,7 @@
               "
             />
           </div>
+          <slot name="layout-bottom" />
         </div>
       </div>
       <BoxModelUI :field="field" />

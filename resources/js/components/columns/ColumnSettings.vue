@@ -16,9 +16,6 @@ export default {
     },
     fieldDefaults: Object,
   },
-  mounted() {
-    console.log("field", this.field);
-  },
   components: {
     OptionsTab,
   },

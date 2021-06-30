@@ -2,23 +2,25 @@
   <settings-group heading="Text">
     <div class="flex col-gap-4">
       <div class="flex-grow">
-        <div class="attribute__inline mb-2">
-          <label>{{ fontSize.display }}</label>
+        <div class="buildamic-field mb-2">
+          <label>{{ inline["font-size"].config.display }}</label>
           <select-fieldtype
-            :key="`${fontSize.value}-${breakpoint}`"
-            :value="fontSize.value"
-            :handle="fontSize.handle"
-            :config="fontSize"
-            @input="fontSize = $event"
+            :key="`${inline['font-size'].value}-${breakpoint}`"
+            :value="getDeep(`inline.font-size.${breakpoint}`) || 'N/A'"
+            :handle="inline['font-size'].config.handle"
+            :config="inline['font-size'].config"
+            @input="
+              updateField({ path: `inline.font-size`, val: $event }, true)
+            "
           />
         </div>
-        <div class="attribute__inline flex items-center mb-2">
-          <label class="mr-2">{{ color.display }}:</label>
+        <div class="buildamic-field flex items-center mb-2">
+          <label class="mr-2">{{ inline.color.config.display }}:</label>
           <color-fieldtype
-            :value="color.value"
-            :handle="color.handle"
-            :config="color"
-            @input="color = $event"
+            :value="getDeep(`inline.color`) || ''"
+            :handle="inline.color.config.handle"
+            :config="inline.color.config"
+            @input="updateField({ path: `inline.color`, val: $event })"
           />
         </div>
       </div>
@@ -41,47 +43,29 @@ export default {
     SettingsGroup,
     ColorFieldtype,
   },
-  computed: {
-    fontSize: {
-      get() {
-        return {
-          options: this.getTWClasses("fontSize", "text-"),
-          handle: "font-size",
-          display: "Font Size",
-          value: this.getDeep(`inline.font-size.${this.breakpoint}`),
-        };
-      },
-      set(val) {
-        this.updateField(
-          {
-            path: `inline.font-size`,
-            val: val,
+  data() {
+    return {
+      inline: {
+        "font-size": {
+          value: "N/A",
+          config: {
+            options: this.getTWClasses("fontSize", "text-"),
+            handle: "font-size",
+            display: "Font Size",
           },
-          true
-        );
-      },
-    },
-    color: {
-      get() {
-        return {
-          handle: "color",
-          display: "Font Color",
-          color_modes: ["hex", "rgba"],
-          default_color_mode: "HEXA",
-          swatches: [],
-          value: this.getDeep("inline.color") || "",
-        };
-      },
-      set(val) {
-        this.updateField(
-          {
-            path: `inline.color`,
-            val: val,
+        },
+        color: {
+          config: {
+            handle: "color",
+            display: "Font Color",
+            color_modes: ["hex", "rgba"],
+            default_color_mode: "HEXA",
+            swatches: [],
           },
-          false
-        );
+          value: "N/A",
+        },
       },
-    },
+    };
   },
   mixins: [OptionsFields],
 };

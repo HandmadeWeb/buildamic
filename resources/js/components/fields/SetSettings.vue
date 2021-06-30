@@ -59,9 +59,6 @@ export default {
   },
   methods: {
     createField(f, i) {
-      if (typeof i !== "number") {
-        console.log("test", f);
-      }
       return createModule("Field", {
         ADMIN_LABEL: f,
         CONFIG: this.fieldDefaults.sets[
@@ -76,9 +73,6 @@ export default {
         ].fields[i].config.type,
       });
     },
-  },
-  mounted() {
-    console.log("set", this.field);
   },
 };
 </script>

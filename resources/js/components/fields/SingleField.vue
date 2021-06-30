@@ -6,12 +6,12 @@
     <label>{{ fieldDisplay }}</label>
     <component
       :is="`${fieldData.config.statamic_settings.field.type}-fieldtype`"
-      :config="fieldDefaults[fieldData.config.statamic_settings.handle].config"
+      :config="getConfig"
       :value="fieldData.value"
-      :meta="fieldDefaults[fieldData.config.statamic_settings.handle].meta"
+      :meta="getMeta"
       :handle="fieldData.config.statamic_settings.handle"
-      @input="updateField(field, $event)"
-      @meta-updated="$emit('meta-updated', $event)"
+      @input="updateField({ path: 'value', val: $event })"
+      @meta-updated="updateField({ path: 'meta', val: $event })"
       @focus="$emit('focus')"
       @blur="$emit('blur')"
     />
@@ -21,6 +21,7 @@
 <script>
 // Overrides
 import ColorFieldtype from "./overrides/ColorFieldtype.vue";
+import Fields from "../../mixins/Fields.js";
 
 export default {
   props: {
@@ -37,6 +38,8 @@ export default {
     ColorFieldtype,
   },
 
+  mixins: [Fields],
+
   data() {
     return {
       fieldData: this.field,
@@ -51,14 +54,19 @@ export default {
         this.field.config.statamic_settings.handle
       );
     },
-  },
-  methods: {
-    updateField(key, val) {
-      key.value = val;
+    getMeta() {
+      return (
+        this.fieldData.meta ||
+        this.fieldDefaults[this.fieldData.config.statamic_settings.handle].meta
+      );
+    },
+    getConfig() {
+      return this.fieldDefaults[this.fieldData.config.statamic_settings.handle]
+        .config;
     },
   },
   mounted() {
-    console.log("fieldData", this.fieldData);
+    console.log(this.fieldData.meta);
   },
 };
 </script>
