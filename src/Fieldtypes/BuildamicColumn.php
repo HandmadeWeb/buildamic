@@ -26,6 +26,17 @@ class BuildamicColumn extends BuildamicBase
 
         return collect($data)->map(function ($field) use ($buildamicInstance, $method) {
             if ($field['type'] === 'field') {
+                $computedField = $buildamicInstance->fieldType()->fields()->get($field['config']['statamic_settings']['handle'])->setValue($field['value'])->{$method}();
+
+                if ($method === 'preProcess') {
+                    $field['computed'] = [
+                        'meta' => $computedField->meta(),
+                        'config' => $computedField->config(),
+                    ];
+                } else {
+                    unset($field['computed']);
+                }
+
                 $field['config']['statamic_settings'] = [
                     'handle' => $field['config']['statamic_settings']['field']['handle'] ?? $field['config']['statamic_settings']['handle'],
                     'field' => [
