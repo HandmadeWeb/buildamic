@@ -46,9 +46,23 @@ class BuildamicColumn extends BuildamicBase
 
                 $field['value'] = $buildamicInstance->fieldType()->fields()->get($field['config']['statamic_settings']['handle'])->setValue($field['value'])->{$method}()->value();
             } elseif ($field['type'] === 'set') {
-                $field['value'] = $buildamicInstance->fieldType()->set($field['config']['statamic_settings']['handle'])->all()->map(function ($item) use ($field, $method) {
-                    return $item->setValue($field['value'][$item->handle()])->{$method}()->value();
-                })->toArray();
+                $fields = $buildamicInstance->fieldType()->set($field['config']['statamic_settings']['handle'])->addValues($field['value'])->{$method}();
+
+                if ($method === 'preProcess') {
+                    $field['computed'] = [
+                        'meta' => [],
+                        'config' => [],
+                    ];
+
+                    $fields->all()->each(function ($_field) use (&$field) {
+                        $field['computed']['meta'][$_field->handle()] = $_field->meta();
+                        $field['computed']['config'][$_field->handle()] = $_field->config();
+                    });
+                } else {
+                    unset($field['computed']);
+                }
+
+                $field['value'] = $fields->values()->toArray();
             } elseif ($field['type'] === 'fieldset') {
                 // Fieldset (single field)
                 if (isset($field['config']['statamic_settings']['field']) && is_string($field['config']['statamic_settings']['field'])) {
@@ -59,12 +73,27 @@ class BuildamicColumn extends BuildamicBase
                     ];
                 }
 
-                $field['value'] = (new Fields([]))
+                $fields = (new Fields([]))
                     ->setBuildamicSettings($field['config']['buildamic_settings'])
                     ->setItems([$singleField ?? $field['config']['statamic_settings']])
                     ->addValues($field['value'] ?? [])
-                    ->{$method}()
-                    ->values() ?? [];
+                    ->{$method}();
+
+                if ($method === 'preProcess') {
+                    $field['computed'] = [
+                        'meta' => [],
+                        'config' => [],
+                    ];
+
+                    $fields->all()->each(function ($_field) use (&$field) {
+                        $field['computed']['meta'][$_field->handle()] = $_field->meta();
+                        $field['computed']['config'][$_field->handle()] = $_field->config();
+                    });
+                } else {
+                    unset($field['computed']);
+                }
+
+                $field['value'] = $fields->values()->toArray();
             }
 
             return $field;
