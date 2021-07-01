@@ -35,9 +35,9 @@
                     class="h-4 w-4 text-grey-80 group-hover:text-blue"
                     :name="field.config.icon"
                   ></svg-icon>
-                  <span class="pl-2 text-grey-80 group-hover:text-blue">{{
-                    __(field.config.display)
-                  }}</span>
+                  <span class="pl-2 text-grey-80 group-hover:text-blue">
+                    {{ field.config.display || field.handle || field.config.type }}
+                  </span>
                 </a>
               </div>
               <div
@@ -49,9 +49,8 @@
                   class="border flex items-center group w-full rounded shadow-sm py-1 px-2"
                   @click="addField(field, key)"
                 >
-                  <span class="pl-2 text-grey-80 group-hover:text-blue">{{
-                    __(key)
-                  }}</span>
+                  <span class="pl-2 text-grey-80 group-hover:text-blue">
+                    {{ field.display || field.handle || key }}</span>
                 </a>
               </div>
             </div>
