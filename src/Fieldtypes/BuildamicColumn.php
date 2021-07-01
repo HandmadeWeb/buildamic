@@ -26,7 +26,12 @@ class BuildamicColumn extends BuildamicBase
 
         return collect($data)->map(function ($field) use ($buildamicInstance, $method) {
             if ($field['type'] === 'field') {
-                $computedField = $buildamicInstance->fieldType()->fields()->get($field['config']['statamic_settings']['handle'])->setValue($field['value'])->{$method}();
+                $computedField = $buildamicInstance
+                    ->fieldType()
+                    ->fields()
+                    ->get($field['config']['statamic_settings']['handle'])
+                    ->setValue($field['value'])
+                    ->{$method}();
 
                 if ($method === 'preProcess') {
                     $field['computed'] = [
@@ -44,9 +49,19 @@ class BuildamicColumn extends BuildamicBase
                     ],
                 ];
 
-                $field['value'] = $buildamicInstance->fieldType()->fields()->get($field['config']['statamic_settings']['handle'])->setValue($field['value'])->{$method}()->value();
+                $field['value'] = $buildamicInstance
+                    ->fieldType()
+                    ->fields()
+                    ->get($field['config']['statamic_settings']['handle'])
+                    ->setValue($field['value'])
+                    ->{$method}()
+                    ->value();
             } elseif ($field['type'] === 'set') {
-                $fields = $buildamicInstance->fieldType()->set($field['config']['statamic_settings']['handle'])->addValues($field['value'])->{$method}();
+                $fields = $buildamicInstance
+                    ->fieldType()
+                    ->set($field['config']['statamic_settings']['handle'])
+                    ->addValues($field['value'])
+                    ->{$method}();
 
                 if ($method === 'preProcess') {
                     $field['computed'] = [
