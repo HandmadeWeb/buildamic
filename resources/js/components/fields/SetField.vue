@@ -45,11 +45,26 @@ export default {
       return [this.fieldDefaults[this.field.config.statamic_settings.handle]];
     },
     getConfig() {
+      if (
+        this.fieldData?.computed &&
+        this.fieldData?.computed[this.field.config.statamic_settings.handle]
+          ?.config
+      ) {
+        return this.fieldData?.computed[
+          this.field.config.statamic_settings.handle
+        ].config;
+      }
       return { ...this.getFieldDefault().config, ...this.field.config };
     },
     getMeta() {
-      if (this.field.type === "asset") {
-        return undefined;
+      if (
+        this.fieldData?.computed &&
+        this.fieldData?.computed[this.field.config.statamic_settings.handle]
+          ?.meta
+      ) {
+        return this.fieldData?.computed[
+          this.field.config.statamic_settings.handle
+        ].meta;
       }
       return this.getFieldDefault().meta;
     },

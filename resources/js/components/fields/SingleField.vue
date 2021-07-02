@@ -55,19 +55,23 @@ export default {
       );
     },
     getMeta() {
-      return (
-        this.fieldData.meta ||
-        this.fieldDefaults[this.fieldData.config.statamic_settings.handle].meta
-      );
+      if (this.fieldData?.computed?.meta) {
+        return this.fieldData.computed.meta;
+      }
+      return this.fieldDefaults[this.fieldData.config.statamic_settings.handle]
+        .meta;
     },
     getConfig() {
+      if (this.fieldData?.computed?.config) {
+        return this.fieldData.computed.config;
+      }
       return this.fieldDefaults[this.fieldData.config.statamic_settings.handle]
         .config;
     },
   },
-  mounted() {
-    console.log(this.fieldData.meta);
-  },
+  //   mounted() {
+  //     console.log(this.fieldData);
+  //   },
 };
 </script>
 

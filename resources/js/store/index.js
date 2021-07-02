@@ -5,7 +5,6 @@ export const buildyStore = {
     mutations: {
         SWITCH_BREAKPOINT(state, payload) {
             state.breakpoint = payload
-            console.log(state.breakpoint)
         }
     },
     actions: {

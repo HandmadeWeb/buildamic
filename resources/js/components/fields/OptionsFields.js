@@ -19,8 +19,6 @@ export default {
             const fullPath = responsive ? `${path}.${this.breakpoint}` : path
             const localPath = `${path}.${key}`.split('.').filter(path => path)
 
-            console.log(val)
-
             // Update local value
             localPath.reduce((a, b, i) => {
                 i++

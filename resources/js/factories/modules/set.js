@@ -2,7 +2,6 @@
 import { InlineDefaults } from './moduleDefaults.js'
 
 const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {} }) {
-    console.log({ VALUE })
     this.uuid = `${UUID}`
     this.type = 'set'
     this.config = {

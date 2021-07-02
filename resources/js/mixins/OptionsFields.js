@@ -34,7 +34,6 @@ export default {
                 }
             }, vm);
 
-            console.log({ val })
             // Update actual field settings
             return setDeep(this.field.config.buildamic_settings, fullPath, val)
         },
