@@ -36,7 +36,7 @@ class BuildamicColumn extends BuildamicBase
                 if ($method === 'preProcess') {
                     $field['computed'] = [
                         'meta' => $computedField->meta(),
-                        'config' => $computedField->config(),
+                        'config' => $computedField->toPublishArray(),
                     ];
                 } else {
                     unset($field['computed']);
@@ -71,7 +71,7 @@ class BuildamicColumn extends BuildamicBase
 
                     $fields->all()->each(function ($_field) use (&$field) {
                         $field['computed']['meta'][$_field->handle()] = $_field->meta();
-                        $field['computed']['config'][$_field->handle()] = $_field->config();
+                        $field['computed']['config'][$_field->handle()] = $_field->toPublishArray();
                     });
                 } else {
                     unset($field['computed']);
@@ -102,7 +102,7 @@ class BuildamicColumn extends BuildamicBase
 
                     $fields->all()->each(function ($_field) use (&$field) {
                         $field['computed']['meta'][$_field->handle()] = $_field->meta();
-                        $field['computed']['config'][$_field->handle()] = $_field->config();
+                        $field['computed']['config'][$_field->handle()] = $_field->toPublishArray();
                     });
                 } else {
                     unset($field['computed']);

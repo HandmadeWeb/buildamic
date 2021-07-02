@@ -74,7 +74,7 @@ class Buildamic extends BuildamicBase
                     'handle' => $field->handle(),
                     'meta' => $field->meta(),
                     'value' => $field->fieldtype()->preProcess($field->defaultValue()),
-                    'config' => array_merge($field->fieldtype()->configFields()->all()->map->preProcess()->map->value()->toArray() ?? [], $field->config()),
+                    'config' => $field->toPublishArray(),
                 ];
             })->toArray(),
             'sets' => collect($this->config('sets'))->map(function ($set, $handle) use ($instance) {
@@ -89,7 +89,7 @@ class Buildamic extends BuildamicBase
                         'handle' => $field->handle(),
                         'meta' => $field->meta(),
                         'value' => $field->fieldtype()->preProcess($field->defaultValue()),
-                        'config' => array_merge($field->fieldtype()->configFields()->all()->map->preProcess()->map->value()->toArray() ?? [], $field->config()),
+                        'config' => $field->toPublishArray(),
                     ];
                 }
 
