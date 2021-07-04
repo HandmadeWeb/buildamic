@@ -2,71 +2,49 @@
 
 namespace Michaelr0\Buildamic\Fields;
 
+use Michaelr0\Buildamic\Traits\buildamicSettings;
+use Michaelr0\Buildamic\Traits\computedProperties;
 use Statamic\Fields\Fields as StatamicFields;
 
 class Fields extends StatamicFields
 {
-    protected $buildamicSettings = [];
+    use buildamicSettings;
+    use computedProperties;
 
-    public function setBuildamicSettings(array $buildamicSettings)
-    {
-        $this->buildamicSettings = $buildamicSettings;
-
-        return $this;
-    }
-
-    public function buildamicSettings(): array
-    {
-        return $this->buildamicSettings;
-    }
-
-    /**
-     * @param string|null $key
-     * @param mixed $fallback
-     * @return mixed
-     */
-    public function buildamicSetting(string | null $key = null, $fallback = null)
-    {
-        if (is_null($key)) {
-            return $this->buildamicSettings();
-        }
-
-        return array_get($this->buildamicSettings, $key, $fallback);
-    }
-
-    // Working
     public function newInstance()
     {
         return (new static())
             ->setBuildamicSettings($this->buildamicSettings())
+            ->setComputedProperties($this->computedProperties())
             ->setParent($this->parent)
             ->setParentField($this->parentField)
             ->setItems($this->items)
             ->setFields($this->fields);
     }
 
-    // Working
     public function createFields(array $config): array
     {
         $buildamicSettings = $this->buildamicSettings();
+        $computedProperties = $this->computedProperties();
 
         $fields = parent::createFields($config);
 
-        return collect($fields)->map(function ($field) use ($buildamicSettings) {
+        return collect($fields)->map(function ($field) use ($buildamicSettings, $computedProperties) {
             return (new Field($field->handle(), []))
                 ->setConfig($field->config())
                 ->setBuildamicSettings($buildamicSettings)
+                ->setComputedProperties($computedProperties)
                 ->setParent($field->parent())
                 ->setParentField($field->parentField())
                 ->setValue($field->value() ?? null);
         })->all();
     }
 
-    // Working
     protected function newField($handle, $config)
     {
         return (new Field($handle, $config))
             ->setBuildamicSettings($this->buildamicSettings())
+            ->setComputedProperties($this->computedProperties())
             ->setParent($this->parent)
             ->setParentField($this->parentField);
     }
