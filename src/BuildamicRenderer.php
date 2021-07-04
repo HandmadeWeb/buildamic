@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use Michaelr0\Buildamic\Fields\Field;
 use Michaelr0\Buildamic\Fields\Fields;
 use Michaelr0\Buildamic\Fieldtypes\Buildamic;
+use Michaelr0\HookableActionsAndFilters\Filter;
 use Statamic\Fields\Value;
 
 // use Statamic\View\View;
@@ -87,16 +88,25 @@ class BuildamicRenderer
 
     public function renderSection(Value $section)
     {
+        $section = Filter::run('buildamic_filter_everything', $section);
+        $section = Filter::run('buildamic_filter_type:section', $section);
+
         return View::make("{$this->viewPrefix}.layouts.section", $this->gatherData(['buildamic' => $this, 'section' => $section]));
     }
 
     public function renderRow(Value $row)
     {
+        $row = Filter::run('buildamic_filter_everything', $row);
+        $row = Filter::run('buildamic_filter_type:row', $row);
+
         return View::make("{$this->viewPrefix}.layouts.row", $this->gatherData(['buildamic' => $this, 'row' => $row]));
     }
 
     public function renderColumn(Value $column)
     {
+        $column = Filter::run('buildamic_filter_everything', $column);
+        $column = Filter::run('buildamic_filter_type:column', $column);
+
         return View::make("{$this->viewPrefix}.layouts.column", $this->gatherData(['buildamic' => $this, 'column' => $column]));
     }
 
