@@ -22,10 +22,13 @@ class BuildamicFilters
      */
     protected static $filters = [
         // 'buildamic_filter_everything' => 'filter_everything',
-        // 'buildamic_filter_type:container' => 'filter_containers',
-        // 'buildamic_filter_type:section' => 'filter_sections',
-        // 'buildamic_filter_type:row' => 'filter_rows',
-        // 'buildamic_filter_type:column' => 'filter_columns',
+        // 'buildamic_filter_section' => 'filter_section',
+        // 'buildamic_filter_row' => 'filter_row',
+        // 'buildamic_filter_column' => 'filter_column',
+        // 'buildamic_filter_field:markdown' => 'filter_field_markdown',
+        // 'buildamic_filter_field:markdown-blurb' => 'filter_field_markdown_handle_blurb',
+        // 'buildamic_filter_fieldset:blurb' => 'filter_fieldset_blurb',
+        // 'buildamic_filter_set:blurb' => 'filter_set_blurb',
     ];
 
     public static function boot()
@@ -37,7 +40,7 @@ class BuildamicFilters
         }
     }
 
-    // public static function filter_everything(Value $data): Value
+    // public static function example_filter(Value $data): Value
     // {
     //     // set/replace computed properties with the provided.
     //     $data->field()->setComputedProperties(['foo' => 'bar']);
@@ -73,29 +76,43 @@ class BuildamicFilters
     //     return $data;
     // }
 
-    // public static function filter_everythingfilter_everything(Value $data): Value
+    // public static function filter_everything(Value $data): Value
     // {
     //     return $data;
     // }
 
-    // public static function filter_containers(Value $data): Value
+    // public static function filter_section(Value $data): Value
     // {
     //     return $data;
     // }
 
-    // public static function filter_sections(Value $data): Value
+    // public static function filter_row(Value $data): Value
     // {
     //     return $data;
     // }
 
-    // public static function filter_rows(Value $data): Value
+    // public static function filter_column(Value $data): Value
     // {
     //     return $data;
     // }
 
-    // public static function filter_columns(Value $data): Value
+    // public static function filter_field_markdown(Value $data): Value
     // {
-    //     // Example Filter.
+    //     return $data;
+    // }
+
+    // public static function filter_field_markdown_handle_blurb(Value $data): Value
+    // {
+    //     return $data;
+    // }
+
+    // public static function filter_fieldset_blurb(Value $data): Value
+    // {
+    //     return $data;
+    // }
+
+    // public static function filter_set_blurb(Value $data): Value
+    // {
     //     return $data;
     // }
 }

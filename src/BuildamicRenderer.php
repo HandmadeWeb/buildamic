@@ -89,7 +89,7 @@ class BuildamicRenderer
     public function renderSection(Value $section)
     {
         $section = Filter::run('buildamic_filter_everything', $section);
-        $section = Filter::run('buildamic_filter_type:section', $section);
+        $section = Filter::run('buildamic_filter_section', $section);
 
         return View::make("{$this->viewPrefix}.layouts.section", $this->gatherData(['buildamic' => $this, 'section' => $section]));
     }
@@ -97,7 +97,7 @@ class BuildamicRenderer
     public function renderRow(Value $row)
     {
         $row = Filter::run('buildamic_filter_everything', $row);
-        $row = Filter::run('buildamic_filter_type:row', $row);
+        $row = Filter::run('buildamic_filter_row', $row);
 
         return View::make("{$this->viewPrefix}.layouts.row", $this->gatherData(['buildamic' => $this, 'row' => $row]));
     }
@@ -105,7 +105,7 @@ class BuildamicRenderer
     public function renderColumn(Value $column)
     {
         $column = Filter::run('buildamic_filter_everything', $column);
-        $column = Filter::run('buildamic_filter_type:column', $column);
+        $column = Filter::run('buildamic_filter_column', $column);
 
         return View::make("{$this->viewPrefix}.layouts.column", $this->gatherData(['buildamic' => $this, 'column' => $column]));
     }
@@ -125,6 +125,12 @@ class BuildamicRenderer
 
     public function renderSingleField(Field $field)
     {
+        $field = Filter::run('buildamic_filter_everything', $field);
+
+        $field = Filter::exists("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}") ?
+            Filter::run("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}", $field) :
+            Filter::run("buildamic_filter_field:{$field->type()}", $field);
+
         // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
         $viewFromTypeAndHandle = "{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}";
 
@@ -139,12 +145,16 @@ class BuildamicRenderer
 
     public function renderFieldset(Fields $fieldset)
     {
+        $fieldset = Filter::run('buildamic_filter_everything', $fieldset);
+
         $config = $fieldset->items()->first();
         if (isset($config['import'])) {
             $handle = ($config['prefix'] ?? '').$config['import'];
         } elseif (isset($config['handle']) && is_string($config['field'])) {
             $handle = $config['handle'];
         }
+
+        $fieldset = Filter::run("buildamic_filter_fieldset:{$handle}", $fieldset);
 
         // handle:blurb, file: blurb
         if (view()->exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
@@ -155,6 +165,10 @@ class BuildamicRenderer
         $html = '';
 
         foreach ($fieldset->all() as $field) {
+            $field = Filter::exists("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}") ?
+                Filter::run("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}", $field) :
+                Filter::run("buildamic_filter_field:{$field->type()}", $field);
+
             $html .= $this->renderSingleField($field);
         }
 
@@ -163,20 +177,22 @@ class BuildamicRenderer
 
     public function renderSet(Field $set)
     {
-        $fields = [];
-        foreach ($set->value()->value()->value()->value() as $field) {
-            $fields[$field->handle()] = $field;
-        }
+        $set = Filter::run('buildamic_filter_everything', $set);
+
+        $set = Filter::run("buildamic_filter_set:{$set->handle()}", $set);
 
         // handle:blurb, file: blurb
         if (view()->exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
-            return View::make("{$this->viewPrefix}.sets.{$set->handle()}", $this->gatherData(['buildamic' => $this, 'field' => $set, 'fields' => collect($fields)]));
+            return View::make("{$this->viewPrefix}.sets.{$set->handle()}", $this->gatherData(['buildamic' => $this, 'set' => $set]));
         }
 
         // catch all, render individual fields.
         $html = '';
 
-        foreach ($fields as $field) {
+        foreach ($set->value()->value()->value()->value() as $field) {
+            $field = Filter::exists("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}") ?
+                Filter::run("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}", $field) :
+                Filter::run("buildamic_filter_field:{$field->type()}", $field);
             $html .= $this->renderSingleField($field);
         }
 
