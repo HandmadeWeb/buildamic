@@ -3,6 +3,7 @@
 namespace Michaelr0\Buildamic;
 
 use Michaelr0\HookableActionsAndFilters\Filter;
+use Statamic\Fields\Value;
 
 class BuildamicFilters
 {
@@ -30,31 +31,69 @@ class BuildamicFilters
     public static function boot()
     {
         foreach (static::$filters as $filter_name => $method_name) {
-            Filter::add($filter_name, [static::class, $method_name], 10, 1);
+            if (method_exists(static::class, $method_name)) {
+                Filter::add($filter_name, [static::class, $method_name], 10, 1);
+            }
         }
     }
 
-    // public static function filter_everything($data)
+    // public static function filter_everything(Value $data): Value
+    // {
+    //     // set/replace computed properties with the provided.
+    //     $data->field()->setComputedProperties(['foo' => 'bar']);
+    //     $data->field()->computedProperties();
+    //     // [
+    //     //     "foo" => "bar"
+    //     // ]
+    //     $data->field()->computedProperty('foo');
+    //     // Bar
+
+    //     // add/merge new data into the computed properties.
+    //     $data->field()->mergeComputedProperties(['bar' => 'foo']);
+    //     $data->field()->computedProperties();
+    //     // [
+    //     //     "foo" => "bar",
+    //     //     "bar" => "foo"
+    //     // ]
+    //     $data->field()->computedProperty('bar');
+    //     // Foo
+
+    //     // set/replace computed properties with the provided.
+    //     $data->field()->setComputedProperties(['bar' => 'foo']);
+    //     $data->field()->computedProperties();
+    //     // [
+    //     //     "bar" => "foo"
+    //     // ]
+    //     $data->field()->computedProperty('bar');
+    //     // Foo
+    //     $data->field()->computedProperty('foo');
+    //     // null or $fallback (second property on computedProperty method)
+
+    //     // Must be returned!
+    //     return $data;
+    // }
+
+    // public static function filter_everythingfilter_everything(Value $data): Value
     // {
     //     return $data;
     // }
 
-    // public static function filter_containers($data)
+    // public static function filter_containers(Value $data): Value
     // {
     //     return $data;
     // }
 
-    // public static function filter_sections($data)
+    // public static function filter_sections(Value $data): Value
     // {
     //     return $data;
     // }
 
-    // public static function filter_rows($data)
+    // public static function filter_rows(Value $data): Value
     // {
     //     return $data;
     // }
 
-    // public static function filter_columns($data)
+    // public static function filter_columns(Value $data): Value
     // {
     //     // Example Filter.
     //     return $data;
