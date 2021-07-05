@@ -2,42 +2,20 @@
 
 namespace Michaelr0\Buildamic\Fields;
 
+use Michaelr0\Buildamic\Traits\buildamicSettings;
+use Michaelr0\Buildamic\Traits\computedProperties;
 use Statamic\Fields\Field as StatamicField;
 
 class Field extends StatamicField
 {
-    protected $buildamicSettings = [];
-
-    public function setBuildamicSettings(array $buildamicSettings)
-    {
-        $this->buildamicSettings = $buildamicSettings;
-
-        return $this;
-    }
-
-    public function buildamicSettings(): array
-    {
-        return $this->buildamicSettings;
-    }
-
-    /**
-     * @param string|null $key
-     * @param mixed $fallback
-     * @return mixed
-     */
-    public function buildamicSetting(string | null $key = null, $fallback = null)
-    {
-        if (is_null($key)) {
-            return $this->buildamicSettings();
-        }
-
-        return array_get($this->buildamicSettings, $key, $fallback);
-    }
+    use buildamicSettings;
+    use computedProperties;
 
     public function newInstance()
     {
         return (new static($this->handle, $this->config))
             ->setBuildamicSettings($this->buildamicSettings())
+            ->setComputedProperties($this->computedProperties())
             ->setParent($this->parent)
             ->setParentField($this->parentField)
             ->setValue($this->value ?? null);

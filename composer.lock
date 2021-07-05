@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ee8f256b200c3ceb5ea9be46e651c0f",
+    "content-hash": "b296ea75f331648445650ea1937c0252",
     "packages": [
         {
             "name": "brick/math",
@@ -1952,6 +1952,69 @@
                 }
             ],
             "time": "2021-01-18T20:58:21+00:00"
+        },
+        {
+            "name": "michaelr0/hookable-actions-filters",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michaelr0/hookable-actions-filters.git",
+                "reference": "d13d86eb70f704af4fb69298584235657dd425da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michaelr0/hookable-actions-filters/zipball/d13d86eb70f704af4fb69298584235657dd425da",
+                "reference": "d13d86eb70f704af4fb69298584235657dd425da",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/collections": "^6.0|^7.0|^8.0",
+                "php": "^7.0|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0|^5.0|^6.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Michaelr0\\HookableActionsAndFilters\\Providers\\HookableActionsAndFiltersServiceProvider"
+                    ],
+                    "aliases": {
+                        "Action": "Michaelr0\\HookableActionsAndFilters\\Action",
+                        "Filter": "Michaelr0\\HookableActionsAndFilters\\Filter"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Michaelr0\\HookableActionsAndFilters\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Rook",
+                    "email": "michael@rook.net.au",
+                    "role": "Developer"
+                }
+            ],
+            "homepage": "https://github.com/michaelr0/hookable-actions-filters",
+            "keywords": [
+                "actions",
+                "filters",
+                "hookable",
+                "michaelr0"
+            ],
+            "support": {
+                "issues": "https://github.com/michaelr0/hookable-actions-filters/issues",
+                "source": "https://github.com/michaelr0/hookable-actions-filters/tree/1.0.1"
+            },
+            "time": "2021-05-17T00:31:59+00:00"
         },
         {
             "name": "michelf/php-smartypants",
@@ -9225,5 +9288,5 @@
         "php": "^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

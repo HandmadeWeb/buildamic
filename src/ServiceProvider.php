@@ -29,4 +29,11 @@ class ServiceProvider extends AddonServiceProvider
         BuildamicColumn::class,
         BuildamicSet::class,
     ];
+
+    public function boot()
+    {
+        parent::boot();
+
+        BuildamicFilters::boot();
+    }
 }
