@@ -1,5 +1,4 @@
 @extends('buildamic::blade.layouts.field')
-
 @section('field_content')
     @if($field->get('input_type') === 'text')
         {{ $field->value()->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($field->value()) : $field->value() }}

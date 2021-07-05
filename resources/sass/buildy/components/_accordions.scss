@@ -1,0 +1,77 @@
+$spacing: 24px;
+$plus-size: 16px;
+$plus-thickness: 2px;
+$speed: 300ms;
+$easing: ease-in-out;
+$gray-dark: #546e7a;
+$gray: #cfd8dc;
+$gray-light: #eceff1;
+
+.bmcb-accordion-module {
+    border-radius: 5px;
+    background-color: white;
+}
+
+.accordion {
+    overflow: hidden;
+    transition: height $speed $easing;
+    color: inherit;
+    margin-bottom: 2rem;
+
+    &-title,
+    &-body {
+        padding: $spacing;
+    }
+
+    &-title {
+        display: flex;
+        padding: $spacing/2 $spacing;
+        align-items: center;
+        list-style: none; // Hide the marker (proper method)
+        border-radius: $global_radius;
+        background: $color__quaternary;
+        color: $color__white;
+        outline: 0;
+        font-family: $font__heading;
+        cursor: pointer;
+        transition: all $speed $easing;
+
+        // Hide the marker in Webkit
+        &::-webkit-details-marker {
+            display: none;
+        }
+
+        // Our replacement marker
+        &:before,
+        &:after {
+            content: "";
+            transition: transform 0.2s;
+        }
+
+        &:after {
+            display: block;
+            content: "\f067";
+            font-family: "Font Awesome 5 Free";
+            color: inherit;
+            position: unset;
+            @include fontSize(30);
+            font-weight: 900;
+            margin-left: auto;
+        }
+
+        [open] > & {
+            border-radius: $global_radius $global_radius 0 0;
+        }
+
+        [open] &::after {
+            display: block;
+            transform: rotate(-45deg) !important;
+        }
+    }
+
+    &-body {
+        padding-left: $spacing * 1.5;
+        color: $color__text-main;
+        background: #eaeaea;
+    }
+}

@@ -1,0 +1,107 @@
+.bmcb-slider {
+  margin-bottom: 6rem;
+  position: relative;
+  &__slide {
+    position: relative;
+  }
+  &__slide-content {
+    width: 100%;
+    padding: 2rem;
+    background: rgba(black, 0.6);
+    color: var(--color-white);
+    left: 0;
+    bottom: 0;
+    @include media-breakpoint-up(lg) {
+      position: absolute;
+    }
+  }
+  &__slide-title {
+    font-size: 2em;
+    margin-bottom: 0.2em;
+  }
+  &__slide-body {
+    &:last-child {
+      margin: 0;
+    }
+  }
+  &__slide-image {
+    display: block;
+  }
+  &__navigation-arrows {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    .bmcb-slider__arrow-prev,
+    .bmcb-slider__arrow-next {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      transition: transform 0.2s ease-out;
+      i {
+        padding: 3rem 1.6rem;
+        background: var(--color-white);
+        color: var(--color-black);
+        display: block;
+        cursor: pointer;
+        @include media-breakpoint-up(xl) {
+          padding: 0;
+          width: 4rem;
+          height: 4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+        }
+      }
+    }
+    .bmcb-slider__arrow-next {
+      right: 0;
+    }
+    @include media-breakpoint-up(xl) {
+      .bmcb-slider__arrow-prev {
+        transform: translateX(-100%);
+      }
+      &:hover .bmcb-slider__arrow-prev {
+        transform: translateX(30%);
+      }
+      .bmcb-slider__arrow-next {
+        transform: translateX(100%);
+      }
+      &:hover .bmcb-slider__arrow-next {
+        transform: translateX(-30%);
+      }
+    }
+  }
+  &__navigation-dots {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    cursor: pointer;
+    padding: 2rem;
+    z-index: 100;
+    margin: 0;
+    right: 0;
+    top: 100%;
+    width: 100%;
+    @include media-breakpoint-up(lg) {
+      margin-bottom: -2.7rem;
+    }
+    li {
+      margin: 0 0.5rem;
+      padding: 0;
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 50%;
+      display: block;
+      background: #b6b6b6;
+      &.is-active {
+        background: var(--color-primary);
+      }
+    }
+  }
+}

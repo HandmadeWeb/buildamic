@@ -73,6 +73,10 @@ export default {
 </script>
 
 <style>
+:root {
+  --col-gap: 0.2rem;
+}
+
 .pulse:hover {
   border-radius: 50%;
   animation: pulse 1s 1;

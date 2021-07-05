@@ -23,13 +23,15 @@
           v-for="layout in layouts"
           :key="layout"
         >
-          <div class="mb-2 flex w-full bg-grey-60 rounded p-1 col-gap-1">
+          <div class="mb-2 flex w-full buildamic-row bg-grey-60 rounded p-1">
             <div
-              class="bg-grey-30 h-12 col"
+              class="col"
               v-for="(colClass, index) in gridConversion(layout)"
               :key="name + index"
               :class="colClass"
-            ></div>
+            >
+              <div class="bg-grey-30 h-12"></div>
+            </div>
           </div>
         </li>
       </ul>
@@ -39,6 +41,7 @@
 
 <script>
 import { createModule } from "../../factories/modules/moduleFactory";
+import Optionsfields from "../../mixins/OptionsFields";
 
 export default {
   name: "column-selector",
@@ -78,11 +81,11 @@ export default {
 
         // If we are divisible by 2, set the md breakpoint to 6 (translates to col-md-6)
         if (layoutArr.length % 2 === 0) {
-          newCol.config.columnSizes.md = 6;
+          newCol.config.buildamic_settings.columnSizes.md = 6;
         }
 
         // Set the lg size to seleted value
-        newCol.config.columnSizes.lg = col;
+        newCol.config.buildamic_settings.columnSizes.lg = col;
 
         // Not the smallest "xs" (mobile) size will remain unchanged from the newColumnStructure object which is 12
         newLayout.push(newCol);
@@ -135,6 +138,7 @@ export default {
       return array;
     },
   },
+  mixins: [Optionsfields],
   props: {
     name: String,
     columns: Array,

@@ -1,0 +1,13 @@
+// From the buildy feature internal_link
+.page-links-box {
+    border: 3px solid $color__primary;
+    border-radius: 2rem;
+    padding: 3rem;
+    h3 {
+        font-family: $font__heading;
+        color: $color__primary;
+    }
+    a {
+        text-decoration: underline;
+    }
+}

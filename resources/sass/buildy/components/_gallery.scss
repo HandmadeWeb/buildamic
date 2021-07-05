@@ -1,0 +1,17 @@
+@import "~baguettebox.js/dist/baguetteBox.min.css";
+
+.bmcb-gallery {
+  &.bmcb-slider {
+    .bmcb-gallery__items {
+      position: relative;
+    }
+  }
+  &__item {
+    width: fit-content;
+  }
+  img {
+    width: 100%;
+    height: fit-content;
+    // height: 200px;
+  }
+}

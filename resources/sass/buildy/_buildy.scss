@@ -1,0 +1,139 @@
+/*------------------------------------------------------------
+---------------------- Colors ------------------
+--------------------------------------------------------------*/
+// .text-light {
+//   color: $color__white;
+// }
+
+// .text-dark {
+//   color: $color__black;
+// }
+
+// /*------------------------------------------------------------
+// ---------------------- Sections ------------------
+// --------------------------------------------------------------*/
+// .bmcb-section {
+//   position: relative;
+//   padding: 0;
+//   background-size: cover;
+//   background-repeat: no-repeat;
+//   // Fix for full-width sections with no horizontal padding
+//   &.px-0 .bmcb-row {
+//     margin-left: 0;
+//     margin-right: 0;
+//   }
+//   &.px-0 .bmcb-column {
+//     padding: 0;
+//   }
+//   @include media-breakpoint-up(md) {
+//     padding: 4rem 2rem;
+//   }
+// }
+
+// // For all sections that are not full-width
+// .bmcb-section:not(.container-fluid) {
+//   @include media-breakpoint-up(md) {
+//     padding-left: 15px;
+//     padding-right: 15px;
+//   }
+// }
+
+// // For all sections that ARE full-width
+// .bmcb-section.container-fluid {
+//   padding-left: 0;
+//   padding-right: 0;
+//   > .bmcb-row {
+//     // This is for fluid containers that do not have an inner-container
+//     margin: 0 auto;
+//     [class*="12"]:only-child {
+//       padding-left: 0;
+//       padding-right: 0;
+//     }
+//   }
+// }
+
+// /*------------------------------------------------------------
+// ---------------------- Rows ------------------
+// --------------------------------------------------------------*/
+// .bmcb-row {
+//   padding-top: 3rem;
+//   padding-bottom: 3rem;
+//   @include media-breakpoint-up(lg) {
+//     padding-top: 4rem;
+//     padding-bottom: 4rem;
+//   }
+//   @include media-breakpoint-up(xl) {
+//     max-width: 3860px;
+//   }
+// }
+
+// /*------------------------------------------------------------
+// ---------------------- Columns ------------------
+// --------------------------------------------------------------*/
+// // When columns are stacked add space above, unless there is a gap then Grid will take over
+// .row:not([class*="gap-"]) .bmcb-column:not(:empty) + .bmcb-column:not(:empty) {
+//   margin-top: 4rem;
+//   @include media-breakpoint-up(md) {
+//     margin-top: 0;
+//   }
+// }
+
+// // Anything with col-1 is considered auto. It will attempt to layout
+// // a 5-col grid but will also flex to fit whatever.
+// .col-xs-1,
+// .col-md-1,
+// .col-lg-1 {
+//   width: auto;
+//   flex: 1 1 20%;
+// }
+
+// /*------------------------------------------------------------
+// ---------------------- Modules ------------------
+// --------------------------------------------------------------*/
+// // When modules are stacked add space above unless they have a gap set (which will do it via grid)
+// .bmcb-module:not(:empty):not(.bmcb-heading) + .bmcb-module {
+//   margin-top: 2rem;
+// }
+
+// .grid .bmcb-module + .bmcb-module {
+//   margin-top: 0;
+// }
+
+// @include media-breakpoint-down(sm) {
+//   .xs\:fw-images.container,
+//   .xs\:fw-images.container-fluid {
+//     max-width: none;
+//     padding-left: 0;
+//     padding-right: 0;
+//     .bmcb-module:not(.bmcb-image-module) {
+//       padding-left: 2rem;
+//       padding-right: 2rem;
+//     }
+//   }
+// }
+
+// // Remove spacings from h-tags when they're in the header module. This will control padding instead
+// .bmcb-heading h1,
+// .bmcb-heading h2,
+// .bmcb-heading h3,
+// .bmcb-heading h4,
+// .bmcb-heading h5 {
+//   margin: 0;
+// }
+
+// // Default
+// .bmcb-heading {
+//   margin-bottom: 0.8em;
+// }
+
+// // Remove margin-bottom from the last elements inside a module (prevents p tags etc from breaking the layout spacing)
+// .bmcb-module > *:not(.bmcb-hr):last-child:not(:first-child) {
+//   margin-bottom: 0;
+// }
+
+// Import bootstrap grid dependancy
+@import "grid";
+
+/*------------------------------------------------------------
+---------------------- Individual Component Defaults ---------
+--------------------------------------------------------------*/

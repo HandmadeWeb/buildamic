@@ -40,7 +40,7 @@ export default {
     return {
       columns: this.field.value,
       boxed_layout: {
-        value: this.getDeep(`boxed_layout`) || false,
+        value: this.getDeep(`boxed_layout`) || true,
       },
     };
   },

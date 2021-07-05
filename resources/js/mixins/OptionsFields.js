@@ -1,5 +1,5 @@
 import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "../../../../../../vendor/statamic/cms/tailwind.config.js";
+import tailwindConfig from "../../../../../../tailwind.config.js";
 
 
 const fullConfig = resolveConfig(tailwindConfig);
@@ -38,12 +38,13 @@ export default {
             return setDeep(this.field.config.buildamic_settings, fullPath, val)
         },
         getTWClasses(type, prefix) {
-            const options = Object.keys(fullConfig.theme[type]).reduce(
-                (acc, cur) => {
-                    if (cur.charAt(0) !== '-') {
-                        acc[`${cur}`] = `${prefix}-${cur}`;
+            const options = Object.entries(fullConfig.theme[type]).reduce(
+                (acc, [key, val]) => {
+                    console.log({ key, val })
+                    if (key.charAt(0) !== '-') {
+                        acc[`${prefix}-${key}`] = `${prefix}-${key}`;
                     } else {
-                        acc[`-${cur}`] = `-${prefix}${cur}`;
+                        acc[`-${prefix}-${key}`] = `-${prefix}${key}`;
                     }
                     return acc;
                 },

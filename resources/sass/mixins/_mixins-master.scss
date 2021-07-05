@@ -1,0 +1,61 @@
+@use "sass:math";
+// Button sizes
+@mixin button-size($padding-y, $padding-x, $font-size) {
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  &:hover {
+    padding: $padding-y $padding-x;
+  }
+}
+
+@mixin fontSize($size, $min: 14) {
+  $smallSize: $min;
+
+  // If a size less than default min is passed, use that as the new min
+  @if $size < $min {
+    $smallSize: $size;
+  } @else {
+    // Oterhwise calculate a 40% reduction (typically a good size down to mobile).
+    $smallSize: ($size - ($size * 0.4));
+
+    // If it's smaller than either 14px or the min we passed in explicitly, use min
+    @if $smallSize < $min {
+      $smallSize: $min;
+    }
+  }
+
+  // Fallback
+  font-size: ($size * 1px);
+
+  $clampMin: math.div($smallSize, 10) * 1rem;
+  $clampMed: math.div($size, 10) * 1vw;
+  $clampMax: math.div($size, 10) * 1rem;
+
+  font-size: clamp(#{$clampMin}, #{$clampMed}, #{$clampMax});
+}
+
+// Clearfix
+@mixin clearfix() {
+  content: "";
+  display: table;
+  table-layout: fixed;
+}
+
+// Clear after (not all clearfix need this also)
+@mixin clearfix-after() {
+  clear: both;
+}
+
+// Column width with margin
+@mixin column-width($numberColumns: 3) {
+  width: map-get($columns, $numberColumns) -
+    (($columns__margin * ($numberColumns - 1)) / $numberColumns);
+}
+
+// Equal-Width grid-column generator
+@mixin grid-cols($numberColumns: 6) {
+  grid-template-columns: repeat($numberColumns, 1fr);
+}
+
+@import "breakpoints";
+@import "utilities";
