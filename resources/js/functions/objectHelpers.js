@@ -8,8 +8,9 @@ import Vue from 'vue'
  * @param {!mixed} value - The value you want to set it to.
  * @param {boolean} force - If true this will create the path/value if it doesn't already exist
  */
-const setDeep = (obj, path, value, force = true, overwrite = false) => {
-
+const setDeep = (obj, path, value) => {
+    const force = true,
+        overwrite = false;
     // If it's already an array, good game. Otherwise make it one from the .
     !Array.isArray(path) ? path = path.split('.').filter(path => path) : path
     path.reduce((a, b, i) => {

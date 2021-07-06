@@ -55,7 +55,7 @@ export default {
           icon: "text",
           handle: "class",
           display: "Class",
-          value: this.getDeep("attributes.class"),
+          value: this.getDeep("attributes.class") || "",
         },
         id: {
           placeholder: "Add a custom ID to this module",
@@ -64,7 +64,7 @@ export default {
           icon: "text",
           handle: "id",
           display: "ID",
-          value: this.getDeep("attributes.id"),
+          value: this.getDeep("attributes.id") || "",
         },
       },
       admin_label: {

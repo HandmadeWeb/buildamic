@@ -72,7 +72,7 @@ export default {
     },
     getType() {
       let type = this.fieldData.config.statamic_settings.field.type;
-      if (type === "collections" || type === "entries") {
+      if (type === "collections" || type === "entries" || type === "terms") {
         type = "relationship";
       }
       return type;
@@ -88,7 +88,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.getMeta);
+    console.log(this.fieldData);
   },
 };
 </script>

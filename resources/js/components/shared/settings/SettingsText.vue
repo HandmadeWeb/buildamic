@@ -2,6 +2,16 @@
   <settings-group heading="Text">
     <div class="flex col-gap-4">
       <div class="flex-grow">
+        <div class="buildamic-field flex items-center mb-2">
+          <label class="mr-2">Alignment :</label>
+          <alignment-controls
+            :key="`${inline['text-align'].value}-${breakpoint}`"
+            :value="getDeep(`inline.text-align.${breakpoint}`)"
+            @input="
+              updateField({ path: `inline.text-align`, val: $event }, true)
+            "
+          />
+        </div>
         <div class="buildamic-field mb-2">
           <label>{{ inline["font-size"].config.display }}</label>
           <select-fieldtype
@@ -32,6 +42,7 @@
 import SettingsGroup from "./SettingsGroup.vue";
 import OptionsFields from "../../../mixins/OptionsFields";
 import ColorFieldtype from "../../fields/overrides/ColorFieldtype.vue";
+import AlignmentControls from "./AlignmentControls.vue";
 
 export default {
   name: "settings-layout",
@@ -42,6 +53,7 @@ export default {
   components: {
     SettingsGroup,
     ColorFieldtype,
+    AlignmentControls,
   },
   data() {
     return {
@@ -63,6 +75,9 @@ export default {
             swatches: [],
           },
           value: "N/A",
+        },
+        "text-align": {
+          value: "",
         },
       },
     };

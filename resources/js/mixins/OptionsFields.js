@@ -10,13 +10,14 @@ import { mapGetters } from 'vuex'
 export default {
     computed: {
         ...mapGetters(["breakpoint"]),
-        breakpoint_test() {
-            return this.breakpoint
-        }
     },
     methods: {
-        getDeep(e, obj = this.field.config.buildamic_settings) {
-            return getDeep(obj, e)
+        getDeep(e, obj = this.field.config.buildamic_settings, responsive = false) {
+            const val = getDeep(obj, e);
+            if (val) {
+                return val
+            }
+            return false
         },
         updateField({ path, key = '', val, vm = this }, responsive) {
             const fullPath = responsive ? `${path}.${this.breakpoint}` : path
@@ -40,16 +41,17 @@ export default {
         getTWClasses(type, prefix) {
             const options = Object.entries(fullConfig.theme[type]).reduce(
                 (acc, [key, val]) => {
-                    console.log({ key, val })
+                    // console.log({ key, val })
                     if (key.charAt(0) !== '-') {
                         acc[`${prefix}-${key}`] = `${prefix}-${key}`;
                     } else {
-                        acc[`-${prefix}-${key}`] = `-${prefix}${key}`;
+                        acc[`-${prefix}${key}`] = `-${prefix}${key}`;
                     }
                     return acc;
                 },
                 {}
             );
+            console.log({ options })
             return Object.assign({ 'none': 'N/A' }, options);
         },
     }

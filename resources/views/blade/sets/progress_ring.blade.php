@@ -1,11 +1,11 @@
 @php
- $fields = $field->value()->raw();
- $percentage = 350 - (350 * $fields['percentage'] / 100);
- $dash_color = $fields['dash_color'];
- $factoid = $fields['small_factoid'];
+ $sets = $set->value()->raw();
+ $percentage = 350 - (350 * $sets['percentage'] / 100);
+ $dash_color = $sets['dash_color'];
+ $factoid = $sets['small_factoid'];
 @endphp
 
-<div class="progress-ring">
+<div class="progress-ring mx-auto">
     <svg
        class="progress-ring-svg" width="280" height="280" viewBox="0 0 130 130">
         <circle
@@ -38,7 +38,7 @@
     </svg>
     <div class="progress-ring__content flex flex-col items-center justify-center">
         <div class="progress-ring__progress">
-            {{ $fields['percentage'] }}%
+            {{ $sets['percentage'] }}%
         </div>
         <div class="progress-ring__factoid">
             {{ $factoid }}

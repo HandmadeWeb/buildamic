@@ -522,61 +522,77 @@ export default {
   },
 
   methods: {
+    setValueDirection(value, dirLetter) {
+      if (value === "none") {
+        return "";
+      }
+      const margin = value.includes("m") && value.split("m");
+      const padding = value.includes("p") && value.split("p");
+      const setting = margin || padding;
+      const direction = setting[1][0];
+      if (this.breakpoint === "xs") {
+        return value.replace(direction, dirLetter);
+      }
+      return `${this.breakpoint}:${value.replace(direction, dirLetter)}`;
+    },
     handleInput(setting, key, value) {
+      console.log({ value });
+      const newVals = {};
       if (!key) {
         return;
       }
       if (setting === "margin") {
         if (this.lockMarginY && this.lockMarginX) {
-          this.inline.margin.mt.value = value;
-          this.inline.margin.mr.value = value;
-          this.inline.margin.mb.value = value;
-          this.inline.margin.ml.value = value;
+          newVals["mt"] = this.setValueDirection(value, "t");
+          newVals["mr"] = this.setValueDirection(value, "r");
+          newVals["mb"] = this.setValueDirection(value, "b");
+          newVals["ml"] = this.setValueDirection(value, "l");
         } else if (this.lockMarginY) {
           if (key === "mt" || key === "mb") {
-            this.inline.margin.mt.value = value;
-            this.inline.margin.mb.value = value;
+            newVals["mt"] = this.setValueDirection(value, "t");
+            newVals["mb"] = this.setValueDirection(value, "b");
           }
         } else if (this.lockMarginX) {
           if (key === "ml" || key === "mr") {
-            this.inline.margin.ml.value = value;
-            this.inline.margin.mr.value = value;
+            newVals["ml"] = this.setValueDirection(value, "l");
+            newVals["mr"] = this.setValueDirection(value, "r");
           }
         }
-
-        this.inline.margin[key].value = value;
+        newVals[key] = this.setValueDirection(value, key.split("m")[1]);
       }
       if (setting === "padding") {
         if (this.lockPaddingY && this.lockPaddingX) {
-          this.inline.padding.pt.value = value;
-          this.inline.padding.pr.value = value;
-          this.inline.padding.pb.value = value;
-          this.inline.padding.pl.value = value;
+          newVals["pt"] = this.setValueDirection(value, "t");
+          newVals["pr"] = this.setValueDirection(value, "r");
+          newVals["pb"] = this.setValueDirection(value, "b");
+          newVals["pl"] = this.setValueDirection(value, "l");
         } else if (this.lockPaddingY) {
           if (key === "pt" || key === "pb") {
-            this.inline.padding.pt.value = value;
-            this.inline.padding.pb.value = value;
+            newVals["pt"] = this.setValueDirection(value, "t");
+            newVals["pb"] = this.setValueDirection(value, "b");
           }
         } else if (this.lockPaddingX) {
           if (key === "pl" || key === "pr") {
-            this.inline.padding.pl.value = value;
-            this.inline.padding.pr.value = value;
+            newVals["pr"] = this.setValueDirection(value, "r");
+            newVals["pl"] = this.setValueDirection(value, "l");
           }
         }
 
-        this.inline.padding[key].value = value;
+        newVals[key] = this.setValueDirection(value, key.split("p")[1]);
       }
 
-      const newVals = Object.keys(this.inline[setting]).reduce((acc, cur) => {
-        if (this.inline[setting][cur].value === value) {
-          acc[cur] = this.inline[setting][cur].value;
-        }
-        return acc;
-      }, {});
+      //   const newVals = Object.keys(this.inline[setting]).reduce((acc, cur) => {
+      //     if (this.inline[setting][cur].value === value) {
+      //       console.log(("current value", value));
+      //       acc[cur] = this.inline[setting][cur].value;
+      //     }
+      //     return acc;
+      //   }, {});
 
       const oldVals = this.getDeep(`inline.${setting}.${this.breakpoint}`);
-
       const payload = { ...oldVals, ...newVals };
+
+      console.log({ payload });
 
       this.updateField({ path: `inline.${setting}`, key, val: payload }, true);
     },

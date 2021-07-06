@@ -96,6 +96,7 @@ class BuildamicRenderer
 
     public function renderRow(Value $row)
     {
+
         $row = Filter::run('buildamic_filter_everything', $row);
         $row = Filter::run('buildamic_filter_row', $row);
 
@@ -125,11 +126,13 @@ class BuildamicRenderer
 
     public function renderSingleField(Field $field)
     {
-        $field = Filter::run('buildamic_filter_everything', $field);
+        $field = Filter::run('buildamic_filter_field', $field);
 
-        $field = Filter::exists("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}") ?
-            Filter::run("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}", $field) :
-            Filter::run("buildamic_filter_field:{$field->type()}", $field);
+        // dd($field);
+
+        // $field = Filter::exists("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}") ?
+        //     Filter::run("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}", $field) :
+        //     Filter::run("buildamic_filter_field:{$field->type()}", $field);
 
         // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
         $viewFromTypeAndHandle = "{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}";
@@ -177,9 +180,11 @@ class BuildamicRenderer
 
     public function renderSet(Field $set)
     {
-        $set = Filter::run('buildamic_filter_everything', $set);
+        // $set = Filter::run('buildamic_filter_everything', $set);
 
-        $set = Filter::run("buildamic_filter_set:{$set->handle()}", $set);
+        // $set = Filter::run("buildamic_filter_set", $set);
+
+        // $set = Filter::run("buildamic_filter_set:{$set->handle()}", $set);
 
         // handle:blurb, file: blurb
         if (view()->exists("{$this->viewPrefix}.sets.{$set->handle()}")) {

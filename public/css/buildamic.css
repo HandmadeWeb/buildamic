@@ -48,10 +48,15 @@
   margin-left: auto;
 }
 
+.buildamic-section {
+  padding: 2rem 0;
+}
+
 .buildamic-row {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding: 2rem 0;
 }
 
 .no-gutters {

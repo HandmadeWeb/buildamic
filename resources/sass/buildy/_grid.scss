@@ -149,10 +149,20 @@
   margin-right: auto;
   margin-left: auto;
 }
+.buildamic-section {
+  padding: 2rem 0;
+  //   &:first-of-type {
+  //     padding-top: 0;
+  //   }
+  //   .buildamic-row:first-of-type {
+  //     padding-top: 0;
+  //   }
+}
 .buildamic-row {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding: 2rem 0;
 }
 .no-gutters {
   margin-right: 0;
