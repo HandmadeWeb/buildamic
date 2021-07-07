@@ -117,9 +117,11 @@
   width: 90%;
   margin-right: auto;
   margin-left: auto;
-  @include media-breakpoint-up(md) {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  @include media-breakpoint-up(lg) {
+    padding-left: 0;
+    padding-right: 0;
   }
   @include media-breakpoint-up(xl) {
     max-width: $containerWidth;
@@ -132,17 +134,30 @@
   }
 }
 .buildamic-section {
-  padding: 3rem 0;
+  padding: 1rem 0;
+  @include media-breakpoint-up(md) {
+    padding: 3rem 0;
+  }
 }
 .buildamic-row {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 2rem 0;
+  padding: 1rem 0;
+  @include media-breakpoint-up(md) {
+    padding: 2rem 0;
+  }
 }
 
+.buildamic-column {
+  @include media-breakpoint-up(md) {
+    padding: 0;
+  }
+}
+
+.buildamic-column,
 .buildamic-field {
-  padding: 2rem 0;
+  padding: 1rem 0;
   &:first-of-type {
     padding-top: 0;
   }
@@ -161,14 +176,14 @@
   padding-left: 0;
 }
 
-.col {
+.buildamic-column {
   width: 100%;
 }
 
 @each $name, $breakpoint in $grid-breakpoints {
   // Don't generate XS, instead have no prefix eg .mb-2
   @if $name == xs {
-    .col {
+    .buildamic-column {
       flex-basis: 0;
       flex-grow: 1;
       max-width: 100%;
