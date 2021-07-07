@@ -96,7 +96,6 @@ class BuildamicRenderer
 
     public function renderRow(Value $row)
     {
-
         $row = Filter::run('buildamic_filter_everything', $row);
         $row = Filter::run('buildamic_filter_row', $row);
 
@@ -195,9 +194,6 @@ class BuildamicRenderer
         $html = '';
 
         foreach ($set->value()->value()->value()->value() as $field) {
-            $field = Filter::exists("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}") ?
-                Filter::run("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}", $field) :
-                Filter::run("buildamic_filter_field:{$field->type()}", $field);
             $html .= $this->renderSingleField($field);
         }
 
