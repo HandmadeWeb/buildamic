@@ -11,9 +11,6 @@ use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
 {
-    protected $publishAfterInstall = false;
-    protected $disableAssets = true;
-
     protected $stylesheets = [
         __DIR__.'/../public/css/buildamic.css',
     ];
