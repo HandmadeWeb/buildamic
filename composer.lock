@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b296ea75f331648445650ea1937c0252",
+    "content-hash": "22219660528336a873857059b966e62b",
     "packages": [
         {
             "name": "brick/math",
@@ -764,6 +764,70 @@
                 }
             ],
             "time": "2020-11-24T19:55:57+00:00"
+        },
+        {
+            "name": "edalzell/blade-directives",
+            "version": "v3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/edalzell/statamic-blade.git",
+                "reference": "8abac01f11125cd0f861dc33e97011238a479684"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/edalzell/statamic-blade/zipball/8abac01f11125cd0f861dc33e97011238a479684",
+                "reference": "8abac01f11125cd0f861dc33e97011238a479684",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^7.30.3 || ^8.24",
+                "php": "^7.4 || ^8.0",
+                "statamic/cms": "^3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.1",
+                "nunomaduro/collision": "^4.1 || ^5.0",
+                "orchestra/testbench": "^5.0 || ^6.0",
+                "phpunit/phpunit": "^8.0 || ^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "statamic": {
+                    "name": "Blade Directives",
+                    "description": "Blade Directives addon"
+                },
+                "laravel": {
+                    "providers": [
+                        "Edalzell\\Blade\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Edalzell\\Blade\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erin Dalzell",
+                    "email": "erin@silentz.co",
+                    "homepage": "https://silentz.co",
+                    "role": "Founder"
+                }
+            ],
+            "description": "Blade directives that work w/ Statamic",
+            "support": {
+                "issues": "https://github.com/edalzell/statamic-blade/issues",
+                "source": "https://github.com/edalzell/statamic-blade/tree/v3.3"
+            },
+            "time": "2021-05-12T04:07:22+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -9288,5 +9352,5 @@
         "php": "^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
