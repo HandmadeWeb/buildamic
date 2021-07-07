@@ -87,8 +87,10 @@ export default {
       return this.getFieldDefaults.config.instructions;
     },
   },
-  mounted() {
-    console.log(this.fieldData);
+  provide() {
+    return {
+      storeName: "base",
+    };
   },
 };
 </script>

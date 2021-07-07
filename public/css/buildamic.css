@@ -52,12 +52,6 @@
   }
 }
 
-@media (min-width: 768px) {
-  .buildamic-column {
-    padding: 0;
-  }
-}
-
 .buildamic-column,
 .buildamic-field {
   padding: 1rem 0;
@@ -69,6 +63,12 @@
 .buildamic-column:last-of-type,
 .buildamic-field:last-of-type {
   padding-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .buildamic-column {
+    padding: 0;
+  }
 }
 
 .no-gutters {

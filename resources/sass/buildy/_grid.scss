@@ -149,12 +149,6 @@
   }
 }
 
-.buildamic-column {
-  @include media-breakpoint-up(md) {
-    padding: 0;
-  }
-}
-
 .buildamic-column,
 .buildamic-field {
   padding: 1rem 0;
@@ -163,6 +157,12 @@
   }
   &:last-of-type {
     padding-bottom: 0;
+  }
+}
+
+.buildamic-column {
+  @include media-breakpoint-up(md) {
+    padding: 0;
   }
 }
 

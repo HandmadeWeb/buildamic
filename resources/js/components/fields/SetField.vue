@@ -74,6 +74,11 @@ export default {
       return this.setDefaults[this.handle];
     },
   },
+  provide() {
+    return {
+      storeName: "base",
+    };
+  },
 };
 </script>
 
