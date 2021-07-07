@@ -12,12 +12,7 @@
         @if(!$entry)
             <p>There are no results</p>
         @else
-            <div class="collection__entry flex-1" data-category="{{ $entry['developmental_level']->value()->first()->title() }}">
-                <div class="collection__image mb-8">
-                    @glide($entry['assets']->value()->first()->id(), ['width' => 740, 'height' => 250])
-                        <img class="rounded" src="{{ $url }}">
-                    @endglide
-                </div>
+            <div class="collection__entry flex-1">
                 <h4>{{ $entry['title'] }}</h4>
             </div>
         @endif

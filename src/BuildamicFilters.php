@@ -21,23 +21,25 @@ use Statamic\Fields\Field;
      */
 function generateClasses($attribute) {
     $arr = [];
-    if (is_array($attribute)) {
-        foreach($attribute as $att) {
-            if (!is_array($att)) {
-                if (!empty($att)) {
-                    array_push($arr, $att);
-                }
-            } else {
-                foreach($att as $sub_att) {
-                    if (!empty($sub_att)) {
-                        array_push($arr, $sub_att);
-                    }
-                }
+
+    $recursive = function($attribute) use (&$recursive, &$arr) {
+        if (!is_array($attribute)) {
+            if (!empty($attribute)) {
+                return array_push($arr, $attribute);
             }
         }
-    } else {
-        array_push($arr, $attribute);
-    }
+        foreach($attribute as $sub_att) {
+            if (!is_array($sub_att)) {
+                array_push($arr, $sub_att);
+            } else {
+                $recursive($sub_att);
+            }
+        }
+
+    };
+
+    $recursive($attribute);
+
     return ' ' . join(' ', $arr);
 }
 
