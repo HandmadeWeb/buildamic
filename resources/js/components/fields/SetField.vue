@@ -1,5 +1,5 @@
 <template>
-  <div class="buildamic-field" :class="[`${fieldData}-fieldtype`]">
+  <div class="buildamic-field" :class="[`${getConfig.type}-fieldtype`]">
     <label>{{ handle }}</label>
     <component
       :is="`${getConfig.type}-fieldtype`"
@@ -73,6 +73,11 @@ export default {
     getFieldDefault() {
       return this.setDefaults[this.handle];
     },
+  },
+  provide() {
+    return {
+      storeName: "base",
+    };
   },
 };
 </script>

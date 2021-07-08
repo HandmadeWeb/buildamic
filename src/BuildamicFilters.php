@@ -19,27 +19,7 @@ use Statamic\Fields\Field;
      *
      * @var array
      */
-function generateClasses($attribute) {
-    $arr = [];
-    if (is_array($attribute)) {
-        foreach($attribute as $att) {
-            if (!is_array($att)) {
-                if (!empty($att)) {
-                    array_push($arr, $att);
-                }
-            } else {
-                foreach($att as $sub_att) {
-                    if (!empty($sub_att)) {
-                        array_push($arr, $sub_att);
-                    }
-                }
-            }
-        }
-    } else {
-        array_push($arr, $attribute);
-    }
-    return ' ' . join(' ', $arr);
-}
+
 
 class BuildamicFilters
 {

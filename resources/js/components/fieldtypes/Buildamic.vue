@@ -4,7 +4,7 @@
       :list="sections"
       :group="{ name: 'sections' }"
       ghost-class="ghost"
-      class="flex flex-col gap-2"
+      class="flex flex-col gap-2 group"
     >
       <grid-section
         v-for="(section, sectionIndex) in sections"

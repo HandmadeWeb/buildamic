@@ -1,11 +1,11 @@
 <template>
   <div
-    class="flex justify-center items-center text-center mt-2"
+    class="module-controls flex text-center"
     :data-testid="`${type || component.type}-controls`"
   >
     <ul
-      class="list-unstyled flex m-0 p-0 col-gap-2"
-      :class="[`flex-${direction}`]"
+      class="list-unstyled flex m-0 p-0 gap-2"
+      :class="[`flex-${getDirection}`]"
     >
       <li
         v-for="(setting, i) in settings"
@@ -54,7 +54,6 @@ export default {
     },
     direction: {
       type: String,
-      default: "row",
     },
     component: {
       type: Object,
@@ -93,6 +92,13 @@ export default {
         },
         ...this.customSettings,
       }).sort((a, b) => a.order - b.order);
+    },
+    getDirection() {
+      return this.direction ||
+        this.component.type === "field" ||
+        this.component.type === "set"
+        ? "row"
+        : "col";
     },
   },
   components: {
