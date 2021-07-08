@@ -1,15 +1,23 @@
 <?php
 
-function generateClasses($attribute) {
+/*
+Takes all the inline attributes, font-size, margins, everything, then concatinates them into a big
+string of tailwind classes.
+
+@param Array
+@return String
+*/
+
+function generateClasses($inline) {
     $arr = [];
 
-    $recursive = function($attribute) use (&$recursive, &$arr) {
-        if (!is_array($attribute)) {
-            if (!empty($attribute)) {
-                return array_push($arr, $attribute);
+    $recursive = function($inline) use (&$recursive, &$arr) {
+        if (!is_array($inline)) {
+            if (!empty($inline)) {
+                return array_push($arr, $inline);
             }
         }
-        foreach($attribute as $sub_att) {
+        foreach($inline as $sub_att) {
             if (!is_array($sub_att)) {
                 array_push($arr, $sub_att);
             } else {
@@ -19,7 +27,7 @@ function generateClasses($attribute) {
 
     };
 
-    $recursive($attribute);
+    $recursive($inline);
 
     return ' ' . join(' ', $arr);
 }
