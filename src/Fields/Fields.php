@@ -15,7 +15,6 @@ class Fields extends StatamicFields
     {
         return (new static())
             ->setBuildamicSettings($this->buildamicSettings())
-            ->setComputedProperties($this->computedProperties())
             ->setParent($this->parent)
             ->setParentField($this->parentField)
             ->setItems($this->items)
@@ -25,15 +24,13 @@ class Fields extends StatamicFields
     public function createFields(array $config): array
     {
         $buildamicSettings = $this->buildamicSettings();
-        $computedProperties = $this->computedProperties();
 
         $fields = parent::createFields($config);
 
-        return collect($fields)->map(function ($field) use ($buildamicSettings, $computedProperties) {
+        return collect($fields)->map(function ($field) use ($buildamicSettings) {
             return (new Field($field->handle(), []))
                 ->setConfig($field->config())
                 ->setBuildamicSettings($buildamicSettings)
-                ->setComputedProperties($computedProperties)
                 ->setParent($field->parent())
                 ->setParentField($field->parentField())
                 ->setValue($field->value() ?? null);
@@ -44,7 +41,6 @@ class Fields extends StatamicFields
     {
         return (new Field($handle, $config))
             ->setBuildamicSettings($this->buildamicSettings())
-            ->setComputedProperties($this->computedProperties())
             ->setParent($this->parent)
             ->setParentField($this->parentField);
     }

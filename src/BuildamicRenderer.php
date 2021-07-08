@@ -85,7 +85,7 @@ class BuildamicRenderer
         return View::make("{$this->viewPrefix}.layouts.container", $this->gatherData(['buildamic' => $this, 'sections' => $this->sections()]));
     }
 
-    public function renderSection(Value $section)
+    public function renderSection(Field $section)
     {
         $section = Filter::run('buildamic_filter_everything', $section);
         $section = Filter::run('buildamic_filter_section', $section);
@@ -93,7 +93,7 @@ class BuildamicRenderer
         return View::make("{$this->viewPrefix}.layouts.section", $this->gatherData(['buildamic' => $this, 'section' => $section]));
     }
 
-    public function renderRow(Value $row)
+    public function renderRow(Field $row)
     {
         $row = Filter::run('buildamic_filter_everything', $row);
         $row = Filter::run('buildamic_filter_row', $row);
@@ -101,7 +101,7 @@ class BuildamicRenderer
         return View::make("{$this->viewPrefix}.layouts.row", $this->gatherData(['buildamic' => $this, 'row' => $row]));
     }
 
-    public function renderColumn(Value $column)
+    public function renderColumn(Field $column)
     {
         $column = Filter::run('buildamic_filter_everything', $column);
         $column = Filter::run('buildamic_filter_column', $column);

@@ -131,7 +131,7 @@ class Buildamic extends BuildamicBase
         $method = $shallow ? 'shallowAugment' : 'augment';
 
         $value = collect($value)->map(function ($section) use ($parent, $method) {
-            if (! $section['config']['enabled'] ?? false) {
+            if (isset($field['config']['buildamic_settings']['enabled']) && ! $field['config']['buildamic_settings']['enabled']) {
                 return;
             }
 
@@ -141,8 +141,7 @@ class Buildamic extends BuildamicBase
                 ->setParent($parent->field()->parent())
                 ->setParentField($parent->field())
                 ->setValue($section['value'])
-                ->{$method}()
-                ->value();
+                ->{$method}();
         })->filter()->all();
 
         $this->field()->setValue($value);
