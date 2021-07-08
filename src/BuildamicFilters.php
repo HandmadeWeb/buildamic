@@ -23,8 +23,8 @@ class BuildamicFilters
         'buildamic_filter_everything' => 'filter_everything',
         // 'buildamic_filter_section' => 'filter_section',
         // 'buildamic_filter_row' => 'filter_row',
-        // 'buildamic_filter_column' => 'filter_column',
-        // 'buildamic_filter_field' => 'filter_field',
+        'buildamic_filter_column' => 'filter_column',
+        'buildamic_filter_field' => 'filter_field',
         // 'buildamic_filter_field:markdown-blurb' => 'filter_field_markdown_handle_blurb',
         // 'buildamic_filter_set' => 'filter_set',
         // 'buildamic_filter_set:blurb' => 'filter_set_blurb',
@@ -99,29 +99,48 @@ class BuildamicFilters
         return $data;
     }
 
-    // public static function filter_section(Field $data): Field
+    // public static function filter_section(Field $section): Field
     // {
-    //     return $data;
+    //     return $section;
     // }
 
-    // public static function filter_row(Field $data): Field
+    // public static function filter_row(Field $row): Field
     // {
-    //     return $data;
+    //     return $row;
     // }
 
-    // public static function filter_column(Field $data): Field
-    // {
-    //     return $data;
-    // }
+    public static function filter_column(Field $column): Field
+    {
+        if (! empty($column->buildamicSetting('columnSizes'))) {
+            $columnSizes = collect($column->buildamicSetting('columnSizes'))->map(function ($value, $key) {
+                if (! empty($value)) {
+                    // if ($key == 'xs') {
+                    //     return "col-{$val} ";
+                    // } else {
+                    // return "{$key}:col-{$val} ";
+                    // }
+                    return "{$key}:col-{$value}";
+                }
+            })->filter()->implode(' ');
 
-    // public static function filter_field(Field $data): Field
-    // {
-    //     return $data;
-    // }
+            if (! empty($columnSizes)) {
+                $column->mergeComputedAttributes(['class' => $column->computedAttribute('class')." {$columnSizes}"]);
+            }
+        }
 
-    // public static function filter_field_markdown_handle_blurb(Value $data): Value
+        return $column;
+    }
+
+    public static function filter_field(Field $field): Field
+    {
+        $field->mergeComputedAttributes(['class' => modify($field->type())->ensureLeft('buildamic-')->ensureRight('-field').' '.$field->computedAttribute('class')]);
+
+        return $field;
+    }
+
+    // public static function filter_field_markdown_handle_blurb(Field $field): Field
     // {
-    //     return $data;
+    //     return $field;
     // }
 
     // public static function filter_set_blurb(Value $data): Value
