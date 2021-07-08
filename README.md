@@ -26,7 +26,7 @@ If you discover any security related issues, please email michael@rook.net.au in
 ## Credits
 
 - [Michael Rook](https://github.com/michaelr0)
-- [John Piters](https://github.com/sliver37)
+- [John Pieters](https://github.com/sliver37)
 - [All Contributors](../../contributors)
 
 ## License
