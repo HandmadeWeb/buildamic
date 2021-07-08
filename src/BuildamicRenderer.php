@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\View;
 use Michaelr0\Buildamic\Fields\Field;
 use Michaelr0\Buildamic\Fields\Fields;
 use Michaelr0\Buildamic\Fieldtypes\Buildamic;
-use Michaelr0\HookableActionsAndFilters\Filter;
 use Statamic\Fields\Value;
 
 // use Statamic\View\View;
