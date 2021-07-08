@@ -124,13 +124,11 @@ class BuildamicRenderer
 
     public function renderSingleField(Field $field)
     {
+        $field = Filter::run('buildamic_filter_everything', $field);
         $field = Filter::run('buildamic_filter_field', $field);
-
-        // dd($field);
-
-        // $field = Filter::exists("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}") ?
-        //     Filter::run("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}", $field) :
-        //     Filter::run("buildamic_filter_field:{$field->type()}", $field);
+        $field = Filter::exists("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}") ?
+            Filter::run("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}", $field) :
+            Filter::run("buildamic_filter_field:{$field->type()}", $field);
 
         // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
         $viewFromCollectionHandle = '';
@@ -171,10 +169,6 @@ class BuildamicRenderer
         $html = '';
 
         foreach ($fieldset->all() as $field) {
-            $field = Filter::exists("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}") ?
-                Filter::run("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}", $field) :
-                Filter::run("buildamic_filter_field:{$field->type()}", $field);
-
             $html .= $this->renderSingleField($field);
         }
 
@@ -184,9 +178,7 @@ class BuildamicRenderer
     public function renderSet(Field $set)
     {
         // $set = Filter::run('buildamic_filter_everything', $set);
-
         // $set = Filter::run("buildamic_filter_set", $set);
-
         // $set = Filter::run("buildamic_filter_set:{$set->handle()}", $set);
 
         // handle:blurb, file: blurb
