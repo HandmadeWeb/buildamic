@@ -1,6 +1,6 @@
 @php
-    $columnSizes = $column->field()->buildamicSetting('columnSizes');
-    if (!empty($column->field()->buildamicSetting('columnSizes'))) {
+    $columnSizes = $column->buildamicSetting('columnSizes');
+    if (!empty($column->buildamicSetting('columnSizes'))) {
         $sizes = join("", array_map(function($val, $key) {
                 if (!empty($val)) {
                 // Legacy -- XS no longer exists and is defaulted to just col-val
@@ -15,7 +15,7 @@
     }
 @endphp
 
-<div id="{{ $column->field()->buildamicSetting('attributes.id') ?? '' }}" class="buildamic-column {{ $sizes }} {{ $column->field()->buildamicSetting('attributes.class') ?? '' }}">
+<div id="{{ $column->buildamicSetting('attributes.id') }}" class="buildamic-column {{ $sizes }} {{ $column->buildamicSetting('attributes.class') }}">
     @foreach($column->value() as $field)
         {!! $buildamic->renderField($field) !!}
     @endforeach

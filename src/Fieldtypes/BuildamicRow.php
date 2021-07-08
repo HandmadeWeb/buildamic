@@ -39,7 +39,7 @@ class BuildamicRow extends BuildamicBase
         $method = $shallow ? 'shallowAugment' : 'augment';
 
         $value = collect($value)->map(function ($column) use ($method) {
-            if (isset($column['config']['enabled']) && ! $column['config']['enabled']) {
+            if (isset($field['config']['buildamic_settings']['enabled']) && ! $field['config']['buildamic_settings']['enabled']) {
                 return;
             }
 
@@ -49,8 +49,7 @@ class BuildamicRow extends BuildamicBase
                 ->setParent($this->field()->parent())
                 ->setParentField($this->field())
                 ->setValue($column['value'])
-                ->{$method}()
-                ->value();
+                ->{$method}();
         })->filter()->all();
 
         return $this->field()->setValue($value)->value();
