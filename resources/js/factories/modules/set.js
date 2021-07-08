@@ -1,12 +1,22 @@
 // import { createModule } from './moduleFactory'
 import { InlineDefaults } from './moduleDefaults.js'
 
-const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {} }) {
+const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {}, META = {} }) {
     this.uuid = `${UUID}`
     this.type = 'set'
+    this.computed = {
+        config: {
+            ...CONFIG
+        },
+        meta: {
+            ...META
+        }
+    }
     this.config = {
         statamic_settings: {
-            ...CONFIG,
+            field: {
+                type: CONFIG.type || '',
+            },
             handle: HANDLE
         },
         buildamic_settings: {

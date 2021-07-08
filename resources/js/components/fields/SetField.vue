@@ -1,8 +1,8 @@
 <template>
-  <div class="buildamic-field" :class="[`${getConfig.type}-fieldtype`]">
+  <div class="buildamic-field" :class="[`${getType}-fieldtype`]">
     <label>{{ handle }}</label>
     <component
-      :is="`${getConfig.type}-fieldtype`"
+      :is="`${getType}-fieldtype`"
       :config="getConfig"
       :value="value"
       :meta="getMeta"
@@ -44,6 +44,9 @@ export default {
     sets() {
       return [this.fieldDefaults[this.field.config.statamic_settings.handle]];
     },
+    getFieldDefaults() {
+      return this.setDefaults[this.handle];
+    },
     getConfig() {
       if (
         this.fieldData?.computed &&
@@ -54,7 +57,7 @@ export default {
           this.field.config.statamic_settings.handle
         ].config;
       }
-      return { ...this.getFieldDefault().config, ...this.field.config };
+      return this.getFieldDefaults.config;
     },
     getMeta() {
       if (
@@ -66,13 +69,14 @@ export default {
           this.field.config.statamic_settings.handle
         ].meta;
       }
-      return this.getFieldDefault().meta;
+      return this.getFieldDefaults.meta;
+    },
+    getType() {
+      return this.getConfig.component || this.getConfig.type;
     },
   },
-  methods: {
-    getFieldDefault() {
-      return this.setDefaults[this.handle];
-    },
+  mounted() {
+    console.log(this.getConfig);
   },
   provide() {
     return {

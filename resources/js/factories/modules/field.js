@@ -1,12 +1,22 @@
 import { InlineDefaults } from './moduleDefaults.js'
 
-const Field = function ({ ADMIN_LABEL, CONFIG = {}, HANDLE, META = {}, VALUE, UUID, }) {
+const Field = function ({ ADMIN_LABEL, CONFIG = {}, META = {}, HANDLE, VALUE, UUID, }) {
     this.uuid = `${UUID}`
     this.type = 'field'
+    this.computed = {
+        config: {
+            ...CONFIG
+        },
+        meta: {
+            ...META
+        }
+    }
     this.config = {
         statamic_settings: {
-            handle: HANDLE,
-            field: { handle: HANDLE, ...CONFIG }
+            field: {
+                type: CONFIG.type || '',
+            },
+            handle: HANDLE
         },
         buildamic_settings: {
             enabled: true,

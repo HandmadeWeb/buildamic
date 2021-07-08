@@ -36,7 +36,9 @@
                     :name="field.config.icon"
                   ></svg-icon>
                   <span class="pl-2 text-grey-80 group-hover:text-blue">
-                    {{ field.config.display || field.handle || field.config.type }}
+                    {{
+                      field.config.display || field.handle || field.config.type
+                    }}
                   </span>
                 </a>
               </div>
@@ -50,7 +52,8 @@
                   @click="addField(field, key)"
                 >
                   <span class="pl-2 text-grey-80 group-hover:text-blue">
-                    {{ field.display || field.handle || key }}</span>
+                    {{ field.display || field.handle || key }}</span
+                  >
                 </a>
               </div>
             </div>
@@ -86,6 +89,8 @@ export default {
       const META = field.meta ?? {};
       const HANDLE = field.handle || key;
       const NEW_FIELD = createModule(MODULE, { CONFIG, META, VALUE, HANDLE });
+
+      console.log({ CONFIG, META, VALUE, HANDLE });
 
       this.value.splice(this.index + 1, 0, NEW_FIELD);
 

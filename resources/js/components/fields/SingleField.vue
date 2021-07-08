@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="buildamic-field"
-    :class="[`${fieldData.config.statamic_settings.field.type}-fieldtype`]"
-  >
+  <div class="buildamic-field" :class="[`${getType}-fieldtype`]">
     <label>{{ fieldDisplay }}</label>
     <div>
       <component
@@ -12,7 +9,6 @@
         :meta="getMeta"
         :handle="fieldData.config.statamic_settings.handle"
         @input="updateField({ path: 'value', val: $event })"
-        @meta-updated="updateField({ path: 'meta', val: $event })"
         @focus="$emit('focus')"
         @blur="$emit('blur')"
       />
@@ -71,11 +67,7 @@ export default {
       return this.getFieldDefaults.meta;
     },
     getType() {
-      let type = this.fieldData.config.statamic_settings.field.type;
-      if (type === "collections" || type === "entries" || type === "terms") {
-        type = "relationship";
-      }
-      return type;
+      return this.getConfig.component || this.getConfig.type;
     },
     getConfig() {
       if (this.fieldData?.computed?.config) {
@@ -84,8 +76,14 @@ export default {
       return this.getFieldDefaults.config;
     },
     fieldInstructions() {
-      return this.getFieldDefaults.config.instructions;
+      return (
+        this.fieldData?.computed.instructions ||
+        this.getFieldDefaults.config.instructions
+      );
     },
+  },
+  mounted() {
+    console.log(this.fieldData?.computed);
   },
   provide() {
     return {
