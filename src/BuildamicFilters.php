@@ -2,25 +2,22 @@
 
 namespace Michaelr0\Buildamic;
 
-use Michaelr0\HookableActionsAndFilters\Filter;
-use Statamic\Fields\Value;
 use Statamic\Fields\Field;
+use Statamic\Fields\Value;
 
 /**
-     * Define Filter/Method's to register.
-     *
-     * The $filters array expects the following format:
-     * 'filter_name' => 'method_name',
-     *
-     * Where filter_name will be used by Filter::add() and Filter::run() function calls.
-     * And method_name is the public static function that should be called for that filter.
-     *
-     * $data will always be passed to these filters.
-     *
-     * @var array
-     */
-
-
+ * Define Filter/Method's to register.
+ *
+ * The $filters array expects the following format:
+ * 'filter_name' => 'method_name',
+ *
+ * Where filter_name will be used by Filter::add() and Filter::run() function calls.
+ * And method_name is the public static function that should be called for that filter.
+ *
+ * $data will always be passed to these filters.
+ *
+ * @var array
+ */
 class BuildamicFilters
 {
     /**
@@ -57,12 +54,13 @@ class BuildamicFilters
         }
     }
 
-    public static function get_tw_classes($data) {
-        $classList = $data['attributes']['class'] ?? "";
+    public static function get_tw_classes($data)
+    {
+        $classList = $data['attributes']['class'] ?? '';
         $inline = $data['inline'];
 
         // Remove anything we don't want generated with the loop (e.g background is handled separately)
-        $inline = array_filter($inline, function($key) {
+        $inline = array_filter($inline, function ($key) {
             return $key !== 'background';
         }, ARRAY_FILTER_USE_KEY);
 
@@ -71,7 +69,7 @@ class BuildamicFilters
         }
 
         if ($data['inline']) {
-            foreach($data['inline'] as $item) {
+            foreach ($data['inline'] as $item) {
                 $classList .= generateClasses($item);
             }
         }
@@ -127,7 +125,6 @@ class BuildamicFilters
 
     //     $inline = $buildamic_settings['inline'] ?? null;
 
-
     //     $classList = '';
 
     //     if ($inline['text-align'] ?? null) {
@@ -139,7 +136,7 @@ class BuildamicFilters
 
     public static function filter_section(Value $data): Value
     {
-       $settings = self::get_tw_classes($data->field()->buildamicSettings());
+        $settings = self::get_tw_classes($data->field()->buildamicSettings());
 
         $data->field()->setBuildamicSettings($settings);
 
@@ -162,7 +159,6 @@ class BuildamicFilters
 
     public static function filter_field(Field $data): Field
     {
-
         $settings = self::get_tw_classes($data->buildamicSettings());
 
         $data->setBuildamicSettings($settings);
@@ -174,7 +170,6 @@ class BuildamicFilters
     // {
     //     return $data;
     // }
-
 
     // public static function filter_set_blurb(Value $data): Value
     // {
