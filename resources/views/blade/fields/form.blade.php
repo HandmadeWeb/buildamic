@@ -1,7 +1,6 @@
 @extends('buildamic::blade.layouts.field')
 
 @section('field_content')
-
     <form method="POST" action="{{ route('statamic.forms.submit', $form->handle()) }}" @if($form->hasFiles()) enctype="multipart/form-data" @endif>
         @csrf
         @method('POST')

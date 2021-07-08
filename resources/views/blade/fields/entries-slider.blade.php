@@ -1,7 +1,5 @@
 @extends('buildamic::blade.layouts.field')
 
-@section('field_content')
-
 @php
     $slider = $field->value()->value()->data();
     $slides = json_encode($slider->get('slides'));
@@ -9,6 +7,6 @@
     $compontent = $slide_style ? "vue-slider-{$slide_style}" : 'vue-slider';
 @endphp
 
+@section('field_content')
     <{{ $compontent }} @if($slides) :slides="{{ $slides }}" @endif ></{{ $compontent }}>
-
 @overwrite
