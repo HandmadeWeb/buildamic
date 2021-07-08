@@ -40,6 +40,7 @@ class BuildamicColumn extends BuildamicBase
                     ];
                 } else {
                     unset($field['computed']);
+                    unset($field['meta']);
                 }
 
                 $field['config']['statamic_settings'] = [
@@ -75,6 +76,7 @@ class BuildamicColumn extends BuildamicBase
                     });
                 } else {
                     unset($field['computed']);
+                    unset($field['meta']);
                 }
 
                 $field['value'] = $fields->values()->toArray();
@@ -106,6 +108,7 @@ class BuildamicColumn extends BuildamicBase
                     });
                 } else {
                     unset($field['computed']);
+                    unset($field['meta']);
                 }
 
                 $field['value'] = $fields->values()->toArray();
