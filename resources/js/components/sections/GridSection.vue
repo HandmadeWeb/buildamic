@@ -1,7 +1,13 @@
 <template>
   <div
-    class="buildamic-section p-2 border border-t-4 rounded border-blue-500 flex flex-col items-center"
+    class="buildamic-section p-2 pl-1 border border-t-4 rounded border-blue-500 flex relative "
   >
+    <module-controls
+      class="pr-1"
+      :component="section"
+      :value="sections"
+      :index="sectionIndex"
+    />
     <button
       class="py-1 px-2 border border-dashed"
       @click="addRow"
@@ -13,7 +19,7 @@
       :list="rows"
       :group="{ name: 'rows' }"
       ghost-class="ghost"
-      class="flex flex-col gap-2 w-full"
+      class="section-draggable flex flex-col gap-2 w-full group"
     >
       <grid-row
         v-for="(row, rowIndex) in rows"
@@ -21,11 +27,6 @@
         :row="row"
         :rows="rows"
         :rowIndex="rowIndex"
-      />
-      <module-controls
-        :component="section"
-        :value="sections"
-        :index="sectionIndex"
       />
     </vue-draggable>
   </div>
@@ -64,7 +65,6 @@ export default {
       const newModule = createModule("Row");
       this.rows.push(newModule);
     },
-  }
-  
+  },
 };
 </script>

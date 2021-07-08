@@ -1,6 +1,17 @@
 <template>
-  <div class="border rounded border-t-4 border-green-light p-2">
-    <div class="flex justify-center gap-2">
+  <div
+    class="border flex rounded border-t-4 border-green-light p-2 relative"
+    :class="[{ 'flex-col': items <= 1 }, { 'pl-1': items > 1 }]"
+  >
+    <module-controls
+      v-if="items > 1"
+      class="pr-1 items-start"
+      :component="row"
+      :value="rows"
+      :index="rowIndex"
+      :customSettings="customSettings"
+    />
+    <div class="flex flex-1 justify-center gap-2">
       <button
         class="py-1 px-2 border border-dashed"
         v-if="!columns.length"
@@ -13,6 +24,9 @@
       </template>
     </div>
     <module-controls
+      v-if="items <= 1"
+      class="mt-2 justify-center"
+      direction="col"
       :component="row"
       :value="rows"
       :index="rowIndex"
@@ -56,6 +70,18 @@ export default {
         },
       },
     };
+  },
+
+  computed: {
+    items() {
+      let count = this.columns.reduce((acc, curr) => {
+        if (curr.value.length > acc) {
+          acc += curr.value.length;
+        }
+        return acc;
+      }, 0);
+      return count;
+    },
   },
 
   methods: {
