@@ -1,5 +1,5 @@
-![Statamic v3](https://img.shields.io/badge/Statamic-3+-FF269E)
-[![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+![Statamic v3](https://img.shields.io/badge/Statamic-3+-FF269E?style=flat-square)
+[![MIT Licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE.md)
 
 Buildamic is a WIP "pagebuilder" for Statamic 3, It is currently in heavy development and likely to have breaking changes with frequency, as such is not considered ready to be used in production.
 
