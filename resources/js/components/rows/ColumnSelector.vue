@@ -25,7 +25,7 @@
         >
           <div class="mb-2 flex w-full buildamic-row bg-grey-60 rounded p-1">
             <div
-              class="col"
+              class="buildamic-column"
               v-for="(colClass, index) in gridConversion(layout)"
               :key="name + index"
               :class="colClass"

@@ -83,7 +83,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.fieldData?.computed);
+    console.log(this.fieldData);
   },
   provide() {
     return {

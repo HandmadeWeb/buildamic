@@ -6,10 +6,10 @@ const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {}, META = {}
     this.type = 'set'
     this.computed = {
         config: {
-            ...CONFIG
+            ...JSON.parse(JSON.stringify(CONFIG))
         },
         meta: {
-            ...META
+            ...JSON.parse(JSON.stringify(META))
         }
     }
     this.config = {

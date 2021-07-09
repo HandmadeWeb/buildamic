@@ -83,14 +83,14 @@ export default {
   inject: ["fieldDefaults"],
   methods: {
     addField(field, key) {
+      field = JSON.parse(JSON.stringify(field));
+
       const MODULE = field.fields ? "Set" : "Field";
       const VALUE = field.fields ? field.fields : field.value;
       const CONFIG = field.config ?? {};
       const META = field.meta ?? {};
       const HANDLE = field.handle || key;
       const NEW_FIELD = createModule(MODULE, { CONFIG, META, VALUE, HANDLE });
-
-      console.log({ CONFIG, META, VALUE, HANDLE });
 
       this.value.splice(this.index + 1, 0, NEW_FIELD);
 
