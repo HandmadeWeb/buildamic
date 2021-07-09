@@ -1,15 +1,10 @@
 /node_modules
-/public/hot
-/public/storage
-/public/vendor/statamic
-/storage/*.key
 /vendor
+.DS_Store
 .env
 .env.backup
 .phpunit.result.cache
 .php_cs.cache
-Homestead.json
-Homestead.yaml
+composer.lock
 npm-debug.log
 yarn-error.log
-.DS_Store
