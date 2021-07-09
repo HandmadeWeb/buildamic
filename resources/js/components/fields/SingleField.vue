@@ -1,18 +1,16 @@
 <template>
   <div class="buildamic-field" :class="[`${getType}-fieldtype`]">
-    <label>{{ fieldDisplay }}</label>
     <div>
-      <component
-        :is="`${getType}-fieldtype`"
-        :config="getConfig"
-        :value="fieldData.value"
-        :meta="getMeta"
-        :handle="fieldData.config.statamic_settings.handle"
-        @input="updateField({ path: 'value', val: $event })"
-        @meta-updated="$emit('meta-updated', $event)"
-        @focus="$emit('focus')"
-        @blur="$emit('blur')"
-      />
+      <element-container>
+        <publish-field
+          :config="getConfig"
+          :value="fieldData.value"
+          :meta="getMeta"
+          :handle="fieldData.config.statamic_settings.handle"
+          @input="updateField({ path: 'value', val: $event })"
+          @meta-updated="updateField({ path: 'computed.meta', val: $event })"
+        />
+      </element-container>
       <span
         class="text-sm italic block pt-1"
         v-if="fieldInstructions"
@@ -83,8 +81,13 @@ export default {
       );
     },
   },
+  methods: {
+    searchMeta(el) {
+      console.log(el);
+    },
+  },
   mounted() {
-    console.log(this.fieldData);
+    console.log(this.fieldData.value);
   },
   provide() {
     return {
