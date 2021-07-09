@@ -5,7 +5,7 @@
     "require": {
         "php": "^8.0",
         "laravel/framework": "^8.0",
-        "statamic/cms": "^3.1.20",
+        "statamic/cms": "^3.1",
         "michaelr0/hookable-actions-filters": "^1.0",
         "edalzell/blade-directives": "^3.3"
     },

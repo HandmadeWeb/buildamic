@@ -1,7 +1,12 @@
-![Statamic v3](https://img.shields.io/badge/Statamic-3+-FF269E?style=flat-square)
+![Statamic v3.1](https://img.shields.io/badge/Statamic-3.1+-FF269E?style=flat-square)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE.md)
 
 Buildamic is a WIP "pagebuilder" for Statamic 3, It is currently in heavy development and likely to have breaking changes with frequency, as such is not considered ready to be used in production.
+
+# Requirements
+* PHP 8.0 or higher
+* Statamic 3.1 or higher
+* Laravel 8.0 or higher
 
 # Installation
 
