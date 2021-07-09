@@ -77,13 +77,13 @@ class BuildamicFilters
     //     return $data;
     // }
 
-    public static function filter_everything(Field $data): Field
+    public static function filter_everything(Field $field): Field
     {
-        $classList = $data->buildamicSetting('attributes.class');
+        $classList = $field->buildamicSetting('attributes.class');
 
-        if (is_array($data->buildamicSetting('inline'))) {
+        if (is_array($field->buildamicSetting('inline'))) {
             // Remove anything we don't want generated with the loop (e.g background is handled separately)
-            $inlineClassList = collect($data->buildamicSetting('inline'))->filter(function ($value, $key) {
+            $inlineClassList = collect($field->buildamicSetting('inline'))->filter(function ($value, $key) {
                 return $key !== 'background';
             })->toArray();
 
@@ -94,9 +94,9 @@ class BuildamicFilters
             }
         }
 
-        $data->mergeComputedAttributes(['class' => $classList]);
+        $field->mergeComputedAttributes(['class' => $classList]);
 
-        return $data;
+        return $field;
     }
 
     // public static function filter_section(Field $section): Field

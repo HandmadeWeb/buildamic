@@ -9,6 +9,7 @@
         :meta="getMeta"
         :handle="fieldData.config.statamic_settings.handle"
         @input="updateField({ path: 'value', val: $event })"
+        @meta-updated="$emit('meta-updated', $event)"
         @focus="$emit('focus')"
         @blur="$emit('blur')"
       />
