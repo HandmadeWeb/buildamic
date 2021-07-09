@@ -14,7 +14,8 @@ composer require michaelr0/buildamic
 
 ## Usage
 
-### Adding to a blueprint
+### Backend
+#### Adding to a blueprint
 
 Add the field to your blueprint, you may then choose what fields or sets will be available for Buildamic to use.
 
@@ -24,13 +25,37 @@ And reference the below two examples on how to render the output in Antlers or B
 
 By default the handle will be "buildamic"
 
-#### Antlers
+#### Antlers output
 ```php
 {{ buildamic }}
 ```
-#### Blade
+#### Blade output
 ```php
 {!! $buildamic !!}
+```
+
+#### Field view order
+When Buildamic tries to render a field, it will try to locate a suitable file in the below order.
+
+* field type: markdown
+* field handle: hero-blurb
+* loaded file: markdown-hero-blurb
+ 
+Then
+
+* field type: markdown
+* loaded file: markdown
+
+Then
+
+* catch all
+* loaded file: default-field
+
+In the event that a suitable view could not be located, rather than erroring out or logging an exception, something like the below will instead appear as a html comment.
+```html
+<!-- Field could not be rendered, View not found -->
+<!-- Type: bard -->
+<!-- Handle: heading -->
 ```
 
 ## Contributing
