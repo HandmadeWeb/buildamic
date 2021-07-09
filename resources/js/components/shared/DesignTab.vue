@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import SettingsLayout from "./settings/SettingsLayout";
-import SettingsBackground from "./settings/SettingsBackground";
-import SettingsText from "./settings/SettingsText";
+import SettingsLayout from "./settings/SettingsLayout.vue";
+import SettingsBackground from "./settings/SettingsBackground.vue";
+import SettingsText from "./settings/SettingsText.vue";
 import breakpointSwitcher from "./settings/BreakpointSwitcher.vue";
 export default {
   props: {

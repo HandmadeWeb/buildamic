@@ -14,7 +14,13 @@
         :sectionIndex="sectionIndex"
       />
     </vue-draggable>
-    <button @click="addSection" v-if="!sections.length">Add Section</button>
+    <button
+      data-testid="add_section_button"
+      @click="addSection"
+      v-if="!sections.length"
+    >
+      Add Section
+    </button>
   </div>
 </template>
 

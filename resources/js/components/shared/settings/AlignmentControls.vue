@@ -47,7 +47,13 @@ export default {
   methods: {
     switchAlignment(alignment) {
       if (this.breakpoint === "xs") {
+        if (alignment === this.selected) {
+          return this.$emit("input", "");
+        }
         return this.$emit("input", alignment);
+      }
+      if (`${this.breakpoint}:${alignment}` === this.selected) {
+        return this.$emit("input", "");
       }
       return this.$emit("input", `${this.breakpoint}:${alignment}`);
     },
