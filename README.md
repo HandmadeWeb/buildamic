@@ -1,7 +1,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/michaelr0/buildamic.svg?style=flat-square)](https://packagist.org/packages/michaelr0/buildamic)
 [![Total Downloads](https://img.shields.io/packagist/dt/michaelr0/buildamic.svg?style=flat-square)](https://packagist.org/packages/michaelr0/buildamic) 
 
-Buildamic is a WIP "pagebuilder" for Statamic V3, It is currently in heavy development and is not considered ready to be used in production.
+Buildamic is a WIP "pagebuilder" for Statamic V3, It is currently in heavy development and likely to have breaking changes with frequency, as such is not considered ready to be used in production.
 
 ## Installation
 
@@ -11,17 +11,11 @@ You can install the package via composer:
 composer require michaelr0/buildamic
 ```
 
-### Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+You will then be able to add the field to your blueprint, you may then choose what fields or sets will be available for Buildamic to use.
 
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-### Security
-
-If you discover any security related issues, please email michael@rook.net.au instead of using the issue tracker.
 
 ## Credits
 
