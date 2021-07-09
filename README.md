@@ -33,23 +33,31 @@ By default the handle will be "buildamic"
 ```php
 {!! $buildamic !!}
 ```
+#### View Engines & View Overrides
+Currently Buildamic only comes with view files written with Blade.
+Buildamic will still work if your front end uses Antlers, it just means that when it loops and renders fields, it will use Blade todo so.
+We have planned to allow Antlers to be a selectable option, but have not implemented this.
+
+The following directories would be used should you need to override a given view (or create new ones)
+* Antlers: resources/views/vendor/buildamic/antlers (Not currently enabled)
+* Blade: resources/views/vendor/buildamic/blade
 
 #### Field view order
-When Buildamic tries to render a field, it will try to locate a suitable file in the below order.
+When Buildamic tries to render a field, it will use the first available file, checked in the below order.
 
 * field type: markdown
 * field handle: hero-blurb
-* loaded file: markdown-hero-blurb
+* loaded file: fields/markdown-hero-blurb.blade.php
  
 Then
 
 * field type: markdown
-* loaded file: markdown
+* loaded file: fields/markdown.blade.php
 
 Then
 
 * catch all
-* loaded file: default-field
+* loaded file: default-field.blade.php
 
 In the event that a suitable view could not be located, rather than erroring out or logging an exception, something like the below will instead appear as a html comment.
 ```html
@@ -57,6 +65,21 @@ In the event that a suitable view could not be located, rather than erroring out
 <!-- Type: bard -->
 <!-- Handle: heading -->
 ```
+
+#### Fieldset view order
+When Buildamic tries to render a fieldset, it will first try to find a view that matches the handle of the fieldset.
+* handle: blurb
+* loaded file: fieldsets/blurb.blade.php
+
+If no suitable view was found, then Buildamic will loop through each field within the fieldset and will treat them as separate fields, in which case the fields view order will apply.
+
+#### Set view order
+When Buildamic tries to render a set, it will first try to find a view that matches the handle of the set.
+
+* handle: blurb
+* loaded file: sets/blurb.blade.php
+
+If no suitable view was found, then Buildamic will loop through each field within the set and will treat them as separate fields, in which case the fields view order will apply.
 
 ## Contributing
 
