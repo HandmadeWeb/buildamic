@@ -12,7 +12,26 @@ You can install the package via composer:
 composer require michaelr0/buildamic
 ```
 
-You will then be able to add the field to your blueprint, you may then choose what fields or sets will be available for Buildamic to use.
+## Usage
+
+### Adding to a blueprint
+
+Add the field to your blueprint, you may then choose what fields or sets will be available for Buildamic to use.
+
+### Frontend
+Outputting on the frontend is quite simple, you just use the handle that was given to the field when you configure it in your blueprint.
+And reference the below two examples on how to render the output in Antlers or Blade.
+
+By default the handle will be "buildamic"
+
+#### Antlers
+```php
+{{ buildamic }}
+```
+#### Blade
+```php
+{!! $buildamic !!}
+```
 
 ## Contributing
 
