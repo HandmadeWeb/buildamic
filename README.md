@@ -19,6 +19,12 @@ composer require michaelr0/buildamic
 
 Add the field to your blueprint, you may then choose what fields or sets will be available for Buildamic to use.
 
+#### Field/Fieldset/Set Display names
+Buildamic will display the "label" for the "field" from the first available.
+* Admin Label (Found in the options area of the "field")
+* Display (As configured on the blueprint)
+* Handle (As configured on the blueprint)
+
 ### Frontend
 Outputting on the frontend is quite simple, you just use the handle that was given to the field when you configure it in your blueprint.
 And reference the below two examples on how to render the output in Antlers or Blade.
