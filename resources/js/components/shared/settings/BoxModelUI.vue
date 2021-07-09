@@ -536,11 +536,14 @@ export default {
       return `${this.breakpoint}:${value.replace(direction, dirLetter)}`;
     },
     handleInput(setting, key, value) {
-      console.log({ value });
       const newVals = {};
       if (!key) {
         return;
       }
+
+      /* To Do
+        [] Tidy up / loop this mess
+      */
       if (setting === "margin") {
         if (this.lockMarginY && this.lockMarginX) {
           newVals["mt"] = this.setValueDirection(value, "t");
@@ -581,18 +584,8 @@ export default {
         newVals[key] = this.setValueDirection(value, key.split("p")[1]);
       }
 
-      //   const newVals = Object.keys(this.inline[setting]).reduce((acc, cur) => {
-      //     if (this.inline[setting][cur].value === value) {
-      //       console.log(("current value", value));
-      //       acc[cur] = this.inline[setting][cur].value;
-      //     }
-      //     return acc;
-      //   }, {});
-
       const oldVals = this.getDeep(`inline.${setting}.${this.breakpoint}`);
       const payload = { ...oldVals, ...newVals };
-
-      console.log({ payload });
 
       this.updateField({ path: `inline.${setting}`, key, val: payload }, true);
     },

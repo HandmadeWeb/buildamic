@@ -38,8 +38,5 @@ export default {
     SettingsBackground,
     SettingsText,
   },
-  mounted() {
-    // console.log("fd", this.fieldDefaults);
-  },
 };
 </script>

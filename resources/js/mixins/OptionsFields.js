@@ -19,10 +19,9 @@ export default {
             }
             return false
         },
-        updateField({ path, key = '', val, vm = this }, responsive) {
+        updateField({ obj = this.field.config.buildamic_settings, path, key = '', val, vm = this }, responsive) {
             const fullPath = responsive ? `${path}.${this.breakpoint}` : path
             const localPath = `${path}.${key}`.split('.').filter(path => path)
-
 
             // Update local value
             localPath.reduce((a, b, i) => {
@@ -36,7 +35,7 @@ export default {
             }, vm);
 
             // Update actual field settings
-            return setDeep(this.field.config.buildamic_settings, fullPath, val)
+            return setDeep(obj, fullPath, val)
         },
         getTWClasses(type, prefix) {
             const options = Object.entries(fullConfig.theme[type]).reduce(
@@ -51,7 +50,6 @@ export default {
                 },
                 {}
             );
-            console.log({ options })
             return Object.assign({ 'none': 'N/A' }, options);
         },
     }

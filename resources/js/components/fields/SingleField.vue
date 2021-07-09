@@ -7,8 +7,10 @@
           :value="fieldData.value"
           :meta="getMeta"
           :handle="fieldData.config.statamic_settings.handle"
-          @input="updateField({ path: 'value', val: $event })"
-          @meta-updated="updateField({ path: 'computed.meta', val: $event })"
+          @input="updateField({ obj: field, path: 'value', val: $event })"
+          @meta-updated="
+            updateField({ obj: field, path: 'computed.meta', val: $event })
+          "
         />
       </element-container>
       <span
@@ -23,7 +25,7 @@
 <script>
 // Overrides
 import ColorFieldtype from "./overrides/ColorFieldtype.vue";
-import Fields from "../../mixins/Fields.js";
+import OptionsFields from "../../mixins/OptionsFields.js";
 
 export default {
   props: {
@@ -40,7 +42,7 @@ export default {
     ColorFieldtype,
   },
 
-  mixins: [Fields],
+  mixins: [OptionsFields],
 
   data() {
     return {

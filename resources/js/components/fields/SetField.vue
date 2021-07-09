@@ -1,22 +1,27 @@
 <template>
-  <div class="buildamic-field" :class="[`${getType}-fieldtype`]">
-    <label>{{ handle }}</label>
-    <component
-      :is="`${getType}-fieldtype`"
-      :config="getConfig"
-      :value="value"
-      :meta="getMeta"
-      :handle="handle"
-      @input="updateField({ path: `value.${handle}`, val: $event })"
-      @focus="$emit('focus')"
-      @blur="$emit('blur')"
-    />
+  <div :class="[`${getType}-fieldtype`]">
+    <element-container>
+      <publish-field
+        :config="getConfig"
+        :value="value"
+        :meta="getMeta"
+        :handle="handle"
+        @input="
+          updateField({ obj: field, path: `value.${handle}`, val: $event })
+        "
+        @meta-updated="
+          updateField({ obj: field, path: 'computed.meta', val: $event })
+        "
+        @focus="$emit('focus')"
+        @blur="$emit('blur')"
+      />
+    </element-container>
   </div>
 </template>
 
 <script>
 import ColorFieldtype from "./overrides/ColorFieldtype.vue";
-import Fields from "../../mixins/Fields.js";
+import OptionsFields from "../../mixins/OptionsFields.js";
 
 export default {
   props: {
@@ -34,7 +39,7 @@ export default {
   components: {
     ColorFieldtype,
   },
-  mixins: [Fields],
+  mixins: [OptionsFields],
   data() {
     return {
       fieldData: this.field,
