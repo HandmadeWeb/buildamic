@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\View;
 use Michaelr0\Buildamic\Fields\Field;
 use Michaelr0\Buildamic\Fields\Fields;
 use Michaelr0\Buildamic\Fieldtypes\Buildamic;
-use Statamic\Fields\Value;
-
-// use Statamic\View\View;
 
 class BuildamicRenderer
 {
@@ -72,7 +69,7 @@ class BuildamicRenderer
 
     public function __toString()
     {
-        return $this->render()->render();
+        return $this->render();
     }
 
     public function render()
@@ -82,7 +79,7 @@ class BuildamicRenderer
 
     public function renderContainer()
     {
-        return View::make("{$this->viewPrefix}.layouts.container", $this->gatherData(['buildamic' => $this, 'sections' => $this->sections()]));
+        return View::make("{$this->viewPrefix}.layouts.container", $this->gatherData(['buildamic' => $this, 'sections' => $this->sections()]))->render();
     }
 
     public function renderSection(Field $section)
@@ -90,7 +87,7 @@ class BuildamicRenderer
         $section = Filter::run('buildamic_filter_everything', $section);
         $section = Filter::run('buildamic_filter_section', $section);
 
-        return View::make("{$this->viewPrefix}.layouts.section", $this->gatherData(['buildamic' => $this, 'section' => $section]));
+        return View::make("{$this->viewPrefix}.layouts.section", $this->gatherData(['buildamic' => $this, 'section' => $section]))->render();
     }
 
     public function renderRow(Field $row)
@@ -98,7 +95,7 @@ class BuildamicRenderer
         $row = Filter::run('buildamic_filter_everything', $row);
         $row = Filter::run('buildamic_filter_row', $row);
 
-        return View::make("{$this->viewPrefix}.layouts.row", $this->gatherData(['buildamic' => $this, 'row' => $row]));
+        return View::make("{$this->viewPrefix}.layouts.row", $this->gatherData(['buildamic' => $this, 'row' => $row]))->render();
     }
 
     public function renderColumn(Field $column)
@@ -106,7 +103,7 @@ class BuildamicRenderer
         $column = Filter::run('buildamic_filter_everything', $column);
         $column = Filter::run('buildamic_filter_column', $column);
 
-        return View::make("{$this->viewPrefix}.layouts.column", $this->gatherData(['buildamic' => $this, 'column' => $column]));
+        return View::make("{$this->viewPrefix}.layouts.column", $this->gatherData(['buildamic' => $this, 'column' => $column]))->render();
     }
 
     public function renderField(Field | Fields $field)
@@ -144,7 +141,7 @@ class BuildamicRenderer
         // catch all, file: default-field
         $fallbackView = "{$this->viewPrefix}.default-field";
 
-        return View::first([$viewFromCollectionHandle, $viewFromTypeAndHandle, $viewFromType, $fallbackView], $this->gatherData(['buildamic' => $this, 'field' => $field]));
+        return View::first([$viewFromCollectionHandle, $viewFromTypeAndHandle, $viewFromType, $fallbackView], $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
     }
 
     public function renderFieldset(Fields $fieldset)
@@ -162,7 +159,7 @@ class BuildamicRenderer
 
         // handle:blurb, file: blurb
         if (view()->exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
-            return View::make("{$this->viewPrefix}.fieldsets.{$handle}", $this->gatherData(['buildamic' => $this, 'field' => $fieldset, 'fields' => $fieldset->all()]));
+            return View::make("{$this->viewPrefix}.fieldsets.{$handle}", $this->gatherData(['buildamic' => $this, 'field' => $fieldset, 'fields' => $fieldset->all()]))->render();
         }
 
         // catch all, render individual fields.
@@ -183,7 +180,7 @@ class BuildamicRenderer
 
         // handle:blurb, file: blurb
         if (view()->exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
-            return View::make("{$this->viewPrefix}.sets.{$set->handle()}", $this->gatherData(['buildamic' => $this, 'set' => $set]));
+            return View::make("{$this->viewPrefix}.sets.{$set->handle()}", $this->gatherData(['buildamic' => $this, 'set' => $set]))->render();
         }
 
         // catch all, render individual fields.
