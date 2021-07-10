@@ -127,21 +127,24 @@ class BuildamicRenderer
             Filter::run("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}", $field) :
             Filter::run("buildamic_filter_field:{$field->type()}", $field);
 
-        // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
-        $viewFromCollectionHandle = '';
         if ($field->type() === 'collections') {
-            $viewFromCollectionHandle = "{$this->viewPrefix}.fields.{$field->type()}-{$field->value()->value()->first()->handle()}";
+            if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$field->value()->value()->first()->handle()}")) {
+                return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$field->value()->value()->first()->handle()}", $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
+            }
         }
 
-        $viewFromTypeAndHandle = "{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}";
+        // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
+        if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}")) {
+            return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}", $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
+        }
 
         // type: markdown, file: markdown
-        $viewFromType = "{$this->viewPrefix}.fields.{$field->type()}";
+        if (View::exists("{$this->viewPrefix}.fields.{$field->type()}")) {
+            return View::make("{$this->viewPrefix}.fields.{$field->type()}", $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
+        }
 
         // catch all, file: default-field
-        $fallbackView = "{$this->viewPrefix}.default-field";
-
-        return View::first([$viewFromCollectionHandle, $viewFromTypeAndHandle, $viewFromType, $fallbackView], $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
+        return View::make("{$this->viewPrefix}.default-field", $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
     }
 
     public function renderFieldset(Fields $fieldset)
@@ -158,7 +161,7 @@ class BuildamicRenderer
         $fieldset = Filter::run("buildamic_filter_fieldset:{$handle}", $fieldset);
 
         // handle:blurb, file: blurb
-        if (view()->exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
+        if (View::exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
             return View::make("{$this->viewPrefix}.fieldsets.{$handle}", $this->gatherData(['buildamic' => $this, 'field' => $fieldset, 'fields' => $fieldset->all()]))->render();
         }
 
@@ -179,7 +182,7 @@ class BuildamicRenderer
         // $set = Filter::run("buildamic_filter_set:{$set->handle()}", $set);
 
         // handle:blurb, file: blurb
-        if (view()->exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
+        if (View::exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
             return View::make("{$this->viewPrefix}.sets.{$set->handle()}", $this->gatherData(['buildamic' => $this, 'set' => $set]))->render();
         }
 
