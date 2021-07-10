@@ -79,22 +79,22 @@ class BuildamicFilters
 
     public static function filter_everything(Field $field): Field
     {
-        $classList = $field->buildamicSetting('attributes.class');
+        $classList = collect(explode(' ', $field->buildamicSetting('attributes.class')))->filter()->toArray();
 
         if (is_array($field->buildamicSetting('inline'))) {
             // Remove anything we don't want generated with the loop (e.g background is handled separately)
             $inlineClassList = collect($field->buildamicSetting('inline'))->filter(function ($value, $key) {
                 return $key !== 'background';
-            })->toArray();
+            })->filter()->toArray();
 
             if (! empty($inlineClassList)) {
                 foreach ($inlineClassList as $item) {
-                    $classList .= static::generateTailwindClasses($item);
+                    $classList[] = static::generateTailwindClasses($item);
                 }
             }
         }
 
-        $field->mergeComputedAttributes(['class' => $classList]);
+        $field->mergeComputedAttributes(['class' => implode(' ', $classList)]);
 
         return $field;
     }
@@ -171,6 +171,6 @@ class BuildamicFilters
             $generatedClasses[] = $classes;
         }
 
-        return ' '.implode(' ', $generatedClasses);
+        return trim(implode(' ', $generatedClasses), ' ');
     }
 }
