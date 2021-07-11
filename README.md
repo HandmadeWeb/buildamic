@@ -33,15 +33,23 @@ Buildamic will display the "label" for the "field" from the first available.
 Outputting on the frontend is quite simple, you just use the handle that was given to the field when you configure it in your blueprint.
 And reference the below two examples on how to render the output in Antlers or Blade.
 
+Statamic automatically casts the handle to an instance of \Statamic\Fields\Value and will automatically render via the __toString methods. 
+
 By default the handle will be "buildamic"
 
 ### Antlers output
 ```php
+// The easy way
 {{ buildamic }}
 ```
 ### Blade output
+If you are using Blade then We advise using "Our perferred way" listed below, which is slightly faster and will shows a more complete picture should you choose to run a code profiler (Example: blackfire.io)
 ```php
+// The easy way
 {!! $buildamic !!}
+
+// Our perferred way.
+{!! $buildamic->value()->render() !!}
 ```
 ### View Engines & View Overrides
 Currently Buildamic only comes with view files written with Blade.
