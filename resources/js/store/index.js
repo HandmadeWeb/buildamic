@@ -1,4 +1,4 @@
-export const buildyStore = {
+export const buildamicStore = {
     state: () => ({
         breakpoint: 'xs'
     }),
