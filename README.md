@@ -42,8 +42,10 @@ By default the handle will be "buildamic"
 // The easy way
 {{ buildamic }}
 ```
+
 ### Blade output
 If you are using Blade then We advise using "Our perferred way" listed below, which is slightly faster and will shows a more complete picture should you choose to run a code profiler (Example: blackfire.io)
+
 ```php
 // The easy way
 {!! $buildamic !!}
@@ -51,6 +53,7 @@ If you are using Blade then We advise using "Our perferred way" listed below, wh
 // Our perferred way.
 {!! $buildamic->value()->render() !!}
 ```
+
 ### View Engines & View Overrides
 Currently Buildamic only comes with view files written with Blade.
 Buildamic will still work if your front end uses Antlers, it just means that when it loops and renders fields, it will use Blade todo so.
