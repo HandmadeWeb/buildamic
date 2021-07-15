@@ -41,37 +41,37 @@ class BuildamicFilters
 
     // public static function example_filter(Field $data): Field
     // {
-    //     // Can use computedProperties or computedAttributes separately.
+    //     // Can use computedAttributes.
     //
-    //     // set/replace computed properties with the provided.
-    //     $data->field()->setComputedProperties(['foo' => 'bar']);
-    //     $data->field()->computedProperties();
+    //     // set/replace computed attributes with the provided.
+    //     $data->field()->setcomputedAttributes(['foo' => 'bar']);
+    //     $data->field()->computedAttributes();
     //     // [
     //     //     "foo" => "bar"
     //     // ]
-    //     $data->field()->computedProperty('foo');
+    //     $data->field()->computedAttribute('foo');
     //     // Bar
 
-    //     // add/merge new data into the computed properties.
-    //     $data->field()->mergeComputedProperties(['bar' => 'foo']);
-    //     $data->field()->computedProperties();
+    //     // add/merge new data into the computed attribuites.
+    //     $data->field()->mergeComputedAttributes(['bar' => 'foo']);
+    //     $data->field()->computedAttributes();
     //     // [
     //     //     "foo" => "bar",
     //     //     "bar" => "foo"
     //     // ]
-    //     $data->field()->computedProperty('bar');
+    //     $data->field()->computedAttribute('bar');
     //     // Foo
 
-    //     // set/replace computed properties with the provided.
-    //     $data->field()->setComputedProperties(['bar' => 'foo']);
-    //     $data->field()->computedProperties();
+    //     // set/replace computed attributes with the provided.
+    //     $data->field()->setcomputedAttributes(['bar' => 'foo']);
+    //     $data->field()->computedAttributes();
     //     // [
     //     //     "bar" => "foo"
     //     // ]
-    //     $data->field()->computedProperty('bar');
+    //     $data->field()->computedAttribute('bar');
     //     // Foo
-    //     $data->field()->computedProperty('foo');
-    //     // null or $fallback (second property on computedProperty method)
+    //     $data->field()->computedAttribute('foo');
+    //     // null or $fallback (second property on computedAttribute method)
 
     //     // Must be returned!
     //     return $data;

@@ -3,13 +3,11 @@
 namespace Michaelr0\Buildamic\Fields;
 
 use Michaelr0\Buildamic\Traits\buildamicSettings;
-use Michaelr0\Buildamic\Traits\computedProperties;
 use Statamic\Fields\Fields as StatamicFields;
 
 class Fields extends StatamicFields
 {
     use buildamicSettings;
-    use computedProperties;
 
     public function newInstance()
     {
