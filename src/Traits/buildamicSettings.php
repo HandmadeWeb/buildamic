@@ -13,6 +13,13 @@ trait buildamicSettings
         return $this;
     }
 
+    public function mergeBuildamicSettings(array $buildamicSettings)
+    {
+        $this->buildamicSettings = array_merge($this->buildamicSettings, $buildamicSettings);
+
+        return $this;
+    }
+
     public function buildamicSettings(): array
     {
         return $this->buildamicSettings;
