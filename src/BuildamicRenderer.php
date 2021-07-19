@@ -127,9 +127,12 @@ class BuildamicRenderer
             Filter::run("buildamic_filter_field:{$field->type()}-{$field->handle('handle')}", $field) :
             Filter::run("buildamic_filter_field:{$field->type()}", $field);
 
+        // type: collections, collection: sponsors, file: collections-sponsors
         if ($field->type() === 'collections') {
-            if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$field->value()->value()->first()->handle()}")) {
-                return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$field->value()->value()->first()->handle()}", $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
+            $collectionHandle = $field->value()->value()->first()->handle();
+
+            if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}")) {
+                return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}", $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
             }
         }
 
