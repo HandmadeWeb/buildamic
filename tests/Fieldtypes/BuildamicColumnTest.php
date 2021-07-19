@@ -10,24 +10,7 @@ class BuildamicColumnTest extends TestCase
     /** @test */
     public function it_is_a_buildamic_column()
     {
-        $values = [
-            [
-                'uuid' => 'field-test',
-                'type' => 'field',
-                'config' => [
-                    'statamic_settings' => [
-                        'handle' => 'field-test',
-                        'field' => [
-                            'type' => 'markdown',
-                        ],
-                    ],
-                    'buildamic_settings' => [
-                        'enabled' => true,
-                    ],
-                ],
-                'value' => 'Testing',
-            ],
-        ];
+        $values = [];
 
         $field = (new Field('column-handle', [
             'type' => 'buildamic-column',

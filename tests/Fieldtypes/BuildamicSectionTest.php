@@ -10,13 +10,7 @@ class BuildamicSectionTest extends TestCase
     /** @test */
     public function it_is_a_buildamic_section()
     {
-        $values = [
-            [
-                'uuid' => 'row-test',
-                'type' => 'row',
-                'value' => [],
-            ],
-        ];
+        $values = [];
 
         $field = (new Field('section-handle', [
             'type' => 'buildamic-section',

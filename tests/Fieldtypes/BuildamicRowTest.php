@@ -10,13 +10,7 @@ class BuildamicRowTest extends TestCase
     /** @test */
     public function it_is_a_buildamic_row()
     {
-        $values = [
-            [
-                'uuid' => 'column-test',
-                'type' => 'column',
-                'value' => [],
-            ],
-        ];
+        $values = [];
 
         $field = (new Field('row-handle', [
             'type' => 'buildamic-row',
