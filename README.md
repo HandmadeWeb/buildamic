@@ -44,7 +44,7 @@ By default the handle will be "buildamic"
 ```
 
 ### Blade output
-If you are using Blade then We advise using "Our perferred way" listed below, which is slightly faster and will shows a more complete picture should you choose to run a code profiler (Example: blackfire.io)
+If you are using Blade then We advise using "Our perferred way" listed below, which is slightly faster and will show a more complete picture should you choose to run a code profiler (Example: blackfire.io)
 
 ```php
 // The easy way
@@ -55,8 +55,8 @@ If you are using Blade then We advise using "Our perferred way" listed below, wh
 ```
 
 ### View Engines & View Overrides
-Currently Buildamic only comes with view files written with Blade.
-Buildamic will still work if your front end uses Antlers, it just means that when it loops and renders fields, it will use Blade todo so.
+Currently Buildamic only comes with view files written in Blade.
+Buildamic will still work if your front end uses Antlers, it just means that when Buildamic loops and renders fields, Blade will be used to do so.
 We have planned to allow Antlers to be a selectable option, but have not implemented this.
 
 The following directories would be used should you need to override a given view (or create new ones)
@@ -81,6 +81,7 @@ Then
 * loaded file: default-field.blade.php
 
 In the event that a suitable view could not be located, rather than erroring out or logging an exception, something like the below will instead appear as a html comment.
+
 ```html
 <!-- Field could not be rendered, View not found -->
 <!-- Type: bard -->
