@@ -8,7 +8,6 @@
     @if(!empty($terms))
         <ul class="terms">
             @foreach($terms as $term)
-                {{-- @dd($term->data()) --}}
                 <li class="term term-{{ $term->slug() }}">{{ $term->get('title') }}</li>
             @endforeach
         </ul>
