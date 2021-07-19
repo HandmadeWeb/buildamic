@@ -32,14 +32,14 @@ class BuildamicTest extends TestCase
                     'statamic_settings' => [
                         'handle' => 'field-test',
                         'field' => [
-                            'type' => 'text',
+                            'type' => 'markdown',
                         ],
                     ],
                     'buildamic_settings' => [
                         'enabled' => true,
                     ],
                 ],
-                'value' => 'Testing',
+                'value' => '## Testing',
             ],
         ];
 
@@ -85,62 +85,31 @@ class BuildamicTest extends TestCase
                     [
                         'handle' => 'field-test',
                         'field' => [
-                            'input_type' => 'text',
-                            'antlers' => false,
-                            'display' => 'Text',
-                            'type' => 'text',
-                            'icon' => 'text',
-                            'listable' => 'hidden',
+                            'type' => 'markdown',
                         ],
                     ],
                 ],
                 'sets' => [],
             ]))
-            ->setValue($sections)
-            ->augment();
+            ->setValue($sections);
 
         $this->assertEquals($field->type(), 'buildamic');
 
-        $buildamicRenderer = $field->value()->value();
-        $this->assertTrue($buildamicRenderer instanceof BuildamicRenderer);
+        $firstRender = $field->augment()->value()->value();
+        $this->assertTrue($firstRender instanceof BuildamicRenderer);
 
-        $firstRender = $buildamicRenderer->render();
+        $firstRender = $firstRender->render();
 
         $this->assertTrue(Str::contains($firstRender, 'class="buildamic-container'));
         $this->assertTrue(Str::contains($firstRender, 'class="buildamic-section'));
         $this->assertTrue(Str::contains($firstRender, 'class="buildamic-row'));
         $this->assertTrue(Str::contains($firstRender, 'class="buildamic-column'));
         $this->assertTrue(Str::contains($firstRender, 'class="buildamic-field'));
-        $this->assertTrue(Str::contains($firstRender, 'Testing'));
+        $this->assertTrue(Str::contains($firstRender, '<h2>Testing</h2>'));
 
-        $this->assertSame($buildamicRenderer->render(), $firstRender);
-
-        $field = (new Field('buildamic-test', [
-                'type' => 'buildamic',
-                'view_engine' => 'blade',
-                'container_id' => '',
-                'container_class' => '',
-                'fields' => [
-                    [
-                        'handle' => 'field-test',
-                        'field' => [
-                            'input_type' => 'text',
-                            'antlers' => false,
-                            'display' => 'Text',
-                            'type' => 'text',
-                            'icon' => 'text',
-                            'listable' => 'hidden',
-                        ],
-                    ],
-                ],
-                'sets' => [],
-            ]))
-            ->setValue(array_merge($sections, $sections))
-            ->augment();
-
-        $secondRender = $field->value()->value();
+        $secondRender = $field->setValue(array_merge($sections, $sections))->augment()->value()->value()->render();
 
         $this->assertNotSame($firstRender, $secondRender);
-        $this->assertEquals(Str::substrCount($secondRender, 'Testing'), 2);
+        $this->assertEquals(Str::substrCount($secondRender, '<h2>Testing</h2>'), 2);
     }
 }
