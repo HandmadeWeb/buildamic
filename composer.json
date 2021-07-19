@@ -2,6 +2,11 @@
     "name": "michaelr0/buildamic",
     "license": "MIT",
     "description": "Buildamic is a Pagebuilder addon for Statamic 3",
+    "keywords": [
+        "statamic",
+        "statamic-addon",
+        "page-builder"
+    ],
     "require": {
         "php": "^8.0",
         "laravel/framework": "^8.0",
