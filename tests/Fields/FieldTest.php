@@ -8,14 +8,6 @@ use Michaelr0\Buildamic\Tests\TestCase;
 class FieldTest extends TestCase
 {
     /** @test */
-    public function it_is_instanceof_field()
-    {
-        $field = (new Field('test-handle', ['type' => 'markdown']));
-
-        $this->assertTrue($field instanceof Field);
-    }
-
-    /** @test */
     public function it_can_use_buildamic_settings()
     {
         $field = (new Field('test-handle', ['type' => 'markdown']));

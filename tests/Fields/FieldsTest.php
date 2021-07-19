@@ -8,14 +8,6 @@ use Michaelr0\Buildamic\Tests\TestCase;
 class FieldsTest extends TestCase
 {
     /** @test */
-    public function it_is_instanceof_fields()
-    {
-        $fields = (new Fields([]));
-
-        $this->assertTrue($fields instanceof Fields);
-    }
-
-    /** @test */
     public function it_can_use_buildamic_settings()
     {
         $fields = (new Fields([]));
