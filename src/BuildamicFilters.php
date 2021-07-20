@@ -3,6 +3,7 @@
 namespace Michaelr0\Buildamic;
 
 use Michaelr0\Buildamic\Fields\Field;
+use Michaelr0\Buildamic\Fields\Fields;
 
 class BuildamicFilters
 {
@@ -77,7 +78,7 @@ class BuildamicFilters
     //     return $data;
     // }
 
-    public static function filter_everything(Field $field): Field
+    public static function filter_everything(Field | Fields $field)
     {
         $classList = collect(explode(' ', $field->buildamicSetting('attributes.class')))->filter()->toArray();
 

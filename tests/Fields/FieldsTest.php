@@ -35,4 +35,33 @@ class FieldsTest extends TestCase
         $this->assertEquals(['foo' => 'bar'], $fields->buildamicSetting(null));
         $this->assertEquals('bar', $fields->buildamicSetting('foo'));
     }
+
+    /** @test */
+    public function it_can_use_computed_attributes()
+    {
+        $fields = (new Fields([]));
+
+        $this->assertIsArray($fields->computedAttributes());
+        $this->assertIsArray($fields->computedAttribute(null));
+        $this->assertNull($fields->computedAttribute('foo'));
+
+        $fields->setComputedAttributes(['foo' => 'bar']);
+
+        $this->assertEquals(['foo' => 'bar'], $fields->computedAttributes());
+        $this->assertEquals(['foo' => 'bar'], $fields->computedAttribute(null));
+        $this->assertEquals('bar', $fields->computedAttribute('foo'));
+
+        $fields->mergeComputedAttributes(['bar' => 'foo']);
+
+        $this->assertEquals(['foo' => 'bar', 'bar' => 'foo'], $fields->computedAttributes());
+        $this->assertEquals(['foo' => 'bar', 'bar' => 'foo'], $fields->computedAttribute(null));
+        $this->assertEquals('bar', $fields->computedAttribute('foo'));
+        $this->assertEquals('foo', $fields->computedAttribute('bar'));
+
+        $fields->setComputedAttributes(['foo' => 'bar']);
+
+        $this->assertEquals(['foo' => 'bar'], $fields->computedAttributes());
+        $this->assertEquals(['foo' => 'bar'], $fields->computedAttribute(null));
+        $this->assertEquals('bar', $fields->computedAttribute('foo'));
+    }
 }
