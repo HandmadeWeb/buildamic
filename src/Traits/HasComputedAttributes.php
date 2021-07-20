@@ -2,7 +2,7 @@
 
 namespace Michaelr0\Buildamic\Traits;
 
-trait computedAttributes
+trait HasComputedAttributes
 {
     protected $computedAttributes = [];
 

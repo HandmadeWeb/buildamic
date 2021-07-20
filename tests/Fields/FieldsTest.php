@@ -64,4 +64,28 @@ class FieldsTest extends TestCase
         $this->assertEquals(['foo' => 'bar'], $fields->computedAttribute(null));
         $this->assertEquals('bar', $fields->computedAttribute('foo'));
     }
+
+    /** @test */
+    public function it_augments_once()
+    {
+        $fields = (new Fields([]));
+
+        $firstAugment = $fields->augment();
+        $secondAugment = $firstAugment->augment();
+
+        $this->assertSame($firstAugment, $secondAugment);
+        $this->assertNotSame($firstAugment, $secondAugment->shallowAugment());
+    }
+
+    /** @test */
+    public function it_shallow_augments_once()
+    {
+        $fields = (new Fields([]));
+
+        $firstAugment = $fields->shallowAugment();
+        $secondAugment = $firstAugment->shallowAugment();
+
+        $this->assertSame($firstAugment, $secondAugment);
+        $this->assertNotSame($firstAugment, $secondAugment->augment());
+    }
 }

@@ -2,14 +2,16 @@
 
 namespace Michaelr0\Buildamic\Fields;
 
-use Michaelr0\Buildamic\Traits\buildamicSettings;
-use Michaelr0\Buildamic\Traits\computedAttributes;
+use Michaelr0\Buildamic\Traits\AugmentsOnce;
+use Michaelr0\Buildamic\Traits\HasBuildamicSettings;
+use Michaelr0\Buildamic\Traits\HasComputedAttributes;
 use Statamic\Fields\Fields as StatamicFields;
 
 class Fields extends StatamicFields
 {
-    use buildamicSettings;
-    use computedAttributes;
+    use HasBuildamicSettings;
+    use HasComputedAttributes;
+    use AugmentsOnce;
 
     public function newInstance()
     {

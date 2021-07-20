@@ -2,7 +2,7 @@
 
 namespace Michaelr0\Buildamic\Traits;
 
-trait buildamicSettings
+trait HasBuildamicSettings
 {
     protected $buildamicSettings = [];
 
