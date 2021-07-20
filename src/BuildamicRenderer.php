@@ -129,6 +129,8 @@ class BuildamicRenderer
 
         // type: collections, collection: sponsors, file: collections-sponsors
         if ($field->type() === 'collections') {
+            $field = $field->{$this->augmentMethod}();
+
             $collectionHandle = $field->value()->value()->first()->handle();
 
             if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}")) {
@@ -138,11 +140,15 @@ class BuildamicRenderer
 
         // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
         if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}")) {
+            $field = $field->{$this->augmentMethod}();
+
             return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}", $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
         }
 
         // type: markdown, file: markdown
         if (View::exists("{$this->viewPrefix}.fields.{$field->type()}")) {
+            $field = $field->{$this->augmentMethod}();
+
             return View::make("{$this->viewPrefix}.fields.{$field->type()}", $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
         }
 
@@ -152,6 +158,9 @@ class BuildamicRenderer
 
     public function renderFieldset(Fields $fieldset)
     {
+        $fieldset = $fieldset->{$this->augmentMethod}();
+        $fields = $fieldset->all();
+
         $fieldset = Filter::run('buildamic_filter_everything', $fieldset);
 
         $config = $fieldset->items()->first();
@@ -165,13 +174,13 @@ class BuildamicRenderer
 
         // handle:blurb, file: blurb
         if (View::exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
-            return View::make("{$this->viewPrefix}.fieldsets.{$handle}", $this->gatherData(['buildamic' => $this, 'fieldset' => $fieldset, 'fields' => $fieldset->all()]))->render();
+            return View::make("{$this->viewPrefix}.fieldsets.{$handle}", $this->gatherData(['buildamic' => $this, 'fieldset' => $fieldset, 'fields' => $fields]))->render();
         }
 
         // catch all, render individual fields.
         $html = '';
 
-        foreach ($fieldset->all() as $field) {
+        foreach ($fields as $field) {
             $html .= $this->renderSingleField($field);
         }
 
@@ -180,19 +189,24 @@ class BuildamicRenderer
 
     public function renderSet(Field $set)
     {
+        $set = $set->{$this->augmentMethod}();
+        $fields = $set->value()->value()->value()->value();
+
         $set = Filter::run('buildamic_filter_everything', $set);
         $set = Filter::run('buildamic_filter_set', $set);
         $set = Filter::run("buildamic_filter_set:{$set->handle()}", $set);
 
         // handle:blurb, file: blurb
         if (View::exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
-            return View::make("{$this->viewPrefix}.sets.{$set->handle()}", $this->gatherData(['buildamic' => $this, 'set' => $set, 'fields' => $set->value()->value()->value()->value()]))->render();
+            $set->{$this->augmentMethod}();
+
+            return View::make("{$this->viewPrefix}.sets.{$set->handle()}", $this->gatherData(['buildamic' => $this, 'set' => $set, 'fields' => $fields]))->render();
         }
 
         // catch all, render individual fields.
         $html = '';
 
-        foreach ($set->value()->value()->value()->value() as $field) {
+        foreach ($fields as $field) {
             $html .= $this->renderSingleField($field);
         }
 

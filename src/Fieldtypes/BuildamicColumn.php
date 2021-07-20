@@ -149,8 +149,7 @@ class BuildamicColumn extends BuildamicBase
                     ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
                     ->setParent($this->field()->parent())
                     ->setParentField($this->field())
-                    ->setValue($field['value'] ?? null)
-                    ->{$method}();
+                    ->setValue($field['value'] ?? null);
             }
 
             if ($field['type'] === 'fieldset') {
@@ -188,8 +187,7 @@ class BuildamicColumn extends BuildamicBase
                     ->setParent($this->field()->parent())
                     ->setParentField($this->field())
                     ->setItems([$field['config']['statamic_settings']])
-                    ->addValues($field['value'] ?? [])
-                    ->{$method}();
+                    ->addValues($field['value'] ?? []);
             }
 
             if ($field['type'] === 'set') {
@@ -211,8 +209,7 @@ class BuildamicColumn extends BuildamicBase
                     ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
                     ->setParent($this->field()->parent())
                     ->setParentField($this->field())
-                    ->setValue($field['value'] ?? null)
-                    ->{$method}();
+                    ->setValue($field['value'] ?? null);
             }
         })->filter()->all();
 
