@@ -6,14 +6,14 @@ trait HasBuildamicSettings
 {
     protected $buildamicSettings = [];
 
-    public function setBuildamicSettings(array $buildamicSettings)
+    public function setBuildamicSettings(array $buildamicSettings): static
     {
         $this->buildamicSettings = $buildamicSettings;
 
         return $this;
     }
 
-    public function mergeBuildamicSettings(array $buildamicSettings)
+    public function mergeBuildamicSettings(array $buildamicSettings): static
     {
         $this->buildamicSettings = array_merge($this->buildamicSettings, $buildamicSettings);
 

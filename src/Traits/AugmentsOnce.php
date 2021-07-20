@@ -7,21 +7,21 @@ trait AugmentsOnce
     protected $isAugmented = false;
     protected $isShallowAugmented = false;
 
-    protected function setAugmented($augmented = true)
+    protected function setAugmented(bool $augmented = true): static
     {
         $this->isAugmented = $augmented;
 
         return $this;
     }
 
-    protected function setShallowAugmented($shallowAugmented = true)
+    protected function setShallowAugmented(bool $shallowAugmented = true): static
     {
         $this->isShallowAugmented = $shallowAugmented;
 
         return $this;
     }
 
-    public function augment()
+    public function augment(): static
     {
         if (! $this->isAugmented || $this->isShallowAugmented) {
             return parent::augment()->setAugmented();
@@ -30,7 +30,7 @@ trait AugmentsOnce
         return $this;
     }
 
-    public function shallowAugment()
+    public function shallowAugment(): static
     {
         if ($this->isAugmented || ! $this->isShallowAugmented) {
             return parent::shallowAugment()->setShallowAugmented();

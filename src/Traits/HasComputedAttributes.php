@@ -6,14 +6,14 @@ trait HasComputedAttributes
 {
     protected $computedAttributes = [];
 
-    public function setComputedAttributes(array $computedAttributes)
+    public function setComputedAttributes(array $computedAttributes): static
     {
         $this->computedAttributes = $computedAttributes;
 
         return $this;
     }
 
-    public function mergeComputedAttributes(array $computedAttributes)
+    public function mergeComputedAttributes(array $computedAttributes): static
     {
         $this->computedAttributes = array_merge($this->computedAttributes, $computedAttributes);
 
