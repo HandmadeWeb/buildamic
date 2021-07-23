@@ -22,16 +22,13 @@ class BuildamicRenderer
 
     public function __construct(Buildamic $fieldInstance, bool $shallowAugment = false)
     {
-        $this->instance = $fieldInstance->field();
+        $this->instance = $fieldInstance;
         $this->augmentMethod = $shallowAugment ? 'shallowAugment' : 'augment';
-
-        $this->viewEngine = $this->instance->get('view_engine') ?? 'blade';
+        $this->viewEngine = $this->instance->field()->get('view_engine') ?? 'blade';
         $this->viewPrefix = "buildamic::{$this->viewEngine}";
-
-        $this->containerId = $this->instance->get('container_id');
-        $this->containerClass = $this->instance->get('container_class');
-
-        $this->sections = $this->instance->value();
+        $this->containerId = $this->instance->field()->get('container_id');
+        $this->containerClass = $this->instance->field()->get('container_class');
+        $this->sections = $this->instance->field()->value();
     }
 
     public function containerId()
@@ -108,7 +105,7 @@ class BuildamicRenderer
 
     public function renderField(Field | Fields $field)
     {
-        if ($field instanceof Field && $field->type() === 'buildamic-set') {
+        if ($field instanceof Field && $field->type() === 'sets') {
             return $this->renderSet($field);
         }
 
@@ -181,7 +178,7 @@ class BuildamicRenderer
         $html = '';
 
         foreach ($fields as $field) {
-            $html .= $this->renderSingleField($field);
+            $html .= $this->renderField($field);
         }
 
         return $html;
@@ -189,17 +186,27 @@ class BuildamicRenderer
 
     public function renderSet(Field $set)
     {
-        $set = $set->{$this->augmentMethod}();
-        $fields = $set->value()->value()->value()->value();
-
         $set = Filter::run('buildamic_filter_everything', $set);
         $set = Filter::run('buildamic_filter_set', $set);
         $set = Filter::run("buildamic_filter_set:{$set->handle()}", $set);
 
+        $values = $set->value();
+        $values = is_array($values) ? $values : [];
+
+        $set = $set->{$this->augmentMethod}();
+
+        // Build Fields
+        $fields = $this->instance->set($set->handle());
+        $fields = $fields
+            ->setBuildamicSettings($set->buildamicSettings())
+            ->setParent($set->parent())
+            ->setParentField($set)
+            ->addValues($values)
+            ->{$this->augmentMethod}()
+            ->all();
+
         // handle:blurb, file: blurb
         if (View::exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
-            $set->{$this->augmentMethod}();
-
             return View::make("{$this->viewPrefix}.sets.{$set->handle()}", $this->gatherData(['buildamic' => $this, 'set' => $set, 'fields' => $fields]))->render();
         }
 
@@ -207,7 +214,7 @@ class BuildamicRenderer
         $html = '';
 
         foreach ($fields as $field) {
-            $html .= $this->renderSingleField($field);
+            $html .= $this->renderField($field);
         }
 
         return $html;

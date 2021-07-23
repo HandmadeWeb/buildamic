@@ -191,7 +191,7 @@ class BuildamicColumn extends BuildamicBase
             }
 
             if ($field['type'] === 'set') {
-                $field['config']['statmic_settings']['field']['type'] = 'buildamic-set';
+                $field['config']['statmic_settings']['field']['type'] = 'sets';
 
                 // uuid: 98962c4d-2b1d-4579-b119-1757ee6cd608
                 // type: set
@@ -209,7 +209,7 @@ class BuildamicColumn extends BuildamicBase
                     ->setBuildamicSettings($field['config']['buildamic_settings'] ?? [])
                     ->setParent($this->field()->parent())
                     ->setParentField($this->field())
-                    ->setValue($field['value'] ?? null);
+                    ->setValue($field['value'] ?? []);
             }
         })->filter()->all();
 
