@@ -178,7 +178,7 @@ class BuildamicRenderer
         $html = '';
 
         foreach ($fields as $field) {
-            $html .= $this->renderField($field);
+            $html .= $this->renderSingleField($field);
         }
 
         return $html;
@@ -214,7 +214,7 @@ class BuildamicRenderer
         $html = '';
 
         foreach ($fields as $field) {
-            $html .= $this->renderField($field);
+            $html .= $this->renderSingleField($field);
         }
 
         return $html;
