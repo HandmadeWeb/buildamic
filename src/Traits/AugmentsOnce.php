@@ -7,6 +7,16 @@ trait AugmentsOnce
     protected $isAugmented = false;
     protected $isShallowAugmented = false;
 
+    public function isAugmented(): bool
+    {
+        return $this->isAugmented;
+    }
+
+    public function isShallowAugmented(): bool
+    {
+        return $this->isShallowAugmented;
+    }
+
     protected function setAugmented(bool $augmented = true): static
     {
         $this->isAugmented = $augmented;
