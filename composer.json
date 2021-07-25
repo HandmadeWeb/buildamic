@@ -38,7 +38,7 @@
     "extra": {
         "statamic": {
             "name": "Buildamic",
-            "description": "Buildamic addon"
+            "description": "Buildamic is a Pagebuilder addon for Statamic 3"
         },
         "laravel": {
             "providers": [
