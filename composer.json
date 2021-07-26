@@ -9,14 +9,12 @@
     ],
     "require": {
         "php": "^8.0",
-        "laravel/framework": "^8.0",
         "statamic/cms": "^3.1",
         "michaelr0/hookable-actions-filters": "^1.0",
         "edalzell/blade-directives": "^3.3"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.18",
-        "phpunit/phpunit": "^9.5"
+        "orchestra/testbench": "^4.0 || ^5.0 || ^6.0"
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
