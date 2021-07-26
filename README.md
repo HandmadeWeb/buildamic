@@ -10,6 +10,7 @@ Buildamic is a WIP "pagebuilder" for Statamic 3, It is currently in heavy develo
 # Requirements
 * PHP 8.0 or higher
 * Statamic 3.1 or higher
+* Laravel 8.0 or higher
 
 # Installation
 
