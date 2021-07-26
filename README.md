@@ -111,11 +111,11 @@ If no suitable view was found, then Buildamic will loop through each field withi
 
 ## Changelog
 
-Please see [CHANGELOG](https://github.com/michaelr0/buildamic/CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](https://github.com/michaelr0/buildamic/blob/master/CHANGELOG.md) for more information what has changed recently.
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/michaelr0/buildamic/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/michaelr0/buildamic/blob/master/CONTRIBUTING.md) for details.
 
 ## Credits
 
@@ -125,4 +125,4 @@ Please see [CONTRIBUTING](https://github.com/michaelr0/buildamic/CONTRIBUTING.md
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/michaelr0/buildamic/LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/michaelr0/buildamic/blob/master/LICENSE.md) for more information.
