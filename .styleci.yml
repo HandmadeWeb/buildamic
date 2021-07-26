@@ -1,2 +1,3 @@
 preset: laravel
-risky: false
+disabled:
+  - no_unused_imports
