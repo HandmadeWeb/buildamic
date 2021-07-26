@@ -77,20 +77,20 @@ class BuildamicTest extends TestCase
         ];
 
         $field = (new Field('buildamic-test', [
-                'type' => 'buildamic',
-                'view_engine' => 'blade',
-                'container_id' => '',
-                'container_class' => '',
-                'fields' => [
-                    [
-                        'handle' => 'field-test',
-                        'field' => [
-                            'type' => 'markdown',
-                        ],
+            'type' => 'buildamic',
+            'view_engine' => 'blade',
+            'container_id' => '',
+            'container_class' => '',
+            'fields' => [
+                [
+                    'handle' => 'field-test',
+                    'field' => [
+                        'type' => 'markdown',
                     ],
                 ],
-                'sets' => [],
-            ]))
+            ],
+            'sets' => [],
+        ]))
             ->setValue($sections);
 
         $this->assertEquals($field->type(), 'buildamic');
