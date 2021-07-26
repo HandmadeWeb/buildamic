@@ -110,6 +110,10 @@ When Buildamic tries to render a set, it will first try to find a view that matc
 
 If no suitable view was found, then Buildamic will loop through each field within the set and will treat them as separate fields, in which case the fields view order will apply.
 
+## Changelog
+
+Please see [CHANGELOG](https://github.com/michaelr0/buildamic/CHANGELOG.md) for more information what has changed recently.
+
 ## Contributing
 
 Please see [CONTRIBUTING](https://github.com/michaelr0/buildamic/CONTRIBUTING.md) for details.
