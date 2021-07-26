@@ -125,7 +125,7 @@ class BuildamicColumn extends BuildamicBase
 
         $method = $shallow ? 'shallowAugment' : 'augment';
 
-        $value = collect($value)->map(function ($field) use ($buildamicConfig, $method) {
+        $value = collect($value)->map(function ($field) use ($buildamicConfig) {
             if (isset($field['config']['buildamic_settings']['enabled']) && ! $field['config']['buildamic_settings']['enabled']) {
                 return;
             }
