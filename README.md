@@ -4,7 +4,6 @@
 [![Run Tests](https://github.com/michaelr0/buildamic/actions/workflows/tests.yml/badge.svg)](https://github.com/michaelr0/buildamic/actions/workflows/tests.yml)
 ![Statamic v3.1](https://img.shields.io/badge/Statamic-3.1+-FF269E?style=flat-square)
 
-
 Buildamic is a WIP "pagebuilder" for Statamic 3, It is currently in heavy development and likely to have breaking changes with frequency, as such is not considered ready to be used in production.
 
 ## THIS IS A BETA
