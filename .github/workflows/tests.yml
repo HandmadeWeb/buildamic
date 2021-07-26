@@ -20,12 +20,10 @@ jobs:
         include:
           - laravel: 8.*
             testbench: 6.*
-            laravel-constraint: ^8.18.1
           - laravel: 7.*
             testbench: 5.*
           - laravel: 6.*
             testbench: 4.*
-            laravel-constraint: ^6.6.2
           - php: 8.0
             dependency-version: prefer-lowest
             additional-deps: '"mockery/mockery:>=1.3.3"'
