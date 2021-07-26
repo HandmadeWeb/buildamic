@@ -112,14 +112,14 @@ If no suitable view was found, then Buildamic will loop through each field withi
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/michaelr0/buildamic/CONTRIBUTING.md) for details.
 
 ## Credits
 
 - [Michael Rook](https://github.com/michaelr0)
 - [John Pieters](https://github.com/sliver37)
-- [All Contributors](../../contributors)
+- [All Contributors](https://github.com/michaelr0/buildamic/graphs/contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/michaelr0/buildamic/LICENSE.md) for more information.
