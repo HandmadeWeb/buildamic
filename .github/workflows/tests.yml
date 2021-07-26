@@ -18,6 +18,9 @@ jobs:
         statamic: [3.1.*]
         dependency-version: [prefer-lowest, prefer-stable]
         os: [ubuntu-20.04]
+        include:
+          - laravel: 8.*
+            testbench: ^6.0
 
     name: P${{ matrix.php }} - S${{ matrix.statamic }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ubuntu-latest
 
