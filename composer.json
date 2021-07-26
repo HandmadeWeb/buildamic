@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.0",
         "statamic/cms": "^3.1",
-        "michaelr0/hookable-actions-filters": "^1.0",
+        "michaelr0/hookable-actions-filters": "^1.0.2",
         "edalzell/blade-directives": "^3.3"
     },
     "require-dev": {
