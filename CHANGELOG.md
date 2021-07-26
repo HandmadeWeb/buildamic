@@ -2,6 +2,6 @@
 
 All notable changes to `buildamic` will be documented in this file
 
-## 1.0.0 - TBA
+## 0.1.0 - 26/07/2021 (dd/mm/yyyy)
 
-- initial release
+- initial beta release
