@@ -11,7 +11,7 @@
         "php": "^8.0",
         "laravel/framework": "^8.0",
         "statamic/cms": "^3.1",
-        "HandmadeWeb/hookable-actions-filters": "^1.0",
+        "handmadeweb/hookable-actions-filters": "^1.0",
         "edalzell/blade-directives": "^3.3"
     },
     "require-dev": {
