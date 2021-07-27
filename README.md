@@ -1,7 +1,7 @@
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/michaelr0/buildamic.svg?style=flat-square)](https://packagist.org/packages/michaelr0/buildamic)
-[![Total Downloads](https://img.shields.io/packagist/dt/michaelr0/buildamic.svg?style=flat-square)](https://packagist.org/packages/michaelr0/buildamic)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/handmadeweb/buildamic.svg?style=flat-square)](https://packagist.org/packages/handmadeweb/buildamic)
+[![Total Downloads](https://img.shields.io/packagist/dt/handmadeweb/buildamic.svg?style=flat-square)](https://packagist.org/packages/handmadeweb/buildamic)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE.md)
-[![Run Tests](https://github.com/michaelr0/buildamic/actions/workflows/tests.yml/badge.svg)](https://github.com/michaelr0/buildamic/actions/workflows/tests.yml)
+[![Run Tests](https://github.com/handmadeweb/buildamic/actions/workflows/tests.yml/badge.svg)](https://github.com/handmadeweb/buildamic/actions/workflows/tests.yml)
 ![Statamic v3.1](https://img.shields.io/badge/Statamic-3.1+-FF269E?style=flat-square)
 
 Buildamic is a WIP "pagebuilder" for Statamic 3, It is currently in heavy development and likely to have breaking changes with frequency, as such is not considered ready to be used in production.
@@ -19,7 +19,7 @@ Please be aware that it is not recommended to use this in production just yet.
 You can install the package via composer:
 
 ```bash
-composer require michaelr0/buildamic
+composer require handmadeweb/buildamic
 ```
 
 ## Usage
@@ -111,18 +111,19 @@ If no suitable view was found, then Buildamic will loop through each field withi
 
 ## Changelog
 
-Please see [CHANGELOG](https://github.com/michaelr0/buildamic/blob/master/CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](https://github.com/handmadeweb/buildamic/blob/master/CHANGELOG.md) for more information what has changed recently.
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/michaelr0/buildamic/blob/master/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/handmadeweb/buildamic/blob/master/CONTRIBUTING.md) for details.
 
 ## Credits
 
+- [Handmade Web & Design](https://github.com/handmadeweb)
 - [Michael Rook](https://github.com/michaelr0)
 - [John Pieters](https://github.com/sliver37)
-- [All Contributors](https://github.com/michaelr0/buildamic/graphs/contributors)
+- [All Contributors](https://github.com/handmadeweb/buildamic/graphs/contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/michaelr0/buildamic/blob/master/LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/handmadeweb/buildamic/blob/master/LICENSE.md) for more information.

@@ -1,10 +1,10 @@
 <?php
 
-namespace Michaelr0\Buildamic\Fieldtypes;
+namespace HandmadeWeb\Buildamic\Fieldtypes;
 
-use Michaelr0\Buildamic\BuildamicRenderer;
-use Michaelr0\Buildamic\Fields\Field;
-use Michaelr0\Buildamic\Fields\Fields;
+use HandmadeWeb\Buildamic\BuildamicRenderer;
+use HandmadeWeb\Buildamic\Fields\Field;
+use HandmadeWeb\Buildamic\Fields\Fields;
 
 class Buildamic extends BuildamicBase
 {

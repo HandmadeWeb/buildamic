@@ -1,6 +1,6 @@
 <?php
 
-namespace Michaelr0\Buildamic\Fieldtypes;
+namespace HandmadeWeb\Buildamic\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Michaelr0\Buildamic;
+namespace HandmadeWeb\Buildamic;
 
-use Michaelr0\Buildamic\Fieldtypes\Buildamic;
-use Michaelr0\Buildamic\Fieldtypes\BuildamicColumn;
-use Michaelr0\Buildamic\Fieldtypes\BuildamicRow;
-use Michaelr0\Buildamic\Fieldtypes\BuildamicSection;
+use HandmadeWeb\Buildamic\Fieldtypes\Buildamic;
+use HandmadeWeb\Buildamic\Fieldtypes\BuildamicColumn;
+use HandmadeWeb\Buildamic\Fieldtypes\BuildamicRow;
+use HandmadeWeb\Buildamic\Fieldtypes\BuildamicSection;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider

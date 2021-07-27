@@ -1,8 +1,8 @@
 <?php
 
-namespace Michaelr0\Buildamic;
+namespace HandmadeWeb\Buildamic;
 
-use Michaelr0\HookableActionsAndFilters\Filter as BaseFilter;
+use HandmadeWeb\HookableActionsAndFilters\Filter as BaseFilter;
 
 class Filter extends BaseFilter
 {

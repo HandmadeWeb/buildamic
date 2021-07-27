@@ -1,6 +1,6 @@
 <?php
 
-namespace Michaelr0\Buildamic\Traits;
+namespace HandmadeWeb\Buildamic\Traits;
 
 trait HasComputedAttributes
 {

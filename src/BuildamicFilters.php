@@ -1,9 +1,9 @@
 <?php
 
-namespace Michaelr0\Buildamic;
+namespace HandmadeWeb\Buildamic;
 
-use Michaelr0\Buildamic\Fields\Field;
-use Michaelr0\Buildamic\Fields\Fields;
+use HandmadeWeb\Buildamic\Fields\Field;
+use HandmadeWeb\Buildamic\Fields\Fields;
 
 class BuildamicFilters
 {

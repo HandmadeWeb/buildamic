@@ -1,10 +1,10 @@
 <?php
 
-namespace Michaelr0\Buildamic\Fields;
+namespace HandmadeWeb\Buildamic\Fields;
 
-use Michaelr0\Buildamic\Traits\AugmentsOnce;
-use Michaelr0\Buildamic\Traits\HasBuildamicSettings;
-use Michaelr0\Buildamic\Traits\HasComputedAttributes;
+use HandmadeWeb\Buildamic\Traits\AugmentsOnce;
+use HandmadeWeb\Buildamic\Traits\HasBuildamicSettings;
+use HandmadeWeb\Buildamic\Traits\HasComputedAttributes;
 use Statamic\Fields\Field as StatamicField;
 
 class Field extends StatamicField

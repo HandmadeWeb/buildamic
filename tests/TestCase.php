@@ -1,8 +1,8 @@
 <?php
 
-namespace Michaelr0\Buildamic\Tests;
+namespace HandmadeWeb\Buildamic\Tests;
 
-use Michaelr0\Buildamic\ServiceProvider;
+use HandmadeWeb\Buildamic\ServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Statamic\Extend\Manifest;
 use Statamic\Providers\StatamicServiceProvider;
@@ -41,9 +41,9 @@ class TestCase extends OrchestraTestCase
         parent::getEnvironmentSetUp($app);
 
         $app->make(Manifest::class)->manifest = [
-            'michaelr0/buildamic' => [
-                'id' => 'michaelr0/buildamic',
-                'namespace' => 'Michaelr0\\Buildamic\\',
+            'HandmadeWeb/buildamic' => [
+                'id' => 'HandmadeWeb/buildamic',
+                'namespace' => 'HandmadeWeb\\Buildamic\\',
             ],
         ];
     }

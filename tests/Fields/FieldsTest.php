@@ -1,9 +1,9 @@
 <?php
 
-namespace Michaelr0\Buildamic\Tests\Fields;
+namespace HandmadeWeb\Buildamic\Tests\Fields;
 
-use Michaelr0\Buildamic\Fields\Fields;
-use Michaelr0\Buildamic\Tests\TestCase;
+use HandmadeWeb\Buildamic\Fields\Fields;
+use HandmadeWeb\Buildamic\Tests\TestCase;
 
 class FieldsTest extends TestCase
 {

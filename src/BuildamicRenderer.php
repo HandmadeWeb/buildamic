@@ -1,12 +1,12 @@
 <?php
 
-namespace Michaelr0\Buildamic;
+namespace HandmadeWeb\Buildamic;
 
 use Facades\Statamic\View\Cascade;
+use HandmadeWeb\Buildamic\Fields\Field;
+use HandmadeWeb\Buildamic\Fields\Fields;
+use HandmadeWeb\Buildamic\Fieldtypes\Buildamic;
 use Illuminate\Support\Facades\View;
-use Michaelr0\Buildamic\Fields\Field;
-use Michaelr0\Buildamic\Fields\Fields;
-use Michaelr0\Buildamic\Fieldtypes\Buildamic;
 
 class BuildamicRenderer
 {

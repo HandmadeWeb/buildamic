@@ -1,5 +1,5 @@
 {
-    "name": "michaelr0/buildamic",
+    "name": "handmadeweb/buildamic",
     "license": "MIT",
     "description": "Buildamic is a Pagebuilder addon for Statamic 3",
     "keywords": [
@@ -11,7 +11,7 @@
         "php": "^8.0",
         "laravel/framework": "^8.0",
         "statamic/cms": "^3.1",
-        "michaelr0/hookable-actions-filters": "^1.0",
+        "HandmadeWeb/hookable-actions-filters": "^1.0",
         "edalzell/blade-directives": "^3.3"
     },
     "require-dev": {
@@ -26,12 +26,12 @@
             "src/helpers.php"
         ],
         "psr-4": {
-            "Michaelr0\\Buildamic\\": "src"
+            "HandmadeWeb\\Buildamic\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Michaelr0\\Buildamic\\Tests\\": "tests"
+            "HandmadeWeb\\Buildamic\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -41,7 +41,7 @@
         },
         "laravel": {
             "providers": [
-                "Michaelr0\\Buildamic\\ServiceProvider"
+                "HandmadeWeb\\Buildamic\\ServiceProvider"
             ]
         }
     }

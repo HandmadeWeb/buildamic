@@ -1,8 +1,8 @@
 <?php
 
-namespace Michaelr0\Buildamic\Fieldtypes;
+namespace HandmadeWeb\Buildamic\Fieldtypes;
 
-use Michaelr0\Buildamic\Fields\Field;
+use HandmadeWeb\Buildamic\Fields\Field;
 
 class BuildamicSection extends BuildamicBase
 {

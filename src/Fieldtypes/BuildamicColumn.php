@@ -1,10 +1,10 @@
 <?php
 
-namespace Michaelr0\Buildamic\Fieldtypes;
+namespace HandmadeWeb\Buildamic\Fieldtypes;
 
+use HandmadeWeb\Buildamic\Fields\Field;
+use HandmadeWeb\Buildamic\Fields\Fields;
 use Illuminate\Support\Collection;
-use Michaelr0\Buildamic\Fields\Field;
-use Michaelr0\Buildamic\Fields\Fields;
 
 class BuildamicColumn extends BuildamicBase
 {

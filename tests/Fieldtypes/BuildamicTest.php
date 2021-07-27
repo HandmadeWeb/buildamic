@@ -1,10 +1,10 @@
 <?php
 
-namespace Michaelr0\Buildamic\Tests\Fieldtypes;
+namespace HandmadeWeb\Buildamic\Tests\Fieldtypes;
 
-use Michaelr0\Buildamic\BuildamicRenderer;
-use Michaelr0\Buildamic\Fields\Field;
-use Michaelr0\Buildamic\Tests\TestCase;
+use HandmadeWeb\Buildamic\BuildamicRenderer;
+use HandmadeWeb\Buildamic\Fields\Field;
+use HandmadeWeb\Buildamic\Tests\TestCase;
 use Statamic\Support\Str;
 
 class BuildamicTest extends TestCase
