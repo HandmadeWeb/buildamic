@@ -126,7 +126,8 @@ class BuildamicRenderer
 
         // type: collections, collection: sponsors, file: collections-sponsors
         if ($field->type() === 'collections') {
-            $field = $field->{$this->augmentMethod}();
+            $field = $field->{$this->augmentMethod}()
+                ->setComputedAttributes($field->computedAttributes());
 
             $collectionHandle = $field->value()->value()->first()->handle();
 
@@ -137,14 +138,16 @@ class BuildamicRenderer
 
         // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
         if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}")) {
-            $field = $field->{$this->augmentMethod}();
+            $field = $field->{$this->augmentMethod}()
+                ->setComputedAttributes($field->computedAttributes());
 
             return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}", $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
         }
 
         // type: markdown, file: markdown
         if (View::exists("{$this->viewPrefix}.fields.{$field->type()}")) {
-            $field = $field->{$this->augmentMethod}();
+            $field = $field->{$this->augmentMethod}()
+                ->setComputedAttributes($field->computedAttributes());
 
             return View::make("{$this->viewPrefix}.fields.{$field->type()}", $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
         }
@@ -155,7 +158,9 @@ class BuildamicRenderer
 
     public function renderFieldset(Fields $fieldset)
     {
-        $fieldset = $fieldset->{$this->augmentMethod}();
+        $fieldset = $fieldset->{$this->augmentMethod}()
+            ->setComputedAttributes($fieldset->computedAttributes());
+
         $fields = $fieldset->all();
 
         $fieldset = Filter::run('buildamic_filter_everything', $fieldset);
@@ -193,7 +198,8 @@ class BuildamicRenderer
         $values = $set->value();
         $values = is_array($values) ? $values : [];
 
-        $set = $set->{$this->augmentMethod}();
+        $set = $set->{$this->augmentMethod}()
+            ->setComputedAttributes($set->computedAttributes());
 
         // Build Fields
         $fields = $this->instance->set($set->handle());
