@@ -23,16 +23,18 @@ export default {
             const fullPath = responsive ? `${path}.${this.breakpoint}` : path
             const localPath = `${path}.${key}`.split('.').filter(path => path)
 
-            // Update local value
-            localPath.reduce((a, b, i) => {
-                i++
-                if (i !== localPath.length) {
-                    return a[b]
-                }
-                if (a && a[b]) {
-                    a[b].value = val
-                }
-            }, vm);
+            // Update local value for responsive items (to trigger UI to update)
+            if (responsive) {
+                localPath.reduce((a, b, i) => {
+                    i++
+                    if (i !== localPath.length) {
+                        return a[b]
+                    }
+                    if (a && a[b]) {
+                        a[b].value = val
+                    }
+                }, vm);
+            }
 
             // Update actual field settings
             return setDeep(obj, fullPath, val)

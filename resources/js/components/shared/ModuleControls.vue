@@ -49,7 +49,7 @@ export default {
       default: 0,
     },
     customSettings: {
-      type: Array,
+      type: Object,
       default: () => [],
     },
     direction: {

@@ -1,21 +1,27 @@
 <template>
   <div :class="[`${getType}-fieldtype`]">
-    <element-container>
-      <publish-field
-        :config="getConfig"
-        :value="value"
-        :meta="getMeta"
-        :handle="handle"
-        @input="
-          updateField({ obj: field, path: `value.${handle}`, val: $event })
-        "
-        @meta-updated="
-          updateField({ obj: field, path: 'computed.meta', val: $event })
-        "
-        @focus="$emit('focus')"
-        @blur="$emit('blur')"
-      />
-    </element-container>
+    <div>
+      <element-container>
+        <publish-field
+          :config="getConfig"
+          :value="value"
+          :meta="getMeta"
+          :handle="handle"
+          @input="
+            updateField({ obj: field, path: `value.${handle}`, val: $event })
+          "
+          @meta-updated="
+            updateField({
+              obj: field,
+              path: `computed.meta.${handle}`,
+              val: $event,
+            })
+          "
+          @focus="$emit('focus')"
+          @blur="$emit('blur')"
+        />
+      </element-container>
+    </div>
   </div>
 </template>
 
@@ -47,32 +53,20 @@ export default {
   },
   computed: {
     sets() {
-      return [this.fieldDefaults[this.field.config.statamic_settings.handle]];
+      return [this.fieldDefaults[this.handle]];
     },
     getFieldDefaults() {
       return this.setDefaults[this.handle];
     },
     getConfig() {
-      if (
-        this.fieldData?.computed &&
-        this.fieldData?.computed[this.field.config.statamic_settings.handle]
-          ?.config
-      ) {
-        return this.fieldData?.computed[
-          this.field.config.statamic_settings.handle
-        ].config;
+      if (this.fieldData?.computed?.config[this.handle]) {
+        return this.fieldData?.computed.config[this.handle];
       }
       return this.getFieldDefaults.config;
     },
     getMeta() {
-      if (
-        this.fieldData?.computed &&
-        this.fieldData?.computed[this.field.config.statamic_settings.handle]
-          ?.meta
-      ) {
-        return this.fieldData?.computed[
-          this.field.config.statamic_settings.handle
-        ].meta;
+      if (this.fieldData?.computed?.meta[this.handle]) {
+        return this.fieldData?.computed?.meta[this.handle];
       }
       return this.getFieldDefaults.meta;
     },
@@ -81,7 +75,9 @@ export default {
     },
   },
   mounted() {
-    console.log(this.getConfig);
+    // console.log("handle", this.handle);
+    // console.log("field", this.fieldData);
+    // console.log("meta", this.getMeta);
   },
   provide() {
     return {
