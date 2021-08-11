@@ -18,6 +18,16 @@
           />
         </div>
       </div>
+      <div class="user-access mb-2">
+        <label>User Access</label>
+        <text-fieldtype
+          :handle="userId.handle"
+          :config="userId"
+          v-model="userId.value"
+          :meta="null"
+          @input="updateField({ path: 'computed.user_access', val: $event })"
+        />
+      </div>
       <div class="admin_label">
         <label>Admin Label</label>
         <text-fieldtype
@@ -67,6 +77,16 @@ export default {
           value: this.getDeep("attributes.id") || "",
         },
       },
+      //   userId: {
+      //     placeholder:
+      //       "Add a comma-separated list of user ID's who have access to this field",
+      //     input_type: "text",
+      //     type: "text",
+      //     icon: "text",
+      //     handle: "user_access",
+      //     display: "USER ID's",
+      //     value: this.getDeep("computed.user_access") || "",
+      //   },
       admin_label: {
         placeholder: "Admin Label",
         input_type: "text",
