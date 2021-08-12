@@ -1,10 +1,10 @@
 @extends('buildamic::blade.layouts.field')
 
-@php 
-    $bardFields = $field->value()->value();
-@endphp
-
 @section('field_content')
+    @php 
+        $bardFields = $field->value()->value();
+    @endphp
+
     @if(is_array($bardFields))
         @foreach($bardFields as $bardItem)
             @if(isset($bardItem['text']))

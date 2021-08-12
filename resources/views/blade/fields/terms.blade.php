@@ -1,11 +1,11 @@
 @extends('buildamic::blade.layouts.field')
 
-@php
-    $terms = $field->value()->value()->all();
-@endphp
-
 @section('field_content')
-    @if(!empty($terms))
+    @php
+        $terms = $field->value()->value();
+    @endphp
+
+    @if($terms->isNotEmpty())
         <ul class="terms">
             @foreach($terms as $term)
                 <li class="term term-{{ $term->slug() }}">{{ $term->get('title') }}</li>

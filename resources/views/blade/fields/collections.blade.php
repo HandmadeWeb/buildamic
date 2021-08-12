@@ -1,22 +1,21 @@
 @extends('buildamic::blade.layouts.field')
 
-@php
-    $collection = $field->value()->value()->first()->handle();
-@endphp
-
 @section('field_content')
-    @if(!empty($collection))
+    @php
+        $collection = $field->value()->value()->first();
+    @endphp
+
+    @if(! empty($collection))
         <div class="collection flex gap-6 lg:gap-10">
-            @collection($collection)
-            {{-- @dd($entry['assets']->value()->first()->id()) --}}
-                @if(!$entry)
-                    <p>There are no results</p>
-                @else
+            @if($entries = \Statamic\Facades\Entry::query()->where('collection', $collection->id())->get())
+                @foreach($entries as $entry)
                     <div class="collection__entry flex-1">
-                        <h4>{{ $entry['title'] }}</h4>
+                        <h4>{{ $entry->augmentedValue('title') }}</h4>
                     </div>
-                @endif
-            @endcollection
+                @endforeach
+            @else
+                <p>There are no results</p>
+            @endif
         </div>
     @endif
 @overwrite
