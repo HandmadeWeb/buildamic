@@ -2,11 +2,11 @@
 
 @section('field_content')
     @php 
-        $bardFields = $field->value()->value();
+        $bardValue = $field->value()->value();
     @endphp
 
-    @if(is_array($bardFields))
-        @foreach($bardFields as $bardItem)
+    @if(is_array($bardValue))
+        @foreach($bardValue as $bardItem)
             @if(isset($bardItem['text']))
                 {!! $bardItem['text'] !!}
             @else
@@ -14,6 +14,6 @@
             @endif
         @endforeach
     @else
-        {!! $field->value() !!}
+        {!! $bardValue !!}
     @endif
 @overwrite

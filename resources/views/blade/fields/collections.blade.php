@@ -2,12 +2,12 @@
 
 @section('field_content')
     @php
-        $collection = $field->value()->value()->first();
+        $collections = $field->value()->value();
     @endphp
 
-    @if(! empty($collection))
+    @if($collections->isNotEmpty())
         <div class="collection flex gap-6 lg:gap-10">
-            @if($entries = \Statamic\Facades\Entry::query()->where('collection', $collection->id())->get())
+            @if($entries = \Statamic\Facades\Entry::query()->where('collection', $collections->first()->id())->get())
                 @foreach($entries as $entry)
                     <div class="collection__entry flex-1">
                         <h4>{{ $entry->augmentedValue('title') }}</h4>

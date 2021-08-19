@@ -1,15 +1,19 @@
 @extends('buildamic::blade.layouts.field')
 
 @section('field_content')
+    @php
+        $fieldValue = $field->value();
+    @endphp
+    
     @if($field->get('input_type') === 'text')
-        {{ $field->value()->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($field->value()) : $field->value() }}
+        {!! $fieldValue->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($fieldValue) : $fieldValue !!}
     @elseif($field->get('input_type') === 'email')
-        <a href="mailto:{{ $field->value() }}">{{ $field->value() }}</a>
+        <a href="mailto:{{ $fieldValue }}">{{ $fieldValue }}</a>
     @elseif($field->get('input_type') === 'tel')
-        <a href="tel:{{ $field->value() }}">{{ $field->value() }}</a>
+        <a href="tel:{{ $fieldValue }}">{{ $fieldValue }}</a>
     @elseif($field->get('input_type') === 'url')
-        <a href="{{ $field->value() }}">{{ $field->value() }}</a>
+        <a href="{{ $fieldValue }}">{{ $fieldValue }}</a>
     @else
-        {{ $field->value()->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($field->value()) : $field->value() }}
+        {!! $fieldValue->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($fieldValue) : $fieldValue !!}
     @endif
 @overwrite
