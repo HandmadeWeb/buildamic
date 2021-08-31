@@ -18,7 +18,7 @@
           />
         </div>
       </div>
-      <div class="user-access mb-2">
+      <!-- <div class="user-access mb-2">
         <label>User Access</label>
         <text-fieldtype
           :handle="userId.handle"
@@ -27,7 +27,7 @@
           :meta="null"
           @input="updateField({ path: 'computed.user_access', val: $event })"
         />
-      </div>
+      </div> -->
       <div class="admin_label">
         <label>Admin Label</label>
         <text-fieldtype

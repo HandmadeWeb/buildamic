@@ -6,7 +6,7 @@
     @endphp
 
     @if($collections->isNotEmpty())
-        <div class="collection flex gap-6 lg:gap-10">
+        <div class="collection flex flex-col lg:flex-row gap-6 lg:gap-10">
             @if($entries = \Statamic\Facades\Entry::query()->where('collection', $collections->first()->id())->get())
                 @foreach($entries as $entry)
                     <div class="collection__entry flex-1">

@@ -184,7 +184,6 @@
   // Don't generate XS, instead have no prefix eg .mb-2
   @if $name == xs {
     .buildamic-column {
-      flex-basis: 0;
       flex-grow: 1;
       max-width: 100%;
     }

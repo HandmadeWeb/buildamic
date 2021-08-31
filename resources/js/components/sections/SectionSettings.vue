@@ -9,8 +9,8 @@
               :config="{
                 handle: 'section_boxed_layout',
               }"
-              :value="boxed_layout.value"
-              @input="updateField({ path: `boxed_layout`, val: $event })"
+              v-model="boxed_layout"
+              :key="boxed_layout"
             />
           </div>
         </template>
@@ -39,10 +39,19 @@ export default {
   data() {
     return {
       columns: this.field.value,
-      boxed_layout: {
-        value: this.getDeep(`boxed_layout`) || true,
-      },
+      boxed: this.getDeep(`boxed_layout`),
     };
+  },
+  computed: {
+    boxed_layout: {
+      get() {
+        return this.boxed;
+      },
+      set($event) {
+        this.boxed = $event;
+        this.updateField({ path: `boxed_layout`, val: $event });
+      },
+    },
   },
   components: {
     OptionsTab,

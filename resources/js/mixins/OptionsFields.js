@@ -36,6 +36,10 @@ export default {
                 }, vm);
             }
 
+            console.log({
+                obj, fullPath, val
+            })
+
             // Update actual field settings
             return setDeep(obj, fullPath, val)
         },
