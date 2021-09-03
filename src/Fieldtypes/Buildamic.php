@@ -47,6 +47,11 @@ class Buildamic extends BuildamicBase
                 'type' => 'text',
                 'width' => 50,
             ],
+            'globals' => [
+                'display' => __('Globals'),
+                'instructions' => __(''),
+                'type' => 'collections',
+            ],
             'fields' => [
                 'display' => __('Fields'),
                 'type' => 'fields',
