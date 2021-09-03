@@ -15,6 +15,7 @@ class BuildamicBase extends Fieldtype
     protected $selectableInForms = false;
     protected $categories = [];
     protected $defaultValue;
+    protected $icon = 'addons';
 
     public function defaultValue()
     {
