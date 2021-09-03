@@ -43,6 +43,13 @@ Statamic automatically casts the handle to an instance of \Statamic\Fields\Value
 
 By default the handle will be "buildamic"
 
+To properly render the Buildamic field, you will need to add a stylesheet and a script to the pages you want to use the fields. It's probably best to add this to your layout.
+
+```html
+<link rel="stylesheet" href="vendor/buildamic/css/buildamic.css">
+<script src="vendor/buildamic/css/buildamic.js" defer></script>
+```
+
 #### Antlers output
 ```php
 // The easy way
