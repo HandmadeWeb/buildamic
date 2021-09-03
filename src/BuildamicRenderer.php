@@ -87,6 +87,13 @@ class BuildamicRenderer
         return View::make("{$this->viewPrefix}.layouts.section", $this->gatherData(['buildamic' => $this, 'section' => $section]))->render();
     }
 
+    public function renderGlobalSection(Field $section)
+    {
+        $globalSection = $section->value()->value();
+
+        return $globalSection->augmentedValue('content');
+    }
+
     public function renderRow(Field $row)
     {
         $row = Filter::run('buildamic_filter_everything', $row);

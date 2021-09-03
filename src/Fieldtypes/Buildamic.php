@@ -135,8 +135,12 @@ class Buildamic extends BuildamicBase
                 return;
             }
 
+            if (! in_array($section['type'], ['section', 'global-section'])) {
+                return;
+            }
+
             return (new Field($section['uuid'], []))
-                ->setConfig(array_merge(['type' => 'buildamic-section'], $section['config']))
+                ->setConfig(array_merge(['type' => "buildamic-{$section['type']}"], $section['config']))
                 ->setBuildamicSettings($section['config']['buildamic_settings'] ?? [])
                 ->setParent($parent->field()->parent())
                 ->setParentField($parent->field())

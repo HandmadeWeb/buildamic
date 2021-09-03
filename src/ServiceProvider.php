@@ -2,10 +2,6 @@
 
 namespace HandmadeWeb\Buildamic;
 
-use HandmadeWeb\Buildamic\Fieldtypes\Buildamic;
-use HandmadeWeb\Buildamic\Fieldtypes\BuildamicColumn;
-use HandmadeWeb\Buildamic\Fieldtypes\BuildamicRow;
-use HandmadeWeb\Buildamic\Fieldtypes\BuildamicSection;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
@@ -19,10 +15,13 @@ class ServiceProvider extends AddonServiceProvider
     ];
 
     protected $fieldtypes = [
-        Buildamic::class,
-        BuildamicSection::class,
-        BuildamicRow::class,
-        BuildamicColumn::class,
+        \HandmadeWeb\Buildamic\Fieldtypes\Buildamic::class,
+        //
+        \HandmadeWeb\Buildamic\Fieldtypes\BuildamicSection::class,
+        \HandmadeWeb\Buildamic\Fieldtypes\BuildamicGlobalSection::class,
+        //
+        \HandmadeWeb\Buildamic\Fieldtypes\BuildamicRow::class,
+        \HandmadeWeb\Buildamic\Fieldtypes\BuildamicColumn::class,
     ];
 
     public function boot()
