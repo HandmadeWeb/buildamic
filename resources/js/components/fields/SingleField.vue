@@ -13,11 +13,6 @@
           "
         />
       </element-container>
-      <span
-        class="text-sm italic block pt-1"
-        v-if="fieldInstructions"
-        v-html="fieldInstructions"
-      />
     </div>
   </div>
 </template>
@@ -75,12 +70,6 @@ export default {
         return this.fieldData.computed.config;
       }
       return this.getFieldDefaults.config;
-    },
-    fieldInstructions() {
-      return (
-        this.fieldData?.computed.instructions ||
-        this.getFieldDefaults.config.instructions
-      );
     },
   },
   methods: {
