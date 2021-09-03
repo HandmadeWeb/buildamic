@@ -14,6 +14,10 @@ class ServiceProvider extends AddonServiceProvider
         __DIR__.'/../public/js/buildamic.js',
     ];
 
+    protected $publishables = [
+        __DIR__.'/../public/img' => 'img',
+    ];
+
     protected $fieldtypes = [
         \HandmadeWeb\Buildamic\Fieldtypes\Buildamic::class,
         //
