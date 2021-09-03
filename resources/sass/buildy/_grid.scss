@@ -160,6 +160,10 @@
   }
 }
 
+.buildamic-field p:last-child {
+  margin-bottom: 0;
+}
+
 .buildamic-column {
   @include media-breakpoint-up(md) {
     padding: 0;

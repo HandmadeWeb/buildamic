@@ -65,6 +65,10 @@
   padding-bottom: 0;
 }
 
+.buildamic-field p:last-child {
+  margin-bottom: 0;
+}
+
 @media (min-width: 768px) {
   .buildamic-column {
     padding: 0;
