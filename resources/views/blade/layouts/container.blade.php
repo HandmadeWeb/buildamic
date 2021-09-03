@@ -1,4 +1,4 @@
-<div {!! \HandmadeWeb\Buildamic\Helper::HtmlId($buildamic->containerId() !!} class="buildamic-container {{ $buildamic->containerClass() }}">
+<div {!! \HandmadeWeb\Buildamic\Helper::HtmlId($buildamic->containerId()) !!} class="buildamic-container {{ $buildamic->containerClass() }}">
     @foreach($sections as $section)
         @if($section->type() === 'buildamic-section')
             {!! $buildamic->renderSection($section) !!} 
