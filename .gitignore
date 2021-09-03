@@ -8,3 +8,6 @@
 composer.lock
 npm-debug.log
 yarn-error.log
+
+/storage/antlers-language-server
+.antlers.json
