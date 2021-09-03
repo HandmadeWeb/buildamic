@@ -3,7 +3,7 @@
     <eva-icon
       class="flex cursor-pointer text-grey-80 pulse"
       fill="currentColor"
-      name="menu"
+      name="settings-outline"
       width="18"
       height="18"
       @click="toggleStack = true"

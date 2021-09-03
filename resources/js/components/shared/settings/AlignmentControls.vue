@@ -15,12 +15,7 @@
         v-for="option in config.options"
         :key="option"
       >
-        <!-- Check public/vendor/statamic/cp/svg for possible options. -->
-        <svg-icon class="w-6" name="burger"></svg-icon>
-        <!-- Check public/vendor/statamic/cp/svg for possible options. -->
-
-
-        <!-- <img class="w-6" :src="`/vendor/buildamic/img/${option}.svg`" /> -->
+        <img class="w-6" :src="`/vendor/buildamic/img/${option}.svg`" />
       </li>
     </ul>
   </div>
