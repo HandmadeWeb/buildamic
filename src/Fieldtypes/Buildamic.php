@@ -117,7 +117,7 @@ class Buildamic extends BuildamicBase
 
         return collect($data)->map(function ($section) use ($method) {
             $section['value'] = (new Field($section['uuid'], []))
-                ->setConfig(array_merge(['type' => 'buildamic-section'], $section['config']))
+                ->setConfig(array_merge(['type' => "buildamic-{$section['type']}"], $section['config']))
                 ->setBuildamicSettings($section['config']['buildamic_settings'] ?? [])
                 ->setParent($this->field()->parent())
                 ->setParentField($this->field())
