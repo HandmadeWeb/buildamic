@@ -111,11 +111,11 @@ If no suitable view was found, then Buildamic will loop through each field withi
 
 ## Changelog
 
-Please see [CHANGELOG](https://github.com/handmadeweb/buildamic/blob/master/CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](https://github.com/handmadeweb/buildamic/blob/main/CHANGELOG.md) for more information what has changed recently.
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/handmadeweb/buildamic/blob/master/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/handmadeweb/buildamic/blob/main/CONTRIBUTING.md) for details.
 
 ## Credits
 
@@ -126,4 +126,4 @@ Please see [CONTRIBUTING](https://github.com/handmadeweb/buildamic/blob/master/C
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/handmadeweb/buildamic/blob/master/LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/handmadeweb/buildamic/blob/main/LICENSE.md) for more information.
