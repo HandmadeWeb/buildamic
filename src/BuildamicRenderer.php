@@ -12,7 +12,7 @@ class BuildamicRenderer
 {
     protected $augmentMethod;
     protected $cascade;
-    protected $cascadeContent = [];
+    protected $data = [];
     protected $containerId;
     protected $containerClass;
     protected $instance;
@@ -61,7 +61,19 @@ class BuildamicRenderer
 
     public function gatherData(array $data)
     {
-        return array_merge(['cascade' => $this->cascade()], $data);
+        return array_merge(['cascade' => $this->cascade()], $this->data(), $data);
+    }
+
+    public function data()
+    {
+        return $this->data;
+    }
+
+    public function withData(array $data)
+    {
+        $this->data = $data;
+
+        return $this;
     }
 
     public function __toString()
