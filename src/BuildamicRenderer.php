@@ -54,7 +54,6 @@ class BuildamicRenderer
     protected function cascade()
     {
         return $this->cascade = $this->cascade ?? Cascade::instance()
-            ->withContent($this->cascadeContent)
             ->hydrate()
             ->toArray();
     }
