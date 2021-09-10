@@ -42,10 +42,7 @@
         "laravel": {
             "providers": [
                 "HandmadeWeb\\Buildamic\\ServiceProvider"
-            ],
-            "aliases": {
-                "BuildamicHelper": "HandmadeWeb\\Buildamic\\BuildamicHelper"
-            }
+            ]
         }
     }
 }
