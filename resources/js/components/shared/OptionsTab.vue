@@ -1,7 +1,7 @@
 <template>
   <div class="options flex col-gap-6">
     <div class="flex-grow">
-      <div class="attributes mb-6">
+      <div class="attributes mb-4">
         <div
           v-for="(option, key) in attributes"
           :key="key"
@@ -9,7 +9,6 @@
         >
           <label>{{ option.display }}</label>
           <component
-            class="mb-2"
             :is="`${option.type}-fieldtype`"
             :handle="option.handle"
             :config="option"
@@ -28,6 +27,13 @@
           @input="updateField({ path: 'computed.user_access', val: $event })"
         />
       </div> -->
+      <div class="data-atts mb-4">
+        <label>Data Attributes</label>
+        <data-attributes
+          instructions="You do not need to add the 'data-' to the beginning of the key, it does that automatically"
+          :field="field"
+        />
+      </div>
       <div class="admin_label">
         <label>Admin Label</label>
         <text-fieldtype
@@ -44,8 +50,9 @@
 
 <script>
 import OptionsFields from "../../mixins/OptionsFields";
+import DataAttributes from "../fields/DataAttributes.vue";
 export default {
-  components: {},
+  components: { DataAttributes },
   props: {
     field: {
       type: Object,

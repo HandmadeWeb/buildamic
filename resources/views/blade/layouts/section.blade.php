@@ -1,8 +1,8 @@
-@php 
+@php
     $boxed = $section->buildamicSetting('boxed_layout') ?? true;
 @endphp
 
-<div {!! \HandmadeWeb\Buildamic\Helper::HtmlId($section->buildamicSetting('attributes.id')) !!} class="buildamic-section {{ $section->computedAttribute('class') }}">
+<div {!! \HandmadeWeb\Buildamic\Helper::HtmlId($section->buildamicSetting('attributes.id')) !!} {{ $section->computedAttribute()['dataAtts'] }} class="buildamic-section {{ $section->computedAttribute('class') }}">
     @if ($boxed)
         <div class="container">
     @endif

@@ -81,6 +81,8 @@ class BuildamicFilters
     public static function filter_everything(Field | Fields $field)
     {
         $classList = collect(explode(' ', $field->buildamicSetting('attributes.class')))->filter()->toArray();
+        $dataAtts = static::get_data_attributes(collect($field->buildamicSetting('attributes.dataAtts'))->filter()->toArray()) ?? [];
+
 
         if (is_array($field->buildamicSetting('inline'))) {
             // Remove anything we don't want generated with the loop (e.g background is handled separately)
@@ -90,12 +92,18 @@ class BuildamicFilters
 
             if (! empty($inlineClassList)) {
                 foreach ($inlineClassList as $item) {
-                    $classList[] = static::generateTailwindClasses($item);
+                    $classList[] = static::get_tw_classes_from_inline_atts($item);
                 }
+            }
+
+            if (!empty($field->buildamicSetting('inline.background'))) {
+                // [] loop the background options
             }
         }
 
+
         $field->mergeComputedAttributes(['class' => implode(' ', $classList)]);
+        $field->mergeComputedAttributes(['dataAtts' => implode(' ', $dataAtts)]);
 
         return $field;
     }
@@ -156,16 +164,14 @@ class BuildamicFilters
      * @param array|string $classes
      * @return string
      */
-    protected static function generateTailwindClasses(array | string $classes): string
+    protected static function get_tw_classes_from_inline_atts(array | string $classes): string
     {
-        $generatedClasses = [];
-
         if (is_array($classes)) {
             foreach ($classes as $child) {
                 if (! is_array($child)) {
                     $generatedClasses[] = $child;
                 } else {
-                    $generatedClasses[] = static::generateTailwindClasses($child);
+                    $generatedClasses[] = static::get_tw_classes_from_inline_atts($child);
                 }
             }
         } else {
@@ -174,4 +180,22 @@ class BuildamicFilters
 
         return trim(implode(' ', $generatedClasses), ' ');
     }
+
+    protected static function get_data_attributes(array $dataAtts = []): array
+    {
+        $generatedAtts = [];
+
+        if (is_array($dataAtts)) {
+            foreach ($dataAtts as $att) {
+                $generatedAtts[] = "data-{$att['key']}={$att['value']}";
+            }
+        }
+
+        return $generatedAtts;
+    }
+
+    // protected static function get_inline_styles(array | string $attribute = ''): string
+    // {
+    //     // [] get the background options and create an inline style attribute string
+    // }
 }
