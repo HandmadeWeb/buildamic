@@ -101,8 +101,17 @@ class BuildamicRenderer
     public function renderGlobalSection(Field $section)
     {
         $globalSection = $section->value()->value();
+        $content = optional($globalSection->augmentedValue('buildamic'))->value();
 
-        return $globalSection->augmentedValue('content');
+        if ($content instanceof static) {
+            return $content;
+        }
+
+        $content = optional($globalSection->augmentedValue('content'))->value();
+
+        if ($content instanceof static) {
+            return $content;
+        }
     }
 
     public function renderRow(Field $row)
