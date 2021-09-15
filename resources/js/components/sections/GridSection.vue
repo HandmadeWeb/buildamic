@@ -30,11 +30,11 @@
         :rowIndex="rowIndex"
       />
     </vue-draggable>
-    <global-selector
+    <!-- <global-selector
       :sections="sections"
       :index="sectionIndex"
       :name="section.uuid + '-globals'"
-    />
+    /> -->
   </div>
 </template>
 
@@ -68,7 +68,7 @@ export default {
         globals: {
           icon: "globe",
           title: "Global Modules",
-          action: () => this.openModal(),
+          action: () => this.addGlobal(),
           order: 30,
         },
       },
@@ -80,8 +80,9 @@ export default {
       const newModule = createModule("Row");
       this.rows.push(newModule);
     },
-    openModal() {
-      this.$modals.open(`${this.section.uuid}-globals`);
+    addGlobal() {
+      const newModule = createModule("GlobalSection");
+      this.sections.splice(this.sectionIndex + 1, 0, newModule);
     },
   },
 };

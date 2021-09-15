@@ -1,16 +1,18 @@
-import { baseAPI } from "../services/statamic_api";
-
 export const buildamicStore = {
     state: () => ({
         breakpoint: 'xs',
-        globals: []
+        globals: [],
+        fieldDefaults: {},
     }),
     mutations: {
         SWITCH_BREAKPOINT(state, payload) {
             state.breakpoint = payload
         },
+        SET_FIELD_DEFAULTS(state, payload) {
+            state.fieldDefaults = payload
+        },
         SET_GLOBALS(state, payload) {
-            state.globals = payload
+            state.globals.push(...payload)
         }
     },
     actions: {
@@ -19,17 +21,16 @@ export const buildamicStore = {
                 commit('SWITCH_BREAKPOINT', payload)
             }
         },
-        async fetchGlobals({ commit }) {
-            try {
-                const res = await baseAPI.get("/collections/buildamic_globals/entries");
-                commit('SET_GLOBALS', res.data);
-            } catch (error) {
-                console.log(error)
-            }
+        setFieldDefaults({ commit }, payload) {
+            commit('SET_FIELD_DEFAULTS', payload)
+        },
+        setGlobals({ commit }, payload) {
+            commit('SET_GLOBALS', payload)
         }
     },
     getters: {
         breakpoint: state => state.breakpoint,
-        globals: state => state.globals
+        fieldDefaults: state => state.fieldDefaults,
+        globals: state => state.globals,
     }
 }

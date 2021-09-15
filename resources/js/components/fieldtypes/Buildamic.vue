@@ -64,19 +64,9 @@ export default {
   //     },
   //   },
 
-  provide() {
-    return {
-      fieldDefaults: this.meta,
-    };
-  },
-
   mounted() {
-    this.$store.dispatch("fetchGlobals");
-    // console.log(this.value);
-    //console.log(uuidv4());
-    // console.log('config:', this.config);
-    // console.log('meta:', this.meta);
-    // console.log('value:', this.value);
+    this.$store.dispatch("setFieldDefaults", this.meta);
+    this.$store.dispatch("setGlobals", this.config.globals);
   },
 };
 </script>

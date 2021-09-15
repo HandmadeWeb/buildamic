@@ -77,9 +77,9 @@ export default {
       console.log(el);
     },
   },
-  mounted() {
-    console.log(this.fieldData.value);
-  },
+  //   mounted() {
+  //     console.log(this.fieldData.value);
+  //   },
   provide() {
     return {
       storeName: "base",

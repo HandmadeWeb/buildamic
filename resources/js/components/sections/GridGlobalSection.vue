@@ -10,20 +10,29 @@
       :customSettings="customSettings"
     />
 
-    <div class="flex flex-col justify-center items-center flex-1 text-grey-70">
-      <strong class="italic">global section: {{ section.value.title }}</strong>
-    </div>
+    <element-container>
+      <publish-field
+        :config="config"
+        :value="section.value || []"
+        @input="updateField({ obj: section, path: 'value', val: $event })"
+        @meta-updated="
+          updateField({ obj: section, path: 'computed.meta', val: $event })
+        "
+      />
+    </element-container>
   </div>
 </template>
 
 <style scoped></style>
 
 <script>
+import OptionsFields from "../../mixins/OptionsFields";
 import ModuleControls from "../shared/ModuleControls";
+import { mapGetters } from "vuex";
 
 export default {
   components: { ModuleControls },
-
+  mixins: [OptionsFields],
   props: {
     section: {
       type: Object,
@@ -42,11 +51,39 @@ export default {
         add: false,
         clone: false,
       },
+      config: {
+        max_items: 1,
+        mode: "default",
+        create: false,
+        collections: [],
+        display: "Entries",
+        type: "entries",
+        icon: "entries",
+        listable: "hidden",
+        component: "relationship",
+        handle: "entries",
+        prefix: null,
+        instructions: null,
+        required: false,
+      },
     };
   },
 
+  computed: {
+    ...mapGetters(["globals", "fieldDefaults"]),
+  },
+
+  methods: {
+    getMeta() {
+      if (this.section?.computed?.meta) {
+        return this.section.computed.meta;
+      }
+      return [];
+    },
+  },
+
   mounted() {
-    console.log("global", this.section);
+    this.config.collections = this.globals;
   },
 };
 </script>

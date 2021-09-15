@@ -67,6 +67,7 @@
 <script>
 import { EvaIcon } from "vue-eva-icons";
 import { createModule } from "../factories/modules/moduleFactory";
+import { mapGetters } from "vuex";
 export default {
   props: {
     value: Array,
@@ -80,7 +81,9 @@ export default {
   components: {
     EvaIcon,
   },
-  inject: ["fieldDefaults"],
+  computed: {
+    ...mapGetters(["fieldDefaults"]),
+  },
   methods: {
     addField(field, key) {
       field = JSON.parse(JSON.stringify(field));

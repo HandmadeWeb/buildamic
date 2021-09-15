@@ -57,9 +57,6 @@ export default {
       return test;
     },
   },
-  mounted() {
-    console.log(this.field);
-  },
   methods: {
     createField(f, i) {
       return createModule("Field", {

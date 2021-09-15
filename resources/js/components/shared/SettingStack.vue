@@ -27,6 +27,7 @@ import FieldSettings from "../fields/FieldSettings.vue";
 import SetSettings from "../fields/SetSettings.vue";
 import RowSettings from "../rows/RowSettings.vue";
 import SectionSettings from "../sections/SectionSettings.vue";
+import { mapGetters } from "vuex";
 
 export default {
   props: {
@@ -40,6 +41,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["fieldDefaults"]),
     admin_label() {
       return (
         this.component.config?.buildamic_settings?.admin_label ||
@@ -50,7 +52,6 @@ export default {
       return this.component.useSettings || this.component.type;
     },
   },
-  inject: ["fieldDefaults"],
   components: {
     EvaIcon,
     FieldSettings,
@@ -58,7 +59,6 @@ export default {
     RowSettings,
     SectionSettings,
   },
-  methods: {},
 };
 </script>
 

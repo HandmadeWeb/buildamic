@@ -106,7 +106,6 @@ export default {
     // });
     // Get any current results
     this.value = this.getDeep("attributes.dataAtts") || this.value;
-    console.log(this.field);
     // If we do have more than one, make sure none are empty
     // if (this.value.length) {
     // Filter out any completely empty ones
