@@ -7,6 +7,7 @@
       :component="section"
       :value="sections"
       :index="sectionIndex"
+      :customSettings="customSettings"
     />
     <button
       class="py-1 px-2 border border-dashed"
@@ -29,6 +30,11 @@
         :rowIndex="rowIndex"
       />
     </vue-draggable>
+    <global-selector
+      :sections="sections"
+      :index="sectionIndex"
+      :name="section.uuid + '-globals'"
+    />
   </div>
 </template>
 
@@ -39,9 +45,10 @@ import GridRow from "../rows/GridRow.vue";
 import VueDraggable from "vuedraggable";
 import ModuleControls from "../shared/ModuleControls";
 import { createModule } from "../../factories/modules/moduleFactory";
+import GlobalSelector from "./GlobalSelector.vue";
 
 export default {
-  components: { GridRow, VueDraggable, ModuleControls },
+  components: { GridRow, VueDraggable, ModuleControls, GlobalSelector },
 
   props: {
     section: {
@@ -57,6 +64,14 @@ export default {
   data() {
     return {
       rows: this.section.value ?? [],
+      customSettings: {
+        globals: {
+          icon: "globe",
+          title: "Global Modules",
+          action: () => this.openModal(),
+          order: 30,
+        },
+      },
     };
   },
 
@@ -64,6 +79,9 @@ export default {
     addRow() {
       const newModule = createModule("Row");
       this.rows.push(newModule);
+    },
+    openModal() {
+      this.$modals.open(`${this.section.uuid}-globals`);
     },
   },
 };

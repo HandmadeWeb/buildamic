@@ -91,7 +91,9 @@ export default {
           order: 40,
         },
         ...this.customSettings,
-      }).sort((a, b) => a.order - b.order);
+      })
+        .filter((el) => el)
+        .sort((a, b) => a.order - b.order);
     },
     getDirection() {
       return this.direction ||

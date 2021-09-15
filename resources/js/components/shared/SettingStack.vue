@@ -12,9 +12,9 @@
       <div class="h-full p-4 bg-white overflow-auto">
         <h2 class="mb-2 text-xl">Settings for {{ admin_label }}</h2>
         <component
-          :is="`${component.type}-settings`"
+          :is="`${componentType}-settings`"
           :field="component"
-          :fieldDefaults="fieldDefaults[`${component.type}s`]"
+          :fieldDefaults="fieldDefaults[`${componentType}s`]"
         />
       </div>
     </stack>
@@ -45,6 +45,9 @@ export default {
         this.component.config?.buildamic_settings?.admin_label ||
         this.component.config.admin_label
       );
+    },
+    componentType() {
+      return this.component.useSettings || this.component.type;
     },
   },
   inject: ["fieldDefaults"],

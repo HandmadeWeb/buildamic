@@ -6,7 +6,8 @@
       ghost-class="ghost"
       class="flex flex-col gap-2 group"
     >
-      <grid-section
+      <component
+        :is="`grid-${section.type}`"
         v-for="(section, sectionIndex) in sections"
         :key="section.uuid"
         :section="section"
@@ -28,6 +29,7 @@
 
 <script>
 import GridSection from "../sections/GridSection.vue";
+import GridGlobalSection from "../sections/GridGlobalSection.vue";
 import VueDraggable from "vuedraggable";
 import { createModule } from "../../factories/modules/moduleFactory";
 
@@ -36,6 +38,7 @@ export default {
 
   components: {
     GridSection,
+    GridGlobalSection,
     VueDraggable,
   },
 
@@ -68,7 +71,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.meta);
+    this.$store.dispatch("fetchGlobals");
     // console.log(this.value);
     //console.log(uuidv4());
     // console.log('config:', this.config);
