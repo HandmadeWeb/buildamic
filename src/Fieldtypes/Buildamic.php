@@ -116,6 +116,12 @@ class Buildamic extends BuildamicBase
         $method = $preProcess ? 'preProcess' : 'process';
 
         return collect($data)->map(function ($section) use ($method) {
+            if ($method === 'preProcess') {
+            } else {
+                unset($section['computed']);
+                unset($section['meta']);
+            }
+
             $section['value'] = (new Field($section['uuid'], []))
                 ->setConfig(array_merge(['type' => "buildamic-{$section['type']}"], $section['config']))
                 ->setBuildamicSettings($section['config']['buildamic_settings'] ?? [])
