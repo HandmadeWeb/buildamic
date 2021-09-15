@@ -12,6 +12,7 @@
 
     <element-container>
       <publish-field
+        class="border p-2"
         :config="config"
         :value="section.value || []"
         @input="updateField({ obj: section, path: 'value', val: $event })"
@@ -56,7 +57,7 @@ export default {
         mode: "default",
         create: false,
         collections: [],
-        display: "Entries",
+        display: "Global Module",
         type: "entries",
         icon: "entries",
         listable: "hidden",

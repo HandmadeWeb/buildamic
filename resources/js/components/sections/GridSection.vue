@@ -30,11 +30,6 @@
         :rowIndex="rowIndex"
       />
     </vue-draggable>
-    <!-- <global-selector
-      :sections="sections"
-      :index="sectionIndex"
-      :name="section.uuid + '-globals'"
-    /> -->
   </div>
 </template>
 
@@ -45,10 +40,9 @@ import GridRow from "../rows/GridRow.vue";
 import VueDraggable from "vuedraggable";
 import ModuleControls from "../shared/ModuleControls";
 import { createModule } from "../../factories/modules/moduleFactory";
-import GlobalSelector from "./GlobalSelector.vue";
 
 export default {
-  components: { GridRow, VueDraggable, ModuleControls, GlobalSelector },
+  components: { GridRow, VueDraggable, ModuleControls },
 
   props: {
     section: {
@@ -67,7 +61,7 @@ export default {
       customSettings: {
         globals: {
           icon: "globe",
-          title: "Global Modules",
+          title: "Add Global Module",
           action: () => this.addGlobal(),
           order: 30,
         },
