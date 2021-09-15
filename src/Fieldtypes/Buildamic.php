@@ -117,6 +117,19 @@ class Buildamic extends BuildamicBase
 
         return collect($data)->map(function ($section) use ($method) {
             if ($method === 'preProcess') {
+                if ($section['type'] === 'global-section') {
+                    $field = new Field('global', [
+                        'type' => 'entries',
+                        'collections' => $this->field()->get('globals'),
+                    ]);
+
+                    $field->setValue($section['value'] ?? $field->fieldtype()->defaultValue());
+
+                    $section['computed'] = [
+                        'meta' => $field->meta(),
+                        'config' => $field->toPublishArray(),
+                    ];
+                }
             } else {
                 unset($section['computed']);
                 unset($section['meta']);
