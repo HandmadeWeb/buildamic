@@ -7,6 +7,8 @@ use HandmadeWeb\Buildamic\Fields\Field;
 use HandmadeWeb\Buildamic\Fields\Fields;
 use HandmadeWeb\Buildamic\Fieldtypes\Buildamic;
 use Illuminate\Support\Facades\View;
+use Statamic\Entries\Entry as StatamicEntry;
+use Statamic\Facades\Entry;
 
 class BuildamicRenderer
 {
@@ -98,20 +100,36 @@ class BuildamicRenderer
         return View::make("{$this->viewPrefix}.layouts.section", $this->gatherData(['buildamic' => $this, 'section' => $section]))->render();
     }
 
-    public function renderGlobalSection(Field $section)
+    protected function renderFieldFromGlobalEntry(StatamicEntry $entry)
     {
-        $globals = $section->value()->value();
+        $content = optional($entry->augmentedValue('buildamic'))->value();
 
-        $content = optional($globals->augmentedValue('buildamic'))->value();
-
-        if ($content instanceof static) {
-            return $content;
+        if ($content instanceof self) {
+            return $content->render();
         }
 
-        $content = optional($globals->augmentedValue('content'))->value();
+        $content = optional($entry->augmentedValue('content'))->value();
 
-        if ($content instanceof static) {
-            return $content;
+        if ($content instanceof self) {
+            return $content->render();
+        }
+    }
+
+    public function renderGlobalSection(Field $section)
+    {
+        if ($section->type() === 'buildamic-global-section') {
+            $globals = collect($section->value()->raw());
+
+            if ($global = Entry::find($globals->first())) {
+                return $this->renderFieldFromGlobalEntry($global);
+            }
+
+            // Maybe if we wanted to allow more than one global?
+            // $globals = Entry::query()->whereIn('id', $globals->toArray())->get();
+
+            // return $globals->map(function ($global) {
+            //     return $this->renderFieldFromGlobalEntry($global);
+            // })->implode('');
         }
     }
 
