@@ -20,6 +20,7 @@ class BuildamicGlobal extends Entries
     {
         $config = parent::configFieldItems();
 
+        // Remove config options from Blueprint.
         unset($config['create']);
         unset($config['max_items']);
 

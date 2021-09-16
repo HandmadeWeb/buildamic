@@ -105,7 +105,7 @@ class Buildamic extends BuildamicBase
 
     /**
      * $preProcess = true: Pre-process the data before it gets sent to the publish page.
-     * $preProcess = true: Process the data before it gets saved.
+     * $preProcess = false: Process the data before it gets saved.
      *
      * @param mixed $data
      * @param bool $preProcess
@@ -116,6 +116,25 @@ class Buildamic extends BuildamicBase
         $method = $preProcess ? 'preProcess' : 'process';
 
         return collect($data)->map(function ($section) use ($method) {
+            if ($method === 'preProcess') {
+                if ($section['type'] === 'global-section') {
+                    $field = new Field('global', [
+                        'type' => 'entries',
+                        'collections' => $this->field()->get('globals'),
+                    ]);
+
+                    $field->setValue($section['value'] ?? $field->fieldtype()->defaultValue());
+
+                    $section['computed'] = [
+                        'meta' => $field->meta(),
+                        'config' => $field->toPublishArray(),
+                    ];
+                }
+            } else {
+                unset($section['computed']);
+                unset($section['meta']);
+            }
+
             $section['value'] = (new Field($section['uuid'], []))
                 ->setConfig(array_merge(['type' => "buildamic-{$section['type']}"], $section['config']))
                 ->setBuildamicSettings($section['config']['buildamic_settings'] ?? [])

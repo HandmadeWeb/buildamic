@@ -12,7 +12,7 @@ class BuildamicColumn extends BuildamicBase
 
     /**
      * $preProcess = true: Pre-process the data before it gets sent to the publish page.
-     * $preProcess = true: Process the data before it gets saved.
+     * $preProcess = false: Process the data before it gets saved.
      *
      * @param mixed $data
      * @param bool $preProcess
