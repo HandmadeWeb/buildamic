@@ -1,118 +1,3 @@
-// // .container {
-// //   width: 90%;
-// //   margin-right: auto;
-// //   margin-left: auto;
-// //   @include media-breakpoint-up(md) {
-// //     padding-left: 15px;
-// //     padding-right: 15px;
-// //   }
-// //   @include media-breakpoint-up(xl) {
-// //     max-width: $containerWidth;
-// //   }
-// // }
-
-// // .container-small {
-// //   display: flex;
-// //   justify-content: center;
-// //   > .container,
-// //   > .buildamic-row {
-// //     @include media-breakpoint-up(xl) {
-// //       max-width: 75rem;
-// //     }
-// //   }
-// // }
-
-// @media (min-width: 2000px) {
-//   //   .container {
-//   //     max-width: $containerWidth;
-//   //   }
-// }
-// // .container-fluid {
-// //   width: 100%;
-// //   padding-right: 15px;
-// //   padding-left: 15px;
-// //   margin-right: auto;
-// //   margin-left: auto;
-// // }
-// .buildamic-row {
-//   display: block;
-//   margin: 0;
-// }
-// .buildamic-section > .container .buildamic-row {
-//   display: flex;
-//   margin: 0 calc(var(--col-gap) * -1);
-//   flex-wrap: wrap;
-// }
-// .no-gutters {
-//   margin-right: 0;
-//   margin-left: 0;
-// }
-// .no-gutters > .col,
-// .no-gutters > [class*="col-"] {
-//   padding-right: 0;
-//   padding-left: 0;
-// }
-
-// .col {
-//   width: 100%;
-// }
-
-// @each $name, $breakpoint in $grid-breakpoints {
-//   // Don't generate XS, instead have no prefix eg .mb-2
-//   @if $name == xs {
-//     .col {
-//       flex-basis: 0;
-//       flex-grow: 1;
-//       max-width: 100%;
-//     }
-//     .col-auto {
-//       flex: 0 0 auto;
-//       width: auto;
-//       max-width: 100%;
-//     }
-//     @for $i from 0 through 12 {
-//       .col-#{$i} {
-//         @if $i == 12 {
-//           flex: 0 0 100%;
-//         } @else {
-//           flex-grow: 0;
-//           flex-shrink: 0;
-//           flex-basis: calc(((#{$i} / 12 * 100) * 1%));
-//           max-width: calc(((#{$i} / 12 * 100) * 1%));
-//           padding: 0 var(--col-gap);
-//         }
-//       }
-//     }
-//   } @else {
-//     @include media-breakpoint-up($name) {
-//       .#{$name}\:col {
-//         flex-basis: 0;
-//         flex-grow: 1;
-//         max-width: 100%;
-//       }
-//       .#{$name}\:col-auto {
-//         flex: 0 0 auto;
-//         width: auto;
-//         max-width: 100%;
-//       }
-//       @for $i from 0 through 12 {
-//         // Breakpoint sizes
-//         .#{$name}\:col-#{$i} {
-//           @if $i == 12 {
-//             flex: 0 0 100%;
-//           } @else {
-//             flex-grow: 0;
-//             flex-shrink: 0;
-//             flex-basis: calc(((#{$i} / 12 * 100) * 1%));
-//             max-width: calc(((#{$i} / 12 * 100) * 1%));
-//             padding: 0 var(--col-gap);
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
-
 .container {
   width: 90%;
   margin-right: auto;
@@ -140,16 +25,19 @@
   }
 }
 .buildamic-row {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
   padding: 1rem 0;
+  gap: var(--col-gap, 1rem);
+  display: flex;
+  flex-direction: column;
   @include media-breakpoint-up(md) {
+    display: grid;
+    flex-direction: unset;
+    grid-template-columns: repeat(var(--b-columns, 12), 1fr);
     padding: 2rem 0;
+    gap: var(--col-gap, 3rem);
   }
 }
 
-.buildamic-column,
 .buildamic-field {
   padding: 1rem 0;
   &:first-of-type {
@@ -170,16 +58,6 @@
   }
 }
 
-.no-gutters {
-  margin-right: 0;
-  margin-left: 0;
-}
-.no-gutters > .col,
-.no-gutters > [class*="col-"] {
-  padding-right: 0;
-  padding-left: 0;
-}
-
 .buildamic-column {
   width: 100%;
 }
@@ -187,86 +65,22 @@
 @each $name, $breakpoint in $grid-breakpoints {
   // Don't generate XS, instead have no prefix eg .mb-2
   @if $name == xs {
-    .buildamic-column {
-      flex-grow: 1;
-      max-width: 100%;
-    }
-    .col-auto {
-      flex: 0 0 auto;
-      width: auto;
-      max-width: 100%;
-    }
     @for $i from 0 through 12 {
       .col-#{$i} {
-        @if $i == 12 {
-          flex: 0 0 100%;
-          max-width: 100%;
-        } @else {
-          flex-grow: 0;
-          flex-shrink: 0;
-          flex-basis: calc(((#{$i} / 12 * 100) * 1%) - var(--col-gap));
-          max-width: calc(((#{$i} / 12 * 100) * 1%) - var(--col-gap));
-        }
-      }
-    }
-    @for $i from 0 through 6 {
-      .grid-#{$i} {
-        @include grid-cols(#{$i});
+        grid-column: auto/span $i;
       }
     }
   } @else {
     @include media-breakpoint-up($name) {
-      .#{$name}\:col {
-        flex-basis: 0;
-        flex-grow: 1;
-        max-width: 100%;
-      }
-      .#{$name}\:col-auto {
-        flex: 0 0 auto;
-        width: auto;
-        max-width: 100%;
-      }
       @for $i from 0 through 12 {
-        // Breakpoint sizes
         .#{$name}\:col-#{$i} {
-          @if $i == 12 {
-            flex: 0 0 100%;
-          } @else {
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: calc(((#{$i} / 12 * 100) * 1%) - var(--col-gap));
-            max-width: calc(((#{$i} / 12 * 100) * 1%) - var(--col-gap));
-          }
-        }
-      }
-      @for $i from 0 through 6 {
-        .grid-#{$name}-#{$i} {
-          @include grid-cols(#{$i});
+          grid-column: auto/span $i;
         }
       }
     }
   }
 }
 
-// Different col-gap utils
-@for $i from 0 through 6 {
-  // Breakpoint sizes
-  .col-gap-#{$i} {
-    --col-gap: #{$i}rem;
-  }
-}
-
-/* CSS GRID STUFF --- POSSIBLY DELETING THIS SOON */
 .grid {
-  display: grid;
-  gap: var(--col-gap);
-  // IE FIX: Remove max-widths required for flexbox on columns
-  @supports (display: grid) {
-    .bmcb-column,
-    [class*="col-"] {
-      max-width: none;
-      padding: 0;
-      margin: 0;
-    }
-  }
+  gap: var(--col-gap, 1rem);
 }

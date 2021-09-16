@@ -50,7 +50,7 @@
 
 <script>
 import OptionsFields from "../../mixins/OptionsFields";
-import DataAttributes from "../fields/DataAttributes.vue";
+import DataAttributes from "./settings/DataAttributes.vue";
 export default {
   components: { DataAttributes },
   props: {

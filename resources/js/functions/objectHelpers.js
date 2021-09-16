@@ -42,6 +42,7 @@ const setDeep = (obj, path, value) => {
 
         // If we are on the last step of reduce the value is set
         if (i === path.length) {
+            // console.log(a, b, value)
             Vue.set(a, b, value)
             return value;
         } else {

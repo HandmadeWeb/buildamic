@@ -23,7 +23,7 @@ class BuildamicFilters
     protected static $filters = [
         'buildamic_filter_everything' => 'filter_everything',
         // 'buildamic_filter_section' => 'filter_section',
-        // 'buildamic_filter_row' => 'filter_row',
+        'buildamic_filter_row' => 'filter_row',
         'buildamic_filter_column' => 'filter_column',
         'buildamic_filter_field' => 'filter_field',
         // 'buildamic_filter_field:markdown-blurb' => 'filter_field_markdown_handle_blurb',
@@ -105,6 +105,7 @@ class BuildamicFilters
         $field->mergeComputedAttributes(['class' => implode(' ', $classList)]);
         $field->mergeComputedAttributes(['dataAtts' => implode(' ', $dataAtts)]);
 
+
         return $field;
     }
 
@@ -113,22 +114,23 @@ class BuildamicFilters
     //     return $section;
     // }
 
-    // public static function filter_row(Field $row): Field
-    // {
-    //     return $row;
-    // }
+    public static function filter_row(Field $row): Field
+    {
+        $colGaps = static::get_col_gap(collect($row->buildamicSetting('attributes.col_gap'))->filter()->toArray()) ?? [];
+        $row->mergeComputedAttributes(['col_gap' => implode(' ', $colGaps)]);
+        return $row;
+    }
 
     public static function filter_column(Field $column): Field
     {
         if (! empty($column->buildamicSetting('columnSizes'))) {
             $columnSizes = collect($column->buildamicSetting('columnSizes'))->map(function ($value, $key) {
                 if (! empty($value)) {
-                    // if ($key == 'xs') {
-                    //     return "col-{$val} ";
-                    // } else {
-                    // return "{$key}:col-{$val} ";
-                    // }
-                    return "{$key}:col-{$value}";
+                    if ($key == 'xs') {
+                        return "col-{$value} ";
+                    } else {
+                        return "{$key}:col-{$value} ";
+                    }
                 }
             })->filter()->implode(' ');
 
@@ -185,13 +187,33 @@ class BuildamicFilters
     {
         $generatedAtts = [];
 
-        if (is_array($dataAtts)) {
+        if (is_array($dataAtts) && !empty($dataAtts)) {
             foreach ($dataAtts as $att) {
                 $generatedAtts[] = "data-{$att['key']}={$att['value']}";
             }
         }
 
         return $generatedAtts;
+    }
+
+    protected static function get_col_gap(array $colgaps = []): array
+    {
+        $generatedClasses = [];
+
+        if (!is_array($colgaps) || empty($colgaps)) {
+            return $colgaps;
+        }
+
+        foreach ($colgaps as $breakpoint=>$colgap) {
+            // dd($breakpoint);
+            if ($breakpoint == 'xs') {
+                $generatedClasses[] = "gap-{$colgap}";
+            } else {
+                $generatedClasses[] = "{$breakpoint}:gap-{$colgap}";
+            }
+        }
+
+        return $generatedClasses;
     }
 
     // protected static function get_inline_styles(array | string $attribute = ''): string
