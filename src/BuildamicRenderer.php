@@ -19,15 +19,13 @@ class BuildamicRenderer
     protected $containerClass;
     protected $instance;
     protected $sections = [];
-    protected $viewEngine;
     protected $viewPrefix;
 
     public function __construct(Buildamic $fieldInstance, bool $shallowAugment = false)
     {
         $this->instance = $fieldInstance;
         $this->augmentMethod = $shallowAugment ? 'shallowAugment' : 'augment';
-        $this->viewEngine = $this->instance->field()->get('view_engine') ?? 'blade';
-        $this->viewPrefix = "buildamic::{$this->viewEngine}";
+        $this->viewPrefix = 'buildamic::';
         $this->containerId = $this->instance->field()->get('container_id');
         $this->containerClass = $this->instance->field()->get('container_class');
         $this->sections = $this->instance->field()->value();
@@ -41,11 +39,6 @@ class BuildamicRenderer
     public function containerClass()
     {
         return $this->containerClass;
-    }
-
-    public function viewEngine()
-    {
-        return $this->viewEngine;
     }
 
     public function sections()

@@ -1,4 +1,4 @@
-@extends('buildamic::blade.layouts.field')
+@extends('buildamic::layouts.field')
 
 @section('field_content')
     @php
