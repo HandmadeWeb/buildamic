@@ -25,16 +25,6 @@ class Buildamic extends BuildamicBase
     protected function configFieldItems(): array
     {
         return [
-            'view_engine' => [
-                'display' => __('View Engine'),
-                'instructions' => __('Select the View Engine that Buildamic will use to render'),
-                'type' => 'select',
-                'default' => 'blade',
-                'width' => 50,
-                'options' => [
-                    'blade' => 'Blade',
-                ],
-            ],
             'container_id' => [
                 'display' => __('Container ID'),
                 'instructions' => __('Enter CSS ID that you want to apply to the container.'),

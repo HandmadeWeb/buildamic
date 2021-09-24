@@ -2,10 +2,9 @@
 
 namespace HandmadeWeb\Buildamic;
 
-use HandmadeWeb\Buildamic\Fieldtypes\Buildamic;
+use HandmadeWeb\Buildamic\Fields\Field;
 use Statamic\Contracts\Entries\Entry as EntryContract;
 use Statamic\Entries\AugmentedEntry;
-use Statamic\Entries\Entry;
 use Statamic\Facades\Entry as EntryFacade;
 
 class BuildamicHelper
@@ -29,6 +28,13 @@ class BuildamicHelper
         return $this;
     }
 
+    public function HtmlId(?string $id)
+    {
+        if ($id) {
+            return 'id="'.$id.'"';
+        }
+    }
+
     public function renderField(?string $field = null)
     {
         if (! $this->entry instanceof AugmentedEntry) {
@@ -47,4 +53,24 @@ class BuildamicHelper
             }
         }
     }
+
+    public function scripts(): string
+    {
+        // $script = '';
+        // return "<script src='{$script}'></script>";
+
+        return '';
+    }
+
+    public function styles(): string
+    {
+        $style = asset('vendor/buildamic/css/buildamic.css');
+
+        return "<link rel='stylesheet' href='{$style}' />";
+    }
+
+    // public function getSetting(Field $field, $key, $fallback = null)
+    // {
+    //     return $field->buildamicSetting($key, $fallback);
+    // }
 }

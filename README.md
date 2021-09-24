@@ -36,6 +36,10 @@ Buildamic will display the "label" for the "field" from the first available.
 * Handle (As configured on the blueprint)
 
 ### Frontend
+#### Grid
+Buildamic comes with a grid starting point (which expects that you are using TailWind), If you aren't going to be writing your own grid, then you should include Buildamic's grid style in your header via the provided helpers for Alpine: `{{ buildamicStyles }}`, Blade: `@buildamicStyles` or PHP: `BuildamicHelper()->styles();`
+
+#### Outputting
 Outputting on the frontend is quite simple, you just use the handle that was given to the field when you configure it in your blueprint.
 And reference the below two examples on how to render the output in Antlers or Blade.
 
@@ -63,11 +67,8 @@ If you are using Blade then We advise using "Our perferred way" listed below, wh
 #### View Engines & View Overrides
 Currently Buildamic only comes with view files written in Blade.
 Buildamic will still work if your front end uses Antlers, it just means that when Buildamic loops and renders fields, Blade will be used to do so.
-We have planned to allow Antlers to be a selectable option, but have not implemented this.
 
-The following directories would be used should you need to override a given view (or create new ones)
-* Antlers: resources/views/vendor/buildamic/antlers (Not currently enabled)
-* Blade: resources/views/vendor/buildamic/blade
+Should you need to override a given view (or create new ones) you can do so by creating the views at `resources/views/vendor/buildamic`
 
 #### Field view order
 When Buildamic tries to render a field, it will use the first available file, checked in the below order.
