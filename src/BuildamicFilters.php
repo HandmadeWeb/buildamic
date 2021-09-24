@@ -117,7 +117,9 @@ class BuildamicFilters
     public static function filter_row(Field $row): Field
     {
         $colGaps = static::get_col_gap(collect($row->buildamicSetting('attributes.col_gap'))->filter()->toArray()) ?? [];
+        $columnCountTotal = static::column_count_total($row->buildamicSetting('attributes.column_count_total') ?? 12);
         $row->mergeComputedAttributes(['col_gap' => implode(' ', $colGaps)]);
+        $row->mergeComputedAttributes(['column_count_total' => $columnCountTotal]);
         return $row;
     }
 
@@ -214,6 +216,17 @@ class BuildamicFilters
         }
 
         return $generatedClasses;
+    }
+
+    protected static function column_count_total(int $columnCountTotal = 12): string
+    {
+        if (empty($columnCountTotal)) {
+            return "";
+        }
+        if ((int) $columnCountTotal % 12 != 0) {
+          return "--b-columns: {$columnCountTotal};";
+        }
+        return "";
     }
 
     // protected static function get_inline_styles(array | string $attribute = ''): string

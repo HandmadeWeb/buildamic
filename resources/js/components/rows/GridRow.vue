@@ -11,9 +11,10 @@
       :index="rowIndex"
       :customSettings="customSettings"
     />
-    <div class="flex flex-1 justify-center gap-2">
+    <div class="buildamic-row p-0 w-full gap-2" :style="colCount">
       <button
         class="py-1 px-2 border border-dashed"
+        style="grid-column: 1 / -1;"
         v-if="!columns.length"
         @click="$modals.open(row.uuid + '-column-layouts')"
       >
@@ -33,7 +34,7 @@
       :customSettings="customSettings"
     />
     <column-selector
-      :columns="columns"
+      :row="row"
       :name="row.uuid + '-column-layouts'"
     ></column-selector>
   </div>
@@ -73,6 +74,14 @@ export default {
   },
 
   computed: {
+    colCount() {
+      const count =
+        this.row.config.buildamic_settings?.attributes?.column_count_total ||
+        12;
+      return 12 % count !== 0 ? `--b-columns: ${count}` : "";
+      // const count = this.columns.length;
+      // return 12 % count != 0 ? `--b-columns: ${count}` : "";
+    },
     items() {
       let count = this.columns.reduce((acc, curr) => {
         if (curr.value.length > acc) {

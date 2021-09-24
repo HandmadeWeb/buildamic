@@ -20,10 +20,13 @@
         <li
           class="column-section-wrapper flex-shrink-0 flex-grow px-2 mb-0 cursor-pointer"
           @click="changeLayout(layout)"
-          v-for="layout in layouts"
+          v-for="(layout, i) in layouts"
           :key="layout"
         >
-          <div class="mb-2 flex w-full buildamic-row bg-grey-60 rounded p-1">
+          <div
+            class="mb-2 w-full buildamic-row bg-grey-60 rounded p-1"
+            :style="colCount(i)"
+          >
             <div
               class="buildamic-column"
               v-for="(colClass, index) in gridConversion(layout)"
@@ -54,7 +57,9 @@ export default {
         "6 6",
         "4 4 4",
         "3 3 3 3",
+        "1 1 1 1 1",
         "2 2 2 2 2 2",
+        "1 1 1 1 1 1 1",
         "3 6 3",
         "10 2",
         "2 10",
@@ -64,7 +69,8 @@ export default {
         "4 8",
         "7 5",
         "5 7",
-        "1 1 1 1 1",
+        "3 3 8",
+        "8 3 3",
       ],
     };
   },
@@ -92,10 +98,10 @@ export default {
       });
 
       const oldModules = {};
-      const colCount = this.columns.length;
+      const colCount = this.row.value.length;
 
       if (colCount) {
-        this.columns.forEach((component, index) => {
+        this.row.value.forEach((component, index) => {
           if (component.value.length) {
             oldModules[index] = [];
             component.value.forEach((module) => {
@@ -105,14 +111,20 @@ export default {
         });
       }
 
+      this.updateField({
+        obj: this.row.config.buildamic_settings,
+        path: "attributes.column_count_total",
+        val: layoutArr.reduce((a, b) => a + +b, 0),
+      });
+
       // Change column layout
-      this.columns.splice(0, colCount, ...newLayout);
+      this.row.value.splice(0, colCount, ...newLayout);
       // Add old modules to new layout
       Object.keys(oldModules).forEach((key) => {
-        if (this.columns[key]) {
-          this.columns[key].value.push(...oldModules[key]);
+        if (this.row.value[key]) {
+          this.row.value[key].value.push(...oldModules[key]);
         } else {
-          this.columns[0].value.push(...oldModules[key]);
+          this.row.value[0].value.push(...oldModules[key]);
         }
       });
 
@@ -123,6 +135,10 @@ export default {
       //     id: this.component.id,
       //     newLayout: newLayout
       // })
+    },
+    colCount(i) {
+      const count = this.layouts[i].split(" ").reduce((a, b) => a + +b, 0);
+      return 12 % count !== 0 ? `--b-columns: ${count}` : "";
     },
     gridConversion(string) {
       // Turn the clicked string into an array at each space e,g ["6", "6"]
@@ -141,7 +157,7 @@ export default {
   mixins: [Optionsfields],
   props: {
     name: String,
-    columns: Array,
+    row: Array,
   },
 };
 </script>

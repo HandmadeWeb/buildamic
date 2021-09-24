@@ -9,18 +9,12 @@
       :index="sectionIndex"
       :customSettings="customSettings"
     />
-    <button
-      class="py-1 px-2 border border-dashed"
-      @click="addRow"
-      v-if="!rows.length"
-    >
-      Add Row
-    </button>
+
     <vue-draggable
       :list="rows"
       :group="{ name: 'rows' }"
       ghost-class="ghost"
-      class="section-draggable flex flex-col gap-2 w-full group"
+      class="section-draggable flex flex-grow flex-col gap-2 group"
     >
       <grid-row
         v-for="(row, rowIndex) in rows"

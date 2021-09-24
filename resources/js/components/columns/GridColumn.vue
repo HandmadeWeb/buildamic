@@ -48,7 +48,7 @@ export default {
 
   computed: {
     columnClass() {
-      return `col col-${this.column?.config?.buildamic_settings?.columnSizes?.lg}`;
+      return `col-${this.column?.config?.buildamic_settings?.columnSizes?.lg}`;
     },
   },
 
