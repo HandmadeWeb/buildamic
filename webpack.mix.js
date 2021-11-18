@@ -21,5 +21,5 @@ mix.sass('resources/sass/buildamic.scss', 'public/css')
 //     require('postcss-import'),
 //     require('tailwindcss'),
 //     require('postcss-nested'),
-//     require('postcss-preset-env')({stage: 0})
+//     require('postcss-preset-env')({ stage: 0 })
 // ]);

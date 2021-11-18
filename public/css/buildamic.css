@@ -1,3 +1,408 @@
-.container{width:90%;margin-right:auto;margin-left:auto;padding-left:2rem;padding-right:2rem}@media (min-width:1024px){.container{padding-left:0;padding-right:0}}@media (min-width:1280px){.container{max-width:1280px}}@media (min-width:2000px){.container{max-width:1280px}}.buildamic-section{padding:1rem 0}@media (min-width:768px){.buildamic-section{padding:3rem 0}}.buildamic-row{padding:1rem 0;display:flex;flex-direction:column;gap:var(--col-gap,3rem)}@media (min-width:768px){.buildamic-row{display:grid;grid-template-columns:repeat(var(--b-columns,12),1fr);grid-template-rows:repeat(var(--b-rows,1),1fr);padding:2rem 0;gap:var(--col-gap-md,--col-gap)}}@media (min-width:1024px){.buildamic-row{gap:var(--col-gap-lg,var(--col-gap-md,var(--col-gap)))}}@media (min-width:1280px){.buildamic-row{gap:var(--col-gap-xl,var(--col-gap-lg,var(--col-gap-md,var(--col-gap))))}}.buildamic-field{padding:1rem 0}.buildamic-field:first-of-type{padding-top:0}.buildamic-field:last-of-type{padding-bottom:0}.buildamic-field p:last-child{margin-bottom:0}@media (min-width:768px){.buildamic-column{padding:0}}.col-0{grid-column:auto/span 0}.col-1{grid-column:auto/span 1}.col-2{grid-column:auto/span 2}.col-3{grid-column:auto/span 3}.col-4{grid-column:auto/span 4}.col-5{grid-column:auto/span 5}.col-6{grid-column:auto/span 6}.col-7{grid-column:auto/span 7}.col-8{grid-column:auto/span 8}.col-9{grid-column:auto/span 9}.col-10{grid-column:auto/span 10}.col-11{grid-column:auto/span 11}.col-12{grid-column:auto/span 12}@media (min-width:640px){.sm\:col-0{grid-column:auto/span 0}.sm\:col-1{grid-column:auto/span 1}.sm\:col-2{grid-column:auto/span 2}.sm\:col-3{grid-column:auto/span 3}.sm\:col-4{grid-column:auto/span 4}.sm\:col-5{grid-column:auto/span 5}.sm\:col-6{grid-column:auto/span 6}.sm\:col-7{grid-column:auto/span 7}.sm\:col-8{grid-column:auto/span 8}.sm\:col-9{grid-column:auto/span 9}.sm\:col-10{grid-column:auto/span 10}.sm\:col-11{grid-column:auto/span 11}.sm\:col-12{grid-column:auto/span 12}}@media (min-width:768px){.md\:col-0{grid-column:auto/span 0}.md\:col-1{grid-column:auto/span 1}.md\:col-2{grid-column:auto/span 2}.md\:col-3{grid-column:auto/span 3}.md\:col-4{grid-column:auto/span 4}.md\:col-5{grid-column:auto/span 5}.md\:col-6{grid-column:auto/span 6}.md\:col-7{grid-column:auto/span 7}.md\:col-8{grid-column:auto/span 8}.md\:col-9{grid-column:auto/span 9}.md\:col-10{grid-column:auto/span 10}.md\:col-11{grid-column:auto/span 11}.md\:col-12{grid-column:auto/span 12}}@media (min-width:1024px){.lg\:col-0{grid-column:auto/span 0}.lg\:col-1{grid-column:auto/span 1}.lg\:col-2{grid-column:auto/span 2}.lg\:col-3{grid-column:auto/span 3}.lg\:col-4{grid-column:auto/span 4}.lg\:col-5{grid-column:auto/span 5}.lg\:col-6{grid-column:auto/span 6}.lg\:col-7{grid-column:auto/span 7}.lg\:col-8{grid-column:auto/span 8}.lg\:col-9{grid-column:auto/span 9}.lg\:col-10{grid-column:auto/span 10}.lg\:col-11{grid-column:auto/span 11}.lg\:col-12{grid-column:auto/span 12}}@media (min-width:1280px){.xl\:col-0{grid-column:auto/span 0}.xl\:col-1{grid-column:auto/span 1}.xl\:col-2{grid-column:auto/span 2}.xl\:col-3{grid-column:auto/span 3}.xl\:col-4{grid-column:auto/span 4}.xl\:col-5{grid-column:auto/span 5}.xl\:col-6{grid-column:auto/span 6}.xl\:col-7{grid-column:auto/span 7}.xl\:col-8{grid-column:auto/span 8}.xl\:col-9{grid-column:auto/span 9}.xl\:col-10{grid-column:auto/span 10}.xl\:col-11{grid-column:auto/span 11}.xl\:col-12{grid-column:auto/span 12}}@media (min-width:1536px){.xxl\:col-0{grid-column:auto/span 0}.xxl\:col-1{grid-column:auto/span 1}.xxl\:col-2{grid-column:auto/span 2}.xxl\:col-3{grid-column:auto/span 3}.xxl\:col-4{grid-column:auto/span 4}.xxl\:col-5{grid-column:auto/span 5}.xxl\:col-6{grid-column:auto/span 6}.xxl\:col-7{grid-column:auto/span 7}.xxl\:col-8{grid-column:auto/span 8}.xxl\:col-9{grid-column:auto/span 9}.xxl\:col-10{grid-column:auto/span 10}.xxl\:col-11{grid-column:auto/span 11}.xxl\:col-12{grid-column:auto/span 12}}.grid{gap:var(--col-gap,1rem)}
+/*--------------------------------------------------------------
+# Functions, Variables, Mixins: (these should always come first)
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# Buildy: (All buildy defaults)
+--------------------------------------------------------------*/
+/*------------------------------------------------------------
+---------------------- Individual Components ---------
+--------------------------------------------------------------*/
+.container {
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
 
-/*# sourceMappingURL=buildamic.css.map*/
+@media (min-width: 2000px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+.buildamic-section {
+  padding: 1rem 0;
+}
+@media (min-width: 768px) {
+  .buildamic-section {
+    padding: 3rem 0;
+  }
+}
+
+.buildamic-row {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--col-gap, 3rem);
+}
+@media (min-width: 768px) {
+  .buildamic-row {
+    display: grid;
+    grid-template-columns: repeat(var(--b-columns, 12), 1fr);
+    grid-template-rows: repeat(var(--b-rows, 1), 1fr);
+    padding: 2rem 0;
+    gap: var(--col-gap-md, --col-gap);
+  }
+}
+@media (min-width: 1024px) {
+  .buildamic-row {
+    gap: var(--col-gap-lg, var(--col-gap-md, var(--col-gap)));
+  }
+}
+@media (min-width: 1280px) {
+  .buildamic-row {
+    gap: var(--col-gap-xl, var(--col-gap-lg, var(--col-gap-md, var(--col-gap))));
+  }
+}
+
+.buildamic-field {
+  padding: 1rem 0;
+}
+.buildamic-field:first-of-type {
+  padding-top: 0;
+}
+.buildamic-field:last-of-type {
+  padding-bottom: 0;
+}
+
+.buildamic-field p:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .buildamic-column {
+    padding: 0;
+  }
+}
+
+.col-0 {
+  grid-column: auto/span 0;
+}
+
+.col-1 {
+  grid-column: auto/span 1;
+}
+
+.col-2 {
+  grid-column: auto/span 2;
+}
+
+.col-3 {
+  grid-column: auto/span 3;
+}
+
+.col-4 {
+  grid-column: auto/span 4;
+}
+
+.col-5 {
+  grid-column: auto/span 5;
+}
+
+.col-6 {
+  grid-column: auto/span 6;
+}
+
+.col-7 {
+  grid-column: auto/span 7;
+}
+
+.col-8 {
+  grid-column: auto/span 8;
+}
+
+.col-9 {
+  grid-column: auto/span 9;
+}
+
+.col-10 {
+  grid-column: auto/span 10;
+}
+
+.col-11 {
+  grid-column: auto/span 11;
+}
+
+.col-12 {
+  grid-column: auto/span 12;
+}
+
+@media (min-width: 640px) {
+  .sm\:col-0 {
+    grid-column: auto/span 0;
+  }
+
+  .sm\:col-1 {
+    grid-column: auto/span 1;
+  }
+
+  .sm\:col-2 {
+    grid-column: auto/span 2;
+  }
+
+  .sm\:col-3 {
+    grid-column: auto/span 3;
+  }
+
+  .sm\:col-4 {
+    grid-column: auto/span 4;
+  }
+
+  .sm\:col-5 {
+    grid-column: auto/span 5;
+  }
+
+  .sm\:col-6 {
+    grid-column: auto/span 6;
+  }
+
+  .sm\:col-7 {
+    grid-column: auto/span 7;
+  }
+
+  .sm\:col-8 {
+    grid-column: auto/span 8;
+  }
+
+  .sm\:col-9 {
+    grid-column: auto/span 9;
+  }
+
+  .sm\:col-10 {
+    grid-column: auto/span 10;
+  }
+
+  .sm\:col-11 {
+    grid-column: auto/span 11;
+  }
+
+  .sm\:col-12 {
+    grid-column: auto/span 12;
+  }
+}
+@media (min-width: 768px) {
+  .md\:col-0 {
+    grid-column: auto/span 0;
+  }
+
+  .md\:col-1 {
+    grid-column: auto/span 1;
+  }
+
+  .md\:col-2 {
+    grid-column: auto/span 2;
+  }
+
+  .md\:col-3 {
+    grid-column: auto/span 3;
+  }
+
+  .md\:col-4 {
+    grid-column: auto/span 4;
+  }
+
+  .md\:col-5 {
+    grid-column: auto/span 5;
+  }
+
+  .md\:col-6 {
+    grid-column: auto/span 6;
+  }
+
+  .md\:col-7 {
+    grid-column: auto/span 7;
+  }
+
+  .md\:col-8 {
+    grid-column: auto/span 8;
+  }
+
+  .md\:col-9 {
+    grid-column: auto/span 9;
+  }
+
+  .md\:col-10 {
+    grid-column: auto/span 10;
+  }
+
+  .md\:col-11 {
+    grid-column: auto/span 11;
+  }
+
+  .md\:col-12 {
+    grid-column: auto/span 12;
+  }
+}
+@media (min-width: 1024px) {
+  .lg\:col-0 {
+    grid-column: auto/span 0;
+  }
+
+  .lg\:col-1 {
+    grid-column: auto/span 1;
+  }
+
+  .lg\:col-2 {
+    grid-column: auto/span 2;
+  }
+
+  .lg\:col-3 {
+    grid-column: auto/span 3;
+  }
+
+  .lg\:col-4 {
+    grid-column: auto/span 4;
+  }
+
+  .lg\:col-5 {
+    grid-column: auto/span 5;
+  }
+
+  .lg\:col-6 {
+    grid-column: auto/span 6;
+  }
+
+  .lg\:col-7 {
+    grid-column: auto/span 7;
+  }
+
+  .lg\:col-8 {
+    grid-column: auto/span 8;
+  }
+
+  .lg\:col-9 {
+    grid-column: auto/span 9;
+  }
+
+  .lg\:col-10 {
+    grid-column: auto/span 10;
+  }
+
+  .lg\:col-11 {
+    grid-column: auto/span 11;
+  }
+
+  .lg\:col-12 {
+    grid-column: auto/span 12;
+  }
+}
+@media (min-width: 1280px) {
+  .xl\:col-0 {
+    grid-column: auto/span 0;
+  }
+
+  .xl\:col-1 {
+    grid-column: auto/span 1;
+  }
+
+  .xl\:col-2 {
+    grid-column: auto/span 2;
+  }
+
+  .xl\:col-3 {
+    grid-column: auto/span 3;
+  }
+
+  .xl\:col-4 {
+    grid-column: auto/span 4;
+  }
+
+  .xl\:col-5 {
+    grid-column: auto/span 5;
+  }
+
+  .xl\:col-6 {
+    grid-column: auto/span 6;
+  }
+
+  .xl\:col-7 {
+    grid-column: auto/span 7;
+  }
+
+  .xl\:col-8 {
+    grid-column: auto/span 8;
+  }
+
+  .xl\:col-9 {
+    grid-column: auto/span 9;
+  }
+
+  .xl\:col-10 {
+    grid-column: auto/span 10;
+  }
+
+  .xl\:col-11 {
+    grid-column: auto/span 11;
+  }
+
+  .xl\:col-12 {
+    grid-column: auto/span 12;
+  }
+}
+@media (min-width: 1536px) {
+  .xxl\:col-0 {
+    grid-column: auto/span 0;
+  }
+
+  .xxl\:col-1 {
+    grid-column: auto/span 1;
+  }
+
+  .xxl\:col-2 {
+    grid-column: auto/span 2;
+  }
+
+  .xxl\:col-3 {
+    grid-column: auto/span 3;
+  }
+
+  .xxl\:col-4 {
+    grid-column: auto/span 4;
+  }
+
+  .xxl\:col-5 {
+    grid-column: auto/span 5;
+  }
+
+  .xxl\:col-6 {
+    grid-column: auto/span 6;
+  }
+
+  .xxl\:col-7 {
+    grid-column: auto/span 7;
+  }
+
+  .xxl\:col-8 {
+    grid-column: auto/span 8;
+  }
+
+  .xxl\:col-9 {
+    grid-column: auto/span 9;
+  }
+
+  .xxl\:col-10 {
+    grid-column: auto/span 10;
+  }
+
+  .xxl\:col-11 {
+    grid-column: auto/span 11;
+  }
+
+  .xxl\:col-12 {
+    grid-column: auto/span 12;
+  }
+}
+.grid {
+  gap: var(--col-gap, 1rem);
+}

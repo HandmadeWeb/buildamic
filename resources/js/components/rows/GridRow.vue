@@ -62,6 +62,7 @@ export default {
     return {
       columns: this.row.value ?? [],
       rowID: this.row.uuid,
+      colCount: 12,
       customSettings: {
         columns: {
           icon: "grid",
@@ -73,15 +74,18 @@ export default {
     };
   },
 
-  computed: {
-    colCount() {
-      const count =
-        this.row.config.buildamic_settings?.attributes?.column_count_total ||
-        12;
-      return 12 % count !== 0 ? `--b-columns: ${count}` : "";
-      // const count = this.columns.length;
-      // return 12 % count != 0 ? `--b-columns: ${count}` : "";
+  watch: {
+    columns: {
+      handler: function(val) {
+        const count =
+          this.row.config.buildamic_settings?.attributes?.column_count_total ||
+          12;
+        this.colCount = 12 % count !== 0 ? `--b-columns: ${count}` : "";
+      },
     },
+  },
+
+  computed: {
     items() {
       let count = this.columns.reduce((acc, curr) => {
         if (curr.value.length > acc) {

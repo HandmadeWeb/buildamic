@@ -117,6 +117,11 @@ export default {
         val: layoutArr.reduce((a, b) => a + +b, 0),
       });
 
+      console.log(
+        "LAYOUT CHANGE",
+        layoutArr.reduce((a, b) => a + +b, 0)
+      );
+
       // Change column layout
       this.row.value.splice(0, colCount, ...newLayout);
       // Add old modules to new layout
@@ -138,6 +143,7 @@ export default {
     },
     colCount(i) {
       const count = this.layouts[i].split(" ").reduce((a, b) => a + +b, 0);
+
       return 12 % count !== 0 ? `--b-columns: ${count}` : "";
     },
     gridConversion(string) {

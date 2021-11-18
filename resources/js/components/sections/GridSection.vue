@@ -16,13 +16,22 @@
       ghost-class="ghost"
       class="section-draggable flex flex-grow flex-col gap-2 group"
     >
-      <grid-row
-        v-for="(row, rowIndex) in rows"
-        :key="`row-${row.uuid}`"
-        :row="row"
-        :rows="rows"
-        :rowIndex="rowIndex"
-      />
+      <template v-if="rows.length">
+        <grid-row
+          v-for="(row, rowIndex) in rows"
+          :key="`row-${row.uuid}`"
+          :row="row"
+          :rows="rows"
+          :rowIndex="rowIndex"
+        />
+      </template>
+      <button
+        class="py-1 px-2 border border-dashed justify-self-center"
+        v-else
+        @click="addRow"
+      >
+        Add Row
+      </button>
     </vue-draggable>
   </div>
 </template>
