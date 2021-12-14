@@ -6,6 +6,7 @@ use Facades\Statamic\View\Cascade;
 use HandmadeWeb\Buildamic\Fields\Field;
 use HandmadeWeb\Buildamic\Fields\Fields;
 use HandmadeWeb\Buildamic\Fieldtypes\Buildamic;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Statamic\Entries\Entry as StatamicEntry;
 use Statamic\Facades\Entry;
@@ -110,7 +111,7 @@ class BuildamicRenderer
 
     public function renderGlobalSection(Field $section)
     {
-        if ($section->type() === 'buildamic-global-section') {
+        if ('buildamic-global-section' === $section->type()) {
             $globals = collect($section->value()->raw());
 
             if ($global = Entry::find($globals->first())) {
@@ -142,9 +143,9 @@ class BuildamicRenderer
         return View::make("{$this->viewPrefix}.layouts.column", $this->gatherData(['buildamic' => $this, 'column' => $column]))->render();
     }
 
-    public function renderField(Field | Fields $field)
+    public function renderField(Field|Fields $field)
     {
-        if ($field instanceof Field && $field->type() === 'sets') {
+        if ($field instanceof Field && 'sets' === $field->type()) {
             return $this->renderSet($field);
         }
 
@@ -164,11 +165,15 @@ class BuildamicRenderer
             Filter::run("buildamic_filter_field:{$field->type()}", $field);
 
         // type: collections, collection: sponsors, file: collections-sponsors
-        if ($field->type() === 'collections') {
+        if ('collections' === $field->type()) {
             $field = $field->{$this->augmentMethod}()
                 ->setComputedAttributes($field->computedAttributes());
 
-            $collectionHandle = $field->value()->value()->first()->handle();
+            if ($field->value()->value() instanceof Collection) {
+                $collectionHandle = $field->value()->value()->first()->handle();
+            } else {
+                $collectionHandle = $field->value()->value()->handle();
+            }
 
             if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}")) {
                 return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}", $this->gatherData(['buildamic' => $this, 'field' => $field]))->render();
