@@ -19,7 +19,7 @@ export default {
             }
             return false
         },
-        updateField({ obj = this.field.config.buildamic_settings, path, key = '', val, vm = this }, responsive) {
+        updateField({ obj = this.field.config.buildamic_settings, path, key = '', val, vm = this }, responsive = false) {
             const fullPath = responsive ? `${path}.${this.breakpoint}` : path
             const localPath = `${path}.${key}`.split('.').filter(path => path)
 
@@ -39,6 +39,18 @@ export default {
             // console.log({
             //     obj, fullPath, val
             // })
+
+            if (responsive) {
+                if (val.indexOf(':') !== -1) {
+                    //split and get
+                    let raw = val.split(':')[1];
+                    val = `${this.breakpoint}:${raw}`
+                } else {
+                    val = `${this.breakpoint}:${val}`
+                }
+            }
+
+            console.log({ val, responsive, breakpoint: this.breakpoint })
 
             // Update actual field settings
             return setDeep(obj, fullPath, val)

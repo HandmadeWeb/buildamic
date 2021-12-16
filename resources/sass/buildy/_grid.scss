@@ -1,91 +1,92 @@
 .container {
-  width: 90%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  @include media-breakpoint-up(lg) {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  @include media-breakpoint-up(xl) {
-    max-width: $containerWidth;
-  }
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    @include media-breakpoint-up(lg) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    @include media-breakpoint-up(xl) {
+        max-width: $containerWidth;
+    }
 }
 
 @media (min-width: 2000px) {
-  .container {
-    max-width: $containerWidth;
-  }
+    .container {
+        max-width: $containerWidth;
+    }
 }
 .buildamic-section {
-  padding: 1rem 0;
-  @include media-breakpoint-up(md) {
-    padding: 3rem 0;
-  }
+    padding: 1rem 0;
+    @include media-breakpoint-up(md) {
+        padding: 3rem 0;
+    }
 }
 .buildamic-row {
-  padding: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--col-gap, 3rem);
-  @include media-breakpoint-up(md) {
-    display: grid;
-    grid-template-columns: repeat(var(--b-columns, 12), 1fr);
-    grid-template-rows: repeat(var(--b-rows, 1), 1fr);
-    padding: 2rem 0;
-    gap: var(--col-gap-md, --col-gap);
-  }
-  @include media-breakpoint-up(lg) {
-    gap: var(--col-gap-lg, var(--col-gap-md, var(--col-gap)));
-  }
-  @include media-breakpoint-up(xl) {
-    gap: var(
-      --col-gap-xl,
-      var(--col-gap-lg, var(--col-gap-md, var(--col-gap)))
-    );
-  }
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--col-gap, 3rem);
+    @include media-breakpoint-up(md) {
+        display: grid;
+        grid-template-columns: repeat(var(--b-columns, 12), 1fr);
+        grid-template-rows: repeat(var(--b-rows, 1), 1fr);
+        padding: 2rem 0;
+        gap: var(--col-gap-md, --col-gap);
+    }
+    @include media-breakpoint-up(lg) {
+        gap: var(--col-gap-lg, var(--col-gap-md, var(--col-gap)));
+    }
+    @include media-breakpoint-up(xl) {
+        gap: var(
+            --col-gap-xl,
+            var(--col-gap-lg, var(--col-gap-md, var(--col-gap)))
+        );
+    }
 }
 
-.buildamic-field {
-  padding: 1rem 0;
-  &:first-of-type {
-    padding-top: 0;
-  }
-  &:last-of-type {
-    padding-bottom: 0;
-  }
+.buildamic-field,
+.buildamic-set {
+    padding: 1rem 0;
+    &:first-of-type {
+        padding-top: 0;
+    }
+    &:last-of-type {
+        padding-bottom: 0;
+    }
 }
 
 .buildamic-field p:last-child {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .buildamic-column {
-  @include media-breakpoint-up(md) {
-    padding: 0;
-  }
+    @include media-breakpoint-up(md) {
+        padding: 0;
+    }
 }
 
 @each $name, $breakpoint in $grid-breakpoints {
-  // Don't generate XS, instead have no prefix eg .mb-2
-  @if $name == xs {
-    @for $i from 0 through 12 {
-      .col-#{$i} {
-        grid-column: auto/span $i;
-      }
-    }
-  } @else {
-    @include media-breakpoint-up($name) {
-      @for $i from 0 through 12 {
-        .#{$name}\:col-#{$i} {
-          grid-column: auto/span $i;
+    // Don't generate XS, instead have no prefix eg .mb-2
+    @if $name == xs {
+        @for $i from 0 through 12 {
+            .col-#{$i} {
+                grid-column: auto/span $i;
+            }
         }
-      }
+    } @else {
+        @include media-breakpoint-up($name) {
+            @for $i from 0 through 12 {
+                .#{$name}\:col-#{$i} {
+                    grid-column: auto/span $i;
+                }
+            }
+        }
     }
-  }
 }
 
 .grid {
-  gap: var(--col-gap, 1rem);
+    gap: var(--col-gap, 1rem);
 }

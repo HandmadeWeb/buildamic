@@ -1,8 +1,10 @@
 @php
     $boxed = $section->buildamicSetting('boxed_layout') ?? true;
+    $background_image = $section->computedAttribute()['background_image'] ?? null;
+
 @endphp
 
-<div {!! BuildamicHelper()->HtmlId($section->buildamicSetting('attributes.id')) !!} {{ $section->computedAttribute()['dataAtts'] }} class="buildamic-section {{ $section->computedAttribute('class') }}">
+<div @isset($background_image) style="background-image: url('{{ $background_image }}');" @endisset {!! BuildamicHelper()->HtmlId($section->buildamicSetting('attributes.id')) !!} {{ $section->computedAttribute()['dataAtts'] }} class="buildamic-section {{ $section->computedAttribute('class') }}">
     @if ($boxed)
         <div class="container">
     @endif
