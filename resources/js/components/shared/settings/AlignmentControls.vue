@@ -1,7 +1,15 @@
 <template>
   <div class="alignment-controls flex justify-center">
     <ul
-      class="flex items-center col-gap-3 rounded border border-dashed p-2 bg-white"
+      class="
+        flex
+        items-center
+        col-gap-3
+        rounded
+        border border-dashed
+        p-2
+        bg-white
+      "
     >
       <li
         class="breakpoint-option px-1 cursor-pointer"

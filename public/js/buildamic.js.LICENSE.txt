@@ -32,11 +32,7 @@
 
 /*! Conditions:: INITIAL */
 
-/*! NanoPop 2.1.0 MIT | https://github.com/Simonwep/nanopop */
-
-/*! Pickr 1.8.1 MIT | https://github.com/Simonwep/pickr */
-
-/*! Production::    $accept : expression $end */
+/*! Pickr 1.8.2 MIT | https://github.com/Simonwep/pickr */
 
 /*! Production::    css_value : ANGLE */
 
@@ -175,8 +171,6 @@
 /*! Rule::       \+ */
 
 /*! Rule::       \/ */
-
-/*! Rule::       \s+ */
 
 /*! classnames/dedupe */
 

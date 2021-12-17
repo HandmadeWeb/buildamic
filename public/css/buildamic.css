@@ -66,13 +66,16 @@
   }
 }
 
-.buildamic-field {
+.buildamic-field,
+.buildamic-set {
   padding: 1rem 0;
 }
-.buildamic-field:first-of-type {
+.buildamic-field:first-of-type,
+.buildamic-set:first-of-type {
   padding-top: 0;
 }
-.buildamic-field:last-of-type {
+.buildamic-field:last-of-type,
+.buildamic-set:last-of-type {
   padding-bottom: 0;
 }
 

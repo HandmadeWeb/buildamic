@@ -1,6 +1,7 @@
 export const buildamicStore = {
     state: () => ({
         breakpoint: 'xs',
+        pasteLocations: [],
         globals: [],
         fieldDefaults: {},
     }),
@@ -13,6 +14,9 @@ export const buildamicStore = {
         },
         SET_GLOBALS(state, payload) {
             state.globals.push(...payload)
+        },
+        SET_PASTE_LOCATIONS(state, payload) {
+            state.pasteLocations = [...payload]
         }
     },
     actions: {
@@ -24,6 +28,14 @@ export const buildamicStore = {
         setFieldDefaults({ commit }, payload) {
             commit('SET_FIELD_DEFAULTS', payload)
         },
+        setPasteLocations({ commit }, payload) {
+            if (payload.includes('field') || payload.includes('set')) {
+                payload = ['field', 'set']
+            } else[
+                payload = [payload]
+            ]
+            commit('SET_PASTE_LOCATIONS', payload)
+        },
         setGlobals({ commit }, payload) {
             commit('SET_GLOBALS', payload)
         }
@@ -32,5 +44,6 @@ export const buildamicStore = {
         breakpoint: state => state.breakpoint,
         fieldDefaults: state => state.fieldDefaults,
         globals: state => state.globals,
+        pasteLocations: state => state.pasteLocations
     }
 }

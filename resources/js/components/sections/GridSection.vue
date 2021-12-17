@@ -1,6 +1,15 @@
 <template>
   <div
-    class="buildamic-section p-2 pl-1 border border-t-4 rounded border-blue-500 flex relative "
+    class="
+      buildamic-section
+      p-2
+      pl-1
+      border border-t-4
+      rounded
+      border-blue-500
+      flex
+      relative
+    "
   >
     <module-controls
       class="pr-1"
@@ -46,7 +55,6 @@ import { createModule } from "../../factories/modules/moduleFactory";
 
 export default {
   components: { GridRow, VueDraggable, ModuleControls },
-
   props: {
     section: {
       type: Object,

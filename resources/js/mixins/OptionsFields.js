@@ -1,7 +1,6 @@
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../../../../../tailwind.config.js";
 
-
 const fullConfig = resolveConfig(tailwindConfig);
 
 import { getDeep, setDeep } from '../functions/objectHelpers'
@@ -36,21 +35,18 @@ export default {
                 }, vm);
             }
 
-            // console.log({
-            //     obj, fullPath, val
-            // })
-
-            if (responsive) {
+            if (responsive && typeof val === 'string' && val !== 'none' && val) {
                 if (val.indexOf(':') !== -1) {
-                    //split and get
                     let raw = val.split(':')[1];
-                    val = `${this.breakpoint}:${raw}`
+                    val = this.breakpoint !== 'xs' ? `${this.breakpoint}:${raw}` : raw
                 } else {
-                    val = `${this.breakpoint}:${val}`
+                    val = this.breakpoint !== 'xs' ? `${this.breakpoint}:${val}` : val
                 }
             }
 
-            console.log({ val, responsive, breakpoint: this.breakpoint })
+            if (val === 'none') {
+                val = ''
+            }
 
             // Update actual field settings
             return setDeep(obj, fullPath, val)

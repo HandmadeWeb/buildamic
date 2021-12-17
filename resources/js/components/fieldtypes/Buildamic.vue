@@ -32,9 +32,10 @@ import GridSection from "../sections/GridSection.vue";
 import GridGlobalSection from "../sections/GridGlobalSection.vue";
 import VueDraggable from "vuedraggable";
 import { createModule } from "../../factories/modules/moduleFactory";
+import ClipboardFunctions from "../../mixins/ClipboardFunctions";
 
 export default {
-  mixins: [Fieldtype],
+  mixins: [Fieldtype, ClipboardFunctions],
 
   components: {
     GridSection,
@@ -67,6 +68,12 @@ export default {
   mounted() {
     this.$store.dispatch("setFieldDefaults", this.meta);
     this.$store.dispatch("setGlobals", this.config.globals);
+    window.addEventListener("blur", this.readFromClipboard);
+    window.addEventListener("focus", this.readFromClipboard);
+  },
+  destroy() {
+    window.removeEventListener("blur", this.readFromClipboard);
+    window.removeEventListener("focus", this.readFromClipboard);
   },
 };
 </script>
@@ -79,6 +86,11 @@ export default {
 .pulse:hover {
   border-radius: 50%;
   animation: pulse 1s 1;
+}
+
+.pulse-constant {
+  border-radius: 50%;
+  animation: pulse 1s infinite;
 }
 
 @keyframes pulse {

@@ -27,6 +27,7 @@
           height="18"
           fill="currentColor"
           class="flex text-grey-80 cursor-pointer pulse"
+          :class="[setting.class || '']"
         ></eva-icon>
       </li>
     </ul>
@@ -40,6 +41,7 @@ import { createModule } from "../../factories/modules/moduleFactory";
 import { EvaIcon } from "vue-eva-icons";
 import ModuleSelector from "../ModuleSelector.vue";
 import SettingStack from "../shared/SettingStack.vue";
+import ClipboardFunctions from "../../mixins/ClipboardFunctions";
 
 export default {
   props: {
@@ -61,6 +63,7 @@ export default {
     },
     type: String,
   },
+  mixins: [ClipboardFunctions],
   computed: {
     settings() {
       return Object.values({
@@ -83,6 +86,15 @@ export default {
           action: this.cloneModule,
           condition: this.component,
           order: 30,
+        },
+        clipboardCopy: {
+          icon: this.isValidPasteLocation ? "clipboard" : "clipboard-outline",
+          title: "Copy module to clipboard",
+          action: this.isValidPasteLocation
+            ? this.pasteFromClipboard
+            : this.copyToClipboard,
+          order: 30,
+          class: this.isValidPasteLocation ? "pulse-constant" : "",
         },
         delete: {
           icon: "trash-2",
@@ -113,8 +125,8 @@ export default {
       const newModule = createModule(UCFirst(this.type || this.component.type));
       this.value.splice(this.index + 1, 0, newModule);
     },
-    cloneModule() {
-      const clone = JSON.parse(JSON.stringify(this.component));
+    cloneModule(newModule) {
+      let clone = newModule || JSON.parse(JSON.stringify(this.component));
 
       // Generate ID's for each nested module
       recursifyID(clone);

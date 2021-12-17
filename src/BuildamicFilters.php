@@ -174,11 +174,13 @@ class BuildamicFilters
      */
     protected static function get_tw_classes_from_inline_atts(array | string $classes): string
     {
+        $generatedClasses = [];
+
         if (is_array($classes)) {
             foreach ($classes as $child) {
-                if (! is_array($child)) {
+                if (!is_array($child) && !empty($child)) {
                     $generatedClasses[] = $child;
-                } else {
+                } else if (is_array($child)) {
                     $generatedClasses[] = static::get_tw_classes_from_inline_atts($child);
                 }
             }
