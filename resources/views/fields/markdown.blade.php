@@ -4,6 +4,6 @@
     @php
         $fieldValue = $field->value();
     @endphp
-    
-    {!! $fieldValue->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($fieldValue) : $fieldValue !!}
+
+    {!! $fieldValue->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($fieldValue, $cascade) : $fieldValue !!}
 @overwrite
