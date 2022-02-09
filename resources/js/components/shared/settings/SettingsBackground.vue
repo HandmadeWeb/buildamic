@@ -41,7 +41,7 @@
                 <label>
                   {{ getDeep(`inline.background.gradient.value`) || "" }}</label
                 >
-                <button class=" flex items-center" @click="gradient = ''">
+                <button class="flex items-center" @click="gradient = ''">
                   <eva-icon
                     class="flex mr-1 cursor-pointer text-grey-80 pulse"
                     fill="currentColor"
@@ -77,6 +77,56 @@
               />
             </div>
           </vue-tab>
+          <vue-tab name="Video">
+            <div
+              :key="inline.background.video.mp4.value"
+              class="buidlamic-field mb-6"
+            >
+              MP4 version:
+              <assets-fieldtype
+                handle="settings_background_video_mp4"
+                :config="inline.background.video.mp4.config"
+                :meta="undefined"
+                :value="inline.background.video.mp4.value"
+                @input="
+                  updateField({
+                    path: 'inline.background.video.mp4',
+                    val: $event,
+                  })
+                "
+                @meta-updated="
+                  updateField({
+                    path: `inline.background.video.mp4.meta`,
+                    val: $event,
+                  })
+                "
+              />
+            </div>
+            <div
+              :key="inline.background.video.webm.value"
+              class="buidlamic-field"
+            >
+              webm version:
+              <assets-fieldtype
+                handle="settings_background_video_webm"
+                :config="inline.background.video.webm.config"
+                :meta="undefined"
+                :value="inline.background.video.webm.value"
+                @input="
+                  updateField({
+                    path: 'inline.background.video.webm',
+                    val: $event,
+                  })
+                "
+                @meta-updated="
+                  updateField({
+                    path: `inline.background.video.webm.meta`,
+                    val: $event,
+                  })
+                "
+              />
+            </div>
+          </vue-tab>
         </vue-tabs>
       </div>
     </div>
@@ -105,7 +155,7 @@ export default {
     ColorFieldtype,
     VueGpickr,
   },
-  data: function() {
+  data: function () {
     return {
       gradientToggle: false,
       inline: {
@@ -135,7 +185,39 @@ export default {
               icon: "assets",
               listable: "hidden",
             },
-            value: this.getDeep(`inline.background.image.value`) || [],
+            value: this.getDeep(`inline.background.image.value.webm`) || [],
+          },
+          video: {
+            mp4: {
+              config: {
+                mode: "grid",
+                container: "assets",
+                restrict: false,
+                allow_uploads: true,
+                max_files: 1,
+                display: "Assets",
+                instructions: "Upload the MP4 version of your video here",
+                type: "assets",
+                icon: "assets",
+                listable: "hidden",
+              },
+              value: this.getDeep(`inline.background.video.mp4`) || [],
+            },
+            webm: {
+              config: {
+                mode: "grid",
+                container: "assets",
+                restrict: false,
+                allow_uploads: true,
+                max_files: 1,
+                display: "Assets",
+                instructions: "Upload the WebM version of your video here",
+                type: "assets",
+                icon: "assets",
+                listable: "hidden",
+              },
+              value: this.getDeep(`inline.background.video.webm`) || [],
+            },
           },
         },
       },

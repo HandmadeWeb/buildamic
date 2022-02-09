@@ -102,9 +102,13 @@ class BuildamicFilters
         }
 
         $background_image = $field->buildamicSetting('inline')['background']['image']['value'][0] ?? null;
+        $background_video = $field->buildamicSetting('inline')['background']['video'] ?? null;
 
         if (isset($background_image)) {
             $field->mergeComputedAttributes(['background_image' => glide_url($background_image)]);
+        }
+        if (isset($background_video)) {
+            $field->mergeComputedAttributes(['background_video' => $background_video]);
         }
         $field->mergeComputedAttributes(['class' => implode(' ', $classList)]);
         $field->mergeComputedAttributes(['dataAtts' => implode(' ', $dataAtts)]);

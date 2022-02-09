@@ -14,7 +14,7 @@ const Column = function ({ UUID, ADMIN_LABEL }) {
                 "lg": '',
                 "xl": ''
             },
-            ...InlineDefaults
+            ...JSON.parse(JSON.stringify(InlineDefaults))
         }
     }
     this.value = []

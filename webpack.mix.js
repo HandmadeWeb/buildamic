@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const tailwindcss = require('tailwindcss');
 
 mix.disableNotifications();
 
@@ -15,7 +16,11 @@ mix.disableNotifications();
 
 mix.js('resources/js/buildamic.js', 'public/js').vue().sourceMaps();
 // mix.css('resources/css/buildamic.css', 'public/css')
+
 mix.sass('resources/sass/buildamic.scss', 'public/css')
+    .options({
+        postCss: [tailwindcss('./tailwind.config.js')],
+    });
 
 // mix.postCss('resources/css/buildamic.css', 'public/css', [
 //     require('postcss-import'),

@@ -22,7 +22,7 @@ const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {}, META = {}
         buildamic_settings: {
             enabled: true,
             admin_label: ADMIN_LABEL || HANDLE,
-            ...InlineDefaults
+            ...JSON.parse(JSON.stringify(InlineDefaults))
         }
 
     }

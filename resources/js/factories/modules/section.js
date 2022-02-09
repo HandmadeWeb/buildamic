@@ -7,7 +7,7 @@ const Section = function ({ UUID, ADMIN_LABEL }) {
         enabled: true,
         buildamic_settings: {
             admin_label: ADMIN_LABEL || this.type,
-            ...InlineDefaults
+            ...JSON.parse(JSON.stringify(InlineDefaults))
         }
     }
     this.value = []

@@ -21,7 +21,7 @@ const Field = function ({ ADMIN_LABEL, CONFIG = {}, META = {}, HANDLE, VALUE, UU
         buildamic_settings: {
             enabled: true,
             admin_label: ADMIN_LABEL || CONFIG.DISPLAY || HANDLE,
-            ...InlineDefaults
+            ...JSON.parse(JSON.stringify(InlineDefaults))
         }
     }
     // this.meta = META

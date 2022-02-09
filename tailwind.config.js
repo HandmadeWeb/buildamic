@@ -1,14 +1,10 @@
 module.exports = {
-    mode: 'jit',
-    purge: {
-        content: [
-            './resources/**/*.vue',
-            './resources/**/*.antlers.html',
-            './resources/**/*.blade.php',
-            './content/**/*.md'
-        ]
-    },
-    important: true,
+    content: [
+        './resources/**/*.vue',
+        './resources/**/*.antlers.html',
+        './resources/**/*.blade.php',
+        './content/**/*.md'
+    ],
     theme: {
         extend: {},
     },

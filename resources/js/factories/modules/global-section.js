@@ -8,7 +8,7 @@ const GlobalSection = function ({ UUID, ADMIN_LABEL, VALUE }) {
         enabled: true,
         buildamic_settings: {
             admin_label: ADMIN_LABEL || this.type,
-            ...InlineDefaults
+            ...JSON.parse(JSON.stringify(InlineDefaults))
         }
     }
     this.value = VALUE
