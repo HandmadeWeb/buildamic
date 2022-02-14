@@ -13,7 +13,7 @@ const setDeep = (obj, path, value) => {
         overwrite = false;
     // If it's already an array, good game. Otherwise make it one from the .
     !Array.isArray(path) ? path = path.split('.').filter(path => path) : path
-    path.reduce((a, b, i) => {
+    return path.reduce((a, b, i) => {
 
         // Start index at 1
         i++
@@ -44,17 +44,16 @@ const setDeep = (obj, path, value) => {
         if (i === path.length) {
             // console.log(a, b, value)
             Vue.set(a, b, value)
-            return value;
+            return a[b];
         } else {
             // Otherwise accumilate and move onto the next step
             return a[b]
         }
 
     }, obj);
-    return obj
 }
 
-const getDeep = (obj, path) => {
+const getDeep = (obj, path, defaultVal) => {
     path = Array.isArray(path) ? path : path.split('.').filter(path => path)
     const data = path.reduce((a, b) => a && a[b], obj)
     if (!data) {

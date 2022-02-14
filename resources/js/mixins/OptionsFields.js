@@ -11,7 +11,7 @@ export default {
         ...mapGetters(["breakpoint"]),
     },
     methods: {
-        getDeep(e, obj = this.field.config.buildamic_settings, responsive = false) {
+        getDeep(e, obj = this.field.config.buildamic_settings) {
             const val = getDeep(obj, e);
             if (val) {
                 return val
@@ -66,5 +66,6 @@ export default {
             );
             return Object.assign({ 'none': 'N/A' }, options);
         },
-    }
+    },
+
 }

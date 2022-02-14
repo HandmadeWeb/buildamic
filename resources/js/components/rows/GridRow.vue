@@ -14,7 +14,7 @@
     <div class="buildamic-row p-0 w-full gap-2" :style="colCount">
       <button
         class="py-1 px-2 border border-dashed"
-        style="grid-column: 1 / -1;"
+        style="grid-column: 1 / -1"
         v-if="!columns.length"
         @click="$modals.open(row.uuid + '-column-layouts')"
       >
@@ -62,7 +62,9 @@ export default {
     return {
       columns: this.row.value ?? [],
       rowID: this.row.uuid,
-      colCount: 12,
+      columnsTotal:
+        this.row.config.buildamic_settings?.attributes?.column_count_total ||
+        12,
       customSettings: {
         columns: {
           icon: "grid",
@@ -76,16 +78,19 @@ export default {
 
   watch: {
     columns: {
-      handler: function(val) {
-        const count =
-          this.row.config.buildamic_settings?.attributes?.column_count_total ||
-          12;
-        this.colCount = 12 % count !== 0 ? `--b-columns: ${count}` : "";
+      handler: function () {
+        this.columnsTotal =
+          this.row.config.buildamic_settings?.attributes?.column_count_total;
       },
     },
   },
 
   computed: {
+    colCount() {
+      return 12 % this.columnsTotal !== 0
+        ? `--b-columns: ${this.columnsTotal}`
+        : 12;
+    },
     items() {
       let count = this.columns.reduce((acc, curr) => {
         if (curr.value.length > acc) {
@@ -96,7 +101,6 @@ export default {
       return count;
     },
   },
-
   methods: {
     openModal() {
       this.$modals.open(`${this.row.uuid}-column-layouts`);

@@ -1,6 +1,12 @@
 <template>
   <div
-    class="buildamic-column border-2 border-dashed p-2 flex flex-col items-center"
+    class="
+      buildamic-column
+      border-2 border-dashed
+      p-2
+      flex flex-col
+      items-center
+    "
     :class="[columnClass, { 'justify-center': !fields.length }]"
   >
     <vue-draggable

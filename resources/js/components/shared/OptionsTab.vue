@@ -13,7 +13,12 @@
             :handle="option.handle"
             :config="option"
             v-model="option.value"
-            @input="updateField({ path: `attributes.${key}`, val: $event })"
+            @input="
+              updateField({
+                path: `attributes.${key}`,
+                val: $event,
+              })
+            "
           />
         </div>
       </div>
@@ -32,6 +37,16 @@
         <data-attributes
           instructions="You do not need to add the 'data-' to the beginning of the key, it does that automatically"
           :field="field"
+        />
+      </div>
+      <div class="moduleLink mb-4">
+        <label>Module Link</label>
+        <text-fieldtype
+          :handle="moduleLink.handle"
+          :config="moduleLink"
+          v-model="moduleLink.value"
+          :meta="null"
+          @input="updateField({ path: 'moduleLink', val: $event })"
         />
       </div>
       <div class="admin_label">
@@ -101,6 +116,14 @@ export default {
         icon: "text",
         handle: "admin_label",
         value: this.getDeep("admin_label") ?? null,
+      },
+      moduleLink: {
+        placeholder: "Module Link",
+        input_type: "text",
+        type: "text",
+        icon: "text",
+        handle: "moduleLink",
+        value: this.getDeep("moduleLink") ?? null,
       },
     };
   },

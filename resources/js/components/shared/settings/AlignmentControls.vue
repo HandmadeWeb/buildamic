@@ -16,14 +16,14 @@
         :class="{
           'bg-grey-40  rounded':
             breakpoint === 'xs'
-              ? selected === option
+              ? selected === option.value
               : selected === `${breakpoint}:${option}`,
         }"
-        @click="switchAlignment(option)"
+        @click="switchAlignment(option.value)"
         v-for="option in config.options"
-        :key="option"
+        :key="`${option.value}-${selected}`"
       >
-        <img class="w-6" :src="`/vendor/buildamic/img/${option}.svg`" />
+        <img class="w-6" :src="`/vendor/buildamic/img/${option.icon}.svg`" />
       </li>
     </ul>
   </div>
@@ -37,11 +37,19 @@ export default {
   name: "alignment-controls",
   props: {
     value: String,
+    options: {
+      type: Array,
+      default: () => [
+        { value: "text-left", icon: "text-left" },
+        { value: "text-center", icon: "text-center" },
+        { value: "text-right", icon: "text-right" },
+      ],
+    },
   },
   data() {
     return {
       config: {
-        options: ["text-left", "text-center", "text-right"],
+        options: this.options,
       },
     };
   },

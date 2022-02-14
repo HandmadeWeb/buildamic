@@ -4,6 +4,6 @@ export const InlineDefaults = {
             gradient: {
                 value: ""
             }
-        },
+        }
     }
 }
