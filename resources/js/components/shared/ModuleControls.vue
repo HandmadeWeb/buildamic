@@ -4,10 +4,11 @@
     :data-testid="`${type || component.type}-controls`"
   >
     <ul
-      class="list-unstyled flex m-0 p-0 gap-2"
+      class="list-unstyled flex m-0 p-0 gap-2 overflow-x-auto pb-1"
       :class="[`flex-${getDirection}`]"
     >
       <li
+        class="flex-shrink-0"
         v-for="(setting, i) in settings"
         :key="component.uuid + type + i"
         :title="setting.title"
