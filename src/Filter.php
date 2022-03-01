@@ -17,8 +17,8 @@ class Filter extends BaseFilter
     /**
      * Run the specified listener.
      *
-     * @param string $listener
      * @param mixed ...$args
+     *
      * @return mixed
      */
     public static function run(string $listener, ...$args)

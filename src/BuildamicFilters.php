@@ -78,19 +78,18 @@ class BuildamicFilters
     //     return $data;
     // }
 
-    public static function filter_everything(Field | Fields $field)
+    public static function filter_everything(Field|Fields $field)
     {
         $classList = collect(explode(' ', $field->buildamicSetting('attributes.class')))->filter()->toArray();
         $dataAtts = static::get_data_attributes(collect($field->buildamicSetting('attributes.dataAtts'))->filter()->toArray()) ?? [];
 
-
         if (is_array($field->buildamicSetting('inline'))) {
             // Remove anything we don't want generated with the loop (e.g background is handled separately)
             $inlineClassList = collect($field->buildamicSetting('inline'))->filter(function ($value, $key) {
-                return $key !== 'background';
+                return 'background' !== $key;
             })->filter()->toArray();
 
-            if (! empty($inlineClassList)) {
+            if (!empty($inlineClassList)) {
                 foreach ($inlineClassList as $item) {
                     $classList[] = static::get_tw_classes_from_inline_atts($item);
                 }
@@ -113,7 +112,6 @@ class BuildamicFilters
         $field->mergeComputedAttributes(['class' => implode(' ', $classList)]);
         $field->mergeComputedAttributes(['dataAtts' => implode(' ', $dataAtts)]);
 
-
         return $field;
     }
 
@@ -128,15 +126,16 @@ class BuildamicFilters
         $columnCountTotal = static::column_count_total($row->buildamicSetting('attributes.column_count_total') ?? 12);
         $row->mergeComputedAttributes(['col_gap' => implode(' ', $colGaps)]);
         $row->mergeComputedAttributes(['column_count_total' => $columnCountTotal]);
+
         return $row;
     }
 
     public static function filter_column(Field $column): Field
     {
-        if (! empty($column->buildamicSetting('columnSizes'))) {
+        if (!empty($column->buildamicSetting('columnSizes'))) {
             $columnSizes = collect($column->buildamicSetting('columnSizes'))->map(function ($value, $key) {
-                if (! empty($value)) {
-                    if ($key == 'xs') {
+                if (!empty($value)) {
+                    if ('xs' == $key) {
                         return "col-{$value} ";
                     } else {
                         return "{$key}:col-{$value} ";
@@ -144,7 +143,7 @@ class BuildamicFilters
                 }
             })->filter()->implode(' ');
 
-            if (! empty($columnSizes)) {
+            if (!empty($columnSizes)) {
                 $column->mergeComputedAttributes(['class' => $column->computedAttribute('class')." {$columnSizes}"]);
             }
         }
@@ -172,11 +171,8 @@ class BuildamicFilters
     /**
      * Takes all the inline attributes, font-size, margins, everything, then concatinates them into a big
      * string of tailwind classes.
-     *
-     * @param array|string $classes
-     * @return string
      */
-    protected static function get_tw_classes_from_inline_atts(array | string $classes): string
+    protected static function get_tw_classes_from_inline_atts(array|string $classes): string
     {
         $generatedClasses = [];
 
@@ -184,7 +180,7 @@ class BuildamicFilters
             foreach ($classes as $child) {
                 if (!is_array($child) && !empty($child)) {
                     $generatedClasses[] = $child;
-                } else if (is_array($child)) {
+                } elseif (is_array($child)) {
                     $generatedClasses[] = static::get_tw_classes_from_inline_atts($child);
                 }
             }
@@ -216,9 +212,9 @@ class BuildamicFilters
             return $colgaps;
         }
 
-        foreach ($colgaps as $breakpoint=>$colgap) {
+        foreach ($colgaps as $breakpoint => $colgap) {
             // dd($breakpoint);
-            if ($breakpoint == 'xs') {
+            if ('xs' == $breakpoint) {
                 $generatedClasses[] = "gap-{$colgap}";
             } else {
                 $generatedClasses[] = "{$breakpoint}:gap-{$colgap}";
@@ -231,12 +227,13 @@ class BuildamicFilters
     protected static function column_count_total(int $columnCountTotal = 12): string
     {
         if (empty($columnCountTotal)) {
-            return "";
+            return '';
         }
-        if ((int) $columnCountTotal % 12 != 0) {
-          return "--b-columns: {$columnCountTotal};";
+        if (0 != (int) $columnCountTotal % 12) {
+            return "--b-columns: {$columnCountTotal};";
         }
-        return "";
+
+        return '';
     }
 
     // protected static function get_inline_styles(array | string $attribute = ''): string

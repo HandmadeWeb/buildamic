@@ -15,7 +15,7 @@ class BuildamicColumn extends BuildamicBase
      * $preProcess = false: Process the data before it gets saved.
      *
      * @param mixed $data
-     * @param bool $preProcess
+     *
      * @return array
      */
     protected function processData($data, bool $preProcess = false)
@@ -25,7 +25,7 @@ class BuildamicColumn extends BuildamicBase
         $method = $preProcess ? 'preProcess' : 'process';
 
         return collect($data)->map(function ($field) use ($buildamicInstance, $method) {
-            if ($field['type'] === 'field') {
+            if ('field' === $field['type']) {
                 $computedField = $buildamicInstance
                     ->fieldType()
                     ->fields()
@@ -33,7 +33,7 @@ class BuildamicColumn extends BuildamicBase
                     ->setValue($field['value'])
                     ->{$method}();
 
-                if ($method === 'preProcess') {
+                if ('preProcess' === $method) {
                     $field['computed'] = [
                         'meta' => $computedField->meta(),
                         'config' => $computedField->toPublishArray(),
@@ -57,14 +57,14 @@ class BuildamicColumn extends BuildamicBase
                     ->setValue($field['value'])
                     ->{$method}()
                     ->value();
-            } elseif ($field['type'] === 'set') {
+            } elseif ('set' === $field['type']) {
                 $fields = $buildamicInstance
                     ->fieldType()
                     ->set($field['config']['statamic_settings']['handle'])
                     ->addValues($field['value'])
                     ->{$method}();
 
-                if ($method === 'preProcess') {
+                if ('preProcess' === $method) {
                     $field['computed'] = [
                         'meta' => [],
                         'config' => [],
@@ -80,7 +80,7 @@ class BuildamicColumn extends BuildamicBase
                 }
 
                 $field['value'] = $fields->values()->toArray();
-            } elseif ($field['type'] === 'fieldset') {
+            } elseif ('fieldset' === $field['type']) {
                 // Fieldset (single field)
                 if (isset($field['config']['statamic_settings']['field']) && is_string($field['config']['statamic_settings']['field'])) {
                     $singleField = [
@@ -96,7 +96,7 @@ class BuildamicColumn extends BuildamicBase
                     ->addValues($field['value'] ?? [])
                     ->{$method}();
 
-                if ($method === 'preProcess') {
+                if ('preProcess' === $method) {
                     $field['computed'] = [
                         'meta' => [],
                         'config' => [],
@@ -126,11 +126,11 @@ class BuildamicColumn extends BuildamicBase
         $method = $shallow ? 'shallowAugment' : 'augment';
 
         $value = collect($value)->map(function ($field) use ($buildamicConfig) {
-            if (isset($field['config']['buildamic_settings']['enabled']) && ! $field['config']['buildamic_settings']['enabled']) {
+            if (isset($field['config']['buildamic_settings']['enabled']) && !$field['config']['buildamic_settings']['enabled']) {
                 return;
             }
 
-            if ($field['type'] === 'field') {
+            if ('field' === $field['type']) {
                 $config = collect($buildamicConfig['fields'] ?? [])->firstWhere('handle', $field['config']['statamic_settings']['handle']);
 
                 // uuid: 98962c4d-2b1d-4579-b119-1757ee6cd608
@@ -152,7 +152,7 @@ class BuildamicColumn extends BuildamicBase
                     ->setValue($field['value'] ?? null);
             }
 
-            if ($field['type'] === 'fieldset') {
+            if ('fieldset' === $field['type']) {
                 //   -
                 //     uuid: 77290cd8-583d-4ad8-9137-cfa24097bf78
                 //     type: fieldset
@@ -190,7 +190,7 @@ class BuildamicColumn extends BuildamicBase
                     ->addValues($field['value'] ?? []);
             }
 
-            if ($field['type'] === 'set') {
+            if ('set' === $field['type']) {
                 $field['config']['statmic_settings']['field']['type'] = 'sets';
 
                 // uuid: 98962c4d-2b1d-4579-b119-1757ee6cd608

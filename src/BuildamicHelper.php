@@ -11,7 +11,7 @@ class BuildamicHelper
 {
     protected $entry;
 
-    public function entry(AugmentedEntry | EntryContract | string $entry)
+    public function entry(AugmentedEntry|EntryContract|string $entry)
     {
         if (is_string($entry)) {
             $entry = EntryFacade::find($entry);
@@ -37,13 +37,13 @@ class BuildamicHelper
 
     public function renderField(?string $field = null)
     {
-        if (! $this->entry instanceof AugmentedEntry) {
+        if (!$this->entry instanceof AugmentedEntry) {
             return;
         }
 
         $fields = ['buildamic', 'content'];
 
-        if (! empty($field) && ! in_array($field, $fields)) {
+        if (!empty($field) && !in_array($field, $fields)) {
             $fields = array_merge([$field], $fields);
         }
 

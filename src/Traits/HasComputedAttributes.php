@@ -25,7 +25,7 @@ trait HasComputedAttributes
         return $this->computedAttributes;
     }
 
-    public function computedAttribute(string | null $key = null, $fallback = null)
+    public function computedAttribute(string|null $key = null, $fallback = null)
     {
         if (is_null($key)) {
             return $this->computedAttributes();

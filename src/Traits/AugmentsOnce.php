@@ -33,7 +33,7 @@ trait AugmentsOnce
 
     public function augment(): static
     {
-        if (! $this->isAugmented || $this->isShallowAugmented) {
+        if (!$this->isAugmented || $this->isShallowAugmented) {
             return parent::augment()->setAugmented();
         }
 
@@ -42,7 +42,7 @@ trait AugmentsOnce
 
     public function shallowAugment(): static
     {
-        if ($this->isAugmented || ! $this->isShallowAugmented) {
+        if ($this->isAugmented || !$this->isShallowAugmented) {
             return parent::shallowAugment()->setShallowAugmented();
         }
 

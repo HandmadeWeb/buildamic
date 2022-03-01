@@ -13,7 +13,7 @@ class BuildamicRow extends BuildamicBase
      * $preProcess = false: Process the data before it gets saved.
      *
      * @param mixed $data
-     * @param bool $preProcess
+     *
      * @return array
      */
     protected function processData($data, bool $preProcess = false)
@@ -39,7 +39,7 @@ class BuildamicRow extends BuildamicBase
         $method = $shallow ? 'shallowAugment' : 'augment';
 
         $value = collect($value)->map(function ($column) use ($method) {
-            if (isset($field['config']['buildamic_settings']['enabled']) && ! $field['config']['buildamic_settings']['enabled']) {
+            if (isset($field['config']['buildamic_settings']['enabled']) && !$field['config']['buildamic_settings']['enabled']) {
                 return;
             }
 
