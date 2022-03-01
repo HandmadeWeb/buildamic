@@ -48,6 +48,7 @@ class TestCase extends OrchestraTestCase
 
     /**
      * Resolve the Application Configuration and set the Statamic configuration.
+     *
      * @param \Illuminate\Foundation\Application $app
      */
     protected function resolveApplicationConfiguration($app): void
