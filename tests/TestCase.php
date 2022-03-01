@@ -41,7 +41,7 @@ class TestCase extends OrchestraTestCase
         $app->make(Manifest::class)->manifest = [
             'HandmadeWeb/buildamic' => [
                 'id' => 'HandmadeWeb/buildamic',
-                'namespace' => 'HandmadeWeb\\Buildamic\\',
+                'namespace' => 'HandmadeWeb\\Buildamic',
             ],
         ];
     }
