@@ -5,22 +5,45 @@
         <div class="attributes attributes__inline">
           <slot name="layout-top" />
           <div
-            v-for="(option, key) in sizes"
-            :key="`${field.uuid}-${key}-${breakpoint}`"
+            :key="`${field.uuid}-width-${breakpoint}`"
             class="buildamic-field"
           >
-            <label>{{ option.display }}</label>
+            <label>Width</label>
             <component
               :class="breakpoint"
-              :is="`${option.type}-fieldtype`"
-              :handle="option.handle"
-              :key="option.value"
-              :config="option"
-              :value="getDeep(`inline.${option.handle}.${breakpoint}`, '')"
+              :is="`select-fieldtype`"
+              :handle="inline.width.handle"
+              :key="inline.width.value"
+              :config="inline.width"
+              :value="getDeep(`inline.width.${breakpoint}`)"
               @input="
                 updateField(
                   {
-                    path: `inline.${key}`,
+                    path: `inline.width`,
+                    val: $event,
+                  },
+                  true
+                )
+              "
+            />
+          </div>
+
+          <div
+            :key="`${field.uuid}-width-${breakpoint}`"
+            class="buildamic-field"
+          >
+            <label>Height</label>
+            <component
+              :class="breakpoint"
+              :is="`select-fieldtype`"
+              :handle="inline.height.handle"
+              :key="inline.height.value"
+              :config="inline.height"
+              :value="getDeep(`inline.height.${breakpoint}`)"
+              @input="
+                updateField(
+                  {
+                    path: `inline.height`,
                     val: $event,
                   },
                   true
@@ -106,7 +129,7 @@ export default {
   },
   data: function () {
     return {
-      sizes: {
+      inline: {
         width: {
           cast_booleans: false,
           clearable: false,
@@ -135,8 +158,6 @@ export default {
           display: "Height",
           value: "",
         },
-      },
-      inline: {
         items: {
           config: {
             options: [
@@ -188,7 +209,6 @@ export default {
       return this.inline.display.value;
     },
   },
-
   mounted() {
     // Get initial data for inline fields
     if (this?.inline && typeof this?.inline === "object") {

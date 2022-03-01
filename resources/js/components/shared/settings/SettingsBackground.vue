@@ -185,7 +185,7 @@ export default {
               icon: "assets",
               listable: "hidden",
             },
-            value: this.getDeep(`inline.background.image.value.webm`) || [],
+            value: this.getDeep(`inline.background.image.value`) || [],
           },
           video: {
             mp4: {
