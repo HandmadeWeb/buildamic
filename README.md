@@ -53,7 +53,7 @@ By default the handle will be "buildamic"
 ```
 
 #### Blade output
-If you are using Blade then We advise using "Our perferred way" listed below, which is slightly faster and will show a more complete picture should you choose to run a code profiler (Example: blackfire.io)
+If you are using Blade then We advise using "Our perferred way" listed below, which is slightly faster and will show a more complete picture should you choose to run a code profiler (Example: [blackfire.io](https://www.blackfire.io/))
 
 ```php
 // The easy way
