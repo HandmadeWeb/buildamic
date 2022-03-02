@@ -13,9 +13,13 @@ export default {
         checkModuleCompatibility(type) {
             if (type === "field" || type === "set") {
                 type = ["field", "set"]
+            } else if (type === "section" || type === "global-section") {
+                type = ["section", "global-section"]
+                console.log("TYPE YESSS")
             } else {
                 type = [type]
             }
+            console.log({ type })
             return type.includes(this.component.type);
         },
         updateClipboard(newClip, context) {
@@ -92,9 +96,9 @@ export default {
                         } else {
                             this.setPasteLocations('')
                         }
-                    });
+                    }).catch(err => console.log(err));
                 }
-            });
+            }).catch(err => console.log(err));
         }
     }
 }

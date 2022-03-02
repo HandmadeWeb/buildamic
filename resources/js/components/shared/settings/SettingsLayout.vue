@@ -52,7 +52,7 @@
             />
           </div>
 
-          <div class="buildamic-field flex-wrap flex items-center gap-6">
+          <div class="buildamic-field flex-wrap flex items-center gap-x-4">
             <div v-if="displayOption === 'flex'" class="flex items-center mb-2">
               <label class="mr-2">Align Items: </label>
               <alignment-controls
@@ -78,7 +78,10 @@
                 "
               />
             </div>
-            <div v-if="displayOption === ''" class="flex items-center mb-2">
+            <div
+              v-if="displayOption === 'grid' || displayOption === 'flex'"
+              class="flex items-center mb-2"
+            >
               <label class="mr-2">Place Items: </label>
               <alignment-controls
                 :options="inline.placeItems.config.options"

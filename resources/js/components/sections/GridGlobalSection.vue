@@ -1,6 +1,16 @@
 <template>
   <div
-    class="buildamic-section p-2 pl-1 border border-t-4 rounded border-grey-60 bg-grey-30 flex relative "
+    class="
+      buildamic-section
+      p-2
+      pl-1
+      border border-t-4
+      rounded
+      border-grey-60
+      bg-grey-30
+      flex
+      relative
+    "
   >
     <module-controls
       class="pr-1"
@@ -29,11 +39,12 @@
 <script>
 import OptionsFields from "../../mixins/OptionsFields";
 import ModuleControls from "../shared/ModuleControls";
+import SectionControls from "../../mixins/SectionControls";
 import { mapGetters } from "vuex";
 
 export default {
   components: { ModuleControls },
-  mixins: [OptionsFields],
+  mixins: [OptionsFields, SectionControls],
   props: {
     section: {
       type: Object,

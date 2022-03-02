@@ -51,7 +51,7 @@
 import GridRow from "../rows/GridRow.vue";
 import VueDraggable from "vuedraggable";
 import ModuleControls from "../shared/ModuleControls";
-import { createModule } from "../../factories/modules/moduleFactory";
+import SectionControls from "../../mixins/SectionControls";
 
 export default {
   components: { GridRow, VueDraggable, ModuleControls },
@@ -69,26 +69,9 @@ export default {
   data() {
     return {
       rows: this.section.value ?? [],
-      customSettings: {
-        globals: {
-          icon: "globe",
-          title: "Add Global Module",
-          action: () => this.addGlobal(),
-          order: 30,
-        },
-      },
     };
   },
 
-  methods: {
-    addRow() {
-      const newModule = createModule("Row");
-      this.rows.push(newModule);
-    },
-    addGlobal() {
-      const newModule = createModule("GlobalSection");
-      this.sections.splice(this.sectionIndex + 1, 0, newModule);
-    },
-  },
+  mixins: [SectionControls],
 };
 </script>

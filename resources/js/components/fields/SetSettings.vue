@@ -5,6 +5,7 @@
       `buildamic-set-${field.config.statamic_settings.handle}-fieldtype`,
     ]"
   >
+    <admin-label :field="field" />
     <vue-tabs :id="field.uuid">
       <vue-tab name="Content" selected="selected">
         <set-field
@@ -32,7 +33,9 @@
 import SetField from "./SetField.vue";
 import OptionsTab from "../shared/OptionsTab.vue";
 import DesignTab from "../shared/DesignTab.vue";
+import AdminLabel from "../shared/AdminLabel.vue";
 import { createModule } from "../../factories/modules/moduleFactory";
+
 export default {
   props: {
     field: {
@@ -45,6 +48,7 @@ export default {
     SetField,
     OptionsTab,
     DesignTab,
+    AdminLabel,
   },
   computed: {
     setFieldDefaults() {
@@ -61,12 +65,12 @@ export default {
     createField(f, i) {
       return createModule("Field", {
         ADMIN_LABEL: f,
-        CONFIG: this.fieldDefaults.sets[
-          this.field.config.statamic_settings.handle
-        ].fields[i].config,
-        VALUE: this.fieldDefaults.sets[
-          this.field.config.statamic_settings.handle
-        ].fields[i].value,
+        CONFIG:
+          this.fieldDefaults.sets[this.field.config.statamic_settings.handle]
+            .fields[i].config,
+        VALUE:
+          this.fieldDefaults.sets[this.field.config.statamic_settings.handle]
+            .fields[i].value,
         HANDLE: f,
         TYPE: this.fieldDefaults.sets[
           this.field.config.statamic_settings.handle

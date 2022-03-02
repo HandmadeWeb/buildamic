@@ -1,26 +1,31 @@
 <template>
-  <div class="buildamic-field" :class="[`${getType}-fieldtype`]">
-    <div>
-      <element-container>
-        <publish-field
-          :config="getConfig"
-          :value="fieldData.value"
-          :meta="getMeta"
-          :handle="fieldData.config.statamic_settings.handle"
-          @input="updateField({ obj: field, path: 'value', val: $event })"
-          @meta-updated="
-            updateField({ obj: field, path: 'computed.meta', val: $event })
-          "
-        />
-      </element-container>
-    </div>
-  </div>
+  <field-base
+    :handle="fieldData.config.statamic_settings.handle"
+    :field="field"
+    :defaults="fieldDefaults"
+    class="buildamic-field"
+    :class="[`${getType}-fieldtype`]"
+  >
+    <element-container>
+      <publish-field
+        :config="getConfig"
+        :value="fieldData.value"
+        :meta="getMeta"
+        :handle="fieldData.config.statamic_settings.handle"
+        @input="updateField({ obj: field, path: 'value', val: $event })"
+        @meta-updated="
+          updateField({ obj: field, path: 'computed.meta', val: $event })
+        "
+      />
+    </element-container>
+  </field-base>
 </template>
 
 <script>
 // Overrides
 import ColorFieldtype from "./overrides/ColorFieldtype.vue";
 import OptionsFields from "../../mixins/OptionsFields.js";
+import FieldBase from "../shared/FieldBase.vue";
 
 export default {
   props: {
@@ -35,6 +40,7 @@ export default {
 
   components: {
     ColorFieldtype,
+    FieldBase,
   },
 
   mixins: [OptionsFields],
@@ -77,9 +83,7 @@ export default {
       console.log(el);
     },
   },
-  //   mounted() {
-  //     console.log(this.fieldData.value);
-  //   },
+
   provide() {
     return {
       storeName: "base",

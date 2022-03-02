@@ -49,16 +49,6 @@
           @input="updateField({ path: 'moduleLink', val: $event })"
         />
       </div>
-      <div class="admin_label">
-        <label>Admin Label</label>
-        <text-fieldtype
-          :handle="admin_label.handle"
-          :config="admin_label"
-          v-model="admin_label.value"
-          :meta="null"
-          @input="updateField({ path: 'admin_label', val: $event })"
-        />
-      </div>
     </div>
   </div>
 </template>
@@ -109,14 +99,7 @@ export default {
       //     display: "USER ID's",
       //     value: this.getDeep("computed.user_access") || "",
       //   },
-      admin_label: {
-        placeholder: "Admin Label",
-        input_type: "text",
-        type: "text",
-        icon: "text",
-        handle: "admin_label",
-        value: this.getDeep("admin_label") ?? null,
-      },
+
       moduleLink: {
         placeholder: "Module Link",
         input_type: "text",

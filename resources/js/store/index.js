@@ -31,9 +31,12 @@ export const buildamicStore = {
         setPasteLocations({ commit }, payload) {
             if (payload.includes('field') || payload.includes('set')) {
                 payload = ['field', 'set']
+            } else if (payload.includes('section') || payload.includes('global-section')) {
+                payload = ['section', 'global-section']
             } else[
                 payload = [payload]
             ]
+
             commit('SET_PASTE_LOCATIONS', payload)
         },
         setGlobals({ commit }, payload) {

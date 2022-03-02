@@ -1,33 +1,41 @@
 <template>
-  <div :class="[`${getType}-fieldtype`]">
-    <div>
-      <element-container>
-        <publish-field
-          :config="getConfig"
-          :value="value"
-          :meta="getMeta"
-          :handle="handle"
-          @input="
-            updateField({ obj: field, path: `value.${handle}`, val: $event })
-          "
-          @meta-updated="
-            updateField({
-              obj: field,
-              path: `computed.meta.${handle}`,
-              val: $event,
-            })
-          "
-          @focus="$emit('focus')"
-          @blur="$emit('blur')"
-        />
-      </element-container>
+  <field-base
+    :handle="handle"
+    :field="field"
+    :defaults="setDefaults"
+    :class="[`${getType}-fieldtype`]"
+  >
+    <element-container>
+      <publish-field
+        :config="getConfig"
+        :value="value"
+        :meta="getMeta"
+        :handle="handle"
+        @input="handleInput"
+        @meta-updated="
+          updateField({
+            obj: field,
+            path: `computed.meta.${handle}`,
+            val: $event,
+          })
+        "
+        @focus="$emit('focus')"
+        @blur="handleBlur"
+      />
+    </element-container>
+    <div v-if="errors.length" class="errors pl-3">
+      <span v-for="error in errors" :key="error" class="text-red-600">{{
+        error
+      }}</span>
     </div>
-  </div>
+  </field-base>
 </template>
 
 <script>
 import ColorFieldtype from "./overrides/ColorFieldtype.vue";
 import OptionsFields from "../../mixins/OptionsFields.js";
+import FieldBase from "../shared/FieldBase.vue";
+import { validateForm } from "js-laravel-validation";
 
 export default {
   props: {
@@ -44,11 +52,14 @@ export default {
   },
   components: {
     ColorFieldtype,
+    FieldBase,
   },
   mixins: [OptionsFields],
   data() {
     return {
       fieldData: this.field,
+      value: null,
+      errors: [],
     };
   },
   computed: {
@@ -74,10 +85,49 @@ export default {
       return this.getConfig.component || this.getConfig.type;
     },
   },
-  mounted() {
-    // console.log("handle", this.handle);
-    // console.log("field", this.fieldData);
-    // console.log("meta", this.getMeta);
+  methods: {
+    handleInput($event) {
+      this.value = $event;
+
+      this.validateField();
+      if (this.errors.length) {
+        return;
+      }
+
+      this.updateField({
+        obj: this.field,
+        path: `value.${this.handle}`,
+        val: this.value,
+      });
+    },
+    handleBlur() {
+      this.validateField();
+      console.log(this.errors);
+      this.$emit("blur");
+    },
+    validateField() {
+      this.errors = [];
+      if (!this.setDefaults[this.handle].config?.validate) {
+        return true;
+      }
+
+      const formData = {
+        [this.handle]: {
+          value: this.value,
+          validation: this.setDefaults[this.handle].config?.validate.join("|"),
+        },
+      };
+
+      const result = validateForm({ formData });
+
+      //   return console.log({ result });
+
+      if (result.errors[this.handle]) {
+        this.errors.push(...result.errors[this.handle]);
+      }
+
+      return this.errors;
+    },
   },
   provide() {
     return {
