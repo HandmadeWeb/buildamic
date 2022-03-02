@@ -36,7 +36,7 @@ Buildamic will display the "label" for the "field" from the first available.
 
 ### Frontend
 #### Grid
-Buildamic comes with a grid starting point (which expects that you are using TailWind), If you aren't going to be writing your own grid, then you should include Buildamic's grid style in your header via the provided helpers for Alpine: `{{ buildamicStyles }}`, Blade: `@buildamicStyles` or PHP: `BuildamicHelper()->styles();`
+Buildamic comes with a grid starting point (which expects that you are using TailWind), If you aren't going to be writing your own grid, then you should include Buildamic's grid style in your header via the provided helpers for Antlers: `{{ buildamicStyles }}`, Blade: `@buildamicStyles` or PHP: `echo BuildamicHelper()->styles();`
 
 #### Outputting
 Outputting on the frontend is quite simple, you just use the handle that was given to the field when you configure it in your blueprint.
