@@ -57,6 +57,7 @@ class Buildamic extends BuildamicBase
      * Load data into meta.
      *
      * @param mixed $data
+     *
      * @return array
      */
     public function preload()
@@ -88,7 +89,7 @@ class Buildamic extends BuildamicBase
                     ];
                 }
 
-                return ! empty($fields['fields']) ? $fields : null;
+                return !empty($fields['fields']) ? $fields : null;
             })->filter()->toArray(),
         ];
     }
@@ -98,7 +99,7 @@ class Buildamic extends BuildamicBase
      * $preProcess = false: Process the data before it gets saved.
      *
      * @param mixed $data
-     * @param bool $preProcess
+     *
      * @return array
      */
     protected function processData($data, bool $preProcess = false)
@@ -106,8 +107,8 @@ class Buildamic extends BuildamicBase
         $method = $preProcess ? 'preProcess' : 'process';
 
         return collect($data)->map(function ($section) use ($method) {
-            if ($method === 'preProcess') {
-                if ($section['type'] === 'global-section') {
+            if ('preProcess' === $method) {
+                if ('global-section' === $section['type']) {
                     $field = new Field('global', [
                         'type' => 'entries',
                         'collections' => $this->field()->get('globals'),
@@ -145,11 +146,11 @@ class Buildamic extends BuildamicBase
         $method = $shallow ? 'shallowAugment' : 'augment';
 
         $value = collect($value)->map(function ($section) use ($parent, $method) {
-            if (isset($field['config']['buildamic_settings']['enabled']) && ! $field['config']['buildamic_settings']['enabled']) {
+            if (isset($field['config']['buildamic_settings']['enabled']) && !$field['config']['buildamic_settings']['enabled']) {
                 return;
             }
 
-            if (! in_array($section['type'], ['section', 'global-section'])) {
+            if (!in_array($section['type'], ['section', 'global-section'])) {
                 return;
             }
 

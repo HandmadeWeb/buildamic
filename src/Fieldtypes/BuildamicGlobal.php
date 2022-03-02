@@ -2,6 +2,7 @@
 
 namespace HandmadeWeb\Buildamic\Fieldtypes;
 
+use HandmadeWeb\Buildamic\Fields\Field;
 use Statamic\Fieldtypes\Entries;
 
 class BuildamicGlobal extends Entries
@@ -16,6 +17,11 @@ class BuildamicGlobal extends Entries
     protected $categories = [];
     // protected $defaultValue;
 
+    protected function hackyMethodForUseFieldOverride()
+    {
+        return new Field('hackyMethodForUseFieldOverride', []);
+    }
+
     protected function configFieldItems(): array
     {
         $config = parent::configFieldItems();
@@ -29,9 +35,9 @@ class BuildamicGlobal extends Entries
 
     public function config(string $key = null, $fallback = null)
     {
-        if ($key === 'create') {
+        if ('create' === $key) {
             return false;
-        } elseif ($key === 'max_items') {
+        } elseif ('max_items' === $key) {
             return 1;
         }
 

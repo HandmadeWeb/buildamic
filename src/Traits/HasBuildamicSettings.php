@@ -25,7 +25,7 @@ trait HasBuildamicSettings
         return $this->buildamicSettings;
     }
 
-    public function buildamicSetting(string | null $key = null, $fallback = null)
+    public function buildamicSetting(string|null $key = null, $fallback = null)
     {
         if (is_null($key)) {
             return $this->buildamicSettings();

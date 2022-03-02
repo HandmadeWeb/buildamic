@@ -21,10 +21,10 @@ class ServiceProvider extends AddonServiceProvider
 
     protected $fieldtypes = [
         \HandmadeWeb\Buildamic\Fieldtypes\Buildamic::class,
-        //
+
         \HandmadeWeb\Buildamic\Fieldtypes\BuildamicSection::class,
         \HandmadeWeb\Buildamic\Fieldtypes\BuildamicGlobalSection::class,
-        //
+
         \HandmadeWeb\Buildamic\Fieldtypes\BuildamicRow::class,
         \HandmadeWeb\Buildamic\Fieldtypes\BuildamicColumn::class,
     ];

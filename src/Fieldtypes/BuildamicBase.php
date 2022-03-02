@@ -31,6 +31,7 @@ class BuildamicBase extends Fieldtype
      * Pre-process the data before it gets sent to the publish page.
      *
      * @param mixed $data
+     *
      * @return array|mixed
      */
     public function preProcess($data)
@@ -46,11 +47,12 @@ class BuildamicBase extends Fieldtype
      * Process the data before it gets saved.
      *
      * @param mixed $data
+     *
      * @return array|mixed
      */
     public function process($data)
     {
-        if (! is_array($data)) {
+        if (!is_array($data)) {
             return $this->defaultValue();
         }
 
@@ -62,7 +64,7 @@ class BuildamicBase extends Fieldtype
      * $preProcess = false: Process the data before it gets saved.
      *
      * @param mixed $data
-     * @param bool $preProcess
+     *
      * @return array
      */
     protected function processData($data, bool $preProcess = false)

@@ -1,9 +1,9 @@
 module.exports = {
     content: [
-        './resources/**/*.vue',
-        './resources/**/*.antlers.html',
-        './resources/**/*.blade.php',
-        './content/**/*.md'
+        './resources/js/**/*.vue',
+        './resources/views/**/*.antlers.html',
+        './resources/views/**/*.antlers.php',
+        './resources/views/**/*.blade.php'
     ],
     theme: {
         extend: {},

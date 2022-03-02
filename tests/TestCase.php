@@ -12,7 +12,6 @@ class TestCase extends OrchestraTestCase
 {
     /**
      * @param \Illuminate\Foundation\Application $app
-     * @return array
      */
     protected function getPackageProviders($app): array
     {
@@ -24,7 +23,6 @@ class TestCase extends OrchestraTestCase
 
     /**
      * @param \Illuminate\Foundation\Application $app
-     * @return array
      */
     protected function getPackageAliases($app): array
     {
@@ -43,13 +41,14 @@ class TestCase extends OrchestraTestCase
         $app->make(Manifest::class)->manifest = [
             'HandmadeWeb/buildamic' => [
                 'id' => 'HandmadeWeb/buildamic',
-                'namespace' => 'HandmadeWeb\\Buildamic\\',
+                'namespace' => 'HandmadeWeb\\Buildamic',
             ],
         ];
     }
 
     /**
      * Resolve the Application Configuration and set the Statamic configuration.
+     *
      * @param \Illuminate\Foundation\Application $app
      */
     protected function resolveApplicationConfiguration($app): void

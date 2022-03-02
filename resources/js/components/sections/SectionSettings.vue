@@ -26,7 +26,7 @@
 import OptionsFields from "../../mixins/OptionsFields";
 import OptionsTab from "../shared/OptionsTab.vue";
 import DesignTab from "../shared/DesignTab.vue";
-import ToggleFieldtype from "../../../../../../../vendor/statamic/cms/resources/js/components/fieldtypes/ToggleFieldtype.vue";
+import ToggleFieldtype from "../../../../vendor/statamic/cms/resources/js/components/fieldtypes/ToggleFieldtype.vue";
 export default {
   name: "section-settings",
   props: {

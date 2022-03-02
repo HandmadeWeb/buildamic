@@ -1,7 +1,3 @@
-@php
-    $moduleLink = $set->buildamicSetting('moduleLink') ?? null;
-@endphp
-
-<div @isset($moduleLink) onclick="location.href='{{ $moduleLink }}';" @endisset {!! BuildamicHelper()->HtmlId($set->buildamicSetting('attributes.id')) !!} class="buildamic-set @isset($moduleLink) cursor-pointer @endisset {{ $set->computedAttribute('class') }}">
+<div @if($moduleLink = $set->buildamicSetting('moduleLink')) onclick="location.href='{{ $moduleLink }}';" @endif {!! BuildamicHelper()->HtmlId($set->buildamicSetting('attributes.id')) !!} class="buildamic-set @if($moduleLink) cursor-pointer @endif {{ $set->computedAttribute('class') }}">
     @yield('set_content')
 </div>

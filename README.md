@@ -2,7 +2,6 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/handmadeweb/buildamic.svg?style=flat-square)](https://packagist.org/packages/handmadeweb/buildamic)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE.md)
 [![Run Tests](https://github.com/handmadeweb/buildamic/actions/workflows/tests.yml/badge.svg)](https://github.com/handmadeweb/buildamic/actions/workflows/tests.yml)
-![Statamic v3.1](https://img.shields.io/badge/Statamic-3.1+-FF269E?style=flat-square)
 
 Buildamic is a WIP "pagebuilder" for Statamic 3, It is currently in heavy development and likely to have breaking changes with frequency, as such is not considered ready to be used in production.
 
@@ -11,7 +10,7 @@ Please be aware that it is not recommended to use this in production just yet.
 
 ## Requirements
 * PHP 8.0 or higher
-* Statamic 3.1 or higher
+* Statamic 3.2 or higher
 * Laravel 8.0 or higher
 
 ## Installation
@@ -37,13 +36,13 @@ Buildamic will display the "label" for the "field" from the first available.
 
 ### Frontend
 #### Grid
-Buildamic comes with a grid starting point (which expects that you are using TailWind), If you aren't going to be writing your own grid, then you should include Buildamic's grid style in your header via the provided helpers for Alpine: `{{ buildamicStyles }}`, Blade: `@buildamicStyles` or PHP: `BuildamicHelper()->styles();`
+Buildamic comes with a grid starting point (which expects that you are using TailWind), If you aren't going to be writing your own grid, then you should include Buildamic's grid style in your header via the provided helpers for Antlers: `{{ buildamicStyles }}`, Blade: `@buildamicStyles` or PHP: `echo BuildamicHelper()->styles();`
 
 #### Outputting
 Outputting on the frontend is quite simple, you just use the handle that was given to the field when you configure it in your blueprint.
 And reference the below two examples on how to render the output in Antlers or Blade.
 
-Statamic automatically casts the handle to an instance of \Statamic\Fields\Value and will automatically render via the __toString methods. 
+Statamic automatically casts the handle to an instance of \Statamic\Fields\Value and will automatically render via the __toString methods.
 
 By default the handle will be "buildamic"
 
@@ -54,7 +53,7 @@ By default the handle will be "buildamic"
 ```
 
 #### Blade output
-If you are using Blade then We advise using "Our perferred way" listed below, which is slightly faster and will show a more complete picture should you choose to run a code profiler (Example: blackfire.io)
+If you are using Blade then We advise using "Our perferred way" listed below, which is slightly faster and will show a more complete picture should you choose to run a code profiler (Example: [blackfire.io](https://www.blackfire.io/))
 
 ```php
 // The easy way
@@ -76,7 +75,7 @@ When Buildamic tries to render a field, it will use the first available file, ch
 * field type: markdown
 * field handle: hero-blurb
 * loaded file: fields/markdown-hero-blurb.blade.php
- 
+
 Then
 
 * field type: markdown

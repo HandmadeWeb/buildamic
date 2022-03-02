@@ -5,5 +5,5 @@
         $fieldValue = $field->value();
     @endphp
 
-    {!! $fieldValue->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($fieldValue, $cascade) : $fieldValue !!}
+    {!! $fieldValue->shouldParseAntlers() ? \Statamic\Facades\Antlers::parse($fieldValue, collect(get_defined_vars())->except('__data', '__path')->toArray()) : $fieldValue !!}
 @overwrite

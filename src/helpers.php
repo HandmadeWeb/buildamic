@@ -4,5 +4,5 @@ use HandmadeWeb\Buildamic\BuildamicHelper;
 
 function BuildamicHelper()
 {
-    return new BuildamicHelper;
+    return new BuildamicHelper();
 }

@@ -1,7 +1,7 @@
 @extends('buildamic::layouts.field')
 
 @section('field_content')
-    @php 
+    @php
         $bardValue = $field->value()->value();
     @endphp
 
