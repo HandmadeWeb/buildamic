@@ -1,8 +1,9 @@
 module.exports = {
     content: [
         './resources/**/*.vue',
-        './resources/**/*.antlers.html',
-        './resources/**/*.blade.php',
+        './resources/views/*.antlers.html',
+        './resources/views/*.antlers.php',
+        './resources/views/*.blade.php',
         './content/**/*.md'
     ],
     theme: {
