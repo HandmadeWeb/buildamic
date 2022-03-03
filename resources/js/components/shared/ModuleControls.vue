@@ -4,7 +4,7 @@
     :data-testid="`${type || component.type}-controls`"
   >
     <ul
-      class="list-unstyled flex m-0 p-0 gap-2 overflow-x-auto pb-1"
+      class="list-unstyled flex m-0 p-0 gap-2 overflow-x-auto pb-0"
       :class="[`flex-${getDirection}`]"
     >
       <li
