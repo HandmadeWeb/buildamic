@@ -2,14 +2,14 @@
 
 namespace HandmadeWeb\Buildamic;
 
+use Facades\Statamic\View\Cascade;
 use HandmadeWeb\Buildamic\Fields\Field;
 use HandmadeWeb\Buildamic\Fields\Fields;
 use HandmadeWeb\Buildamic\Fieldtypes\Buildamic;
 use Illuminate\Support\Collection;
-// use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\View;
 use Statamic\Entries\Entry as StatamicEntry;
 use Statamic\Facades\Entry;
-use Statamic\View\View;
 
 class BuildamicRenderer
 {
@@ -30,6 +30,14 @@ class BuildamicRenderer
         $this->containerId = $this->instance->field()->get('container_id');
         $this->containerClass = $this->instance->field()->get('container_class');
         $this->sections = $this->instance->field()->value();
+    }
+
+    protected function cascade()
+    {
+        return $this->cascade = $this->cascade ?? Cascade::instance()
+            ->withContent($this->cascadeContent)
+            ->hydrate()
+            ->toArray();
     }
 
     public function containerId()
@@ -59,7 +67,12 @@ class BuildamicRenderer
 
     public function renderContainer()
     {
-        return View::make("{$this->viewPrefix}.layouts.container", ['buildamic' => $this, 'sections' => $this->sections()])->render();
+        return View::make("{$this->viewPrefix}.layouts.container", array_merge(
+            $this->cascade(), [
+                'buildamic' => $this,
+                'sections' => $this->sections(),
+            ]
+        ))->render();
     }
 
     public function renderSection(Field $section)
@@ -67,7 +80,12 @@ class BuildamicRenderer
         $section = Filter::run('buildamic_filter_everything', $section);
         $section = Filter::run('buildamic_filter_section', $section);
 
-        return View::make("{$this->viewPrefix}.layouts.section", ['buildamic' => $this, 'section' => $section])->render();
+        return View::make("{$this->viewPrefix}.layouts.section", array_merge(
+            $this->cascade(), [
+                'buildamic' => $this,
+                'section' => $section,
+            ]
+        ))->render();
     }
 
     protected function renderFieldFromGlobalEntry(StatamicEntry $entry)
@@ -108,7 +126,12 @@ class BuildamicRenderer
         $row = Filter::run('buildamic_filter_everything', $row);
         $row = Filter::run('buildamic_filter_row', $row);
 
-        return View::make("{$this->viewPrefix}.layouts.row", ['buildamic' => $this, 'row' => $row])->render();
+        return View::make("{$this->viewPrefix}.layouts.row", array_merge(
+            $this->cascade(), [
+                'buildamic' => $this,
+                'row' => $row,
+            ]
+        ))->render();
     }
 
     public function renderColumn(Field $column)
@@ -116,7 +139,12 @@ class BuildamicRenderer
         $column = Filter::run('buildamic_filter_everything', $column);
         $column = Filter::run('buildamic_filter_column', $column);
 
-        return View::make("{$this->viewPrefix}.layouts.column", ['buildamic' => $this, 'column' => $column])->render();
+        return View::make("{$this->viewPrefix}.layouts.column", array_merge(
+            $this->cascade(), [
+                'buildamic' => $this,
+                'column' => $column,
+            ]
+        ))->render();
     }
 
     public function renderField(Field|Fields $field)
@@ -151,29 +179,48 @@ class BuildamicRenderer
                 $collectionHandle = $field->value()->value()->handle();
             }
 
-            if (view()->exists("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}")) {
-                return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}", ['buildamic' => $this, 'field' => $field])->render();
+            if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}")) {
+                return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}", array_merge(
+                    $this->cascade(), [
+                        'buildamic' => $this, 'field' => $field,
+                    ]
+                ))->render();
             }
         }
 
         // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
-        if (view()->exists("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}")) {
+        if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}")) {
             $field = $field->{$this->augmentMethod}()
                 ->setComputedAttributes($field->computedAttributes());
 
-            return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}", ['buildamic' => $this, 'field' => $field])->render();
+            return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}", array_merge(
+                $this->cascade(), [
+                    'buildamic' => $this,
+                    'field' => $field,
+                ]
+            ))->render();
         }
 
         // type: markdown, file: markdown
-        if (view()->exists("{$this->viewPrefix}.fields.{$field->type()}")) {
+        if (View::exists("{$this->viewPrefix}.fields.{$field->type()}")) {
             $field = $field->{$this->augmentMethod}()
                 ->setComputedAttributes($field->computedAttributes());
 
-            return View::make("{$this->viewPrefix}.fields.{$field->type()}", ['buildamic' => $this, 'field' => $field])->render();
+            return View::make("{$this->viewPrefix}.fields.{$field->type()}", array_merge(
+                $this->cascade(), [
+                    'buildamic' => $this,
+                    'field' => $field,
+                ]
+            ))->render();
         }
 
         // catch all, file: default-field
-        return View::make("{$this->viewPrefix}.default-field", ['buildamic' => $this, 'field' => $field])->render();
+        return View::make("{$this->viewPrefix}.default-field", array_merge(
+            $this->cascade(), [
+                'buildamic' => $this,
+                'field' => $field,
+            ]
+        ))->render();
     }
 
     public function renderFieldset(Fields $fieldset)
@@ -195,8 +242,14 @@ class BuildamicRenderer
         $fieldset = Filter::run("buildamic_filter_fieldset:{$handle}", $fieldset);
 
         // handle:blurb, file: blurb
-        if (view()->exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
-            return View::make("{$this->viewPrefix}.fieldsets.{$handle}", ['buildamic' => $this, 'fieldset' => $fieldset, 'fields' => $fields])->render();
+        if (View::exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
+            return View::make("{$this->viewPrefix}.fieldsets.{$handle}", array_merge(
+                $this->cascade(), [
+                    'buildamic' => $this,
+                    'fieldset' => $fieldset,
+                    'fields' => $fields,
+                ]
+            ))->render();
         }
 
         // catch all, render individual fields.
@@ -232,8 +285,14 @@ class BuildamicRenderer
             ->all();
 
         // handle:blurb, file: blurb
-        if (view()->exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
-            return View::make("{$this->viewPrefix}.sets.{$set->handle()}", ['buildamic' => $this, 'set' => $set, 'fields' => $fields])->render();
+        if (View::exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
+            return View::make("{$this->viewPrefix}.sets.{$set->handle()}", array_merge(
+                $this->cascade(), [
+                    'buildamic' => $this,
+                    'set' => $set,
+                    'fields' => $fields,
+                ]
+            ))->render();
         }
 
         // catch all, render individual fields.
