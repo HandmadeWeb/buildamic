@@ -4,6 +4,7 @@
       buildamic-section
       p-2
       pl-1
+      pb-0.5
       border border-t-4
       rounded
       border-blue-500
@@ -18,7 +19,6 @@
       :index="sectionIndex"
       :customSettings="customSettings"
     />
-
     <vue-draggable
       :list="rows"
       :group="{ name: 'rows' }"

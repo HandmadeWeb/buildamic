@@ -1,11 +1,9 @@
 <template>
   <div
-    class="border flex rounded border-t-4 border-green-light p-2 relative"
-    :class="[{ 'flex-col': items <= 1 }, { 'pl-1': items > 1 }]"
+    class="border flex rounded border-t-4 pl-1 border-green-light p-2 relative"
   >
     <module-controls
-      v-if="items > 1"
-      class="pr-1 items-start"
+      class="pr-1"
       :component="row"
       :value="rows"
       :index="rowIndex"
@@ -24,15 +22,7 @@
         <grid-column :key="column.uuid" :column="column" />
       </template>
     </div>
-    <module-controls
-      v-if="items <= 1"
-      class="mt-2 justify-center"
-      direction="col"
-      :component="row"
-      :value="rows"
-      :index="rowIndex"
-      :customSettings="customSettings"
-    />
+
     <column-selector
       :row="row"
       :name="row.uuid + '-column-layouts'"
