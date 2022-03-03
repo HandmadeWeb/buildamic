@@ -1,4 +1,5 @@
 module.exports = {
+    important: true,
     content: [
         './resources/js/**/*.vue',
         './resources/views/**/*.antlers.html',
@@ -6,7 +7,14 @@ module.exports = {
         './resources/views/**/*.blade.php'
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                green: {
+                    100: '#E6F4E6',
+                    200: '#C8E6C8',
+                },
+            }
+        },
     },
     variants: {},
     plugins: [],

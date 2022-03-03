@@ -62,12 +62,4 @@ const getDeep = (obj, path, defaultVal) => {
     return data;
 }
 
-const getDeepAsync = (obj, path) => {
-    return new Promise((res, rej) => {
-        path = Array.isArray(path) ? path : path.split('.').filter(path => path)
-        let search = path.reduce((a, b) => a && a[b], obj)
-        search ? res(search) : rej()
-    })
-}
-
-export { setDeep, getDeep, getDeepAsync }
+export { setDeep, getDeep }

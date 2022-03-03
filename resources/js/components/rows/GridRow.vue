@@ -1,17 +1,24 @@
 <template>
   <div
-    class="border flex rounded border-t-4 pl-1 border-green-light p-2 relative"
+    class="
+      transition-all
+      duration-200
+      border
+      flex
+      rounded
+      border-t-4
+      group-hover:pb-6
+      border-green-light
+      relative
+      pl-2
+    "
   >
-    <module-controls
-      class="pr-1"
-      :component="row"
-      :value="rows"
-      :index="rowIndex"
-      :customSettings="customSettings"
-    />
-    <div class="buildamic-row p-0 w-full gap-2" :style="colCount">
+    <div
+      class="sortable-handle bg-green-200 absolute top-0 left-0 h-full"
+    ></div>
+    <div class="buildamic-row p-2 w-full gap-2" :style="colCount">
       <button
-        class="py-1 px-2 border border-dashed"
+        class="py-1 px-1 border border-dashed"
         style="grid-column: 1 / -1"
         v-if="!columns.length"
         @click="$modals.open(row.uuid + '-column-layouts')"
@@ -22,6 +29,25 @@
         <grid-column :key="column.uuid" :column="column" />
       </template>
     </div>
+
+    <module-controls
+      class="
+        transition-all
+        duration-200
+        text-green-light
+        opacity-0
+        absolute
+        right-1
+        bottom-1
+        mx-auto
+        group-hover:opacity-100
+      "
+      direction="row"
+      :component="row"
+      :value="rows"
+      :index="rowIndex"
+      :customSettings="customSettings"
+    />
 
     <column-selector
       :row="row"

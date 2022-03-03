@@ -4,7 +4,7 @@
       :list="sections"
       :group="{ name: 'sections' }"
       ghost-class="ghost"
-      class="flex flex-col gap-2 group"
+      class="flex flex-col gap-2"
     >
       <component
         :is="`grid-${section.type}`"

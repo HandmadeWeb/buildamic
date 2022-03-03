@@ -10,6 +10,7 @@
       relative
     "
   >
+    <div class="sortable-handle absolute top-0 left-0 h-full"></div>
     <span
       contenteditable="true"
       @blur="
@@ -34,6 +35,7 @@
 <script>
 import ModuleControls from "../shared/ModuleControls.vue";
 import { setDeep } from "../../functions/objectHelpers";
+
 export default {
   props: {
     field: Object,

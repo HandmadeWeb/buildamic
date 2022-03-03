@@ -2,23 +2,21 @@
   <div
     class="
       buildamic-section
+      transition-all
+      duration-200
       p-2
-      pl-1
       pb-0.5
+      hover:pb-8
       border border-t-4
       rounded
       border-blue-500
       flex
       relative
+      group
+      pl-4
     "
   >
-    <module-controls
-      class="pr-1"
-      :component="section"
-      :value="sections"
-      :index="sectionIndex"
-      :customSettings="customSettings"
-    />
+    <div class="sortable-handle absolute top-0 left-0 h-full"></div>
     <vue-draggable
       :list="rows"
       :group="{ name: 'rows' }"
@@ -42,6 +40,24 @@
         Add Row
       </button>
     </vue-draggable>
+    <module-controls
+      class="
+        transition-all
+        duration-200
+        text-blue-500
+        opacity-0
+        absolute
+        right-1
+        bottom-1
+        mx-auto
+        group-hover:opacity-100
+      "
+      direction="row"
+      :component="section"
+      :value="sections"
+      :index="sectionIndex"
+      :customSettings="customSettings"
+    />
   </div>
 </template>
 

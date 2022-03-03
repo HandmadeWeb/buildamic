@@ -2,8 +2,3 @@
 ---------------------- Individual Components ---------
 --------------------------------------------------------------*/
 @import "grid";
-
-// Fix instruction label spacing
-[class*="buildamic"] .help-block {
-  margin-top: 0.2rem !important;
-}

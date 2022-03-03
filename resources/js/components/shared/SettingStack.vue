@@ -1,7 +1,7 @@
 <template>
   <div class="module-selector">
     <eva-icon
-      class="flex cursor-pointer text-grey-80 pulse"
+      class="flex cursor-pointer pulse"
       fill="currentColor"
       name="settings-outline"
       width="18"
@@ -24,7 +24,7 @@
 <script>
 import { EvaIcon } from "vue-eva-icons";
 import FieldSettings from "../fields/FieldSettings.vue";
-import SetSettings from "../fields/SetSettings.vue";
+import SetSettings from "../sets/SetSettings.vue";
 import RowSettings from "../rows/RowSettings.vue";
 import SectionSettings from "../sections/SectionSettings.vue";
 import { mapGetters } from "vuex";

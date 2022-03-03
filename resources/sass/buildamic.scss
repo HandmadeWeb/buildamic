@@ -1,6 +1,9 @@
-@import "./tailwindbase";
-@import "./tailwindcomponents";
-@import "./tailwindutilities";
+// This wraps all our tailwind in a specificity class while also enabling !important to override the CP version
+.buildamic-fieldtype {
+  @import "./tailwindbase";
+  @import "./tailwindcomponents";
+  @import "./tailwindutilities";
+}
 
 /*--------------------------------------------------------------
 # Functions, Variables, Mixins: (these should always come first)
@@ -12,3 +15,46 @@
 # Buildy: (All buildy defaults)
 --------------------------------------------------------------*/
 @import "buildy/buildy";
+
+:root {
+  --default-spacer: 1rem;
+}
+
+[class*="buildamic"] {
+  // Fix instruction label spacing
+  .help-block {
+    margin-top: 0.2rem !important;
+  }
+
+  .replicator-fieldtype {
+    background: none !important;
+    border: none !important;
+    padding: 0;
+    .field-inner,
+    .replicator-fieldtype-container {
+      padding-left: 0;
+      margin-left: 0;
+    }
+    .replicator-set {
+      margin-bottom: var(--default-spacer);
+    }
+  }
+
+  .sortable-handle {
+    width: 1rem;
+    padding: 8px;
+    cursor: -webkit-grab;
+    cursor: grab;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background-color: rgba(0, 0, 0, 0.03);
+    background-image: url("/vendor/buildamic/img/drag-dots.svg");
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+  }
+
+  @include media-breakpoint-up(md) {
+    .form-group {
+      padding: var(--default-spacer);
+    }
+  }
+}

@@ -9,7 +9,18 @@
           class="tab border-b-0 text-center"
         >
           <a
-            class="bg-transparent border-none h-auto shadow-none inline-block rounded-t py-2 px-4 text-gray-700 font-semibold"
+            class="
+              bg-transparent
+              border-none
+              h-auto
+              shadow-none
+              inline-block
+              rounded-t
+              py-2
+              px-4
+              text-gray-700
+              font-semibold
+            "
             :href="tab.href"
             @click="selectTab(tab)"
             >{{ tab.name }}</a
@@ -17,7 +28,7 @@
         </li>
       </ul>
     </div>
-    <div class="tabs-details border p-4">
+    <div class="tabs-details border p-2">
       <slot></slot>
     </div>
   </div>

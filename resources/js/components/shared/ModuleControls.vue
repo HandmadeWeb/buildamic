@@ -27,7 +27,7 @@
           width="18"
           height="18"
           fill="currentColor"
-          class="flex text-grey-80 cursor-pointer pulse"
+          class="flex cursor-pointer pulse"
           :class="[setting.class || '']"
         ></eva-icon>
       </li>
