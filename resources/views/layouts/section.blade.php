@@ -8,7 +8,7 @@
 
 <div @isset($background_image) style="background-image: url('{{ $background_image }}');" @endisset {!! BuildamicHelper()->HtmlId($section->buildamicSetting('attributes.id')) !!} {{ $section->computedAttribute('dataAtts') }} class="buildamic-section {{ $section->computedAttribute('class') }}">
     @if($background_video)
-        <video class="aspect-video absolute object-cover -z-10 top-0 left-0 h-full w-full" playsinline autoplay muted loop>
+        <video class="buildamic-bg-video" playsinline autoplay muted loop>
             @isset($webm) <source src="{{ glide_url($webm) }}" type="video/webm"> @endisset
             @isset($mp4) <source src="{{ glide_url($mp4) }}" type="video/mp4"> @endisset
             Your browser does not support the video tag.
