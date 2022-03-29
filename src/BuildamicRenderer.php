@@ -178,7 +178,7 @@ class BuildamicRenderer
                 $collectionHandle = $field->value()->value()->handle();
             }
 
-            if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}")) {
+            if (view()->exists("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}")) {
                 return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}", array_merge(
                     $this->cascade(), [
                         'buildamic' => $this, 'field' => $field,
@@ -188,7 +188,7 @@ class BuildamicRenderer
         }
 
         // type: markdown, handle:hero-blurb, file: markdown-hero-blurb
-        if (View::exists("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}")) {
+        if (view()->exists("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}")) {
             $field = $field->{$this->augmentMethod}()
                 ->setComputedAttributes($field->computedAttributes());
 
@@ -201,7 +201,7 @@ class BuildamicRenderer
         }
 
         // type: markdown, file: markdown
-        if (View::exists("{$this->viewPrefix}.fields.{$field->type()}")) {
+        if (view()->exists("{$this->viewPrefix}.fields.{$field->type()}")) {
             $field = $field->{$this->augmentMethod}()
                 ->setComputedAttributes($field->computedAttributes());
 
@@ -241,7 +241,7 @@ class BuildamicRenderer
         $fieldset = Filter::run("buildamic_filter_fieldset:{$handle}", $fieldset);
 
         // handle:blurb, file: blurb
-        if (View::exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
+        if (view()->exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
             return View::make("{$this->viewPrefix}.fieldsets.{$handle}", array_merge(
                 $this->cascade(), [
                     'buildamic' => $this,
@@ -284,7 +284,7 @@ class BuildamicRenderer
             ->all();
 
         // handle:blurb, file: blurb
-        if (View::exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
+        if (view()->exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
             return View::make("{$this->viewPrefix}.sets.{$set->handle()}", array_merge(
                 $this->cascade(), [
                     'buildamic' => $this,
