@@ -26,7 +26,7 @@ jobs:
             framework: ^9.0
             testbench: ^7.0
 
-    name: P${{ matrix.php }} - S${{ matrix.statamic }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ubuntu-latest
+    name: P${{ matrix.php }} - S${{ matrix.statamic }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout code
