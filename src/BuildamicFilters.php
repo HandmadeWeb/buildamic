@@ -4,6 +4,7 @@ namespace HandmadeWeb\Buildamic;
 
 use HandmadeWeb\Buildamic\Fields\Field;
 use HandmadeWeb\Buildamic\Fields\Fields;
+use Statamic\Statamic;
 
 class BuildamicFilters
 {
@@ -153,7 +154,7 @@ class BuildamicFilters
 
     public static function filter_field(Field $field): Field
     {
-        $field->mergeComputedAttributes(['class' => modify($field->type())->ensureLeft('buildamic-')->ensureRight('-field').' '.$field->computedAttribute('class')]);
+        $field->mergeComputedAttributes(['class' => Statamic::modify($field->type())->ensureLeft('buildamic-')->ensureRight('-field').' '.$field->computedAttribute('class')]);
 
         return $field;
     }
