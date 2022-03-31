@@ -13,14 +13,18 @@ jobs:
 
     strategy:
       matrix:
-        php: [8.0]
-        laravel: [8.*]
-        statamic: [3.2.*]
+        php: [8.0, 8.1]
+        laravel: [8.*, 9.*]
+        statamic: [3.3.*]
         dependency-version: [prefer-lowest, prefer-stable]
         os: [ubuntu-20.04]
         include:
           - laravel: 8.*
+            framework: ^8.80
             testbench: 6.*
+          - laravel: 9.*
+            framework: ^9.0
+            testbench: 7.*
 
     name: P${{ matrix.php }} - S${{ matrix.statamic }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ubuntu-latest
 
@@ -37,7 +41,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "statamic/cms:${{ matrix.statamic }}" "orchestra/testbench:${{ matrix.testbench }}" ${{ matrix.additional-deps }} --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.framework }}" "statamic/cms:${{ matrix.statamic }}" "orchestra/testbench:${{ matrix.testbench }}" ${{ matrix.additional-deps }} --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
       - name: Execute tests
         run: vendor/bin/phpunit
