@@ -13,14 +13,16 @@ jobs:
 
     strategy:
       matrix:
-        php: [8.0]
-        laravel: [8.*]
-        statamic: [3.2.*]
+        php: [8.0, 8.1]
+        laravel: [8.*, 9.*]
+        statamic: [3.3.*]
         dependency-version: [prefer-lowest, prefer-stable]
         os: [ubuntu-20.04]
         include:
           - laravel: 8.*
             testbench: 6.*
+          - laravel: 9.*
+            testbench: 7.*
 
     name: P${{ matrix.php }} - S${{ matrix.statamic }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ubuntu-latest
 
