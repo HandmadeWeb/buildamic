@@ -19,11 +19,9 @@ jobs:
         dependency-version: [prefer-lowest, prefer-stable]
         os: [ubuntu-20.04]
         include:
-          - laravel: 8.*
-            framework: ^8.80
+          - laravel: ^8.80
             testbench: 6.*
           - laravel: 9.*
-            framework: ^9.0
             testbench: 7.*
 
     name: P${{ matrix.php }} - S${{ matrix.statamic }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ubuntu-latest
