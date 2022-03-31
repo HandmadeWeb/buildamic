@@ -19,7 +19,7 @@ jobs:
         dependency-version: [prefer-lowest, prefer-stable]
         os: [ubuntu-20.04]
         include:
-          - laravel: 8.*
+          - laravel: ^8.80
             testbench: 6.*
           - laravel: 9.*
             testbench: 7.*
