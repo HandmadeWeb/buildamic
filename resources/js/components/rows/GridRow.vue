@@ -7,7 +7,7 @@
       flex
       rounded
       border-t-4
-      group-hover:pb-6
+      pb-3
       border-green-light
       relative
       pl-2
@@ -35,12 +35,10 @@
         transition-all
         duration-200
         text-green-light
-        opacity-0
         absolute
         right-1
         bottom-1
         mx-auto
-        group-hover:opacity-100
       "
       direction="row"
       :component="row"
