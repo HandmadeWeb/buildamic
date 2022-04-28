@@ -1,7 +1,6 @@
 import resolveConfig from "tailwindcss/resolveConfig";
-
-// this is the theme config not the plugin
-import tailwindConfig from "../../../../../../tailwind.config.js";
+// import tailwindConfig from "../../../../../../tailwind.config.js";
+import tailwindConfig from "../../../tailwind.config.js";
 
 const fullConfig = resolveConfig(tailwindConfig);
 
