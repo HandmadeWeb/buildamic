@@ -3,7 +3,7 @@
     :handle="handle"
     :field="field"
     :defaults="setDefaults"
-    :class="[`${getType}-fieldtype`]"
+    :class="[`${getType}-fieldtype`, `field-${window.tailwind_width_class(this.getConfig.width)}`]"
   >
     <element-container>
       <publish-field
@@ -84,6 +84,12 @@ export default {
     getType() {
       return this.getConfig.component || this.getConfig.type;
     },
+    window() {
+      return window;
+    }
+  },
+  mounted() {
+    console.log(this.getConfig)
   },
   methods: {
     handleInput($event) {
@@ -140,5 +146,21 @@ export default {
 <style scoped>
 .buildamic-field + .buildamic-field {
   margin-top: 2rem;
+}
+</style>
+
+<style lang="scss">
+.buildamic-set {
+    .tabs-details {
+
+      > div {
+        display: flex;
+        flex-wrap: wrap;
+
+        .publish-field {
+          width: 100% !important;
+        }
+      }
+    }
 }
 </style>
