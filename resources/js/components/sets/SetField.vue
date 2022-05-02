@@ -157,7 +157,7 @@ export default {
         display: flex;
         flex-wrap: wrap;
 
-        .publish-field {
+        > div > .publish-field {
           width: 100% !important;
         }
       }
