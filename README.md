@@ -120,8 +120,11 @@ Please see [CONTRIBUTING](https://github.com/handmadeweb/buildamic/blob/main/CON
 ## Credits
 
 - [Handmade Web & Design](https://github.com/handmadeweb)
-- [Michael Rook](https://github.com/michaelr0)
+
+- [Aaron Curle](https://github.com/aaroncurlehmw)
 - [John Pieters](https://github.com/sliver37)
+- [Michael Rook](https://github.com/michaelr0)
+
 - [All Contributors](https://github.com/handmadeweb/buildamic/graphs/contributors)
 
 ## License
