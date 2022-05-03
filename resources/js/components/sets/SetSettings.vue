@@ -38,25 +38,23 @@ import AdminLabel from "../shared/AdminLabel.vue";
 import ErrorDisplay from "../shared/ErrorDisplay.vue";
 
 export default {
-  data: function () {
-    return {
-      setDefaults: {},
-    };
-  },
-  created() {
-    this.setDefaults = this.fieldDefaults[
-      this.field.config.statamic_settings.handle
-    ].fields.reduce((acc, cur) => {
-      acc[cur.handle] = cur;
-      return acc;
-    }, {});
-  },
   props: {
     field: {
       type: Object,
       required: true,
     },
     fieldDefaults: Object,
+  },
+  computed: {
+    setDefaults() {
+      console.log(this.fieldDefaults);
+      return this.fieldDefaults[
+        this.field.config.statamic_settings.handle
+      ].fields.reduce((acc, cur) => {
+        acc[cur.handle] = cur;
+        return acc;
+      }, {});
+    },
   },
   components: {
     SetField,

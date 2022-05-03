@@ -24,10 +24,11 @@
       <publish-field
         class="border p-2"
         :config="config"
+        :meta="getMeta"
         :value="section.value || []"
         @input="updateField({ obj: section, path: 'value', val: $event })"
         @meta-updated="
-          updateField({ obj: section, path: 'computed.meta', val: $event })
+          updateMeta({ obj: section, path: 'computed.meta', val: $event })
         "
       />
     </element-container>
@@ -83,14 +84,11 @@ export default {
 
   computed: {
     ...mapGetters(["globals", "fieldDefaults"]),
-  },
-
-  methods: {
     getMeta() {
       if (this.section?.computed?.meta) {
         return this.section.computed.meta;
       }
-      return [];
+      return undefined;
     },
   },
 
