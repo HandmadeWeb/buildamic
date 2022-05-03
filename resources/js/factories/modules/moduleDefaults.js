@@ -13,7 +13,13 @@ export const InlineDefaults = {
                 value: ""
             }
         },
+        display: {
+            ...JSON.parse(JSON.stringify(responsiveSizes))
+        },
         width: {
+            ...JSON.parse(JSON.stringify(responsiveSizes))
+        },
+        height: {
             ...JSON.parse(JSON.stringify(responsiveSizes))
         },
         'text-align': {

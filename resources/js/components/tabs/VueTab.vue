@@ -1,12 +1,12 @@
 <template>
-  <div v-show="isActive"><slot></slot></div>
+  <div :class="[tabClass]" v-show="isActive"><slot></slot></div>
 </template>
 
 <script>
 export default {
   name: "vue-tab",
   props: {
-    name: { required: true },
+    name: { type: String, required: true },
     selected: { type: Boolean, default: false },
   },
 
@@ -17,6 +17,9 @@ export default {
   },
 
   computed: {
+    tabClass() {
+      return this.name.toLowerCase().replace(/\s/g, "-") + "-tab";
+    },
     // href() {
     //   return "#" + this.name.toLowerCase().replace(/ /g, "-");
     // },

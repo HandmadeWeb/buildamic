@@ -118,7 +118,7 @@ export default {
 <style lang="scss">
 .buildamic-set {
   .tabs-details {
-    > div {
+    > .content-tab {
       display: flex;
       flex-wrap: wrap;
 
