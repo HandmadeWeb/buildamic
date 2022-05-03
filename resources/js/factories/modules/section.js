@@ -1,6 +1,11 @@
 import { InlineDefaults } from './moduleDefaults.js'
+import { createModule } from "./moduleFactory";
 
 const Section = function ({ UUID, ADMIN_LABEL }) {
+
+    // Wea
+    const row = createModule('Row');
+
     this.uuid = `${UUID}`
     this.type = 'section'
     this.config = {
@@ -10,7 +15,7 @@ const Section = function ({ UUID, ADMIN_LABEL }) {
             ...JSON.parse(JSON.stringify(InlineDefaults))
         }
     }
-    this.value = []
+    this.value = [row]
 }
 
 export { Section }

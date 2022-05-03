@@ -15,9 +15,10 @@
           :handle="key"
           :field="field"
           :type="field.config.statamic_settings.handle"
-          :setDefaults="setFieldDefaults"
+          :setDefaults="setDefaults"
           :fieldDefaults="fieldDefaults"
         />
+        <error-display />
       </vue-tab>
       <vue-tab name="Design">
         <design-tab :field="field" :fieldDefaults="setDefaults" />
@@ -34,9 +35,22 @@ import SetField from "./SetField.vue";
 import OptionsTab from "../shared/OptionsTab.vue";
 import DesignTab from "../shared/DesignTab.vue";
 import AdminLabel from "../shared/AdminLabel.vue";
-import { createModule } from "../../factories/modules/moduleFactory";
+import ErrorDisplay from "../shared/ErrorDisplay.vue";
 
 export default {
+  data: function () {
+    return {
+      setDefaults: {},
+    };
+  },
+  created() {
+    this.setDefaults = this.fieldDefaults[
+      this.field.config.statamic_settings.handle
+    ].fields.reduce((acc, cur) => {
+      acc[cur.handle] = cur;
+      return acc;
+    }, {});
+  },
   props: {
     field: {
       type: Object,
@@ -49,34 +63,7 @@ export default {
     OptionsTab,
     DesignTab,
     AdminLabel,
-  },
-  computed: {
-    setFieldDefaults() {
-      const test = this.fieldDefaults[
-        this.field.config.statamic_settings.handle
-      ].fields.reduce((acc, cur) => {
-        acc[cur.handle] = cur;
-        return acc;
-      }, {});
-      return test;
-    },
-  },
-  methods: {
-    createField(f, i) {
-      return createModule("Field", {
-        ADMIN_LABEL: f,
-        CONFIG:
-          this.fieldDefaults.sets[this.field.config.statamic_settings.handle]
-            .fields[i].config,
-        VALUE:
-          this.fieldDefaults.sets[this.field.config.statamic_settings.handle]
-            .fields[i].value,
-        HANDLE: f,
-        TYPE: this.fieldDefaults.sets[
-          this.field.config.statamic_settings.handle
-        ].fields[i].config.type,
-      });
-    },
+    ErrorDisplay,
   },
 };
 </script>
