@@ -11,7 +11,7 @@ const Column = function ({ UUID, ADMIN_LABEL }) {
                 "xs": 12,
                 "sm": '',
                 "md": '',
-                "lg": '',
+                "lg": 12,
                 "xl": ''
             },
             ...JSON.parse(JSON.stringify(InlineDefaults))

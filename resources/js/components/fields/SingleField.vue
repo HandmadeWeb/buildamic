@@ -14,10 +14,11 @@
         :handle="fieldData.config.statamic_settings.handle"
         @input="updateField({ obj: field, path: 'value', val: $event })"
         @meta-updated="
-          updateField({ obj: field, path: 'computed.meta', val: $event })
+          updateMeta({ obj: field, path: 'computed.meta', val: $event })
         "
       />
     </element-container>
+    <error-display />
   </field-base>
 </template>
 
@@ -26,6 +27,7 @@
 import ColorFieldtype from "./overrides/ColorFieldtype.vue";
 import OptionsFields from "../../mixins/OptionsFields.js";
 import FieldBase from "../shared/FieldBase.vue";
+import ErrorDisplay from "../shared/ErrorDisplay.vue";
 
 export default {
   props: {
@@ -41,6 +43,7 @@ export default {
   components: {
     ColorFieldtype,
     FieldBase,
+    ErrorDisplay,
   },
 
   mixins: [OptionsFields],
@@ -50,7 +53,6 @@ export default {
       fieldData: this.field,
     };
   },
-
   computed: {
     fieldDisplay() {
       return (

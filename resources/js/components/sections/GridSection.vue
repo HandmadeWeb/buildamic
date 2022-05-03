@@ -19,6 +19,7 @@
     <vue-draggable
       :list="rows"
       :group="{ name: 'rows' }"
+      handle=".sortable-handle"
       ghost-class="ghost"
       class="section-draggable flex flex-grow flex-col gap-2 group"
     >

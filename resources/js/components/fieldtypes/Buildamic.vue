@@ -2,6 +2,7 @@
   <div class="buildamic-fieldtype">
     <vue-draggable
       :list="sections"
+      handle=".sortable-handle"
       :group="{ name: 'sections' }"
       ghost-class="ghost"
       class="flex flex-col gap-2"
@@ -16,6 +17,7 @@
       />
     </vue-draggable>
     <button
+      class="border border-dashed px-4 py-1"
       data-testid="add_section_button"
       @click="addSection"
       v-if="!sections.length"
@@ -51,8 +53,8 @@ export default {
 
   methods: {
     addSection() {
-      const newModule = createModule("Section");
-      this.sections.push(newModule);
+      const newSection = createModule("Section");
+      this.sections.push(newSection);
     },
   },
 
