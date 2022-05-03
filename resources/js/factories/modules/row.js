@@ -1,6 +1,11 @@
 import { InlineDefaults } from './moduleDefaults.js'
+import { createModule } from "./moduleFactory";
 
 const Row = function ({ UUID, ADMIN_LABEL }) {
+
+    // We are including a column by default
+    const column = createModule('Column');
+
     this.uuid = `${UUID}`
     this.type = 'row'
     this.config = {
@@ -11,7 +16,7 @@ const Row = function ({ UUID, ADMIN_LABEL }) {
             ...JSON.parse(JSON.stringify(InlineDefaults))
         }
     }
-    this.value = []
+    this.value = [column]
 }
 
 export { Row }

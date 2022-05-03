@@ -5,13 +5,20 @@ import tailwindConfig from "../../../tailwind.config.js";
 const fullConfig = resolveConfig(tailwindConfig);
 
 import { getDeep, setDeep } from '../functions/objectHelpers'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+
+import { bus } from '../eventBus'
 
 export default {
     computed: {
-        ...mapGetters(["breakpoint"]),
+        ...mapGetters(["breakpoint", "dirtyFields"]),
+    },
+    created: function () {
+        this.setDirtyFields([]);
     },
     methods: {
+        ...mapActions(['setDirtyFields']),
+        setDeep,
         getDeep(e, obj = this.field.config.buildamic_settings) {
             const val = getDeep(obj, e);
             if (val) {
@@ -19,22 +26,14 @@ export default {
             }
             return false
         },
-        updateField({ obj = this.field.config.buildamic_settings, path, key = '', val, vm = this }, responsive = false) {
-            const fullPath = responsive ? `${path}.${this.breakpoint}` : path
-            const localPath = `${path}.${key}`.split('.').filter(path => path)
 
-            // Update local value for responsive items (to trigger UI to update)
-            if (responsive) {
-                localPath.reduce((a, b, i) => {
-                    i++
-                    if (i !== localPath.length) {
-                        return a[b]
-                    }
-                    if (a && a[b]) {
-                        a[b].value = val
-                    }
-                }, vm);
-            }
+        saveFields() {
+            return true
+        },
+        updateField({ obj = this.field.config.buildamic_settings, path, type = null, key = '', val, vm = this }, responsive = false) {
+            if (type === 'asset' && !val.length) return
+
+            const fullPath = responsive ? `${path}.${this.breakpoint}` : path
 
             if (responsive && typeof val === 'string' && val !== 'none' && val) {
                 if (val.indexOf(':') !== -1) {
@@ -49,8 +48,25 @@ export default {
                 val = ''
             }
 
-            // Update actual field settings
-            return setDeep(obj, fullPath, val)
+            const existingIndex = this.dirtyFields.findIndex(el => el.obj.uuid, obj.uuid);
+            const oldValue = { obj, fullPath, val: (getDeep(obj, path) ?? '') };
+
+            if (existingIndex === -1) {
+                this.setDirtyFields([...this.dirtyFields, oldValue]);
+            }
+
+
+            setDeep(obj, fullPath, val);
+
+            this.$nextTick(() => {
+                bus.$emit('validate-fields', { val });
+            })
+        },
+        updateMeta({ obj = this.field.config.buildamic_settings, path, key = '', val, vm = this }, responsive = false) {
+            const fullPath = responsive ? `${path}.${this.breakpoint}` : path
+            if (fullPath) {
+                setDeep(obj, fullPath, val);
+            }
         },
         getTWClasses(type, prefix) {
             const options = Object.entries(fullConfig.theme[type]).reduce(

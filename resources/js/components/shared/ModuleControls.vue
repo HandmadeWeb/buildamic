@@ -69,7 +69,7 @@ export default {
     settings() {
       return Object.values({
         menu: {
-          icon: "settings-outline",
+          icon: "edit-2-outline",
           title: "Open settings modal",
           component: "setting-stack",
           action: this.openModal,
