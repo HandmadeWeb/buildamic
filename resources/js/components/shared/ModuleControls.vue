@@ -77,13 +77,13 @@ export default {
         },
         add: {
           icon: "plus-circle",
-          title: "Add Module",
+          title: "Add module right after this module",
           action: this.addModule,
           order: 20,
         },
         clone: {
           icon: "copy",
-          title: "Copy Module",
+          title: "Copy module",
           action: this.cloneModule,
           condition: this.component,
           order: 30,
@@ -99,7 +99,7 @@ export default {
         },
         delete: {
           icon: "trash-2",
-          title: "Delete Module",
+          title: "Delete module",
           action: this.removeModule,
           order: 40,
         },

@@ -1,4 +1,4 @@
-import { InlineDefaults } from './moduleDefaults.js'
+import { InlineDefaults, AttributeDefaults } from './moduleDefaults.js'
 import { createModule } from "./moduleFactory";
 
 const Section = function ({ UUID, ADMIN_LABEL }) {
@@ -13,7 +13,8 @@ const Section = function ({ UUID, ADMIN_LABEL }) {
         buildamic_settings: {
             admin_label: ADMIN_LABEL || this.type,
             boxed_layout: true,
-            ...JSON.parse(JSON.stringify(InlineDefaults))
+            inline: { ...JSON.parse(JSON.stringify(InlineDefaults)) },
+            attributes: { ...JSON.parse(JSON.stringify(AttributeDefaults)) }
         }
     }
     this.value = [row]

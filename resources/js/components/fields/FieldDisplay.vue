@@ -47,7 +47,7 @@ export default {
       customSettings: {
         add: {
           component: "module-selector",
-          title: "Add Module",
+          title: "Add module right after this one",
         },
       },
     };

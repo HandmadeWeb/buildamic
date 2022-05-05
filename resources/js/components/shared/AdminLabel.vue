@@ -2,10 +2,10 @@
   <div class="admin_label mb-4">
     <element-container>
       <publish-field
-        :handle="adminLabel.handle"
-        :config="adminLabel"
+        :handle="adminLabelOption.handle"
+        :config="adminLabelOption"
         :meta="null"
-        :value="adminLabel.value"
+        :value="adminLabelOption.value"
         @input="updateField({ path: 'admin_label', val: $event })"
       />
     </element-container>
@@ -19,20 +19,25 @@ export default {
     field: Object,
   },
   mixins: [OptionsFields],
-  data: function () {
-    return {
-      adminLabel: {
-        display: "Admin Label",
-        placeholder: "Admin Label",
-        input_type: "text",
-        instructions:
-          "Change the label on this module to make it easier to identify in the admin.",
-        type: "text",
-        icon: "text",
-        handle: "admin_label",
-        value: this.getDeep("admin_label") ?? null,
+  computed: {
+    adminLabelOption: {
+      get() {
+        return {
+          display: "Admin Label",
+          placeholder: "Admin Label",
+          input_type: "text",
+          instructions:
+            "Change the label on this module to make it easier to identify in the admin.",
+          type: "text",
+          icon: "text",
+          handle: "admin_label",
+          value: this.getDeep("admin_label"),
+        };
       },
-    };
+      set(value) {
+        this.updateField({ path: "admin_label", val: value });
+      },
+    },
   },
 };
 </script>

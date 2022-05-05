@@ -4,12 +4,14 @@
       buildamic-column
       border-2 border-dashed
       p-2
+      gap-2
       flex flex-col
       items-center
     "
     :class="[columnClass, { 'justify-center': !fields.length }]"
   >
     <vue-draggable
+      v-if="fields.length"
       :list="fields"
       :group="{ name: 'columns' }"
       ghost-class="ghost"
@@ -22,11 +24,13 @@
           :fields="fields"
           :fieldIndex="index"
         >
-          <module-controls :component="field" :value="fields" :index="index" />
         </field-display>
       </template>
     </vue-draggable>
-    <module-selector v-if="!fields.length" :value="fields" />
+    <div class="flex gap-1">
+      <span>Add Module</span>
+      <module-selector :value="fields" />
+    </div>
   </div>
 </template>
 

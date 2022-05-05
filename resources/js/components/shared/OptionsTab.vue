@@ -1,37 +1,28 @@
 <template>
-  <div class="options flex col-gap-6">
+  <div class="options flex col-gap-6 p-2">
     <div class="flex-grow">
       <div class="attributes mb-4">
-        <div
-          v-for="(option, key) in attributes"
-          :key="key"
-          class="buildamic-field"
-        >
-          <label>{{ option.display }}</label>
+        <div class="buildamic-field">
+          <label>{{ classOption.display }}</label>
           <component
-            :is="`${option.type}-fieldtype`"
-            :handle="option.handle"
-            :config="option"
-            v-model="option.value"
-            @input="
-              updateField({
-                path: `attributes.${key}`,
-                val: $event,
-              })
-            "
+            :is="`${classOption.type}-fieldtype`"
+            :handle="classOption.handle"
+            :config="classOption"
+            v-model="classOption.value"
+            @input="classOption = $event"
+          />
+        </div>
+        <div class="buildamic-field">
+          <label>{{ idOption.display }}</label>
+          <component
+            :is="`${idOption.type}-fieldtype`"
+            :handle="idOption.handle"
+            :config="idOption"
+            v-model="idOption.value"
+            @input="idOption = $event"
           />
         </div>
       </div>
-      <!-- <div class="user-access mb-2">
-        <label>User Access</label>
-        <text-fieldtype
-          :handle="userId.handle"
-          :config="userId"
-          v-model="userId.value"
-          :meta="null"
-          @input="updateField({ path: 'computed.user_access', val: $event })"
-        />
-      </div> -->
       <div class="data-atts mb-4">
         <label>Data Attributes</label>
         <data-attributes
@@ -39,15 +30,20 @@
           :field="field"
         />
       </div>
-      <div class="moduleLink mb-4">
+      <div class="moduleLink">
         <label>Module Link</label>
-        <text-fieldtype
-          :handle="moduleLink.handle"
-          :config="moduleLink"
-          v-model="moduleLink.value"
-          :meta="null"
-          @input="updateField({ path: 'moduleLink', val: $event })"
-        />
+        <element-container>
+          <publish-field
+            class="border p-2"
+            :config="moduleLink"
+            :meta="moduleLink.meta"
+            :value="moduleLink.value || []"
+            @input="moduleLink = $event"
+            @meta-updated="
+              updateMeta({ path: 'arributes.moduleLink.meta', val: $event })
+            "
+          />
+        </element-container>
       </div>
     </div>
   </div>
@@ -67,48 +63,64 @@ export default {
       default: {},
     },
   },
-  data() {
-    return {
-      attributes: {
-        class: {
+  computed: {
+    classOption: {
+      get() {
+        console.log(this.getDeep("attributes"));
+        return {
           placeholder: "Add any custom classes to this module",
           input_type: "text",
           type: "text",
           icon: "text",
           handle: "class",
           display: "Class",
-          value: this.getDeep("attributes.class") || "",
-        },
-        id: {
+          value: this.getDeep("attributes")?.class,
+        };
+      },
+      set(value) {
+        this.updateField({ path: "attributes.class", val: value });
+      },
+    },
+    idOption: {
+      get() {
+        return {
           placeholder: "Add a custom ID to this module",
           input_type: "text",
           type: "text",
           icon: "text",
           handle: "id",
           display: "ID",
-          value: this.getDeep("attributes.id") || "",
-        },
+          value: this.getDeep("attributes")?.id,
+        };
       },
-      //   userId: {
-      //     placeholder:
-      //       "Add a comma-separated list of user ID's who have access to this field",
-      //     input_type: "text",
-      //     type: "text",
-      //     icon: "text",
-      //     handle: "user_access",
-      //     display: "USER ID's",
-      //     value: this.getDeep("computed.user_access") || "",
-      //   },
-
-      moduleLink: {
-        placeholder: "Module Link",
-        input_type: "text",
-        type: "text",
-        icon: "text",
-        handle: "moduleLink",
-        value: this.getDeep("moduleLink") ?? null,
+      set(value) {
+        this.updateField({ path: "attributes.id", val: value });
       },
-    };
+    },
+    moduleLink: {
+      get() {
+        return {
+          max_items: 1,
+          mode: "default",
+          create: false,
+          collections: [],
+          display: "Add link to entry",
+          type: "entries",
+          icon: "entries",
+          listable: "hidden",
+          component: "relationship",
+          handle: "entries",
+          prefix: null,
+          instructions: null,
+          required: false,
+          meta: this.getDeep("attributes")?.moduleLink?.meta || undefined,
+          value: this.getDeep("attributes")?.moduleLink,
+        };
+      },
+      set(value) {
+        this.updateField({ path: "attributes.moduleLink", val: value });
+      },
+    },
   },
   mixins: [OptionsFields],
 };

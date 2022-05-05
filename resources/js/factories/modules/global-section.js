@@ -1,4 +1,4 @@
-import { InlineDefaults } from './moduleDefaults.js'
+import { InlineDefaults, AttributeDefaults } from './moduleDefaults.js'
 
 const GlobalSection = function ({ UUID, ADMIN_LABEL, VALUE }) {
     this.uuid = `${UUID}`
@@ -8,7 +8,8 @@ const GlobalSection = function ({ UUID, ADMIN_LABEL, VALUE }) {
         enabled: true,
         buildamic_settings: {
             admin_label: ADMIN_LABEL || this.type,
-            ...JSON.parse(JSON.stringify(InlineDefaults))
+            inline: { ...JSON.parse(JSON.stringify(InlineDefaults)) },
+            attributes: { ...JSON.parse(JSON.stringify(AttributeDefaults)) }
         }
     }
     this.value = VALUE

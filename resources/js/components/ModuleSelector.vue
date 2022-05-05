@@ -11,7 +11,17 @@
     <stack name="field-stack" v-if="toggleStack" @closed="toggleStack = false">
       <div class="h-full bg-white overflow-auto">
         <div
-          class="bg-grey-20 px-3 py-1 border-b border-grey-30 text-lg font-medium flex items-center justify-between"
+          class="
+            bg-grey-20
+            px-3
+            py-1
+            border-b border-grey-30
+            text-lg
+            font-medium
+            flex
+            items-center
+            justify-between
+          "
         >
           {{ __("Fieldtypes") }}
           <button type="button" class="btn-close" @click="toggleStack = false">
@@ -28,7 +38,17 @@
                 :key="key"
               >
                 <a
-                  class="border flex items-center group w-full rounded shadow-sm py-1 px-2"
+                  class="
+                    border
+                    flex
+                    items-center
+                    group
+                    w-full
+                    rounded
+                    shadow-sm
+                    py-1
+                    px-2
+                  "
                   @click="addField(field)"
                 >
                   <svg-icon
@@ -48,7 +68,17 @@
                 :key="key"
               >
                 <a
-                  class="border flex items-center group w-full rounded shadow-sm py-1 px-2"
+                  class="
+                    border
+                    flex
+                    items-center
+                    group
+                    w-full
+                    rounded
+                    shadow-sm
+                    py-1
+                    px-2
+                  "
                   @click="addField(field, key)"
                 >
                   <span class="pl-2 text-grey-80 group-hover:text-blue">
@@ -95,7 +125,13 @@ export default {
       const HANDLE = field.handle || key;
       const NEW_FIELD = createModule(MODULE, { CONFIG, META, VALUE, HANDLE });
 
-      this.value.splice(this.index + 1, 0, NEW_FIELD);
+      this.value.splice(
+        this.index !== undefined && this.index !== null
+          ? this.index + 1
+          : this.value.length,
+        0,
+        NEW_FIELD
+      );
 
       this.toggleStack = false;
     },

@@ -9,10 +9,13 @@
       @click="toggleStack = true"
     ></eva-icon>
     <stack name="field-stack" v-if="toggleStack" :beforeClose="handleClose">
-      <div class="h-full p-4 bg-white overflow-auto">
+      <div class="buildamic-settings-stack h-full p-4 bg-white overflow-auto">
         <div class="flex">
           <h2 class="mb-2 text-xl">Settings for {{ admin_label }}</h2>
-          <button class="btn-primary ml-auto" @click="handleSave">Save</button>
+          <div class="ml-auto">
+            <button class="btn-secondary" @click="handleClose">Cancel</button>
+            <button class="btn-primary" @click="handleSave">Save</button>
+          </div>
         </div>
         <component
           :is="`${componentType}-settings`"

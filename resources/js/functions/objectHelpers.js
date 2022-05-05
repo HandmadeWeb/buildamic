@@ -62,4 +62,48 @@ const getDeep = (obj, path, defaultVal) => {
     return data;
 }
 
-export { setDeep, getDeep }
+/**
+* Performs a deep merge of objects and returns new object. Does not modify
+* objects (immutable) and merges arrays via concatenation.
+*
+* @param {...object} objects - Objects to merge
+* @returns {object} New object with merged key/values
+*/
+const mergeDeep = (...objects) => {
+    const isObject = obj => obj && typeof obj === 'object';
+
+    return objects.reduce((prev, obj) => {
+        Object.keys(obj).forEach(key => {
+            const pVal = prev[key];
+            const oVal = obj[key];
+
+            if (Array.isArray(pVal) && Array.isArray(oVal)) {
+                prev[key] = pVal.concat(...oVal);
+            }
+            else if (isObject(pVal) && isObject(oVal)) {
+                prev[key] = mergeDeep(pVal, oVal);
+            }
+            else {
+                prev[key] = oVal;
+            }
+        });
+
+        return prev;
+    }, {});
+}
+
+const sameKeysDeep = (...objects) => {
+    let union = new Set();
+    union = objects.reduce((keys, object) => keys.add(Object.keys(object)), union);
+    if (union.size === 0) return true
+    if (!objects.every((object) => union.size === Object.keys(object).length)) return false
+
+    for (let key of union.keys()) {
+        let res = objects.map((o) => (typeof o[key] === 'object' ? o[key] : {}))
+        if (!objectsHaveSameKeys(...res)) return false
+    }
+
+    return true
+}
+
+export { setDeep, getDeep, mergeDeep, sameKeysDeep }

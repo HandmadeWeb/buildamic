@@ -12,94 +12,89 @@
             <component
               :class="breakpoint"
               :is="`select-fieldtype`"
-              :handle="inline.width.handle"
-              :key="inline.width.value"
-              :config="inline.width"
-              :value="getDeep(`inline.width.${breakpoint}`)"
-              @input="
-                updateField(
-                  {
-                    path: `inline.width`,
-                    val: $event,
-                  },
-                  true
-                )
-              "
+              :handle="widthOption.handle"
+              :config="widthOption"
+              :value="widthOption.value"
+              @input="widthOption = $event"
             />
           </div>
 
           <div
-            :key="`${field.uuid}-width-${breakpoint}`"
+            :key="`${field.uuid}-height-${breakpoint}`"
             class="buildamic-field"
           >
             <label>Height</label>
             <component
               :class="breakpoint"
               :is="`select-fieldtype`"
-              :handle="inline.height.handle"
-              :key="inline.height.value"
-              :config="inline.height"
-              :value="getDeep(`inline.height.${breakpoint}`)"
-              @input="
-                updateField(
-                  {
-                    path: `inline.height`,
-                    val: $event,
-                  },
-                  true
-                )
-              "
+              :handle="heightOption.handle"
+              :config="heightOption"
+              :value="heightOption.value"
+              @input="heightOption = $event"
             />
           </div>
 
-          <div class="buildamic-field flex-wrap flex items-center gap-x-4">
-            <div v-if="displayOption === 'flex'" class="flex items-center mb-2">
-              <label class="mr-2">Align Items: </label>
-              <alignment-controls
-                :options="inline.items.config.options"
-                :key="`${inline.items.value}-${breakpoint}`"
-                :value="inline.items.value"
-                @input="
-                  updateField({ path: `inline.items`, val: $event }, true)
-                "
-              />
-            </div>
-            <div v-if="displayOption === 'flex'" class="flex items-center mb-2">
-              <label class="mr-2">Justify Content: </label>
-              <alignment-controls
-                :options="inline.justifyContent.config.options"
-                :key="`${inline.justifyContent.value}-${breakpoint}`"
-                :value="inline.justifyContent.value"
-                @input="
-                  updateField(
-                    { path: `inline.justifyContent`, val: $event },
-                    true
-                  )
-                "
-              />
-            </div>
-            <div
-              v-if="displayOption === 'grid' || displayOption === 'flex'"
-              class="flex items-center mb-2"
-            >
-              <label class="mr-2">Place Items: </label>
-              <alignment-controls
-                :options="inline.placeItems.config.options"
-                :key="`${inline.placeItems.value}-${breakpoint}`"
-                :value="inline.placeItems.value"
-                @input="
-                  updateField({ path: `inline.placeItems`, val: $event }, true)
-                "
-              />
-            </div>
+          <div class="buildamic-field">
             <div class="flex items-center mb-2">
               <label class="mr-2">Display: </label>
               <toggle-controls
-                :key="`${inline.display.value}-${breakpoint}`"
-                :value="inline.display.value"
-                @input="
-                  updateField({ path: `inline.display`, val: $event }, true)
-                "
+                :value="displayOption"
+                @input="displayOption = $event"
+              />
+            </div>
+          </div>
+
+          <div
+            v-if="displayOption && !displayOption.includes('block')"
+            class="buildamic-field flex-wrap flex items-center gap-x-4"
+          >
+            <div
+              v-if="displayOption.includes('flex')"
+              class="flex items-center mb-2"
+            >
+              <label class="mr-2">Align Items: </label>
+              <component
+                :class="breakpoint"
+                :is="`select-fieldtype`"
+                :handle="itemsOption.handle"
+                :config="itemsOption"
+                :value="itemsOption.value"
+                @input="itemsOption = $event"
+              />
+            </div>
+            <div
+              v-if="displayOption.includes('flex')"
+              class="flex items-center mb-2"
+            >
+              <label class="mr-2">Justify Content: </label>
+              <component
+                :class="breakpoint"
+                :is="`select-fieldtype`"
+                :handle="justifyContentOption.handle"
+                :config="justifyContentOption"
+                :value="justifyContentOption.value"
+                @input="justifyContentOption = $event"
+              />
+            </div>
+            <div class="flex items-center mb-2">
+              <label class="mr-2">Place Items: </label>
+              <component
+                :class="breakpoint"
+                :is="`select-fieldtype`"
+                :handle="placeItemsOption.handle"
+                :config="placeItemsOption"
+                :value="placeItemsOption.value"
+                @input="placeItemsOption = $event"
+              />
+            </div>
+            <div class="flex items-center mb-2">
+              <label class="mr-2">Gap: </label>
+              <component
+                :is="'text-fieldtype'"
+                :handle="gapOption.handle"
+                :config="gapOption"
+                :value="gapOption.value"
+                @input="gapOption = $event"
               />
             </div>
           </div>
@@ -130,10 +125,19 @@ export default {
     AlignmentControls,
     ToggleControls,
   },
-  data: function () {
-    return {
-      inline: {
-        width: {
+
+  computed: {
+    displayOption: {
+      get() {
+        return this.getDeep(`inline.display.${this.breakpoint}`) || "";
+      },
+      set(value) {
+        this.updateField({ path: `inline.display`, val: value }, true);
+      },
+    },
+    widthOption: {
+      get() {
+        return {
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -145,9 +149,16 @@ export default {
           options: this.getTWClasses("width", "w"),
           handle: "width",
           display: "Width",
-          value: "",
-        },
-        height: {
+          value: this.getDeep(`inline`).width[this.breakpoint],
+        };
+      },
+      set(value) {
+        this.updateField({ path: `inline.width`, val: value }, true);
+      },
+    },
+    heightOption: {
+      get() {
+        return {
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -159,69 +170,113 @@ export default {
           options: this.getTWClasses("height", "h"),
           handle: "height",
           display: "Height",
-          value: "",
-        },
-        items: {
-          config: {
-            options: [
-              { value: "items-start", icon: "text-left" },
-              { value: "items-center", icon: "text-center" },
-              {
-                value: "items-end",
-                icon: "text-right",
-              },
-            ],
-          },
-          value: "",
-        },
-        placeItems: {
-          config: {
-            options: [
-              { value: "place-items-start", icon: "text-left" },
-              { value: "place-items-center", icon: "text-center" },
-              {
-                value: "place-items-end",
-                icon: "text-right",
-              },
-            ],
-          },
-          value: "",
-        },
-        justifyContent: {
-          config: {
-            options: [
-              { value: "justify-start", icon: "text-left" },
-              { value: "justify-center", icon: "text-center" },
-              {
-                value: "justify-end",
-                icon: "text-right",
-              },
-            ],
-          },
-          value: "",
-        },
-        display: {
-          value: "",
-        },
+          value: this.getDeep(`inline`).height[this.breakpoint],
+        };
       },
-    };
-  },
-
-  computed: {
-    displayOption() {
-      return this.inline.display.value;
+      set(value) {
+        this.updateField({ path: `inline.height`, val: value }, true);
+      },
     },
-  },
-  mounted() {
-    // Get initial data for inline fields
-    if (this?.inline && typeof this?.inline === "object") {
-      Object.keys(this.inline).forEach((key) => {
-        this.inline[key].value = this.getDeep(
-          `inline.${key}.${this.breakpoint}`,
-          ""
-        );
-      });
-    }
+    itemsOption: {
+      get() {
+        return {
+          cast_booleans: false,
+          clearable: false,
+          listable: "hidden",
+          taggable: false,
+          push_tags: false,
+          searchable: true,
+          type: "select",
+          icon: "select",
+          options: {
+            none: "N/A",
+            "items-start": "Items Start",
+            "items-end": "Items End",
+            "items-center": "Items Center",
+            "items-baseline": "Items Baseline",
+            "items-stretch": "Items Stretch",
+          },
+          handle: "items",
+          display: "Items",
+          value: this.getDeep(`inline`).items[this.breakpoint],
+        };
+      },
+      set(value) {
+        this.updateField({ path: `inline.items`, val: value }, true);
+      },
+    },
+    justifyContentOption: {
+      get() {
+        return {
+          cast_booleans: false,
+          clearable: false,
+          listable: "hidden",
+          taggable: false,
+          push_tags: false,
+          searchable: true,
+          type: "select",
+          icon: "select",
+          options: {
+            none: "N/A",
+            "justify-start": "Justify Start",
+            "justify-end": "Justify End",
+            "justify-center": "Justify Center",
+            "justify-between": "Justify Between",
+            "justify-around": "Justify Around",
+            "justify-evenly": "Justify Evenly",
+          },
+          handle: "justify-content",
+          display: "Justify Content",
+          value: this.getDeep(`inline`).justifyContent[this.breakpoint],
+        };
+      },
+      set(value) {
+        this.updateField({ path: `inline.justifyContent`, val: value }, true);
+      },
+    },
+    placeItemsOption: {
+      get() {
+        return {
+          cast_booleans: false,
+          clearable: false,
+          listable: "hidden",
+          taggable: false,
+          push_tags: false,
+          searchable: true,
+          type: "select",
+          icon: "select",
+          options: {
+            none: "N/A",
+            "place-items-start": "Place Items Start",
+            "place-items-end": "Place Items End",
+            "place-items-center": "Place Items Center",
+            "place-items-stretch": "Place Items Stretch",
+          },
+          handle: "place-items",
+          display: "Place Items",
+          value: this.getDeep(`inline`).placeItems[this.breakpoint],
+        };
+      },
+      set(value) {
+        this.updateField({ path: `inline.placeItems`, val: value }, true);
+      },
+    },
+    gapOption: {
+      get() {
+        return {
+          placeholder: "Gap between items (both horizontal and vertical)",
+          input_type: "text",
+          type: "text",
+          icon: "text",
+          handle: "gap",
+          display: "Gap",
+          value: this.getDeep(`inline`).gap[this.breakpoint],
+        };
+      },
+      set(value) {
+        this.updateField({ path: `inline.gap`, val: value }, true);
+      },
+    },
   },
   mixins: [OptionsFields],
 };

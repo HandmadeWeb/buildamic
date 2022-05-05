@@ -4,20 +4,20 @@
       class="
         flex
         items-center
-        col-gap-3
+        col-gap-1
         rounded
         border border-dashed
-        p-2
+        p-1
         bg-white
       "
     >
       <li
-        class="breakpoint-option px-1 cursor-pointer"
+        class="breakpoint-option p-1 flex items-center cursor-pointer"
         :class="{
           'bg-grey-40  rounded':
             breakpoint === 'xs'
               ? selected === option.value
-              : selected === `${breakpoint}:${option}`,
+              : selected === `${breakpoint}:${option.value}`,
         }"
         @click="switchOption(option.value)"
         v-for="option in config.options"
@@ -27,6 +27,7 @@
           v-if="option.icon"
           :title="option.label"
           :name="option.icon"
+          class="w-6 h-6"
           animation="pulse"
         ></eva-icon>
         <span v-else v-text="option.label" />
@@ -76,9 +77,7 @@ export default {
         }
         return this.$emit("input", option);
       }
-      if (`${this.breakpoint}:${option}` === this.selected) {
-        return this.$emit("input", "");
-      }
+
       return this.$emit("input", `${this.breakpoint}:${option}`);
     },
   },
