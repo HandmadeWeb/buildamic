@@ -65,7 +65,7 @@ export default {
             // Set the value in pagebuilder JSON and validate the field
             setDeep(obj, fullPath, val);
             this.$nextTick(() => {
-                bus.$emit('validate-fields', { val });
+                bus.$emit('validate-fields', path.split('.').pop());
             })
         },
         updateMeta({ obj = this.settings, path, val }, responsive = false) {

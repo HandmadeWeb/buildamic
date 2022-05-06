@@ -21,41 +21,52 @@ export default {
   },
   methods: {
     ...mapActions(["setErrorBag"]),
-    validateReplicators(formData) {
-      const handle = this.field.config.statamic_settings.handle;
+    validateReplicators(
+      formData,
+      replicator,
+      handle = this.field.config.statamic_settings.handle
+    ) {
+      if (!replicator) return false;
 
-      this.field.value[handle].forEach((_, i) => {
-        return replicator[0].fields.forEach((field) => {
+      const value = Array.isArray(this.field.value)
+        ? this.field.value
+        : this.field.value[handle];
+
+      value.forEach((_, i) => {
+        return replicator.fields.forEach((field) => {
           if (!field.validate) return false;
-          const value = this.field.value[i][field.handle];
-          formData[`${this.field.uuid}-${field.handle}-${i}`] = {};
-
-          formData[`${this.field.uuid}-${field.handle}-${i}`].value =
-            Array.isArray(value) ? value.length || null : value;
-          formData[`${this.field.uuid}-${field.handle}-${i}`].validation =
+          const field_value = value[i][field.handle];
+          formData[`${field.handle}-${i}`] = {};
+          formData[`${field.handle}-${i}`].value = Array.isArray(field_value)
+            ? field_value.length || ""
+            : field_value;
+          formData[`${field.handle}-${i}`].validation =
             field.validate.join("|");
         });
       });
 
       return formData;
     },
-    validateSet(formData) {
+    validateSet(formData, updated_field_handle) {
       const handle = this.field.config.statamic_settings.handle;
-      const values = this.field.value[handle];
-      const sets = this.field.computed?.config[handle].sets;
+      const value = this.field.value;
+      const value_keys = Object.keys(value);
 
-      values.forEach((_, i) => {
-        sets[0].fields.forEach((field) => {
-          if (!field.validate) return;
-          const value = this.field.value[handle][i][field.handle];
-          formData[`${field.handle}-${i}`] = {};
+      value_keys.forEach((key) => {
+        if (updated_field_handle && key !== updated_field_handle) return;
+        const replicator = this.defaults[key]?.config.sets;
+        if (replicator && replicator.length) {
+          formData = this.validateReplicators(formData, replicator[0], key);
+        } else {
+          const field_value = this.field.value[key];
+          formData[`${key}`] = {};
+          formData[`${key}`].value = Array.isArray(field_value)
+            ? field_value.length || null
+            : field_value;
 
-          formData[`${field.handle}-${i}`].value = Array.isArray(value)
-            ? value.length || null
-            : value;
-          formData[`${field.handle}-${i}`].validation =
-            field.validate.join("|");
-        });
+          formData[`${key}`].validation =
+            this.defaults[key]?.config?.validate?.join("|");
+        }
       });
 
       return formData;
@@ -68,24 +79,25 @@ export default {
       };
       return formData;
     },
-    validateFields() {
+    validateFields(updated_field_handle) {
       this.setErrorBag([]);
 
       let formData = {};
 
-      const is_replicator = this.field?.computed?.config?.replicators;
+      const is_replicator =
+        this.defaults[this.field.config.statamic_settings.handle]?.config?.sets;
       if (is_replicator) {
-        formData = this.validateReplicators(is_replicator, formData);
+        formData = this.validateReplicators(formData, is_replicator[0]);
       }
 
       const is_set = this.field.type === "set";
       if (is_set) {
-        formData = this.validateSet(formData);
+        formData = this.validateSet(formData, updated_field_handle);
       }
 
-      const is_field = this.field.type === "field";
+      const is_field = this.field.type === "field" && !is_replicator;
       if (is_field) {
-        formData = this.validateField(formData);
+        formData = this.validateField(formData, updated_field_handle);
       }
 
       if (!formData) return true;
@@ -107,7 +119,7 @@ export default {
     },
   },
   mounted() {
-    bus.$on("validate-fields", () => {
+    bus.$on("validate-fields", (updated_field_handle) => {
       this.validateFields();
     });
   },

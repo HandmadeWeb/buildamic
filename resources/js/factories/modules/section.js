@@ -12,8 +12,8 @@ const Section = function ({ UUID, ADMIN_LABEL }) {
         enabled: true,
         buildamic_settings: {
             admin_label: ADMIN_LABEL || this.type,
-            boxed_layout: true,
             inline: { ...JSON.parse(JSON.stringify(InlineDefaults)) },
+            boxed_layout: true,
             attributes: { ...JSON.parse(JSON.stringify(AttributeDefaults)) }
         }
     }
