@@ -18,7 +18,13 @@
       >
       <ul class="list-unstyled relative flex flex-wrap">
         <li
-          class="column-section-wrapper flex-shrink-0 flex-grow px-2 mb-0 cursor-pointer"
+          class="
+            column-section-wrapper
+            flex-shrink-0 flex-grow
+            px-2
+            mb-0
+            cursor-pointer
+          "
           @click="changeLayout(layout)"
           v-for="(layout, i) in layouts"
           :key="layout"
@@ -48,7 +54,7 @@ import Optionsfields from "../../mixins/OptionsFields";
 
 export default {
   name: "column-selector",
-  data: function() {
+  data: function () {
     return {
       // A simple array that turns whatever numbers are here into bootstrap columns that match
       // Note the array is formatted to be 2 by 2 so you can easily create symmetry thumbnails
@@ -111,16 +117,16 @@ export default {
         });
       }
 
-      this.updateField({
-        obj: this.row.config.buildamic_settings,
-        path: "attributes.column_count_total",
-        val: layoutArr.reduce((a, b) => a + +b, 0),
-      });
-
-      console.log(
-        "LAYOUT CHANGE",
+      this.setDeep(
+        this.row.config.buildamic_settings,
+        "attributes.column_count_total",
         layoutArr.reduce((a, b) => a + +b, 0)
       );
+
+      //   console.log(
+      //     "LAYOUT CHANGE",
+      //     layoutArr.reduce((a, b) => a + +b, 0)
+      //   );
 
       // Change column layout
       this.row.value.splice(0, colCount, ...newLayout);

@@ -64,12 +64,13 @@
                 :value="inline.background.image.value"
                 @input="
                   updateField({
+                    type: 'asset',
                     path: 'inline.background.image.value',
                     val: $event,
                   })
                 "
                 @meta-updated="
-                  updateField({
+                  updateMeta({
                     path: `inline.background.image.meta`,
                     val: $event,
                   })
@@ -90,12 +91,13 @@
                 :value="inline.background.video.mp4.value"
                 @input="
                   updateField({
+                    type: 'asset',
                     path: 'inline.background.video.mp4',
                     val: $event,
                   })
                 "
                 @meta-updated="
-                  updateField({
+                  updateMeta({
                     path: `inline.background.video.mp4.meta`,
                     val: $event,
                   })
@@ -114,12 +116,13 @@
                 :value="inline.background.video.webm.value"
                 @input="
                   updateField({
+                    type: 'asset',
                     path: 'inline.background.video.webm',
                     val: $event,
                   })
                 "
                 @meta-updated="
-                  updateField({
+                  updateMeta({
                     path: `inline.background.video.webm.meta`,
                     val: $event,
                   })

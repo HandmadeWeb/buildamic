@@ -1,5 +1,5 @@
 <template>
-  <div class="design__tab">
+  <div class="design__tab pt-0 p-2">
     <breakpoint-switcher />
     <settings-layout :field="field">
       <template v-slot:layout-top>

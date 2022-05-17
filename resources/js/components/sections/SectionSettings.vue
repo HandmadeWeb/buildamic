@@ -1,6 +1,6 @@
 <template>
   <vue-tabs :id="field.uuid">
-    <vue-tab name="Design" selected="selected">
+    <vue-tab class="test" name="Design" selected="selected">
       <design-tab :field="field" :fieldDefaults="fieldDefaults">
         <template v-slot:layout-top>
           <div class="buildamic-field">
@@ -9,7 +9,8 @@
               :config="{
                 handle: 'section_boxed_layout',
               }"
-              v-model="boxed_layout"
+              :value="boxed_layout"
+              @input="boxed_layout = $event"
               :key="boxed_layout"
             />
           </div>
@@ -38,13 +39,15 @@ export default {
   data() {
     return {
       columns: this.field.value,
-      boxed: this.getDeep(`boxed_layout`),
     };
+  },
+  mounted() {
+    console.log({ boxed: this.boxed_layout });
   },
   computed: {
     boxed_layout: {
       get() {
-        return this.boxed;
+        return this.getDeep("boxed_layout");
       },
       set($event) {
         this.boxed = $event;

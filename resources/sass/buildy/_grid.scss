@@ -35,7 +35,7 @@
     grid-template-columns: repeat(var(--b-columns, 12), 1fr);
     grid-template-rows: repeat(var(--b-rows, 1), 1fr);
     padding: 2rem 0;
-    gap: var(--col-gap-md, --col-gap);
+    gap: var(--col-gap-md, var(--col-gap));
   }
   @include media-breakpoint-up(lg) {
     gap: var(--col-gap-lg, var(--col-gap-md, var(--col-gap)));

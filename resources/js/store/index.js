@@ -4,6 +4,8 @@ export const buildamicStore = {
         pasteLocations: [],
         globals: [],
         fieldDefaults: {},
+        dirtyFields: [],
+        errorBag: [],
     }),
     mutations: {
         SWITCH_BREAKPOINT(state, payload) {
@@ -17,6 +19,12 @@ export const buildamicStore = {
         },
         SET_PASTE_LOCATIONS(state, payload) {
             state.pasteLocations = [...payload]
+        },
+        SET_DIRTY_FIELDS(state, payload) {
+            state.dirtyFields = payload
+        },
+        SET_ERROR_BAG(state, payload) {
+            state.errorBag = payload
         }
     },
     actions: {
@@ -27,6 +35,12 @@ export const buildamicStore = {
         },
         setFieldDefaults({ commit }, payload) {
             commit('SET_FIELD_DEFAULTS', payload)
+        },
+        setDirtyFields({ commit }, payload) {
+            commit('SET_DIRTY_FIELDS', payload)
+        },
+        setErrorBag({ commit }, payload) {
+            commit('SET_ERROR_BAG', payload)
         },
         setPasteLocations({ commit }, payload) {
             if (payload.includes('field') || payload.includes('set')) {
@@ -47,6 +61,8 @@ export const buildamicStore = {
         breakpoint: state => state.breakpoint,
         fieldDefaults: state => state.fieldDefaults,
         globals: state => state.globals,
-        pasteLocations: state => state.pasteLocations
+        pasteLocations: state => state.pasteLocations,
+        dirtyFields: state => state.dirtyFields,
+        errorBag: state => state.errorBag
     }
 }

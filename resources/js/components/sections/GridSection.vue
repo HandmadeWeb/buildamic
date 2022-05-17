@@ -5,8 +5,7 @@
       transition-all
       duration-200
       p-2
-      pb-0.5
-      hover:pb-8
+      pb-4
       border border-t-4
       rounded
       border-blue-500
@@ -20,6 +19,7 @@
     <vue-draggable
       :list="rows"
       :group="{ name: 'rows' }"
+      handle=".sortable-handle"
       ghost-class="ghost"
       class="section-draggable flex flex-grow flex-col gap-2 group"
     >
@@ -45,12 +45,10 @@
         transition-all
         duration-200
         text-blue-500
-        opacity-0
         absolute
         right-1
         bottom-1
         mx-auto
-        group-hover:opacity-100
       "
       direction="row"
       :component="section"

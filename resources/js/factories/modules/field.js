@@ -1,4 +1,4 @@
-import { InlineDefaults } from './moduleDefaults.js'
+import { InlineDefaults, AttributeDefaults } from './moduleDefaults.js'
 
 const Field = function ({ ADMIN_LABEL, CONFIG = {}, META = {}, HANDLE, VALUE, UUID, }) {
     this.uuid = `${UUID}`
@@ -21,7 +21,8 @@ const Field = function ({ ADMIN_LABEL, CONFIG = {}, META = {}, HANDLE, VALUE, UU
         buildamic_settings: {
             enabled: true,
             admin_label: ADMIN_LABEL || CONFIG.DISPLAY || HANDLE,
-            ...JSON.parse(JSON.stringify(InlineDefaults))
+            inline: { ...JSON.parse(JSON.stringify(InlineDefaults)) },
+            attributes: { ...JSON.parse(JSON.stringify(AttributeDefaults)) }
         }
     }
     // this.meta = META

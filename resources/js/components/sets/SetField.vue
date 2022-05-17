@@ -3,7 +3,10 @@
     :handle="handle"
     :field="field"
     :defaults="setDefaults"
-    :class="[`${getType}-fieldtype`]"
+    :class="[
+      `${getType}-fieldtype`,
+      `field-${window.tailwind_width_class(this.getConfig.width)}`,
+    ]"
   >
     <element-container>
       <publish-field
@@ -13,7 +16,7 @@
         :handle="handle"
         @input="handleInput"
         @meta-updated="
-          updateField({
+          updateMeta({
             obj: field,
             path: `computed.meta.${handle}`,
             val: $event,
@@ -23,11 +26,8 @@
         @blur="handleBlur"
       />
     </element-container>
-    <div v-if="errors.length" class="errors pl-3">
-      <span v-for="error in errors" :key="error" class="text-red-600">{{
-        error
-      }}</span>
-    </div>
+
+    <!-- <error-display :handle="handle" /> -->
   </field-base>
 </template>
 
@@ -35,7 +35,6 @@
 import ColorFieldtype from "../fields/overrides/ColorFieldtype.vue";
 import OptionsFields from "../../mixins/OptionsFields.js";
 import FieldBase from "../shared/FieldBase.vue";
-import { validateForm } from "js-laravel-validation";
 
 export default {
   props: {
@@ -84,15 +83,13 @@ export default {
     getType() {
       return this.getConfig.component || this.getConfig.type;
     },
+    window() {
+      return window;
+    },
   },
   methods: {
     handleInput($event) {
       this.value = $event;
-
-      this.validateField();
-      if (this.errors.length) {
-        return;
-      }
 
       this.updateField({
         obj: this.field,
@@ -101,32 +98,7 @@ export default {
       });
     },
     handleBlur() {
-      this.validateField();
-      console.log(this.errors);
       this.$emit("blur");
-    },
-    validateField() {
-      this.errors = [];
-      if (!this.setDefaults[this.handle].config?.validate) {
-        return true;
-      }
-
-      const formData = {
-        [this.handle]: {
-          value: this.value,
-          validation: this.setDefaults[this.handle].config?.validate.join("|"),
-        },
-      };
-
-      const result = validateForm({ formData });
-
-      //   return console.log({ result });
-
-      if (result.errors[this.handle]) {
-        this.errors.push(...result.errors[this.handle]);
-      }
-
-      return this.errors;
     },
   },
   provide() {
@@ -140,5 +112,20 @@ export default {
 <style scoped>
 .buildamic-field + .buildamic-field {
   margin-top: 2rem;
+}
+</style>
+
+<style lang="scss">
+.buildamic-set {
+  .tabs-details {
+    > .content-tab {
+      display: flex;
+      flex-wrap: wrap;
+
+      > div > .publish-field {
+        width: 100% !important;
+      }
+    }
+  }
 }
 </style>
