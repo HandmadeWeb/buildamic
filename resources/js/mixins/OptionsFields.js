@@ -11,6 +11,11 @@ const removeXSPrefixFromValue = (value) => {
 }
 
 export default {
+    data() {
+        return {
+            reactiveTick: 0
+        }
+    },
     computed: {
         ...mapGetters(["breakpoint", "dirtyFields"]),
         settings() {
@@ -67,6 +72,8 @@ export default {
             this.$nextTick(() => {
                 bus.$emit('validate-fields', path.split('.').pop());
             })
+
+            this.reactiveTick++;
         },
         updateMeta({ obj = this.settings, path, val }, responsive = false) {
             const fullPath = responsive ? `${path}.${this.breakpoint}` : path
