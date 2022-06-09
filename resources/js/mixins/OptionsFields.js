@@ -1,6 +1,5 @@
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../../tailwind.config.js";
-import { InlineDefaults, AttributeDefaults } from '../factories/modules/moduleDefaults';
 const fullConfig = resolveConfig(tailwindConfig);
 import { getDeep, setDeep, mergeDeep } from '../functions/objectHelpers'
 import { mapGetters, mapActions } from 'vuex'
@@ -24,15 +23,6 @@ export default {
     },
     created: function () {
         this.setDirtyFields([]);
-        if (this.field) {
-            // Backwards Compatibility with older versions of the addon
-            if (!this.settings?.inline || InlineDefaults.version !== this.settings.inline?.version) {
-                this.setInlineDefaults();
-            }
-            if (!this.settings?.attributes || AttributeDefaults.version !== this.settings.attributes?.version) {
-                this.setAttributeDefaults();
-            }
-        }
     },
     methods: {
         ...mapActions(['setDirtyFields']),
@@ -66,6 +56,8 @@ export default {
             if (existingIndex === -1) {
                 this.setDirtyFields([...this.dirtyFields, oldValue]);
             }
+
+            console.log({ val })
 
             // Set the value in pagebuilder JSON and validate the field
             setDeep(obj, fullPath, val);

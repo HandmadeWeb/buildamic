@@ -157,7 +157,13 @@ export default {
         };
       },
       set(value) {
-        this.updateField({ path: `inline.width`, val: value }, true);
+        this.updateField(
+          {
+            path: `inline.width`,
+            val: value === "none" ? "" : `${this.breakpoint}:${value}`,
+          },
+          true
+        );
       },
     },
     heightOption: {
@@ -179,7 +185,13 @@ export default {
         };
       },
       set(value) {
-        this.updateField({ path: `inline.height`, val: value }, true);
+        this.updateField(
+          {
+            path: `inline.height`,
+            val: value === "none" ? "" : `${this.breakpoint}:${value}`,
+          },
+          true
+        );
       },
     },
     itemsOption: {
