@@ -39,13 +39,21 @@ class BuildamicRenderer
             ->toArray();
     }
 
-    public function containerId()
+    public function containerId(string $id = '')
     {
+        if (!empty($id)) {
+            $this->containerId = $id;
+        }
+
         return $this->containerId;
     }
 
-    public function containerClass()
+    public function containerClass(string $class = '')
     {
+        if (!empty($class)) {
+            $this->containerClass = $class;
+        }
+
         return $this->containerClass;
     }
 
@@ -67,7 +75,8 @@ class BuildamicRenderer
     public function renderContainer()
     {
         return View::make("{$this->viewPrefix}.layouts.container", array_merge(
-            $this->cascade(), [
+            $this->cascade(),
+            [
                 'buildamic' => $this,
                 'sections' => $this->sections(),
             ]
@@ -80,42 +89,47 @@ class BuildamicRenderer
         $section = Filter::run('buildamic_filter_section', $section);
 
         return View::make("{$this->viewPrefix}.layouts.section", array_merge(
-            $this->cascade(), [
+            $this->cascade(),
+            [
                 'buildamic' => $this,
                 'section' => $section,
             ]
         ))->render();
     }
 
-    protected function renderFieldFromGlobalEntry(StatamicEntry $entry)
+    protected function renderFieldFromGlobalEntry(StatamicEntry $entry, Field $section)
     {
-        $content = optional($entry->augmentedValue('buildamic'))->value();
-
-        if ($content instanceof self) {
-            return $content->render();
+        if ($entry->has('buildamic')) {
+            $content = optional($entry->augmentedValue('buildamic'))->value();
+        } else {
+            $content = optional($entry->augmentedValue('content'))->value();
         }
 
-        $content = optional($entry->augmentedValue('content'))->value();
+        if (isset($content) && $content instanceof self) {
+            $content->containerId($section->buildamicSetting('attributes.id'));
+            $content->containerClass($section->computedAttribute('class'));
 
-        if ($content instanceof self) {
             return $content->render();
         }
     }
 
     public function renderGlobalSection(Field $section)
     {
+        $section = Filter::run('buildamic_filter_everything', $section);
+        $section = Filter::run('buildamic_filter_global_section', $section);
+
         if ('buildamic-global-section' === $section->type()) {
             $globals = collect($section->value()->raw());
 
             if ($global = Entry::find($globals->first())) {
-                return $this->renderFieldFromGlobalEntry($global);
+                return $this->renderFieldFromGlobalEntry($global, $section);
             }
 
             // Maybe if we wanted to allow more than one global?
             // $globals = Entry::query()->whereIn('id', $globals->toArray())->get();
 
             // return $globals->map(function ($global) {
-            //     return $this->renderFieldFromGlobalEntry($global);
+            //     return $this->renderFieldFromGlobalEntry($global, $section);
             // })->implode('');
         }
     }
@@ -126,7 +140,8 @@ class BuildamicRenderer
         $row = Filter::run('buildamic_filter_row', $row);
 
         return View::make("{$this->viewPrefix}.layouts.row", array_merge(
-            $this->cascade(), [
+            $this->cascade(),
+            [
                 'buildamic' => $this,
                 'row' => $row,
             ]
@@ -139,7 +154,8 @@ class BuildamicRenderer
         $column = Filter::run('buildamic_filter_column', $column);
 
         return View::make("{$this->viewPrefix}.layouts.column", array_merge(
-            $this->cascade(), [
+            $this->cascade(),
+            [
                 'buildamic' => $this,
                 'column' => $column,
             ]
@@ -180,7 +196,8 @@ class BuildamicRenderer
 
             if (view()->exists("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}")) {
                 return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$collectionHandle}", array_merge(
-                    $this->cascade(), [
+                    $this->cascade(),
+                    [
                         'buildamic' => $this, 'field' => $field,
                     ]
                 ))->render();
@@ -193,7 +210,8 @@ class BuildamicRenderer
                 ->setComputedAttributes($field->computedAttributes());
 
             return View::make("{$this->viewPrefix}.fields.{$field->type()}-{$field->handle('handle')}", array_merge(
-                $this->cascade(), [
+                $this->cascade(),
+                [
                     'buildamic' => $this,
                     'field' => $field,
                 ]
@@ -206,7 +224,8 @@ class BuildamicRenderer
                 ->setComputedAttributes($field->computedAttributes());
 
             return View::make("{$this->viewPrefix}.fields.{$field->type()}", array_merge(
-                $this->cascade(), [
+                $this->cascade(),
+                [
                     'buildamic' => $this,
                     'field' => $field,
                 ]
@@ -215,7 +234,8 @@ class BuildamicRenderer
 
         // catch all, file: default-field
         return View::make("{$this->viewPrefix}.default-field", array_merge(
-            $this->cascade(), [
+            $this->cascade(),
+            [
                 'buildamic' => $this,
                 'field' => $field,
             ]
@@ -243,7 +263,8 @@ class BuildamicRenderer
         // handle:blurb, file: blurb
         if (view()->exists("{$this->viewPrefix}.fieldsets.{$handle}")) {
             return View::make("{$this->viewPrefix}.fieldsets.{$handle}", array_merge(
-                $this->cascade(), [
+                $this->cascade(),
+                [
                     'buildamic' => $this,
                     'fieldset' => $fieldset,
                     'fields' => $fields,
@@ -286,7 +307,8 @@ class BuildamicRenderer
         // handle:blurb, file: blurb
         if (view()->exists("{$this->viewPrefix}.sets.{$set->handle()}")) {
             return View::make("{$this->viewPrefix}.sets.{$set->handle()}", array_merge(
-                $this->cascade(), [
+                $this->cascade(),
+                [
                     'buildamic' => $this,
                     'set' => $set,
                     'fields' => $fields,
