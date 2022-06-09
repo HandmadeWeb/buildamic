@@ -5,7 +5,17 @@
     :class="{ 'boxmodel-ui--focus': focus }"
   >
     <div
-      style="position: relative; display: grid; width: 224px; height: 120px; grid-template-columns: 36px 4px 36px 1fr 36px 4px 36px; grid-template-rows: 24px 4px 24px 1fr 24px 4px 24px; outline-style: none; cursor: default; user-select: none;"
+      style="
+        position: relative;
+        display: grid;
+        width: 224px;
+        height: 120px;
+        grid-template-columns: 36px 4px 36px 1fr 36px 4px 36px;
+        grid-template-rows: 24px 4px 24px 1fr 24px 4px 24px;
+        outline-style: none;
+        cursor: default;
+        user-select: none;
+      "
     >
       <a @click="lockMarginY = !lockMarginY" class="lockMarginY">
         <eva-icon
@@ -28,14 +38,22 @@
       <div
         width="224"
         height="120"
-        style="grid-area: 1 / 1 / -1 / -1; display: grid; grid-template-columns: 36px 1fr 36px; grid-template-rows: 24px minmax(16px, 1fr) 24px; justify-items: center; width: 224px; height: 120px;"
+        style="
+          grid-area: 1 / 1 / -1 / -1;
+          display: grid;
+          grid-template-columns: 36px 1fr 36px;
+          grid-template-rows: 24px minmax(16px, 1fr) 24px;
+          justify-items: center;
+          width: 224px;
+          height: 120px;
+        "
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="224"
           height="120"
           class="input-bg"
-          style="grid-area: 1 / 1 / -1 / -1;"
+          style="grid-area: 1 / 1 / -1 / -1"
         >
           <g style="">
             <g style="">
@@ -122,7 +140,7 @@
               fill="transparent"
               rx="2"
               ry="2"
-              style="pointer-events: none;"
+              style="pointer-events: none"
             ></rect>
           </clipPath>
           <rect
@@ -134,7 +152,11 @@
             fill="transparent"
             rx="2"
             ry="2"
-            style="pointer-events: none; stroke-width: 2px; stroke: rgb(196 204 212);"
+            style="
+              pointer-events: none;
+              stroke-width: 2px;
+              stroke: rgb(196 204 212);
+            "
           ></rect>
           <clipPath id="margin-inner">
             <rect
@@ -145,7 +167,7 @@
               fill="transparent"
               rx="2"
               ry="2"
-              style="pointer-events: none;"
+              style="pointer-events: none"
             ></rect>
           </clipPath>
           <rect
@@ -157,27 +179,38 @@
             fill="transparent"
             rx="2"
             ry="2"
-            style="pointer-events: none; stroke-width: 2px; stroke: rgb(196 204 212);"
+            style="
+              pointer-events: none;
+              stroke-width: 2px;
+              stroke: rgb(196 204 212);
+            "
           ></rect>
         </svg>
         <component
-          v-for="(m, key) in inline.margin"
+          v-for="(m, key) in margin"
           :key="m.value + breakpoint"
           :is="`${m.type}-fieldtype`"
           :style="m.style"
           :handle="m.handle"
           :config="m"
-          :value="getDeep(`inline.margin.${breakpoint}.${key}`) || 'N/A'"
-          @input="handleInput('margin', key, $event)"
-          class="control-input
-        text-center"
+          :value="margin[key].value"
+          @input="margin = { event: $event, key }"
+          class="control-input text-center"
           aria-label="Margin right edit"
         />
       </div>
       <div
         width="144"
         height="64"
-        style="grid-area: 3 / 3 / span 3 / span 3; display: grid; grid-template-columns: 36px 1fr 36px; grid-template-rows: 24px minmax(16px, 1fr) 24px; justify-items: center; width: 144px; height: 64px;"
+        style="
+          grid-area: 3 / 3 / span 3 / span 3;
+          display: grid;
+          grid-template-columns: 36px 1fr 36px;
+          grid-template-rows: 24px minmax(16px, 1fr) 24px;
+          justify-items: center;
+          width: 144px;
+          height: 64px;
+        "
       >
         <a
           :class="{ padding_y_locked: lockPaddingY }"
@@ -204,7 +237,7 @@
           width="144"
           height="64"
           class="input-bg"
-          style="grid-area: 1 / 1 / -1 / -1;"
+          style="grid-area: 1 / 1 / -1 / -1"
         >
           <g style="">
             <g style="">
@@ -291,7 +324,7 @@
               fill="transparent"
               rx="2"
               ry="2"
-              style="pointer-events: none;"
+              style="pointer-events: none"
             ></rect>
           </clipPath>
           <rect
@@ -303,7 +336,11 @@
             fill="transparent"
             rx="2"
             ry="2"
-            style="pointer-events: none; stroke-width: 2px; stroke: rgb(196 204 212);"
+            style="
+              pointer-events: none;
+              stroke-width: 2px;
+              stroke: rgb(196 204 212);
+            "
           ></rect>
           <clipPath id="padding-inner">
             <rect
@@ -314,7 +351,7 @@
               fill="transparent"
               rx="2"
               ry="2"
-              style="pointer-events: none;"
+              style="pointer-events: none"
             ></rect>
           </clipPath>
           <rect
@@ -326,18 +363,22 @@
             fill="transparent"
             rx="2"
             ry="2"
-            style="pointer-events: none; stroke-width: 2px; stroke: rgb(196 204 212);"
+            style="
+              pointer-events: none;
+              stroke-width: 2px;
+              stroke: rgb(196 204 212);
+            "
           ></rect>
         </svg>
         <component
-          v-for="(p, key) in inline.padding"
+          v-for="(p, key) in padding"
           :key="p.value + breakpoint"
           :is="`${p.type}-fieldtype`"
           :style="p.style"
           :handle="p.handle"
           :config="p"
-          :value="getDeep(`inline.padding.${breakpoint}.${key}`) || 'N/A'"
-          @input="handleInput('padding', key, $event)"
+          :value="padding[key].value"
+          @input="padding = { event: $event, key }"
           class="control-input text-center"
           aria-label="Padding right edit"
         />
@@ -346,7 +387,7 @@
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
         height="100%"
-        style="grid-area: 3 / 3 / span 3 / span 3; pointer-events: none;"
+        style="grid-area: 3 / 3 / span 3 / span 3; pointer-events: none"
       >
         <text
           x="6"
@@ -363,7 +404,7 @@
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
         height="100%"
-        style="grid-area: 1 / 1 / -1 / -1; pointer-events: none;"
+        style="grid-area: 1 / 1 / -1 / -1; pointer-events: none"
       >
         <text
           x="6"
@@ -395,9 +436,14 @@ export default {
       lockMarginX: false,
       lockPaddingY: false,
       lockPaddingX: false,
-      inline: {
-        margin: {
+    };
+  },
+  computed: {
+    margin: {
+      get() {
+        return {
           mt: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -409,10 +455,11 @@ export default {
             handle: "mt",
             display: "Margin Top",
             multiple: false,
-            value: "N/A",
+            value: this.getDeep(`inline.margin.${this.breakpoint}.mt`) || "N/A",
             style: "grid-area: 1 / 2 / 2 / 3;",
           },
           mr: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -423,10 +470,11 @@ export default {
             options: this.getTWClasses("margin", "mr"),
             handle: "mr",
             display: "Margin Right",
-            value: "N/A",
+            value: this.getDeep(`inline.margin.${this.breakpoint}.mr`) || "N/A",
             style: "grid-area: 2 / 3 / 3 / 4;",
           },
           mb: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -437,10 +485,11 @@ export default {
             options: this.getTWClasses("margin", "mb"),
             handle: "mb",
             display: "Margin Bottom",
-            value: "N/A",
+            value: this.getDeep(`inline.margin.${this.breakpoint}.mb`) || "N/A",
             style: "grid-area: 3 / 2 / 4 / 3;",
           },
           ml: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -451,12 +500,20 @@ export default {
             options: this.getTWClasses("margin", "ml"),
             handle: "ml",
             display: "Margin Left",
-            value: "N/A",
+            value: this.getDeep(`inline.margin.${this.breakpoint}.ml`) || "N/A",
             style: 'grid-area: 2 / 1 / 3 / 2;"',
           },
-        },
-        padding: {
+        };
+      },
+      set(data) {
+        this.handleInput("margin", data.key, data.event);
+      },
+    },
+    padding: {
+      get() {
+        return {
           pt: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -467,10 +524,12 @@ export default {
             options: this.getTWClasses("padding", "pt"),
             handle: "paddingTop",
             display: "Padding Top",
-            value: "N/A",
+            value:
+              this.getDeep(`inline.padding.${this.breakpoint}.pt`) || "N/A",
             style: "grid-area: 1 / 2 / 2 / 3;",
           },
           pr: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -481,10 +540,12 @@ export default {
             options: this.getTWClasses("padding", "pr"),
             handle: "paddingRight",
             display: "Padding Right",
-            value: "N/A",
+            value:
+              this.getDeep(`inline.padding.${this.breakpoint}.pr`) || "N/A",
             style: "grid-area: 2 / 3 / 3 / 4;",
           },
           pb: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -495,10 +556,12 @@ export default {
             options: this.getTWClasses("padding", "pb"),
             handle: "paddingBottom",
             display: "Padding Bottom",
-            value: "N/A",
+            value:
+              this.getDeep(`inline.padding.${this.breakpoint}.pb`) || "N/A",
             style: "grid-area: 3 / 2 / 4 / 3;",
           },
           pl: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -509,12 +572,16 @@ export default {
             options: this.getTWClasses("padding", "pl"),
             handle: "paddingLeft",
             display: "Padding Left",
-            value: "N/A",
+            value:
+              this.getDeep(`inline.padding.${this.breakpoint}.pl`) || "N/A",
             style: 'grid-area: 2 / 1 / 3 / 2;"',
           },
-        },
+        };
       },
-    };
+      set(data = {}) {
+        this.handleInput("padding", data.key, data.event);
+      },
+    },
   },
   mixins: [OptionsFields],
   components: {

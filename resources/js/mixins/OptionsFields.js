@@ -1,6 +1,5 @@
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../../tailwind.config.js";
-import { InlineDefaults, AttributeDefaults } from '../factories/modules/moduleDefaults';
 const fullConfig = resolveConfig(tailwindConfig);
 import { getDeep, setDeep, mergeDeep } from '../functions/objectHelpers'
 import { mapGetters, mapActions } from 'vuex'
@@ -11,6 +10,11 @@ const removeXSPrefixFromValue = (value) => {
 }
 
 export default {
+    data() {
+        return {
+            reactiveTick: 0
+        }
+    },
     computed: {
         ...mapGetters(["breakpoint", "dirtyFields"]),
         settings() {
@@ -19,15 +23,6 @@ export default {
     },
     created: function () {
         this.setDirtyFields([]);
-        if (this.field) {
-            // Backwards Compatibility with older versions of the addon
-            if (!this.settings?.inline || InlineDefaults.version !== this.settings.inline?.version) {
-                this.setInlineDefaults();
-            }
-            if (!this.settings?.attributes || AttributeDefaults.version !== this.settings.attributes?.version) {
-                this.setAttributeDefaults();
-            }
-        }
     },
     methods: {
         ...mapActions(['setDirtyFields']),
@@ -62,11 +57,15 @@ export default {
                 this.setDirtyFields([...this.dirtyFields, oldValue]);
             }
 
+            console.log({ val })
+
             // Set the value in pagebuilder JSON and validate the field
             setDeep(obj, fullPath, val);
             this.$nextTick(() => {
                 bus.$emit('validate-fields', path.split('.').pop());
             })
+
+            this.reactiveTick++;
         },
         updateMeta({ obj = this.settings, path, val }, responsive = false) {
             const fullPath = responsive ? `${path}.${this.breakpoint}` : path

@@ -5,17 +5,21 @@
         <vue-tabs :id="field.uuid">
           <vue-tab name="Color" selected="selected">
             <div
-              :key="inline.background.color.value"
+              :key="backgroundColor.value"
               class="buidlamic-field flex items-center mb-2"
             >
               <label class="mr-2">Background Color: </label>
               <color-fieldtype
                 handle="settings_background_color"
-                :config="inline.background.color.config"
-                :meta="null"
-                :value="inline.background.color.value"
-                @input="
-                  updateField({ path: 'inline.background.color', val: $event })
+                :config="backgroundColor.config"
+                :meta="getDeep(`inline.background.color.meta`) || null"
+                :value="backgroundColor.value"
+                @input="backgorundColor = $event"
+                @meta-updated="
+                  updateMeta({
+                    path: `inline.background.color.meta`,
+                    val: $event,
+                  })
                 "
               />
             </div>
@@ -56,19 +60,13 @@
             <div class="gradient-controls__toggle"></div>
           </vue-tab>
           <vue-tab name="Image">
-            <div :key="inline.background.image.value" class="buidlamic-field">
+            <div class="buidlamic-field">
               <assets-fieldtype
                 handle="settings_background_image"
-                :config="inline.background.image.config"
+                :config="backgroundImage.config"
                 :meta="getDeep(`inline.background.image.meta`) || undefined"
-                :value="inline.background.image.value"
-                @input="
-                  updateField({
-                    type: 'asset',
-                    path: 'inline.background.image.value',
-                    val: $event,
-                  })
-                "
+                :value="backgroundImage.value"
+                @input="backgroundImage = $event"
                 @meta-updated="
                   updateMeta({
                     path: `inline.background.image.meta`,
@@ -79,23 +77,14 @@
             </div>
           </vue-tab>
           <vue-tab name="Video">
-            <div
-              :key="inline.background.video.mp4.value"
-              class="buidlamic-field mb-6"
-            >
+            <div class="buidlamic-field mb-6">
               MP4 version:
               <assets-fieldtype
                 handle="settings_background_video_mp4"
-                :config="inline.background.video.mp4.config"
+                :config="backgroundVideo_mp4.config"
                 :meta="getDeep(`inline.background.video.mp4.meta`) || undefined"
-                :value="inline.background.video.mp4.value"
-                @input="
-                  updateField({
-                    type: 'asset',
-                    path: 'inline.background.video.mp4.value',
-                    val: $event,
-                  })
-                "
+                :value="backgroundVideo_mp4.value"
+                @input="backgroundVideo_mp4 = $event"
                 @meta-updated="
                   updateMeta({
                     path: `inline.background.video.mp4.meta`,
@@ -104,23 +93,14 @@
                 "
               />
             </div>
-            <div
-              :key="inline.background.video.webm.value"
-              class="buidlamic-field"
-            >
+            <div class="buidlamic-field">
               webm version:
               <assets-fieldtype
                 handle="settings_background_video_webm"
-                :config="inline.background.video.webm.config"
+                :config="backgroundVideo_webm.config"
                 :meta="undefined"
-                :value="inline.background.video.webm.value"
-                @input="
-                  updateField({
-                    type: 'asset',
-                    path: 'inline.background.video.webm.value',
-                    val: $event,
-                  })
-                "
+                :value="backgroundVideo_webm.value"
+                @input="backgroundVideo_webm = $event"
                 @meta-updated="
                   updateMeta({
                     path: `inline.background.video.webm.meta`,
@@ -161,73 +141,111 @@ export default {
   data: function () {
     return {
       gradientToggle: false,
-      inline: {
-        background: {
-          color: {
-            config: {
-              theme: "nano",
-              lock_opacity: false,
-              default_color_mode: "HEXA",
-              color_modes: ["hex", "rgba", "hsla"],
-              display: "Color",
-              type: "color",
-              icon: "color",
-              listable: "hidden",
-            },
-            value: this.getDeep("inline.background.color") || "",
-          },
-          image: {
-            config: {
-              mode: "grid",
-              container: "cdn",
-              restrict: false,
-              allow_uploads: true,
-              max_files: 1,
-              display: "Assets",
-              type: "assets",
-              icon: "assets",
-              listable: "hidden",
-            },
-            value: this.getDeep(`inline.background.image.value`) || [],
-          },
-          video: {
-            mp4: {
-              config: {
-                mode: "grid",
-                container: "cdn",
-                restrict: false,
-                allow_uploads: true,
-                max_files: 1,
-                display: "Assets",
-                instructions: "Upload the MP4 version of your video here",
-                type: "assets",
-                icon: "assets",
-                listable: "hidden",
-              },
-              value: this.getDeep(`inline.background.video.mp4`) || [],
-            },
-            webm: {
-              config: {
-                mode: "grid",
-                container: "cdn",
-                restrict: false,
-                allow_uploads: true,
-                max_files: 1,
-                display: "Assets",
-                instructions: "Upload the WebM version of your video here",
-                type: "assets",
-                icon: "assets",
-                listable: "hidden",
-              },
-              value: this.getDeep(`inline.background.video.webm`) || [],
-            },
-          },
-        },
-      },
+      inline: {},
     };
   },
   computed: {
-    gradient: {
+    backgroundColor: {
+      get() {
+        return {
+          config: {
+            theme: "nano",
+            lock_opacity: false,
+            default_color_mode: "HEXA",
+            color_modes: ["hex", "rgba", "hsla"],
+            display: "Color",
+            type: "color",
+            icon: "color",
+            listable: "hidden",
+          },
+          value: this.getDeep("inline.background.color.value") || "",
+        };
+      },
+      set($event) {
+        this.updateField({
+          path: "inline.background.color.value",
+          val: $event,
+        });
+      },
+    },
+    backgroundImage: {
+      get() {
+        return {
+          reactiveTick: this.reactiveTick,
+          config: {
+            mode: "grid",
+            container: "cdn",
+            restrict: false,
+            allow_uploads: true,
+            max_files: 1,
+            display: "Assets",
+            type: "assets",
+            icon: "assets",
+            listable: "hidden",
+          },
+          value: this.getDeep(`inline.background.image.value`) || [],
+        };
+      },
+      set($event) {
+        this.updateField({
+          path: "inline.background.image.value",
+          val: $event,
+        });
+      },
+    },
+    backgroundVideo_mp4: {
+      get() {
+        return {
+          reactiveTick: this.reactiveTick,
+          config: {
+            mode: "grid",
+            container: "cdn",
+            restrict: false,
+            allow_uploads: true,
+            max_files: 1,
+            display: "Assets",
+            instructions: "Upload the MP4 version of your video here",
+            type: "assets",
+            icon: "assets",
+            listable: "hidden",
+          },
+          value: this.getDeep(`inline.background.video.mp4.value`) || [],
+        };
+      },
+      set($event) {
+        this.updateField({
+          path: "inline.background.video.mp4.value",
+          val: $event,
+        });
+      },
+    },
+    backgroundVideo_webm: {
+      get() {
+        return {
+          reactiveTick: this.reactiveTick,
+          config: {
+            mode: "grid",
+            container: "cdn",
+            restrict: false,
+            allow_uploads: true,
+            max_files: 1,
+            display: "Assets",
+            instructions: "Upload the WebM version of your video here",
+            type: "assets",
+            icon: "assets",
+            listable: "hidden",
+          },
+          value: this.getDeep(`inline.background.video.webm.value`) || [],
+        };
+      },
+      set($event) {
+        this.updateField({
+          path: "inline.background.video.webm.value",
+          val: $event,
+        });
+      },
+    },
+    backgroundGradient: {
       get() {
         return new LinearGradient(
           this.convertGradientStringToObject(

@@ -1,6 +1,4 @@
 // import { createModule } from './moduleFactory'
-import { InlineDefaults, AttributeDefaults } from './moduleDefaults.js'
-
 const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {}, META = {} }) {
     this.uuid = `${UUID}`
     this.type = 'set'
@@ -22,8 +20,6 @@ const Set = function ({ UUID, ADMIN_LABEL, VALUE, HANDLE, CONFIG = {}, META = {}
         buildamic_settings: {
             enabled: true,
             admin_label: ADMIN_LABEL || HANDLE,
-            inline: { ...JSON.parse(JSON.stringify(InlineDefaults)) },
-            attributes: { ...JSON.parse(JSON.stringify(AttributeDefaults)) }
         }
 
     }
