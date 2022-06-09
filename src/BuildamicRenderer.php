@@ -2,6 +2,7 @@
 
 namespace HandmadeWeb\Buildamic;
 
+use Exception;
 use Facades\Statamic\View\Cascade;
 use HandmadeWeb\Buildamic\Fields\Field;
 use HandmadeWeb\Buildamic\Fields\Fields;
@@ -83,8 +84,18 @@ class BuildamicRenderer
         ))->render();
     }
 
+    protected function checkFieldType(Field $field, array $types =[])
+    {
+        if (!in_array($field->type(), $types)) {
+            $types = implode(', ', $types);
+            throw new Exception("Invalid FieldType: expected {$types} but received {$field->type()}");
+        }
+    }
+
     public function renderSection(Field $section)
     {
+        $this->checkFieldType($section, ['buildamic-section']);
+
         $section = Filter::run('buildamic_filter_everything', $section);
         $section = Filter::run('buildamic_filter_section', $section);
 
@@ -99,6 +110,8 @@ class BuildamicRenderer
 
     protected function renderFieldFromGlobalEntry(StatamicEntry $entry, Field $section)
     {
+        $this->checkFieldType($section, ['buildamic-global-section']);
+
         if ($entry->has('buildamic')) {
             $content = optional($entry->augmentedValue('buildamic'))->value();
         } else {
@@ -115,27 +128,29 @@ class BuildamicRenderer
 
     public function renderGlobalSection(Field $section)
     {
+        $this->checkFieldType($section, ['buildamic-global-section']);
+
         $section = Filter::run('buildamic_filter_everything', $section);
         $section = Filter::run('buildamic_filter_global_section', $section);
 
-        if ('buildamic-global-section' === $section->type()) {
-            $globals = collect($section->value()->raw());
+        $globals = collect($section->value()->raw());
 
-            if ($global = Entry::find($globals->first())) {
-                return $this->renderFieldFromGlobalEntry($global, $section);
-            }
-
-            // Maybe if we wanted to allow more than one global?
-            // $globals = Entry::query()->whereIn('id', $globals->toArray())->get();
-
-            // return $globals->map(function ($global) {
-            //     return $this->renderFieldFromGlobalEntry($global, $section);
-            // })->implode('');
+        if ($global = Entry::find($globals->first())) {
+            return $this->renderFieldFromGlobalEntry($global, $section);
         }
+
+        // Maybe if we wanted to allow more than one global?
+        // $globals = Entry::query()->whereIn('id', $globals->toArray())->get();
+
+        // return $globals->map(function ($global) {
+        //     return $this->renderFieldFromGlobalEntry($global, $section);
+        // })->implode('');
     }
 
     public function renderRow(Field $row)
     {
+        $this->checkFieldType($row, ['buildamic-row']);
+
         $row = Filter::run('buildamic_filter_everything', $row);
         $row = Filter::run('buildamic_filter_row', $row);
 
@@ -150,6 +165,8 @@ class BuildamicRenderer
 
     public function renderColumn(Field $column)
     {
+        $this->checkFieldType($column, ['buildamic-column']);
+
         $column = Filter::run('buildamic_filter_everything', $column);
         $column = Filter::run('buildamic_filter_column', $column);
 
@@ -284,6 +301,8 @@ class BuildamicRenderer
 
     public function renderSet(Field $set)
     {
+        $this->checkFieldType($set, ['sets']);
+
         $set = Filter::run('buildamic_filter_everything', $set);
         $set = Filter::run('buildamic_filter_set', $set);
         $set = Filter::run("buildamic_filter_set:{$set->handle()}", $set);
