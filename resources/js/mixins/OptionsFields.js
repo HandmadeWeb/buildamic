@@ -40,7 +40,7 @@ export default {
             return true
         },
         updateField({ obj = this.settings, path, type = null, key = '', val, vm = this }, responsive = false) {
-            if (type === 'asset' && !val.length) return
+            // if (type === 'asset' && !val.length) return
             const fullPath = responsive ? `${path}.${this.breakpoint}` : path
 
             // We have an XS option for responsive sizes but tailwind has no prefix for the smallest size so

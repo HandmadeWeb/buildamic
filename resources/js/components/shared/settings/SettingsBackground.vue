@@ -60,7 +60,7 @@
               <assets-fieldtype
                 handle="settings_background_image"
                 :config="inline.background.image.config"
-                :meta="undefined"
+                :meta="getDeep(`inline.background.image.meta`) || undefined"
                 :value="inline.background.image.value"
                 @input="
                   updateField({
@@ -87,12 +87,12 @@
               <assets-fieldtype
                 handle="settings_background_video_mp4"
                 :config="inline.background.video.mp4.config"
-                :meta="undefined"
+                :meta="getDeep(`inline.background.video.mp4.meta`) || undefined"
                 :value="inline.background.video.mp4.value"
                 @input="
                   updateField({
                     type: 'asset',
-                    path: 'inline.background.video.mp4',
+                    path: 'inline.background.video.mp4.value',
                     val: $event,
                   })
                 "
@@ -117,7 +117,7 @@
                 @input="
                   updateField({
                     type: 'asset',
-                    path: 'inline.background.video.webm',
+                    path: 'inline.background.video.webm.value',
                     val: $event,
                   })
                 "
@@ -179,7 +179,7 @@ export default {
           image: {
             config: {
               mode: "grid",
-              container: "assets",
+              container: "cdn",
               restrict: false,
               allow_uploads: true,
               max_files: 1,
@@ -194,7 +194,7 @@ export default {
             mp4: {
               config: {
                 mode: "grid",
-                container: "assets",
+                container: "cdn",
                 restrict: false,
                 allow_uploads: true,
                 max_files: 1,
@@ -209,7 +209,7 @@ export default {
             webm: {
               config: {
                 mode: "grid",
-                container: "assets",
+                container: "cdn",
                 restrict: false,
                 allow_uploads: true,
                 max_files: 1,
@@ -296,6 +296,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.getDeep(`inline.background.video.mp4`));
     const val = this.getDeep(`inline.background.gradient.value`);
     if (val) {
       this.gradientToggle = true;
