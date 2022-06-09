@@ -2743,6 +2743,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.value;
     }
   }),
+  mounted: function mounted() {
+    console.log("alignmentVals", this.value);
+    console.log(this.value, this.options);
+  },
   methods: {
     switchAlignment: function switchAlignment(alignment) {
       if (this.breakpoint === "xs") {
@@ -3167,6 +3171,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3179,10 +3224,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       lockMarginY: false,
       lockMarginX: false,
       lockPaddingY: false,
-      lockPaddingX: false,
-      inline: {
-        margin: {
+      lockPaddingX: false
+    };
+  },
+  computed: {
+    margin: {
+      get: function get() {
+        return {
           mt: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -3194,10 +3244,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             handle: "mt",
             display: "Margin Top",
             multiple: false,
-            value: "N/A",
+            value: this.getDeep("inline.margin.".concat(this.breakpoint, ".mt")) || "N/A",
             style: "grid-area: 1 / 2 / 2 / 3;"
           },
           mr: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -3208,10 +3259,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             options: this.getTWClasses("margin", "mr"),
             handle: "mr",
             display: "Margin Right",
-            value: "N/A",
+            value: this.getDeep("inline.margin.".concat(this.breakpoint, ".mr")) || "N/A",
             style: "grid-area: 2 / 3 / 3 / 4;"
           },
           mb: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -3222,10 +3274,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             options: this.getTWClasses("margin", "mb"),
             handle: "mb",
             display: "Margin Bottom",
-            value: "N/A",
+            value: this.getDeep("inline.margin.".concat(this.breakpoint, ".mb")) || "N/A",
             style: "grid-area: 3 / 2 / 4 / 3;"
           },
           ml: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -3236,12 +3289,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             options: this.getTWClasses("margin", "ml"),
             handle: "ml",
             display: "Margin Left",
-            value: "N/A",
+            value: this.getDeep("inline.margin.".concat(this.breakpoint, ".ml")) || "N/A",
             style: 'grid-area: 2 / 1 / 3 / 2;"'
           }
-        },
-        padding: {
+        };
+      },
+      set: function set(data) {
+        this.handleInput("margin", data.key, data.event);
+      }
+    },
+    padding: {
+      get: function get() {
+        return {
           pt: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -3252,10 +3313,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             options: this.getTWClasses("padding", "pt"),
             handle: "paddingTop",
             display: "Padding Top",
-            value: "N/A",
+            value: this.getDeep("inline.padding.".concat(this.breakpoint, ".pt")) || "N/A",
             style: "grid-area: 1 / 2 / 2 / 3;"
           },
           pr: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -3266,10 +3328,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             options: this.getTWClasses("padding", "pr"),
             handle: "paddingRight",
             display: "Padding Right",
-            value: "N/A",
+            value: this.getDeep("inline.padding.".concat(this.breakpoint, ".pr")) || "N/A",
             style: "grid-area: 2 / 3 / 3 / 4;"
           },
           pb: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -3280,10 +3343,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             options: this.getTWClasses("padding", "pb"),
             handle: "paddingBottom",
             display: "Padding Bottom",
-            value: "N/A",
+            value: this.getDeep("inline.padding.".concat(this.breakpoint, ".pb")) || "N/A",
             style: "grid-area: 3 / 2 / 4 / 3;"
           },
           pl: {
+            reactiveTick: this.reactiveTick,
             cast_booleans: false,
             clearable: false,
             listable: "hidden",
@@ -3294,12 +3358,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             options: this.getTWClasses("padding", "pl"),
             handle: "paddingLeft",
             display: "Padding Left",
-            value: "N/A",
+            value: this.getDeep("inline.padding.".concat(this.breakpoint, ".pl")) || "N/A",
             style: 'grid-area: 2 / 1 / 3 / 2;"'
           }
-        }
+        };
+      },
+      set: function set() {
+        var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        this.handleInput("padding", data.key, data.event);
       }
-    };
+    }
   },
   mixins: [_mixins_OptionsFields__WEBPACK_IMPORTED_MODULE_0__["default"]],
   components: {
@@ -3757,26 +3825,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3799,73 +3847,111 @@ var POSITION = 1;
   data: function data() {
     return {
       gradientToggle: false,
-      inline: {
-        background: {
-          color: {
-            config: {
-              theme: "nano",
-              lock_opacity: false,
-              default_color_mode: "HEXA",
-              color_modes: ["hex", "rgba", "hsla"],
-              display: "Color",
-              type: "color",
-              icon: "color",
-              listable: "hidden"
-            },
-            value: this.getDeep("inline.background.color") || ""
-          },
-          image: {
-            config: {
-              mode: "grid",
-              container: "cdn",
-              restrict: false,
-              allow_uploads: true,
-              max_files: 1,
-              display: "Assets",
-              type: "assets",
-              icon: "assets",
-              listable: "hidden"
-            },
-            value: this.getDeep("inline.background.image.value") || []
-          },
-          video: {
-            mp4: {
-              config: {
-                mode: "grid",
-                container: "cdn",
-                restrict: false,
-                allow_uploads: true,
-                max_files: 1,
-                display: "Assets",
-                instructions: "Upload the MP4 version of your video here",
-                type: "assets",
-                icon: "assets",
-                listable: "hidden"
-              },
-              value: this.getDeep("inline.background.video.mp4") || []
-            },
-            webm: {
-              config: {
-                mode: "grid",
-                container: "cdn",
-                restrict: false,
-                allow_uploads: true,
-                max_files: 1,
-                display: "Assets",
-                instructions: "Upload the WebM version of your video here",
-                type: "assets",
-                icon: "assets",
-                listable: "hidden"
-              },
-              value: this.getDeep("inline.background.video.webm") || []
-            }
-          }
-        }
-      }
+      inline: {}
     };
   },
   computed: {
-    gradient: {
+    backgroundColor: {
+      get: function get() {
+        return {
+          config: {
+            theme: "nano",
+            lock_opacity: false,
+            default_color_mode: "HEXA",
+            color_modes: ["hex", "rgba", "hsla"],
+            display: "Color",
+            type: "color",
+            icon: "color",
+            listable: "hidden"
+          },
+          value: this.getDeep("inline.background.color.value") || ""
+        };
+      },
+      set: function set($event) {
+        this.updateField({
+          path: "inline.background.color.value",
+          val: $event
+        });
+      }
+    },
+    backgroundImage: {
+      get: function get() {
+        return {
+          reactiveTick: this.reactiveTick,
+          config: {
+            mode: "grid",
+            container: "cdn",
+            restrict: false,
+            allow_uploads: true,
+            max_files: 1,
+            display: "Assets",
+            type: "assets",
+            icon: "assets",
+            listable: "hidden"
+          },
+          value: this.getDeep("inline.background.image.value") || []
+        };
+      },
+      set: function set($event) {
+        this.updateField({
+          path: "inline.background.image.value",
+          val: $event
+        });
+      }
+    },
+    backgroundVideo_mp4: {
+      get: function get() {
+        return {
+          reactiveTick: this.reactiveTick,
+          config: {
+            mode: "grid",
+            container: "cdn",
+            restrict: false,
+            allow_uploads: true,
+            max_files: 1,
+            display: "Assets",
+            instructions: "Upload the MP4 version of your video here",
+            type: "assets",
+            icon: "assets",
+            listable: "hidden"
+          },
+          value: this.getDeep("inline.background.video.mp4.value") || []
+        };
+      },
+      set: function set($event) {
+        this.updateField({
+          path: "inline.background.video.mp4.value",
+          val: $event
+        });
+      }
+    },
+    backgroundVideo_webm: {
+      get: function get() {
+        return {
+          reactiveTick: this.reactiveTick,
+          config: {
+            mode: "grid",
+            container: "cdn",
+            restrict: false,
+            allow_uploads: true,
+            max_files: 1,
+            display: "Assets",
+            instructions: "Upload the WebM version of your video here",
+            type: "assets",
+            icon: "assets",
+            listable: "hidden"
+          },
+          value: this.getDeep("inline.background.video.webm.value") || []
+        };
+      },
+      set: function set($event) {
+        this.updateField({
+          path: "inline.background.video.webm.value",
+          val: $event
+        });
+      }
+    },
+    backgroundGradient: {
       get: function get() {
         return new vue_gpickr__WEBPACK_IMPORTED_MODULE_4__.LinearGradient(this.convertGradientStringToObject(this.getDeep("inline.background.gradient.value") || "linear-gradient(0deg, #000 0%,#fff 100%)"));
       },
@@ -4116,6 +4202,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     displayOption: {
       get: function get() {
+        var reactiveTick = this.reactiveTick;
         return this.getDeep("inline.display.".concat(this.breakpoint)) || "";
       },
       set: function set(value) {
@@ -4127,7 +4214,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     widthOption: {
       get: function get() {
+        var _this$getDeep$width$t, _this$getDeep, _this$getDeep$width;
+
         return {
+          reactiveTick: this.reactiveTick,
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -4139,19 +4229,22 @@ __webpack_require__.r(__webpack_exports__);
           options: this.getTWClasses("width", "w"),
           handle: "width",
           display: "Width",
-          value: this.getDeep("inline").width[this.breakpoint]
+          value: (_this$getDeep$width$t = (_this$getDeep = this.getDeep("inline")) === null || _this$getDeep === void 0 ? void 0 : (_this$getDeep$width = _this$getDeep.width) === null || _this$getDeep$width === void 0 ? void 0 : _this$getDeep$width[this.breakpoint]) !== null && _this$getDeep$width$t !== void 0 ? _this$getDeep$width$t : ""
         };
       },
       set: function set(value) {
         this.updateField({
           path: "inline.width",
-          val: value
+          val: value === "none" ? "" : "".concat(this.breakpoint, ":").concat(value)
         }, true);
       }
     },
     heightOption: {
       get: function get() {
+        var _this$getDeep$height$, _this$getDeep2, _this$getDeep2$height;
+
         return {
+          reactiveTick: this.reactiveTick,
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -4163,19 +4256,22 @@ __webpack_require__.r(__webpack_exports__);
           options: this.getTWClasses("height", "h"),
           handle: "height",
           display: "Height",
-          value: this.getDeep("inline").height[this.breakpoint]
+          value: (_this$getDeep$height$ = (_this$getDeep2 = this.getDeep("inline")) === null || _this$getDeep2 === void 0 ? void 0 : (_this$getDeep2$height = _this$getDeep2.height) === null || _this$getDeep2$height === void 0 ? void 0 : _this$getDeep2$height[this.breakpoint]) !== null && _this$getDeep$height$ !== void 0 ? _this$getDeep$height$ : ""
         };
       },
       set: function set(value) {
         this.updateField({
           path: "inline.height",
-          val: value
+          val: value === "none" ? "" : "".concat(this.breakpoint, ":").concat(value)
         }, true);
       }
     },
     itemsOption: {
       get: function get() {
+        var _this$getDeep$items$t, _this$getDeep3, _this$getDeep3$items;
+
         return {
+          reactiveTick: this.reactiveTick,
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -4194,7 +4290,7 @@ __webpack_require__.r(__webpack_exports__);
           },
           handle: "items",
           display: "Items",
-          value: this.getDeep("inline").items[this.breakpoint]
+          value: (_this$getDeep$items$t = (_this$getDeep3 = this.getDeep("inline")) === null || _this$getDeep3 === void 0 ? void 0 : (_this$getDeep3$items = _this$getDeep3.items) === null || _this$getDeep3$items === void 0 ? void 0 : _this$getDeep3$items[this.breakpoint]) !== null && _this$getDeep$items$t !== void 0 ? _this$getDeep$items$t : ""
         };
       },
       set: function set(value) {
@@ -4206,7 +4302,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     justifyContentOption: {
       get: function get() {
+        var _this$getDeep$justify, _this$getDeep4, _this$getDeep4$justif;
+
         return {
+          reactiveTick: this.reactiveTick,
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -4226,7 +4325,7 @@ __webpack_require__.r(__webpack_exports__);
           },
           handle: "justify-content",
           display: "Justify Content",
-          value: this.getDeep("inline").justifyContent[this.breakpoint]
+          value: (_this$getDeep$justify = (_this$getDeep4 = this.getDeep("inline")) === null || _this$getDeep4 === void 0 ? void 0 : (_this$getDeep4$justif = _this$getDeep4.justifyContent) === null || _this$getDeep4$justif === void 0 ? void 0 : _this$getDeep4$justif[this.breakpoint]) !== null && _this$getDeep$justify !== void 0 ? _this$getDeep$justify : ""
         };
       },
       set: function set(value) {
@@ -4238,7 +4337,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     placeItemsOption: {
       get: function get() {
+        var _this$getDeep$placeIt, _this$getDeep5, _this$getDeep5$placeI;
+
         return {
+          reactiveTick: this.reactiveTick,
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -4256,7 +4358,7 @@ __webpack_require__.r(__webpack_exports__);
           },
           handle: "place-items",
           display: "Place Items",
-          value: this.getDeep("inline").placeItems[this.breakpoint]
+          value: (_this$getDeep$placeIt = (_this$getDeep5 = this.getDeep("inline")) === null || _this$getDeep5 === void 0 ? void 0 : (_this$getDeep5$placeI = _this$getDeep5.placeItems) === null || _this$getDeep5$placeI === void 0 ? void 0 : _this$getDeep5$placeI[this.breakpoint]) !== null && _this$getDeep$placeIt !== void 0 ? _this$getDeep$placeIt : ""
         };
       },
       set: function set(value) {
@@ -4268,6 +4370,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     gapOption: {
       get: function get() {
+        var _this$getDeep6, _this$getDeep6$gap;
+
         return {
           placeholder: "Gap between items (both horizontal and vertical)",
           input_type: "text",
@@ -4275,7 +4379,7 @@ __webpack_require__.r(__webpack_exports__);
           icon: "text",
           handle: "gap",
           display: "Gap",
-          value: this.getDeep("inline").gap[this.breakpoint]
+          value: (_this$getDeep6 = this.getDeep("inline")) === null || _this$getDeep6 === void 0 ? void 0 : (_this$getDeep6$gap = _this$getDeep6.gap) === null || _this$getDeep6$gap === void 0 ? void 0 : _this$getDeep6$gap[this.breakpoint]
         };
       },
       set: function set(value) {
@@ -4342,10 +4446,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -4361,18 +4461,30 @@ __webpack_require__.r(__webpack_exports__);
     ColorFieldtype: _fields_overrides_ColorFieldtype_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     AlignmentControls: _AlignmentControls_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  data: function data() {
-    return {
-      inline: {
-        "font-size": {
-          value: "N/A",
+  computed: {
+    fontSize: {
+      get: function get() {
+        return {
+          value: this.getDeep("inline.font-size.".concat(this.breakpoint)) || "N/A",
+          reactiveTick: this.reactiveTick,
           config: {
             options: this.getTWClasses("fontSize", "text"),
             handle: "font-size",
             display: "Font Size"
           }
-        },
-        color: {
+        };
+      },
+      set: function set($event) {
+        this.updateField({
+          path: "inline.font-size",
+          val: $event === "none" ? "" : "".concat(this.breakpoint, ":").concat($event)
+        }, true);
+      }
+    },
+    color: {
+      get: function get() {
+        return {
+          reactiveTick: this.reactiveTick,
           config: {
             handle: "color",
             display: "Font Color",
@@ -4380,13 +4492,30 @@ __webpack_require__.r(__webpack_exports__);
             default_color_mode: "HEXA",
             swatches: []
           },
-          value: "N/A"
-        },
-        "text-align": {
-          value: ""
-        }
+          value: this.getDeep("color") || "N/A"
+        };
+      },
+      set: function set($event) {
+        this.updateField({
+          path: "color",
+          val: $event
+        });
       }
-    };
+    },
+    textAlign: {
+      get: function get() {
+        return {
+          reactiveTick: this.reactiveTick,
+          value: this.getDeep("inline.text-align.".concat(this.breakpoint)) || "N/A"
+        };
+      },
+      set: function set($event) {
+        this.updateField({
+          path: "inline.text-align",
+          val: $event
+        }, true);
+      }
+    }
   },
   mixins: [_mixins_OptionsFields__WEBPACK_IMPORTED_MODULE_1__["default"]]
 });
@@ -4681,15 +4810,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Column": () => (/* binding */ Column)
 /* harmony export */ });
-/* harmony import */ var _moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleDefaults.js */ "./resources/js/factories/modules/moduleDefaults.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
 var Column = function Column(_ref) {
   var UUID = _ref.UUID,
       ADMIN_LABEL = _ref.ADMIN_LABEL;
@@ -4705,9 +4825,7 @@ var Column = function Column(_ref) {
         "md": '',
         "lg": 12,
         "xl": ''
-      },
-      inline: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.InlineDefaults))),
-      attributes: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.AttributeDefaults)))
+      }
     }
   };
   this.value = [];
@@ -4728,14 +4846,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Field": () => (/* binding */ Field)
 /* harmony export */ });
-/* harmony import */ var _moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleDefaults.js */ "./resources/js/factories/modules/moduleDefaults.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
 
 var Field = function Field(_ref) {
   var ADMIN_LABEL = _ref.ADMIN_LABEL,
@@ -4761,9 +4876,7 @@ var Field = function Field(_ref) {
     },
     buildamic_settings: {
       enabled: true,
-      admin_label: ADMIN_LABEL || CONFIG.DISPLAY || HANDLE,
-      inline: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.InlineDefaults))),
-      attributes: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.AttributeDefaults)))
+      admin_label: ADMIN_LABEL || CONFIG.DISPLAY || HANDLE
     }
   }; // this.meta = META
 
@@ -4785,15 +4898,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "GlobalSection": () => (/* binding */ GlobalSection)
 /* harmony export */ });
-/* harmony import */ var _moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleDefaults.js */ "./resources/js/factories/modules/moduleDefaults.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
 var GlobalSection = function GlobalSection(_ref) {
   var UUID = _ref.UUID,
       ADMIN_LABEL = _ref.ADMIN_LABEL,
@@ -4804,82 +4908,13 @@ var GlobalSection = function GlobalSection(_ref) {
   this.config = {
     enabled: true,
     buildamic_settings: {
-      admin_label: ADMIN_LABEL || this.type,
-      inline: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.InlineDefaults))),
-      attributes: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.AttributeDefaults)))
+      admin_label: ADMIN_LABEL || this.type
     }
   };
   this.value = VALUE;
 };
 
 
-
-/***/ }),
-
-/***/ "./resources/js/factories/modules/moduleDefaults.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/factories/modules/moduleDefaults.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AttributeDefaults": () => (/* binding */ AttributeDefaults),
-/* harmony export */   "InlineDefaults": () => (/* binding */ InlineDefaults)
-/* harmony export */ });
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var responsiveSizes = {
-  'xs': '',
-  'sm': '',
-  'md': '',
-  'lg': '',
-  'xl': ''
-};
-var InlineDefaults = {
-  background: {
-    color: '',
-    gradient: {
-      value: ""
-    },
-    image: {},
-    video: {}
-  },
-  display: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-  width: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-  height: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-  'text-align': _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-  'font-size': _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-  items: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-  justifyContent: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-  placeItems: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-  gap: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-  margin: {
-    mt: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-    mr: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-    mb: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-    ml: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes)))
-  },
-  padding: {
-    pt: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-    pr: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-    pb: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes))),
-    pl: _objectSpread({}, JSON.parse(JSON.stringify(responsiveSizes)))
-  },
-  // Add version number to this to check that modules use the latest version
-  version: '1.0.0'
-};
-var AttributeDefaults = {
-  "class": '',
-  id: '',
-  moduleLink: '',
-  version: '1.0.0'
-};
 
 /***/ }),
 
@@ -4945,31 +4980,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Row": () => (/* binding */ Row)
 /* harmony export */ });
-/* harmony import */ var _moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleDefaults.js */ "./resources/js/factories/modules/moduleDefaults.js");
-/* harmony import */ var _moduleFactory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moduleFactory */ "./resources/js/factories/modules/moduleFactory.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
+/* harmony import */ var _moduleFactory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleFactory */ "./resources/js/factories/modules/moduleFactory.js");
 
 
 var Row = function Row(_ref) {
   var UUID = _ref.UUID,
       ADMIN_LABEL = _ref.ADMIN_LABEL;
   // We are including a column by default
-  var column = (0,_moduleFactory__WEBPACK_IMPORTED_MODULE_1__.createModule)('Column');
+  var column = (0,_moduleFactory__WEBPACK_IMPORTED_MODULE_0__.createModule)('Column');
   this.uuid = "".concat(UUID);
   this.type = 'row';
   this.config = {
     enabled: true,
     buildamic_settings: {
       admin_label: ADMIN_LABEL || this.type,
-      column_count_total: 12,
-      inline: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.InlineDefaults))),
-      attributes: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.AttributeDefaults)))
+      column_count_total: 12
     }
   };
   this.value = [column];
@@ -4990,31 +5015,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Section": () => (/* binding */ Section)
 /* harmony export */ });
-/* harmony import */ var _moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleDefaults.js */ "./resources/js/factories/modules/moduleDefaults.js");
-/* harmony import */ var _moduleFactory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./moduleFactory */ "./resources/js/factories/modules/moduleFactory.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
+/* harmony import */ var _moduleFactory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleFactory */ "./resources/js/factories/modules/moduleFactory.js");
 
 
 var Section = function Section(_ref) {
   var UUID = _ref.UUID,
       ADMIN_LABEL = _ref.ADMIN_LABEL;
   // Wea
-  var row = (0,_moduleFactory__WEBPACK_IMPORTED_MODULE_1__.createModule)('Row');
+  var row = (0,_moduleFactory__WEBPACK_IMPORTED_MODULE_0__.createModule)('Row');
   this.uuid = "".concat(UUID);
   this.type = 'section';
   this.config = {
     enabled: true,
     buildamic_settings: {
       admin_label: ADMIN_LABEL || this.type,
-      inline: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.InlineDefaults))),
-      boxed_layout: true,
-      attributes: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.AttributeDefaults)))
+      boxed_layout: true
     }
   };
   this.value = [row];
@@ -5035,7 +5050,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Set": () => (/* binding */ Set)
 /* harmony export */ });
-/* harmony import */ var _moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./moduleDefaults.js */ "./resources/js/factories/modules/moduleDefaults.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -5043,8 +5057,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 // import { createModule } from './moduleFactory'
-
-
 var Set = function Set(_ref) {
   var UUID = _ref.UUID,
       ADMIN_LABEL = _ref.ADMIN_LABEL,
@@ -5069,9 +5081,7 @@ var Set = function Set(_ref) {
     },
     buildamic_settings: {
       enabled: true,
-      admin_label: ADMIN_LABEL || HANDLE,
-      inline: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.InlineDefaults))),
-      attributes: _objectSpread({}, JSON.parse(JSON.stringify(_moduleDefaults_js__WEBPACK_IMPORTED_MODULE_0__.AttributeDefaults)))
+      admin_label: ADMIN_LABEL || HANDLE
     }
   };
   this.value = VALUE.reduce(function (acc, cur) {
@@ -6009,10 +6019,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tailwindcss_resolveConfig__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tailwindcss_resolveConfig__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _tailwind_config_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../tailwind.config.js */ "./tailwind.config.js");
 /* harmony import */ var _tailwind_config_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_tailwind_config_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _factories_modules_moduleDefaults__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../factories/modules/moduleDefaults */ "./resources/js/factories/modules/moduleDefaults.js");
-/* harmony import */ var _functions_objectHelpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../functions/objectHelpers */ "./resources/js/functions/objectHelpers.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _eventBus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../eventBus */ "./resources/js/eventBus.js");
+/* harmony import */ var _functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../functions/objectHelpers */ "./resources/js/functions/objectHelpers.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _eventBus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../eventBus */ "./resources/js/eventBus.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -6041,7 +6050,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
 var fullConfig = tailwindcss_resolveConfig__WEBPACK_IMPORTED_MODULE_0___default()((_tailwind_config_js__WEBPACK_IMPORTED_MODULE_1___default()));
 
 
@@ -6052,33 +6060,25 @@ var removeXSPrefixFromValue = function removeXSPrefixFromValue(value) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)(["breakpoint", "dirtyFields"])), {}, {
+  data: function data() {
+    return {
+      reactiveTick: 0
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(["breakpoint", "dirtyFields"])), {}, {
     settings: function settings() {
       return this.field.config.buildamic_settings;
     }
   }),
   created: function created() {
     this.setDirtyFields([]);
-
-    if (this.field) {
-      var _this$settings, _this$settings$inline, _this$settings2, _this$settings$attrib;
-
-      // Backwards Compatibility with older versions of the addon
-      if (!((_this$settings = this.settings) !== null && _this$settings !== void 0 && _this$settings.inline) || _factories_modules_moduleDefaults__WEBPACK_IMPORTED_MODULE_2__.InlineDefaults.version !== ((_this$settings$inline = this.settings.inline) === null || _this$settings$inline === void 0 ? void 0 : _this$settings$inline.version)) {
-        this.setInlineDefaults();
-      }
-
-      if (!((_this$settings2 = this.settings) !== null && _this$settings2 !== void 0 && _this$settings2.attributes) || _factories_modules_moduleDefaults__WEBPACK_IMPORTED_MODULE_2__.AttributeDefaults.version !== ((_this$settings$attrib = this.settings.attributes) === null || _this$settings$attrib === void 0 ? void 0 : _this$settings$attrib.version)) {
-        this.setAttributeDefaults();
-      }
-    }
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapActions)(['setDirtyFields'])), {}, {
-    setDeep: _functions_objectHelpers__WEBPACK_IMPORTED_MODULE_3__.setDeep,
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)(['setDirtyFields'])), {}, {
+    setDeep: _functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__.setDeep,
     getDeep: function getDeep(e) {
       var obj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.settings;
 
-      var val = (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_3__.getDeep)(obj, e);
+      var val = (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__.getDeep)(obj, e);
 
       return val ? val : false;
     },
@@ -6120,18 +6120,22 @@ var removeXSPrefixFromValue = function removeXSPrefixFromValue(value) {
       var oldValue = {
         obj: obj,
         fullPath: fullPath,
-        val: (_getDeep2 = (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_3__.getDeep)(obj, fullPath)) !== null && _getDeep2 !== void 0 ? _getDeep2 : ''
+        val: (_getDeep2 = (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__.getDeep)(obj, fullPath)) !== null && _getDeep2 !== void 0 ? _getDeep2 : ''
       };
 
       if (existingIndex === -1) {
         this.setDirtyFields([].concat(_toConsumableArray(this.dirtyFields), [oldValue]));
-      } // Set the value in pagebuilder JSON and validate the field
+      }
 
+      console.log({
+        val: val
+      }); // Set the value in pagebuilder JSON and validate the field
 
-      (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_3__.setDeep)(obj, fullPath, val);
+      (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__.setDeep)(obj, fullPath, val);
       this.$nextTick(function () {
-        _eventBus__WEBPACK_IMPORTED_MODULE_4__.bus.$emit('validate-fields', path.split('.').pop());
+        _eventBus__WEBPACK_IMPORTED_MODULE_3__.bus.$emit('validate-fields', path.split('.').pop());
       });
+      this.reactiveTick++;
     },
     updateMeta: function updateMeta(_ref2) {
       var _ref2$obj = _ref2.obj,
@@ -6142,7 +6146,7 @@ var removeXSPrefixFromValue = function removeXSPrefixFromValue(value) {
       var fullPath = responsive ? "".concat(path, ".").concat(this.breakpoint) : path;
 
       if (fullPath) {
-        (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_3__.setDeep)(obj, fullPath, val);
+        (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__.setDeep)(obj, fullPath, val);
       }
     },
     getTWClasses: function getTWClasses(type, prefix) {
@@ -6164,14 +6168,14 @@ var removeXSPrefixFromValue = function removeXSPrefixFromValue(value) {
       }, options);
     },
     setInlineDefaults: function setInlineDefaults() {
-      var _this$settings3;
+      var _this$settings;
 
-      this.setDeep(this.settings, 'inline', (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_3__.mergeDeep)(JSON.parse(JSON.stringify(_factories_modules_moduleDefaults__WEBPACK_IMPORTED_MODULE_2__.InlineDefaults)), ((_this$settings3 = this.settings) === null || _this$settings3 === void 0 ? void 0 : _this$settings3.inline) || {}));
+      this.setDeep(this.settings, 'inline', (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__.mergeDeep)(JSON.parse(JSON.stringify(InlineDefaults)), ((_this$settings = this.settings) === null || _this$settings === void 0 ? void 0 : _this$settings.inline) || {}));
     },
     setAttributeDefaults: function setAttributeDefaults() {
-      var _this$settings4;
+      var _this$settings2;
 
-      this.setDeep(this.settings, 'attributes', (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_3__.mergeDeep)(JSON.parse(JSON.stringify(_factories_modules_moduleDefaults__WEBPACK_IMPORTED_MODULE_2__.AttributeDefaults)), ((_this$settings4 = this.settings) === null || _this$settings4 === void 0 ? void 0 : _this$settings4.attributes) || {}));
+      this.setDeep(this.settings, 'attributes', (0,_functions_objectHelpers__WEBPACK_IMPORTED_MODULE_2__.mergeDeep)(JSON.parse(JSON.stringify(AttributeDefaults)), ((_this$settings2 = this.settings) === null || _this$settings2 === void 0 ? void 0 : _this$settings2.attributes) || {}));
     }
   })
 });
@@ -8271,7 +8275,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.lockPaddingY,\n.lockPaddingX,\n.lockMarginY,\n.lockMarginX {\n  z-index: 1000;\n  position: absolute;\n}\n.lockMarginY,\n.lockMarginX {\n  top: 1px;\n  right: 5rem;\n}\n.lockMarginY,\n.lockPaddingY {\n  transform: rotate(90deg);\n  transform-origin: center;\n}\n.lockMarginX,\n.lockPaddingX {\n  transform: translate(1.3rem, 0.16rem);\n  transform-origin: center;\n}\n.lockPaddingY,\n.lockPaddingX {\n  top: 1.8rem;\n  right: 5rem;\n}\n.margin_y_locked,\n.margin_x_locked,\n.padding_y_locked,\n.padding_x_locked {\n  color: red !important;\n  fill: red;\n}\n.control-input {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  font-size: 10px;\n  letter-spacing: -0.2px;\n  display: flex;\n  background: transparent;\n  max-width: 100%;\n  box-sizing: content-box;\n  place-self: center;\n  position: relative;\n  opacity: 1;\n  align-items: center;\n  justify-content: center;\n}\n.control-input .input-group {\n  max-height: 14px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n.control-input input {\n  text-align: center;\n  background: none;\n  border: none;\n}\n.input-bg {\n  color: #fafcff;\n}\n.boxmodel-ui .toggle.vs__open-indicator {\n  display: none;\n}\n.boxmodel-ui .v-select.vs--single.vs--unsearchable .vs__selected-options {\n  border: none;\n  background: none;\n  align-items: center;\n  padding: 0 !important;\n}\n.boxmodel-ui {\n  transition: all 0.4s ease;\n}\n.boxmodel-ui--focus {\n  transform: scale(1.5);\n}\n", "",{"version":3,"sources":["webpack://./resources/js/components/shared/settings/BoxModelUI.vue"],"names":[],"mappings":";AA+lBA;;;;EAIA,aAAA;EACA,kBAAA;AACA;AAEA;;EAEA,QAAA;EACA,WAAA;AACA;AACA;;EAEA,wBAAA;EACA,wBAAA;AACA;AACA;;EAEA,qCAAA;EACA,wBAAA;AACA;AAEA;;EAEA,WAAA;EACA,WAAA;AACA;AAEA;;;;EAIA,qBAAA;EACA,SAAA;AACA;AAEA;EACA,eAAA;EACA,yBAAA;KAAA,sBAAA;MAAA,qBAAA;UAAA,iBAAA;EACA,eAAA;EACA,sBAAA;EACA,aAAA;EACA,uBAAA;EACA,eAAA;EACA,uBAAA;EACA,kBAAA;EACA,kBAAA;EACA,UAAA;EACA,mBAAA;EACA,uBAAA;AACA;AAEA;EACA,gBAAA;EACA,0BAAA;EAAA,uBAAA;EAAA,kBAAA;AACA;AAEA;EACA,kBAAA;EACA,gBAAA;EACA,YAAA;AACA;AAEA;EACA,cAAA;AACA;AAEA;EACA,aAAA;AACA;AAEA;EACA,YAAA;EACA,gBAAA;EACA,mBAAA;EACA,qBAAA;AACA;AAEA;EACA,yBAAA;AACA;AAEA;EACA,qBAAA;AACA","sourcesContent":["<template>\n  <div\n    @click=\"focus = true\"\n    class=\"boxmodel-ui\"\n    :class=\"{ 'boxmodel-ui--focus': focus }\"\n  >\n    <div\n      style=\"position: relative; display: grid; width: 224px; height: 120px; grid-template-columns: 36px 4px 36px 1fr 36px 4px 36px; grid-template-rows: 24px 4px 24px 1fr 24px 4px 24px; outline-style: none; cursor: default; user-select: none;\"\n    >\n      <a @click=\"lockMarginY = !lockMarginY\" class=\"lockMarginY\">\n        <eva-icon\n          width=\"15\"\n          height=\"15\"\n          :class=\"{ margin_y_locked: lockMarginY }\"\n          name=\"link-outline\"\n        />\n      </a>\n      <a\n        :class=\"{ margin_x_locked: lockMarginX }\"\n        @click=\"lockMarginX = !lockMarginX\"\n        class=\"lockMarginX\"\n        ><eva-icon\n          width=\"15\"\n          height=\"15\"\n          :class=\"{ margin_x_locked: lockMarginX }\"\n          name=\"link-outline\"\n      /></a>\n      <div\n        width=\"224\"\n        height=\"120\"\n        style=\"grid-area: 1 / 1 / -1 / -1; display: grid; grid-template-columns: 36px 1fr 36px; grid-template-rows: 24px minmax(16px, 1fr) 24px; justify-items: center; width: 224px; height: 120px;\"\n      >\n        <svg\n          xmlns=\"http://www.w3.org/2000/svg\"\n          width=\"224\"\n          height=\"120\"\n          class=\"input-bg\"\n          style=\"grid-area: 1 / 1 / -1 / -1;\"\n        >\n          <g style=\"\">\n            <g style=\"\">\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,1\n  h223\n  l-36,24\n  h-151\n  l-36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"margin-top-button\"\n                aria-label=\"Margin top button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g>\n            <g>\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m223,1\n  v119\n  l-36,-24\n  v-71\n  l36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"margin-right-button\"\n                aria-label=\"Margin right button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g style=\"\">\n            <g style=\"\">\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,119\n  h223\n  l-36,-24\n  h-151\n  l-36,24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"margin-bottom-button\"\n                aria-label=\"Margin bottom button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g>\n            <g>\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,1\n  v119\n  l36,-24\n  v-71\n  l-36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"margin-left-button\"\n                aria-label=\"Margin left button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <clipPath id=\"margin-outer\">\n            <rect\n              x=\"0\"\n              y=\"0\"\n              width=\"224\"\n              height=\"120\"\n              fill=\"transparent\"\n              rx=\"2\"\n              ry=\"2\"\n              style=\"pointer-events: none;\"\n            ></rect>\n          </clipPath>\n          <rect\n            clip-path=\"url(#margin-outer)\"\n            x=\"0\"\n            y=\"0\"\n            width=\"224\"\n            height=\"120\"\n            fill=\"transparent\"\n            rx=\"2\"\n            ry=\"2\"\n            style=\"pointer-events: none; stroke-width: 2px; stroke: rgb(196 204 212);\"\n          ></rect>\n          <clipPath id=\"margin-inner\">\n            <rect\n              x=\"36\"\n              y=\"24\"\n              width=\"152\"\n              height=\"72\"\n              fill=\"transparent\"\n              rx=\"2\"\n              ry=\"2\"\n              style=\"pointer-events: none;\"\n            ></rect>\n          </clipPath>\n          <rect\n            clip-path=\"url(#margin-inner)\"\n            x=\"36\"\n            y=\"24\"\n            width=\"152\"\n            height=\"72\"\n            fill=\"transparent\"\n            rx=\"2\"\n            ry=\"2\"\n            style=\"pointer-events: none; stroke-width: 2px; stroke: rgb(196 204 212);\"\n          ></rect>\n        </svg>\n        <component\n          v-for=\"(m, key) in inline.margin\"\n          :key=\"m.value + breakpoint\"\n          :is=\"`${m.type}-fieldtype`\"\n          :style=\"m.style\"\n          :handle=\"m.handle\"\n          :config=\"m\"\n          :value=\"getDeep(`inline.margin.${breakpoint}.${key}`) || 'N/A'\"\n          @input=\"handleInput('margin', key, $event)\"\n          class=\"control-input\n        text-center\"\n          aria-label=\"Margin right edit\"\n        />\n      </div>\n      <div\n        width=\"144\"\n        height=\"64\"\n        style=\"grid-area: 3 / 3 / span 3 / span 3; display: grid; grid-template-columns: 36px 1fr 36px; grid-template-rows: 24px minmax(16px, 1fr) 24px; justify-items: center; width: 144px; height: 64px;\"\n      >\n        <a\n          :class=\"{ padding_y_locked: lockPaddingY }\"\n          @click=\"lockPaddingY = !lockPaddingY\"\n          class=\"lockPaddingY\"\n          ><eva-icon\n            width=\"15\"\n            height=\"15\"\n            :class=\"{ padding_x_locked: lockPaddingX }\"\n            name=\"link-outline\"\n        /></a>\n        <a\n          :class=\"{ padding_x_locked: lockPaddingX }\"\n          @click=\"lockPaddingX = !lockPaddingX\"\n          class=\"lockPaddingX\"\n          ><eva-icon\n            width=\"15\"\n            height=\"15\"\n            :class=\"{ padding_x_locked: lockPaddingX }\"\n            name=\"link-outline\"\n        /></a>\n        <svg\n          xmlns=\"http://www.w3.org/2000/svg\"\n          width=\"144\"\n          height=\"64\"\n          class=\"input-bg\"\n          style=\"grid-area: 1 / 1 / -1 / -1;\"\n        >\n          <g style=\"\">\n            <g style=\"\">\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,1\n  h143\n  l-36,24\n  h-71\n  l-36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"padding-top-button\"\n                aria-label=\"Padding top button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g>\n            <g>\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m143,1\n  v63\n  l-36,-24\n  v-15\n  l36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"padding-right-button\"\n                aria-label=\"Padding right button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g style=\"\">\n            <g style=\"\">\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,63\n  h143\n  l-36,-24\n  h-71\n  l-36,24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"padding-bottom-button\"\n                aria-label=\"Padding bottom button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g>\n            <g>\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,1\n  v63\n  l36,-24\n  v-15\n  l-36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"padding-left-button\"\n                aria-label=\"Padding left button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <clipPath id=\"padding-outer\">\n            <rect\n              x=\"0\"\n              y=\"0\"\n              width=\"144\"\n              height=\"64\"\n              fill=\"transparent\"\n              rx=\"2\"\n              ry=\"2\"\n              style=\"pointer-events: none;\"\n            ></rect>\n          </clipPath>\n          <rect\n            clip-path=\"url(#padding-outer)\"\n            x=\"0\"\n            y=\"0\"\n            width=\"144\"\n            height=\"64\"\n            fill=\"transparent\"\n            rx=\"2\"\n            ry=\"2\"\n            style=\"pointer-events: none; stroke-width: 2px; stroke: rgb(196 204 212);\"\n          ></rect>\n          <clipPath id=\"padding-inner\">\n            <rect\n              x=\"36\"\n              y=\"24\"\n              width=\"72\"\n              height=\"16\"\n              fill=\"transparent\"\n              rx=\"2\"\n              ry=\"2\"\n              style=\"pointer-events: none;\"\n            ></rect>\n          </clipPath>\n          <rect\n            clip-path=\"url(#padding-inner)\"\n            x=\"36\"\n            y=\"24\"\n            width=\"72\"\n            height=\"16\"\n            fill=\"transparent\"\n            rx=\"2\"\n            ry=\"2\"\n            style=\"pointer-events: none; stroke-width: 2px; stroke: rgb(196 204 212);\"\n          ></rect>\n        </svg>\n        <component\n          v-for=\"(p, key) in inline.padding\"\n          :key=\"p.value + breakpoint\"\n          :is=\"`${p.type}-fieldtype`\"\n          :style=\"p.style\"\n          :handle=\"p.handle\"\n          :config=\"p\"\n          :value=\"getDeep(`inline.padding.${breakpoint}.${key}`) || 'N/A'\"\n          @input=\"handleInput('padding', key, $event)\"\n          class=\"control-input text-center\"\n          aria-label=\"Padding right edit\"\n        />\n      </div>\n      <svg\n        xmlns=\"http://www.w3.org/2000/svg\"\n        width=\"100%\"\n        height=\"100%\"\n        style=\"grid-area: 3 / 3 / span 3 / span 3; pointer-events: none;\"\n      >\n        <text\n          x=\"6\"\n          y=\"4\"\n          fill=\"#a6a6a6\"\n          font-style=\"italic\"\n          font-weight=\"bold\"\n          font-size=\"8\"\n          dominant-baseline=\"hanging\"\n        >\n          PADDING\n        </text></svg\n      ><svg\n        xmlns=\"http://www.w3.org/2000/svg\"\n        width=\"100%\"\n        height=\"100%\"\n        style=\"grid-area: 1 / 1 / -1 / -1; pointer-events: none;\"\n      >\n        <text\n          x=\"6\"\n          y=\"4\"\n          fill=\"#a6a6a6\"\n          font-style=\"italic\"\n          font-weight=\"bold\"\n          font-size=\"8\"\n          dominant-baseline=\"hanging\"\n        >\n          MARGIN\n        </text>\n      </svg>\n    </div>\n  </div>\n</template>\n\n<script>\nimport OptionsFields from \"../../../mixins/OptionsFields\";\nimport { EvaIcon } from \"vue-eva-icons\";\nexport default {\n  props: {\n    field: Object,\n  },\n  data() {\n    return {\n      focus: false,\n      lockMarginY: false,\n      lockMarginX: false,\n      lockPaddingY: false,\n      lockPaddingX: false,\n      inline: {\n        margin: {\n          mt: {\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"margin\", \"mt\"),\n            handle: \"mt\",\n            display: \"Margin Top\",\n            multiple: false,\n            value: \"N/A\",\n            style: \"grid-area: 1 / 2 / 2 / 3;\",\n          },\n          mr: {\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"margin\", \"mr\"),\n            handle: \"mr\",\n            display: \"Margin Right\",\n            value: \"N/A\",\n            style: \"grid-area: 2 / 3 / 3 / 4;\",\n          },\n          mb: {\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"margin\", \"mb\"),\n            handle: \"mb\",\n            display: \"Margin Bottom\",\n            value: \"N/A\",\n            style: \"grid-area: 3 / 2 / 4 / 3;\",\n          },\n          ml: {\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"margin\", \"ml\"),\n            handle: \"ml\",\n            display: \"Margin Left\",\n            value: \"N/A\",\n            style: 'grid-area: 2 / 1 / 3 / 2;\"',\n          },\n        },\n        padding: {\n          pt: {\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"padding\", \"pt\"),\n            handle: \"paddingTop\",\n            display: \"Padding Top\",\n            value: \"N/A\",\n            style: \"grid-area: 1 / 2 / 2 / 3;\",\n          },\n          pr: {\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"padding\", \"pr\"),\n            handle: \"paddingRight\",\n            display: \"Padding Right\",\n            value: \"N/A\",\n            style: \"grid-area: 2 / 3 / 3 / 4;\",\n          },\n          pb: {\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"padding\", \"pb\"),\n            handle: \"paddingBottom\",\n            display: \"Padding Bottom\",\n            value: \"N/A\",\n            style: \"grid-area: 3 / 2 / 4 / 3;\",\n          },\n          pl: {\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"padding\", \"pl\"),\n            handle: \"paddingLeft\",\n            display: \"Padding Left\",\n            value: \"N/A\",\n            style: 'grid-area: 2 / 1 / 3 / 2;\"',\n          },\n        },\n      },\n    };\n  },\n  mixins: [OptionsFields],\n  components: {\n    EvaIcon,\n  },\n\n  methods: {\n    setValueDirection(value, dirLetter) {\n      if (value === \"none\") {\n        return \"\";\n      }\n      const margin = value.includes(\"m\") && value.split(\"m\");\n      const padding = value.includes(\"p\") && value.split(\"p\");\n      const setting = margin || padding;\n      const direction = setting[1][0];\n      if (this.breakpoint === \"xs\") {\n        return value.replace(direction, dirLetter);\n      }\n      return `${this.breakpoint}:${value.replace(direction, dirLetter)}`;\n    },\n    handleInput(setting, key, value) {\n      const newVals = {};\n      if (!key) {\n        return;\n      }\n\n      /* To Do\n        [] Tidy up / loop this mess\n      */\n      if (setting === \"margin\") {\n        if (this.lockMarginY && this.lockMarginX) {\n          newVals[\"mt\"] = this.setValueDirection(value, \"t\");\n          newVals[\"mr\"] = this.setValueDirection(value, \"r\");\n          newVals[\"mb\"] = this.setValueDirection(value, \"b\");\n          newVals[\"ml\"] = this.setValueDirection(value, \"l\");\n        } else if (this.lockMarginY) {\n          if (key === \"mt\" || key === \"mb\") {\n            newVals[\"mt\"] = this.setValueDirection(value, \"t\");\n            newVals[\"mb\"] = this.setValueDirection(value, \"b\");\n          }\n        } else if (this.lockMarginX) {\n          if (key === \"ml\" || key === \"mr\") {\n            newVals[\"ml\"] = this.setValueDirection(value, \"l\");\n            newVals[\"mr\"] = this.setValueDirection(value, \"r\");\n          }\n        }\n        newVals[key] = this.setValueDirection(value, key.split(\"m\")[1]);\n      }\n      if (setting === \"padding\") {\n        if (this.lockPaddingY && this.lockPaddingX) {\n          newVals[\"pt\"] = this.setValueDirection(value, \"t\");\n          newVals[\"pr\"] = this.setValueDirection(value, \"r\");\n          newVals[\"pb\"] = this.setValueDirection(value, \"b\");\n          newVals[\"pl\"] = this.setValueDirection(value, \"l\");\n        } else if (this.lockPaddingY) {\n          if (key === \"pt\" || key === \"pb\") {\n            newVals[\"pt\"] = this.setValueDirection(value, \"t\");\n            newVals[\"pb\"] = this.setValueDirection(value, \"b\");\n          }\n        } else if (this.lockPaddingX) {\n          if (key === \"pl\" || key === \"pr\") {\n            newVals[\"pr\"] = this.setValueDirection(value, \"r\");\n            newVals[\"pl\"] = this.setValueDirection(value, \"l\");\n          }\n        }\n\n        newVals[key] = this.setValueDirection(value, key.split(\"p\")[1]);\n      }\n\n      const oldVals = this.getDeep(`inline.${setting}.${this.breakpoint}`);\n      const payload = { ...oldVals, ...newVals };\n\n      this.updateField({ path: `inline.${setting}`, key, val: payload }, true);\n    },\n    checkOutsideClick(e) {\n      if (!e.target.closest(\".boxmodel-ui\")) {\n        this.focus = false;\n      }\n    },\n  },\n  mounted() {\n    window.addEventListener(\"click\", this.checkOutsideClick);\n  },\n  destroy() {\n    window.removeEventListener(\"click\", this.checkOutsideClick);\n  },\n};\n</script>\n\n<style>\n.lockPaddingY,\n.lockPaddingX,\n.lockMarginY,\n.lockMarginX {\n  z-index: 1000;\n  position: absolute;\n}\n\n.lockMarginY,\n.lockMarginX {\n  top: 1px;\n  right: 5rem;\n}\n.lockMarginY,\n.lockPaddingY {\n  transform: rotate(90deg);\n  transform-origin: center;\n}\n.lockMarginX,\n.lockPaddingX {\n  transform: translate(1.3rem, 0.16rem);\n  transform-origin: center;\n}\n\n.lockPaddingY,\n.lockPaddingX {\n  top: 1.8rem;\n  right: 5rem;\n}\n\n.margin_y_locked,\n.margin_x_locked,\n.padding_y_locked,\n.padding_x_locked {\n  color: red !important;\n  fill: red;\n}\n\n.control-input {\n  cursor: default;\n  user-select: none;\n  font-size: 10px;\n  letter-spacing: -0.2px;\n  display: flex;\n  background: transparent;\n  max-width: 100%;\n  box-sizing: content-box;\n  place-self: center;\n  position: relative;\n  opacity: 1;\n  align-items: center;\n  justify-content: center;\n}\n\n.control-input .input-group {\n  max-height: 14px;\n  width: fit-content;\n}\n\n.control-input input {\n  text-align: center;\n  background: none;\n  border: none;\n}\n\n.input-bg {\n  color: #fafcff;\n}\n\n.boxmodel-ui .toggle.vs__open-indicator {\n  display: none;\n}\n\n.boxmodel-ui .v-select.vs--single.vs--unsearchable .vs__selected-options {\n  border: none;\n  background: none;\n  align-items: center;\n  padding: 0 !important;\n}\n\n.boxmodel-ui {\n  transition: all 0.4s ease;\n}\n\n.boxmodel-ui--focus {\n  transform: scale(1.5);\n}\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.lockPaddingY,\n.lockPaddingX,\n.lockMarginY,\n.lockMarginX {\n  z-index: 1000;\n  position: absolute;\n}\n.lockMarginY,\n.lockMarginX {\n  top: 1px;\n  right: 5rem;\n}\n.lockMarginY,\n.lockPaddingY {\n  transform: rotate(90deg);\n  transform-origin: center;\n}\n.lockMarginX,\n.lockPaddingX {\n  transform: translate(1.3rem, 0.16rem);\n  transform-origin: center;\n}\n.lockPaddingY,\n.lockPaddingX {\n  top: 1.8rem;\n  right: 5rem;\n}\n.margin_y_locked,\n.margin_x_locked,\n.padding_y_locked,\n.padding_x_locked {\n  color: red !important;\n  fill: red;\n}\n.control-input {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  font-size: 10px;\n  letter-spacing: -0.2px;\n  display: flex;\n  background: transparent;\n  max-width: 100%;\n  box-sizing: content-box;\n  place-self: center;\n  position: relative;\n  opacity: 1;\n  align-items: center;\n  justify-content: center;\n}\n.control-input .input-group {\n  max-height: 14px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n.control-input input {\n  text-align: center;\n  background: none;\n  border: none;\n}\n.input-bg {\n  color: #fafcff;\n}\n.boxmodel-ui .toggle.vs__open-indicator {\n  display: none;\n}\n.boxmodel-ui .v-select.vs--single.vs--unsearchable .vs__selected-options {\n  border: none;\n  background: none;\n  align-items: center;\n  padding: 0 !important;\n}\n.boxmodel-ui {\n  transition: all 0.4s ease;\n}\n.boxmodel-ui--focus {\n  transform: scale(1.5);\n}\n", "",{"version":3,"sources":["webpack://./../../../../../../../BoxModelUI.vue"],"names":[],"mappings":";AAkqBA;;;;EAIA,aAAA;EACA,kBAAA;AACA;AAEA;;EAEA,QAAA;EACA,WAAA;AACA;AACA;;EAEA,wBAAA;EACA,wBAAA;AACA;AACA;;EAEA,qCAAA;EACA,wBAAA;AACA;AAEA;;EAEA,WAAA;EACA,WAAA;AACA;AAEA;;;;EAIA,qBAAA;EACA,SAAA;AACA;AAEA;EACA,eAAA;EACA,yBAAA;KAAA,sBAAA;MAAA,qBAAA;UAAA,iBAAA;EACA,eAAA;EACA,sBAAA;EACA,aAAA;EACA,uBAAA;EACA,eAAA;EACA,uBAAA;EACA,kBAAA;EACA,kBAAA;EACA,UAAA;EACA,mBAAA;EACA,uBAAA;AACA;AAEA;EACA,gBAAA;EACA,0BAAA;EAAA,uBAAA;EAAA,kBAAA;AACA;AAEA;EACA,kBAAA;EACA,gBAAA;EACA,YAAA;AACA;AAEA;EACA,cAAA;AACA;AAEA;EACA,aAAA;AACA;AAEA;EACA,YAAA;EACA,gBAAA;EACA,mBAAA;EACA,qBAAA;AACA;AAEA;EACA,yBAAA;AACA;AAEA;EACA,qBAAA;AACA","sourcesContent":["<template>\n  <div\n    @click=\"focus = true\"\n    class=\"boxmodel-ui\"\n    :class=\"{ 'boxmodel-ui--focus': focus }\"\n  >\n    <div\n      style=\"\n        position: relative;\n        display: grid;\n        width: 224px;\n        height: 120px;\n        grid-template-columns: 36px 4px 36px 1fr 36px 4px 36px;\n        grid-template-rows: 24px 4px 24px 1fr 24px 4px 24px;\n        outline-style: none;\n        cursor: default;\n        user-select: none;\n      \"\n    >\n      <a @click=\"lockMarginY = !lockMarginY\" class=\"lockMarginY\">\n        <eva-icon\n          width=\"15\"\n          height=\"15\"\n          :class=\"{ margin_y_locked: lockMarginY }\"\n          name=\"link-outline\"\n        />\n      </a>\n      <a\n        :class=\"{ margin_x_locked: lockMarginX }\"\n        @click=\"lockMarginX = !lockMarginX\"\n        class=\"lockMarginX\"\n        ><eva-icon\n          width=\"15\"\n          height=\"15\"\n          :class=\"{ margin_x_locked: lockMarginX }\"\n          name=\"link-outline\"\n      /></a>\n      <div\n        width=\"224\"\n        height=\"120\"\n        style=\"\n          grid-area: 1 / 1 / -1 / -1;\n          display: grid;\n          grid-template-columns: 36px 1fr 36px;\n          grid-template-rows: 24px minmax(16px, 1fr) 24px;\n          justify-items: center;\n          width: 224px;\n          height: 120px;\n        \"\n      >\n        <svg\n          xmlns=\"http://www.w3.org/2000/svg\"\n          width=\"224\"\n          height=\"120\"\n          class=\"input-bg\"\n          style=\"grid-area: 1 / 1 / -1 / -1\"\n        >\n          <g style=\"\">\n            <g style=\"\">\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,1\n  h223\n  l-36,24\n  h-151\n  l-36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"margin-top-button\"\n                aria-label=\"Margin top button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g>\n            <g>\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m223,1\n  v119\n  l-36,-24\n  v-71\n  l36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"margin-right-button\"\n                aria-label=\"Margin right button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g style=\"\">\n            <g style=\"\">\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,119\n  h223\n  l-36,-24\n  h-151\n  l-36,24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"margin-bottom-button\"\n                aria-label=\"Margin bottom button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g>\n            <g>\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,1\n  v119\n  l36,-24\n  v-71\n  l-36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"margin-left-button\"\n                aria-label=\"Margin left button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <clipPath id=\"margin-outer\">\n            <rect\n              x=\"0\"\n              y=\"0\"\n              width=\"224\"\n              height=\"120\"\n              fill=\"transparent\"\n              rx=\"2\"\n              ry=\"2\"\n              style=\"pointer-events: none\"\n            ></rect>\n          </clipPath>\n          <rect\n            clip-path=\"url(#margin-outer)\"\n            x=\"0\"\n            y=\"0\"\n            width=\"224\"\n            height=\"120\"\n            fill=\"transparent\"\n            rx=\"2\"\n            ry=\"2\"\n            style=\"\n              pointer-events: none;\n              stroke-width: 2px;\n              stroke: rgb(196 204 212);\n            \"\n          ></rect>\n          <clipPath id=\"margin-inner\">\n            <rect\n              x=\"36\"\n              y=\"24\"\n              width=\"152\"\n              height=\"72\"\n              fill=\"transparent\"\n              rx=\"2\"\n              ry=\"2\"\n              style=\"pointer-events: none\"\n            ></rect>\n          </clipPath>\n          <rect\n            clip-path=\"url(#margin-inner)\"\n            x=\"36\"\n            y=\"24\"\n            width=\"152\"\n            height=\"72\"\n            fill=\"transparent\"\n            rx=\"2\"\n            ry=\"2\"\n            style=\"\n              pointer-events: none;\n              stroke-width: 2px;\n              stroke: rgb(196 204 212);\n            \"\n          ></rect>\n        </svg>\n        <component\n          v-for=\"(m, key) in margin\"\n          :key=\"m.value + breakpoint\"\n          :is=\"`${m.type}-fieldtype`\"\n          :style=\"m.style\"\n          :handle=\"m.handle\"\n          :config=\"m\"\n          :value=\"margin[key].value\"\n          @input=\"margin = { event: $event, key }\"\n          class=\"control-input text-center\"\n          aria-label=\"Margin right edit\"\n        />\n      </div>\n      <div\n        width=\"144\"\n        height=\"64\"\n        style=\"\n          grid-area: 3 / 3 / span 3 / span 3;\n          display: grid;\n          grid-template-columns: 36px 1fr 36px;\n          grid-template-rows: 24px minmax(16px, 1fr) 24px;\n          justify-items: center;\n          width: 144px;\n          height: 64px;\n        \"\n      >\n        <a\n          :class=\"{ padding_y_locked: lockPaddingY }\"\n          @click=\"lockPaddingY = !lockPaddingY\"\n          class=\"lockPaddingY\"\n          ><eva-icon\n            width=\"15\"\n            height=\"15\"\n            :class=\"{ padding_x_locked: lockPaddingX }\"\n            name=\"link-outline\"\n        /></a>\n        <a\n          :class=\"{ padding_x_locked: lockPaddingX }\"\n          @click=\"lockPaddingX = !lockPaddingX\"\n          class=\"lockPaddingX\"\n          ><eva-icon\n            width=\"15\"\n            height=\"15\"\n            :class=\"{ padding_x_locked: lockPaddingX }\"\n            name=\"link-outline\"\n        /></a>\n        <svg\n          xmlns=\"http://www.w3.org/2000/svg\"\n          width=\"144\"\n          height=\"64\"\n          class=\"input-bg\"\n          style=\"grid-area: 1 / 1 / -1 / -1\"\n        >\n          <g style=\"\">\n            <g style=\"\">\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,1\n  h143\n  l-36,24\n  h-71\n  l-36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"padding-top-button\"\n                aria-label=\"Padding top button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g>\n            <g>\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m143,1\n  v63\n  l-36,-24\n  v-15\n  l36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"padding-right-button\"\n                aria-label=\"Padding right button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g style=\"\">\n            <g style=\"\">\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,63\n  h143\n  l-36,-24\n  h-71\n  l-36,24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"padding-bottom-button\"\n                aria-label=\"Padding bottom button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <g>\n            <g>\n              <path\n                mode=\"delta\"\n                fill=\"currentColor\"\n                d=\"\n  m1,1\n  v63\n  l36,-24\n  v-15\n  l-36,-24z\n\"\n                threshold=\"1\"\n                data-automation-id=\"padding-left-button\"\n                aria-label=\"Padding left button\"\n                delay=\"0\"\n              ></path>\n            </g>\n          </g>\n          <clipPath id=\"padding-outer\">\n            <rect\n              x=\"0\"\n              y=\"0\"\n              width=\"144\"\n              height=\"64\"\n              fill=\"transparent\"\n              rx=\"2\"\n              ry=\"2\"\n              style=\"pointer-events: none\"\n            ></rect>\n          </clipPath>\n          <rect\n            clip-path=\"url(#padding-outer)\"\n            x=\"0\"\n            y=\"0\"\n            width=\"144\"\n            height=\"64\"\n            fill=\"transparent\"\n            rx=\"2\"\n            ry=\"2\"\n            style=\"\n              pointer-events: none;\n              stroke-width: 2px;\n              stroke: rgb(196 204 212);\n            \"\n          ></rect>\n          <clipPath id=\"padding-inner\">\n            <rect\n              x=\"36\"\n              y=\"24\"\n              width=\"72\"\n              height=\"16\"\n              fill=\"transparent\"\n              rx=\"2\"\n              ry=\"2\"\n              style=\"pointer-events: none\"\n            ></rect>\n          </clipPath>\n          <rect\n            clip-path=\"url(#padding-inner)\"\n            x=\"36\"\n            y=\"24\"\n            width=\"72\"\n            height=\"16\"\n            fill=\"transparent\"\n            rx=\"2\"\n            ry=\"2\"\n            style=\"\n              pointer-events: none;\n              stroke-width: 2px;\n              stroke: rgb(196 204 212);\n            \"\n          ></rect>\n        </svg>\n        <component\n          v-for=\"(p, key) in padding\"\n          :key=\"p.value + breakpoint\"\n          :is=\"`${p.type}-fieldtype`\"\n          :style=\"p.style\"\n          :handle=\"p.handle\"\n          :config=\"p\"\n          :value=\"padding[key].value\"\n          @input=\"padding = { event: $event, key }\"\n          class=\"control-input text-center\"\n          aria-label=\"Padding right edit\"\n        />\n      </div>\n      <svg\n        xmlns=\"http://www.w3.org/2000/svg\"\n        width=\"100%\"\n        height=\"100%\"\n        style=\"grid-area: 3 / 3 / span 3 / span 3; pointer-events: none\"\n      >\n        <text\n          x=\"6\"\n          y=\"4\"\n          fill=\"#a6a6a6\"\n          font-style=\"italic\"\n          font-weight=\"bold\"\n          font-size=\"8\"\n          dominant-baseline=\"hanging\"\n        >\n          PADDING\n        </text></svg\n      ><svg\n        xmlns=\"http://www.w3.org/2000/svg\"\n        width=\"100%\"\n        height=\"100%\"\n        style=\"grid-area: 1 / 1 / -1 / -1; pointer-events: none\"\n      >\n        <text\n          x=\"6\"\n          y=\"4\"\n          fill=\"#a6a6a6\"\n          font-style=\"italic\"\n          font-weight=\"bold\"\n          font-size=\"8\"\n          dominant-baseline=\"hanging\"\n        >\n          MARGIN\n        </text>\n      </svg>\n    </div>\n  </div>\n</template>\n\n<script>\nimport OptionsFields from \"../../../mixins/OptionsFields\";\nimport { EvaIcon } from \"vue-eva-icons\";\nexport default {\n  props: {\n    field: Object,\n  },\n  data() {\n    return {\n      focus: false,\n      lockMarginY: false,\n      lockMarginX: false,\n      lockPaddingY: false,\n      lockPaddingX: false,\n    };\n  },\n  computed: {\n    margin: {\n      get() {\n        return {\n          mt: {\n            reactiveTick: this.reactiveTick,\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"margin\", \"mt\"),\n            handle: \"mt\",\n            display: \"Margin Top\",\n            multiple: false,\n            value: this.getDeep(`inline.margin.${this.breakpoint}.mt`) || \"N/A\",\n            style: \"grid-area: 1 / 2 / 2 / 3;\",\n          },\n          mr: {\n            reactiveTick: this.reactiveTick,\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"margin\", \"mr\"),\n            handle: \"mr\",\n            display: \"Margin Right\",\n            value: this.getDeep(`inline.margin.${this.breakpoint}.mr`) || \"N/A\",\n            style: \"grid-area: 2 / 3 / 3 / 4;\",\n          },\n          mb: {\n            reactiveTick: this.reactiveTick,\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"margin\", \"mb\"),\n            handle: \"mb\",\n            display: \"Margin Bottom\",\n            value: this.getDeep(`inline.margin.${this.breakpoint}.mb`) || \"N/A\",\n            style: \"grid-area: 3 / 2 / 4 / 3;\",\n          },\n          ml: {\n            reactiveTick: this.reactiveTick,\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"margin\", \"ml\"),\n            handle: \"ml\",\n            display: \"Margin Left\",\n            value: this.getDeep(`inline.margin.${this.breakpoint}.ml`) || \"N/A\",\n            style: 'grid-area: 2 / 1 / 3 / 2;\"',\n          },\n        };\n      },\n      set(data) {\n        this.handleInput(\"margin\", data.key, data.event);\n      },\n    },\n    padding: {\n      get() {\n        return {\n          pt: {\n            reactiveTick: this.reactiveTick,\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"padding\", \"pt\"),\n            handle: \"paddingTop\",\n            display: \"Padding Top\",\n            value:\n              this.getDeep(`inline.padding.${this.breakpoint}.pt`) || \"N/A\",\n            style: \"grid-area: 1 / 2 / 2 / 3;\",\n          },\n          pr: {\n            reactiveTick: this.reactiveTick,\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"padding\", \"pr\"),\n            handle: \"paddingRight\",\n            display: \"Padding Right\",\n            value:\n              this.getDeep(`inline.padding.${this.breakpoint}.pr`) || \"N/A\",\n            style: \"grid-area: 2 / 3 / 3 / 4;\",\n          },\n          pb: {\n            reactiveTick: this.reactiveTick,\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"padding\", \"pb\"),\n            handle: \"paddingBottom\",\n            display: \"Padding Bottom\",\n            value:\n              this.getDeep(`inline.padding.${this.breakpoint}.pb`) || \"N/A\",\n            style: \"grid-area: 3 / 2 / 4 / 3;\",\n          },\n          pl: {\n            reactiveTick: this.reactiveTick,\n            cast_booleans: false,\n            clearable: false,\n            listable: \"hidden\",\n            taggable: false,\n            push_tags: false,\n            type: \"select\",\n            icon: \"select\",\n            options: this.getTWClasses(\"padding\", \"pl\"),\n            handle: \"paddingLeft\",\n            display: \"Padding Left\",\n            value:\n              this.getDeep(`inline.padding.${this.breakpoint}.pl`) || \"N/A\",\n            style: 'grid-area: 2 / 1 / 3 / 2;\"',\n          },\n        };\n      },\n      set(data = {}) {\n        this.handleInput(\"padding\", data.key, data.event);\n      },\n    },\n  },\n  mixins: [OptionsFields],\n  components: {\n    EvaIcon,\n  },\n\n  methods: {\n    setValueDirection(value, dirLetter) {\n      if (value === \"none\") {\n        return \"\";\n      }\n      const margin = value.includes(\"m\") && value.split(\"m\");\n      const padding = value.includes(\"p\") && value.split(\"p\");\n      const setting = margin || padding;\n      const direction = setting[1][0];\n      if (this.breakpoint === \"xs\") {\n        return value.replace(direction, dirLetter);\n      }\n      return `${this.breakpoint}:${value.replace(direction, dirLetter)}`;\n    },\n    handleInput(setting, key, value) {\n      const newVals = {};\n      if (!key) {\n        return;\n      }\n\n      /* To Do\n        [] Tidy up / loop this mess\n      */\n      if (setting === \"margin\") {\n        if (this.lockMarginY && this.lockMarginX) {\n          newVals[\"mt\"] = this.setValueDirection(value, \"t\");\n          newVals[\"mr\"] = this.setValueDirection(value, \"r\");\n          newVals[\"mb\"] = this.setValueDirection(value, \"b\");\n          newVals[\"ml\"] = this.setValueDirection(value, \"l\");\n        } else if (this.lockMarginY) {\n          if (key === \"mt\" || key === \"mb\") {\n            newVals[\"mt\"] = this.setValueDirection(value, \"t\");\n            newVals[\"mb\"] = this.setValueDirection(value, \"b\");\n          }\n        } else if (this.lockMarginX) {\n          if (key === \"ml\" || key === \"mr\") {\n            newVals[\"ml\"] = this.setValueDirection(value, \"l\");\n            newVals[\"mr\"] = this.setValueDirection(value, \"r\");\n          }\n        }\n        newVals[key] = this.setValueDirection(value, key.split(\"m\")[1]);\n      }\n      if (setting === \"padding\") {\n        if (this.lockPaddingY && this.lockPaddingX) {\n          newVals[\"pt\"] = this.setValueDirection(value, \"t\");\n          newVals[\"pr\"] = this.setValueDirection(value, \"r\");\n          newVals[\"pb\"] = this.setValueDirection(value, \"b\");\n          newVals[\"pl\"] = this.setValueDirection(value, \"l\");\n        } else if (this.lockPaddingY) {\n          if (key === \"pt\" || key === \"pb\") {\n            newVals[\"pt\"] = this.setValueDirection(value, \"t\");\n            newVals[\"pb\"] = this.setValueDirection(value, \"b\");\n          }\n        } else if (this.lockPaddingX) {\n          if (key === \"pl\" || key === \"pr\") {\n            newVals[\"pr\"] = this.setValueDirection(value, \"r\");\n            newVals[\"pl\"] = this.setValueDirection(value, \"l\");\n          }\n        }\n\n        newVals[key] = this.setValueDirection(value, key.split(\"p\")[1]);\n      }\n\n      const oldVals = this.getDeep(`inline.${setting}.${this.breakpoint}`);\n      const payload = { ...oldVals, ...newVals };\n\n      this.updateField({ path: `inline.${setting}`, key, val: payload }, true);\n    },\n    checkOutsideClick(e) {\n      if (!e.target.closest(\".boxmodel-ui\")) {\n        this.focus = false;\n      }\n    },\n  },\n  mounted() {\n    window.addEventListener(\"click\", this.checkOutsideClick);\n  },\n  destroy() {\n    window.removeEventListener(\"click\", this.checkOutsideClick);\n  },\n};\n</script>\n\n<style>\n.lockPaddingY,\n.lockPaddingX,\n.lockMarginY,\n.lockMarginX {\n  z-index: 1000;\n  position: absolute;\n}\n\n.lockMarginY,\n.lockMarginX {\n  top: 1px;\n  right: 5rem;\n}\n.lockMarginY,\n.lockPaddingY {\n  transform: rotate(90deg);\n  transform-origin: center;\n}\n.lockMarginX,\n.lockPaddingX {\n  transform: translate(1.3rem, 0.16rem);\n  transform-origin: center;\n}\n\n.lockPaddingY,\n.lockPaddingX {\n  top: 1.8rem;\n  right: 5rem;\n}\n\n.margin_y_locked,\n.margin_x_locked,\n.padding_y_locked,\n.padding_x_locked {\n  color: red !important;\n  fill: red;\n}\n\n.control-input {\n  cursor: default;\n  user-select: none;\n  font-size: 10px;\n  letter-spacing: -0.2px;\n  display: flex;\n  background: transparent;\n  max-width: 100%;\n  box-sizing: content-box;\n  place-self: center;\n  position: relative;\n  opacity: 1;\n  align-items: center;\n  justify-content: center;\n}\n\n.control-input .input-group {\n  max-height: 14px;\n  width: fit-content;\n}\n\n.control-input input {\n  text-align: center;\n  background: none;\n  border: none;\n}\n\n.input-bg {\n  color: #fafcff;\n}\n\n.boxmodel-ui .toggle.vs__open-indicator {\n  display: none;\n}\n\n.boxmodel-ui .v-select.vs--single.vs--unsearchable .vs__selected-options {\n  border: none;\n  background: none;\n  align-items: center;\n  padding: 0 !important;\n}\n\n.boxmodel-ui {\n  transition: all 0.4s ease;\n}\n\n.boxmodel-ui--focus {\n  transform: scale(1.5);\n}\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23764,7 +23768,7 @@ var render = function () {
               "bg-grey-40  rounded":
                 _vm.breakpoint === "xs"
                   ? _vm.selected === option.value
-                  : _vm.selected === _vm.breakpoint + ":" + option,
+                  : _vm.selected === _vm.breakpoint + ":" + option.value,
             },
             on: {
               click: function ($event) {
@@ -24033,24 +24037,21 @@ var render = function () {
                 ]
               ),
               _vm._v(" "),
-              _vm._l(_vm.inline.margin, function (m, key) {
+              _vm._l(_vm.margin, function (m, key) {
                 return _c(m.type + "-fieldtype", {
                   key: m.value + _vm.breakpoint,
                   tag: "component",
-                  staticClass: "control-input\n        text-center",
+                  staticClass: "control-input text-center",
                   style: m.style,
                   attrs: {
                     handle: m.handle,
                     config: m,
-                    value:
-                      _vm.getDeep(
-                        "inline.margin." + _vm.breakpoint + "." + key
-                      ) || "N/A",
+                    value: _vm.margin[key].value,
                     "aria-label": "Margin right edit",
                   },
                   on: {
                     input: function ($event) {
-                      return _vm.handleInput("margin", key, $event)
+                      _vm.margin = { event: $event, key: key }
                     },
                   },
                 })
@@ -24258,7 +24259,7 @@ var render = function () {
                 ]
               ),
               _vm._v(" "),
-              _vm._l(_vm.inline.padding, function (p, key) {
+              _vm._l(_vm.padding, function (p, key) {
                 return _c(p.type + "-fieldtype", {
                   key: p.value + _vm.breakpoint,
                   tag: "component",
@@ -24267,15 +24268,12 @@ var render = function () {
                   attrs: {
                     handle: p.handle,
                     config: p,
-                    value:
-                      _vm.getDeep(
-                        "inline.padding." + _vm.breakpoint + "." + key
-                      ) || "N/A",
+                    value: _vm.padding[key].value,
                     "aria-label": "Padding right edit",
                   },
                   on: {
                     input: function ($event) {
-                      return _vm.handleInput("padding", key, $event)
+                      _vm.padding = { event: $event, key: key }
                     },
                   },
                 })
@@ -24598,7 +24596,7 @@ var render = function () {
                   _c(
                     "div",
                     {
-                      key: _vm.inline.background.color.value,
+                      key: _vm.backgroundColor.value,
                       staticClass: "buidlamic-field flex items-center mb-2",
                     },
                     [
@@ -24609,14 +24607,18 @@ var render = function () {
                       _c("color-fieldtype", {
                         attrs: {
                           handle: "settings_background_color",
-                          config: _vm.inline.background.color.config,
-                          meta: null,
-                          value: _vm.inline.background.color.value,
+                          config: _vm.backgroundColor.config,
+                          meta:
+                            _vm.getDeep("inline.background.color.meta") || null,
+                          value: _vm.backgroundColor.value,
                         },
                         on: {
                           input: function ($event) {
-                            return _vm.updateField({
-                              path: "inline.background.color",
+                            _vm.backgorundColor = $event
+                          },
+                          "meta-updated": function ($event) {
+                            return _vm.updateMeta({
+                              path: "inline.background.color.meta",
                               val: $event,
                             })
                           },
@@ -24709,27 +24711,20 @@ var render = function () {
               _c("vue-tab", { attrs: { name: "Image" } }, [
                 _c(
                   "div",
-                  {
-                    key: _vm.inline.background.image.value,
-                    staticClass: "buidlamic-field",
-                  },
+                  { staticClass: "buidlamic-field" },
                   [
                     _c("assets-fieldtype", {
                       attrs: {
                         handle: "settings_background_image",
-                        config: _vm.inline.background.image.config,
+                        config: _vm.backgroundImage.config,
                         meta:
                           _vm.getDeep("inline.background.image.meta") ||
                           undefined,
-                        value: _vm.inline.background.image.value,
+                        value: _vm.backgroundImage.value,
                       },
                       on: {
                         input: function ($event) {
-                          return _vm.updateField({
-                            type: "asset",
-                            path: "inline.background.image.value",
-                            val: $event,
-                          })
+                          _vm.backgroundImage = $event
                         },
                         "meta-updated": function ($event) {
                           return _vm.updateMeta({
@@ -24747,28 +24742,21 @@ var render = function () {
               _c("vue-tab", { attrs: { name: "Video" } }, [
                 _c(
                   "div",
-                  {
-                    key: _vm.inline.background.video.mp4.value,
-                    staticClass: "buidlamic-field mb-6",
-                  },
+                  { staticClass: "buidlamic-field mb-6" },
                   [
                     _vm._v("\n            MP4 version:\n            "),
                     _c("assets-fieldtype", {
                       attrs: {
                         handle: "settings_background_video_mp4",
-                        config: _vm.inline.background.video.mp4.config,
+                        config: _vm.backgroundVideo_mp4.config,
                         meta:
                           _vm.getDeep("inline.background.video.mp4.meta") ||
                           undefined,
-                        value: _vm.inline.background.video.mp4.value,
+                        value: _vm.backgroundVideo_mp4.value,
                       },
                       on: {
                         input: function ($event) {
-                          return _vm.updateField({
-                            type: "asset",
-                            path: "inline.background.video.mp4.value",
-                            val: $event,
-                          })
+                          _vm.backgroundVideo_mp4 = $event
                         },
                         "meta-updated": function ($event) {
                           return _vm.updateMeta({
@@ -24784,26 +24772,19 @@ var render = function () {
                 _vm._v(" "),
                 _c(
                   "div",
-                  {
-                    key: _vm.inline.background.video.webm.value,
-                    staticClass: "buidlamic-field",
-                  },
+                  { staticClass: "buidlamic-field" },
                   [
                     _vm._v("\n            webm version:\n            "),
                     _c("assets-fieldtype", {
                       attrs: {
                         handle: "settings_background_video_webm",
-                        config: _vm.inline.background.video.webm.config,
+                        config: _vm.backgroundVideo_webm.config,
                         meta: undefined,
-                        value: _vm.inline.background.video.webm.value,
+                        value: _vm.backgroundVideo_webm.value,
                       },
                       on: {
                         input: function ($event) {
-                          return _vm.updateField({
-                            type: "asset",
-                            path: "inline.background.video.webm.value",
-                            val: $event,
-                          })
+                          _vm.backgroundVideo_webm = $event
                         },
                         "meta-updated": function ($event) {
                           return _vm.updateMeta({
@@ -25134,16 +25115,11 @@ var render = function () {
             _c("label", { staticClass: "mr-2" }, [_vm._v("Alignment :")]),
             _vm._v(" "),
             _c("alignment-controls", {
-              key: _vm.inline["text-align"].value + "-" + _vm.breakpoint,
-              attrs: {
-                value: _vm.getDeep("inline.text-align." + _vm.breakpoint),
-              },
+              key: _vm.textAlign.value + "-" + _vm.breakpoint,
+              attrs: { value: _vm.textAlign.value },
               on: {
                 input: function ($event) {
-                  return _vm.updateField(
-                    { path: "inline.text-align", val: $event },
-                    true
-                  )
+                  _vm.textAlign = $event
                 },
               },
             }),
@@ -25155,24 +25131,18 @@ var render = function () {
           "div",
           { staticClass: "buildamic-field mb-2" },
           [
-            _c("label", [
-              _vm._v(_vm._s(_vm.inline["font-size"].config.display)),
-            ]),
+            _c("label", [_vm._v(_vm._s(_vm.fontSize.config.display))]),
             _vm._v(" "),
             _c("select-fieldtype", {
-              key: _vm.inline["font-size"].value + "-" + _vm.breakpoint,
+              key: _vm.fontSize.value + "-" + _vm.breakpoint,
               attrs: {
-                value:
-                  _vm.getDeep("inline.font-size." + _vm.breakpoint) || "N/A",
-                handle: _vm.inline["font-size"].config.handle,
-                config: _vm.inline["font-size"].config,
+                value: _vm.fontSize.value,
+                handle: _vm.fontSize.config.handle,
+                config: _vm.fontSize.config,
               },
               on: {
                 input: function ($event) {
-                  return _vm.updateField(
-                    { path: "inline.font-size", val: $event },
-                    true
-                  )
+                  _vm.fontSize = $event
                 },
               },
             }),
@@ -25185,18 +25155,18 @@ var render = function () {
           { staticClass: "buildamic-field flex items-center mb-2" },
           [
             _c("label", { staticClass: "mr-2" }, [
-              _vm._v(_vm._s(_vm.inline.color.config.display) + ":"),
+              _vm._v(_vm._s(_vm.color.config.display) + ":"),
             ]),
             _vm._v(" "),
             _c("color-fieldtype", {
               attrs: {
-                value: _vm.getDeep("inline.color") || "",
-                handle: _vm.inline.color.config.handle,
-                config: _vm.inline.color.config,
+                value: _vm.color.value,
+                handle: _vm.color.config.handle,
+                config: _vm.color.config,
               },
               on: {
                 input: function ($event) {
-                  return _vm.updateField({ path: "inline.color", val: $event })
+                  _vm.color = $event
                 },
               },
             }),
