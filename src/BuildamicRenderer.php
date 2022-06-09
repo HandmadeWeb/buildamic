@@ -119,8 +119,8 @@ class BuildamicRenderer
         }
 
         if (isset($content) && $content instanceof self) {
-            $content->containerId($section->buildamicSetting('attributes.id'));
-            $content->containerClass($section->computedAttribute('class'));
+            $content->containerId($section->buildamicSetting('attributes.id', ''));
+            $content->containerClass($section->computedAttribute('class', ''));
 
             return $content->render();
         }
