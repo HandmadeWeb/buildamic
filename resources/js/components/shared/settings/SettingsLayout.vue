@@ -131,6 +131,7 @@ export default {
   computed: {
     displayOption: {
       get() {
+        const reactiveTick = this.reactiveTick;
         return this.getDeep(`inline.display.${this.breakpoint}`) || "";
       },
       set(value) {
@@ -140,6 +141,7 @@ export default {
     widthOption: {
       get() {
         return {
+          reactiveTick: this.reactiveTick,
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -151,7 +153,7 @@ export default {
           options: this.getTWClasses("width", "w"),
           handle: "width",
           display: "Width",
-          value: this.getDeep(`inline`).width[this.breakpoint],
+          value: this.getDeep(`inline`)?.width?.[this.breakpoint] ?? "",
         };
       },
       set(value) {
@@ -161,6 +163,7 @@ export default {
     heightOption: {
       get() {
         return {
+          reactiveTick: this.reactiveTick,
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -172,7 +175,7 @@ export default {
           options: this.getTWClasses("height", "h"),
           handle: "height",
           display: "Height",
-          value: this.getDeep(`inline`).height[this.breakpoint],
+          value: this.getDeep(`inline`)?.height?.[this.breakpoint] ?? "",
         };
       },
       set(value) {
@@ -182,6 +185,7 @@ export default {
     itemsOption: {
       get() {
         return {
+          reactiveTick: this.reactiveTick,
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -200,7 +204,7 @@ export default {
           },
           handle: "items",
           display: "Items",
-          value: this.getDeep(`inline`).items[this.breakpoint],
+          value: this.getDeep(`inline`)?.items?.[this.breakpoint] ?? "",
         };
       },
       set(value) {
@@ -210,6 +214,7 @@ export default {
     justifyContentOption: {
       get() {
         return {
+          reactiveTick: this.reactiveTick,
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -229,7 +234,8 @@ export default {
           },
           handle: "justify-content",
           display: "Justify Content",
-          value: this.getDeep(`inline`).justifyContent[this.breakpoint],
+          value:
+            this.getDeep(`inline`)?.justifyContent?.[this.breakpoint] ?? "",
         };
       },
       set(value) {
@@ -239,6 +245,7 @@ export default {
     placeItemsOption: {
       get() {
         return {
+          reactiveTick: this.reactiveTick,
           cast_booleans: false,
           clearable: false,
           listable: "hidden",
@@ -256,7 +263,7 @@ export default {
           },
           handle: "place-items",
           display: "Place Items",
-          value: this.getDeep(`inline`).placeItems[this.breakpoint],
+          value: this.getDeep(`inline`)?.placeItems?.[this.breakpoint] ?? "",
         };
       },
       set(value) {
@@ -272,7 +279,7 @@ export default {
           icon: "text",
           handle: "gap",
           display: "Gap",
-          value: this.getDeep(`inline`).gap[this.breakpoint],
+          value: this.getDeep(`inline`)?.gap?.[this.breakpoint],
         };
       },
       set(value) {
