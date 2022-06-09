@@ -31,6 +31,7 @@ trait HasComputedAttributes
             return $this->computedAttributes();
         }
 
-        return array_get($this->computedAttributes, $key, $fallback);
+        $value = array_get($this->computedAttributes, $key, $fallback);
+        return $value ?? $fallback;
     }
 }
