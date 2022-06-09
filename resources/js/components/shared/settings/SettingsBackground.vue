@@ -12,15 +12,9 @@
               <color-fieldtype
                 handle="settings_background_color"
                 :config="backgroundColor.config"
-                :meta="getDeep(`inline.background.color.meta`) || null"
+                :meta="null"
                 :value="backgroundColor.value"
                 @input="backgorundColor = $event"
-                @meta-updated="
-                  updateMeta({
-                    path: `inline.background.color.meta`,
-                    val: $event,
-                  })
-                "
               />
             </div>
           </vue-tab>
@@ -38,14 +32,17 @@
                 v-if="gradientToggle"
                 :class="{ disabled: gradientEnabled }"
                 disabled
-                :value="gradient"
-                @input="gradient = $event"
+                :value="backgroundGradient"
+                @input="backgroundGradient = $event"
               />
               <div class="ml-2 gradient-controls">
                 <label>
                   {{ getDeep(`inline.background.gradient.value`) || "" }}</label
                 >
-                <button class="flex items-center" @click="gradient = ''">
+                <button
+                  class="flex items-center"
+                  @click="backgroundGradient = ''"
+                >
                   <eva-icon
                     class="flex mr-1 cursor-pointer text-grey-80 pulse"
                     fill="currentColor"
@@ -64,15 +61,9 @@
               <assets-fieldtype
                 handle="settings_background_image"
                 :config="backgroundImage.config"
-                :meta="getDeep(`inline.background.image.meta`) || undefined"
+                :meta="undefined"
                 :value="backgroundImage.value"
                 @input="backgroundImage = $event"
-                @meta-updated="
-                  updateMeta({
-                    path: `inline.background.image.meta`,
-                    val: $event,
-                  })
-                "
               />
             </div>
           </vue-tab>
@@ -82,15 +73,9 @@
               <assets-fieldtype
                 handle="settings_background_video_mp4"
                 :config="backgroundVideo_mp4.config"
-                :meta="getDeep(`inline.background.video.mp4.meta`) || undefined"
+                :meta="undefined"
                 :value="backgroundVideo_mp4.value"
                 @input="backgroundVideo_mp4 = $event"
-                @meta-updated="
-                  updateMeta({
-                    path: `inline.background.video.mp4.meta`,
-                    val: $event,
-                  })
-                "
               />
             </div>
             <div class="buidlamic-field">
@@ -101,12 +86,6 @@
                 :meta="undefined"
                 :value="backgroundVideo_webm.value"
                 @input="backgroundVideo_webm = $event"
-                @meta-updated="
-                  updateMeta({
-                    path: `inline.background.video.webm.meta`,
-                    val: $event,
-                  })
-                "
               />
             </div>
           </vue-tab>
@@ -158,12 +137,12 @@ export default {
             icon: "color",
             listable: "hidden",
           },
-          value: this.getDeep("inline.background.color.value") || "",
+          value: this.getDeep("inline.background.color") || "",
         };
       },
       set($event) {
         this.updateField({
-          path: "inline.background.color.value",
+          path: "inline.background.color",
           val: $event,
         });
       },
@@ -183,12 +162,12 @@ export default {
             icon: "assets",
             listable: "hidden",
           },
-          value: this.getDeep(`inline.background.image.value`) || [],
+          value: this.getDeep(`inline.background.image`) || [],
         };
       },
       set($event) {
         this.updateField({
-          path: "inline.background.image.value",
+          path: "inline.background.image",
           val: $event,
         });
       },
@@ -209,12 +188,12 @@ export default {
             icon: "assets",
             listable: "hidden",
           },
-          value: this.getDeep(`inline.background.video.mp4.value`) || [],
+          value: this.getDeep(`inline.background.video.mp4`) || [],
         };
       },
       set($event) {
         this.updateField({
-          path: "inline.background.video.mp4.value",
+          path: "inline.background.video.mp4",
           val: $event,
         });
       },
@@ -235,12 +214,12 @@ export default {
             icon: "assets",
             listable: "hidden",
           },
-          value: this.getDeep(`inline.background.video.webm.value`) || [],
+          value: this.getDeep(`inline.background.video.webm`) || [],
         };
       },
       set($event) {
         this.updateField({
-          path: "inline.background.video.webm.value",
+          path: "inline.background.video.webm",
           val: $event,
         });
       },
@@ -314,7 +293,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.getDeep(`inline.background.video.mp4`));
     const val = this.getDeep(`inline.background.gradient.value`);
     if (val) {
       this.gradientToggle = true;

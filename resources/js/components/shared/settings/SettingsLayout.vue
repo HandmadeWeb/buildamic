@@ -125,9 +125,9 @@ export default {
     AlignmentControls,
     ToggleControls,
   },
-  mounted() {
-    console.log(this.$options.components);
-  },
+  //   mounted() {
+  //     console.log(this.$options.components);
+  //   },
   computed: {
     displayOption: {
       get() {

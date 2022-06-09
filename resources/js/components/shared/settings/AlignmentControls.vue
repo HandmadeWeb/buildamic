@@ -62,10 +62,10 @@ export default {
       return this.value;
     },
   },
-  mounted() {
-    console.log("alignmentVals", this.value);
-    console.log(this.value, this.options);
-  },
+  //   mounted() {
+  //     console.log("alignmentVals", this.value);
+  //     console.log(this.value, this.options);
+  //   },
   methods: {
     switchAlignment(alignment) {
       if (this.breakpoint === "xs") {

@@ -12,5 +12,3 @@ Statamic.booting(() => {
     Statamic.$components.register('breakpoint-switcher', BreakpointSwitcher)
     Statamic.$components.register('buildamic-fieldtype', Buildamic);
 });
-
-console.log(window.Statamic)
