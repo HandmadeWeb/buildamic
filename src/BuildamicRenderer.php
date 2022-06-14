@@ -40,18 +40,18 @@ class BuildamicRenderer
             ->toArray();
     }
 
-    public function containerId(string $id = '')
+    public function containerId(string|null $id = null)
     {
-        if (!empty($id)) {
+        if (!is_null($id)) {
             $this->containerId = $id;
         }
 
         return $this->containerId;
     }
 
-    public function containerClass(string $class = '')
+    public function containerClass(string|null $class = null)
     {
-        if (!empty($class)) {
+        if (!is_null($class)) {
             $this->containerClass = $class;
         }
 
@@ -119,8 +119,8 @@ class BuildamicRenderer
         }
 
         if (isset($content) && $content instanceof self) {
-            $content->containerId($section->buildamicSetting('attributes.id', ''));
-            $content->containerClass($section->computedAttribute('class', ''));
+            $content->containerId($section->buildamicSetting('attributes.id') ?? '');
+            $content->containerClass($section->computedAttribute('class') ?? '');
 
             return $content->render();
         }
