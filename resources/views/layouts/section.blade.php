@@ -2,8 +2,8 @@
     $boxed = $section->buildamicSetting('boxed_layout') ? true : false;
     $background_image = $section->computedAttribute('background_image') ?? null;
     $background_video = $section->computedAttribute('background_video') ?? null;
-    $mp4 = $background_video['mp4']['value'][0] ?? null;
-    $webm = $background_video['webm']['value'][0] ?? null;
+    $mp4 = $background_video['mp4'][0] ?? null;
+    $webm = $background_video['webm'][0] ?? null;
 @endphp
 
 <div @isset($background_image) style="background-image: url('{{ $background_image }}');" @endisset {!! BuildamicHelper()->HtmlId($section->buildamicSetting('attributes.id')) !!} {{ $section->computedAttribute('dataAtts') }} class="buildamic-section {{ $section->computedAttribute('class') }}">

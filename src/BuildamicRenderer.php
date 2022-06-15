@@ -40,18 +40,18 @@ class BuildamicRenderer
             ->toArray();
     }
 
-    public function containerId(string|null $id = null)
+    public function containerId(string|null $id = '')
     {
-        if (!is_null($id)) {
+        if (!empty($id) && $id !== null) {
             $this->containerId = $id;
         }
 
         return $this->containerId;
     }
 
-    public function containerClass(string|null $class = null)
+    public function containerClass(string|null $class = '')
     {
-        if (!is_null($class)) {
+        if (!empty($class) && $class !== null) {
             $this->containerClass = $class;
         }
 
