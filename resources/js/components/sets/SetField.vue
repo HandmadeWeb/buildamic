@@ -12,16 +12,10 @@
       <publish-field
         :config="getConfig"
         :value="value"
-        :meta="getMeta"
+        :meta="meta"
         :handle="handle"
         @input="handleInput"
-        @meta-updated="
-          updateMeta({
-            obj: field,
-            path: `computed.meta.${handle}`,
-            val: $event,
-          })
-        "
+        @meta-updated="updateMeta($event)"
         @focus="$emit('focus')"
         @blur="handleBlur"
       />
@@ -58,6 +52,7 @@ export default {
     return {
       fieldData: this.field,
       value: null,
+      meta: null,
       errors: [],
     };
   },
@@ -74,12 +69,6 @@ export default {
       }
       return this.getFieldDefaults.config;
     },
-    getMeta() {
-      if (this.fieldData?.computed?.meta[this.handle]) {
-        return this.fieldData?.computed?.meta[this.handle];
-      }
-      return this.getFieldDefaults.meta;
-    },
     getType() {
       return this.getConfig.component || this.getConfig.type;
     },
@@ -88,6 +77,22 @@ export default {
     },
   },
   methods: {
+    getMeta() {
+      if (this.fieldData?.computed?.meta[this.handle]) {
+        return this.fieldData?.computed?.meta[this.handle];
+      }
+      return this.getFieldDefaults.meta;
+    },
+    saveMeta() {
+      if (this.fieldData?.computed?.meta[this.handle]) {
+        this.fieldData.computed.meta[this.handle] = this.meta;
+      } else {
+        this.getFieldDefaults.meta = this.meta;
+      }
+    },
+    updateMetaTest($newVal) {
+      this.meta = $newVal;
+    },
     handleInput($event) {
       this.value = $event;
 
@@ -100,6 +105,12 @@ export default {
     handleBlur() {
       this.$emit("blur");
     },
+  },
+  created() {
+    this.meta = this.getMeta();
+  },
+  destroyed() {
+    this.saveMeta();
   },
   provide() {
     return {
