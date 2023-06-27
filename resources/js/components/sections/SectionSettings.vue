@@ -41,9 +41,9 @@ export default {
       columns: this.field.value,
     };
   },
-  mounted() {
-    console.log({ boxed: this.boxed_layout });
-  },
+  //   mounted() {
+  //     console.log({ boxed: this.boxed_layout });
+  //   },
   computed: {
     boxed_layout: {
       get() {

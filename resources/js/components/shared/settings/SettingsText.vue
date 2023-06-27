@@ -5,32 +5,28 @@
         <div class="buildamic-field flex items-center mb-2">
           <label class="mr-2">Alignment :</label>
           <alignment-controls
-            :key="`${inline['text-align'].value}-${breakpoint}`"
-            :value="getDeep(`inline.text-align.${breakpoint}`)"
-            @input="
-              updateField({ path: `inline.text-align`, val: $event }, true)
-            "
+            :key="`${textAlign.value}-${breakpoint}`"
+            :value="textAlign.value"
+            @input="textAlign = $event"
           />
         </div>
         <div class="buildamic-field mb-2">
-          <label>{{ inline["font-size"].config.display }}</label>
+          <label>{{ fontSize.config.display }}</label>
           <select-fieldtype
-            :key="`${inline['font-size'].value}-${breakpoint}`"
-            :value="getDeep(`inline.font-size.${breakpoint}`) || 'N/A'"
-            :handle="inline['font-size'].config.handle"
-            :config="inline['font-size'].config"
-            @input="
-              updateField({ path: `inline.font-size`, val: $event }, true)
-            "
+            :key="`${fontSize.value}-${breakpoint}`"
+            :value="fontSize.value"
+            :handle="fontSize.config.handle"
+            :config="fontSize.config"
+            @input="fontSize = $event"
           />
         </div>
         <div class="buildamic-field flex items-center mb-2">
-          <label class="mr-2">{{ inline.color.config.display }}:</label>
+          <label class="mr-2">{{ color.config.display }}:</label>
           <color-fieldtype
-            :value="getDeep(`inline.color`) || ''"
-            :handle="inline.color.config.handle"
-            :config="inline.color.config"
-            @input="updateField({ path: `inline.color`, val: $event })"
+            :value="color.value"
+            :handle="color.config.handle"
+            :config="color.config"
+            @input="color = $event"
           />
         </div>
       </div>
@@ -55,18 +51,33 @@ export default {
     ColorFieldtype,
     AlignmentControls,
   },
-  data() {
-    return {
-      inline: {
-        "font-size": {
-          value: "N/A",
+  computed: {
+    fontSize: {
+      get() {
+        return {
+          value: this.getDeep(`inline.font-size.${this.breakpoint}`) || "N/A",
+          reactiveTick: this.reactiveTick,
           config: {
             options: this.getTWClasses("fontSize", "text"),
             handle: "font-size",
             display: "Font Size",
           },
-        },
-        color: {
+        };
+      },
+      set($event) {
+        this.updateField(
+          {
+            path: `inline.font-size`,
+            val: $event === "none" ? "" : `${this.breakpoint}:${$event}`,
+          },
+          true
+        );
+      },
+    },
+    color: {
+      get() {
+        return {
+          reactiveTick: this.reactiveTick,
           config: {
             handle: "color",
             display: "Font Color",
@@ -74,13 +85,24 @@ export default {
             default_color_mode: "HEXA",
             swatches: [],
           },
-          value: "N/A",
-        },
-        "text-align": {
-          value: "",
-        },
+          value: this.getDeep(`color`) || "N/A",
+        };
       },
-    };
+      set($event) {
+        this.updateField({ path: `color`, val: $event });
+      },
+    },
+    textAlign: {
+      get() {
+        return {
+          reactiveTick: this.reactiveTick,
+          value: this.getDeep(`inline.text-align.${this.breakpoint}`) || "N/A",
+        };
+      },
+      set($event) {
+        this.updateField({ path: `inline.text-align`, val: $event }, true);
+      },
+    },
   },
   mixins: [OptionsFields],
 };

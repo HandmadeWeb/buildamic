@@ -14,6 +14,9 @@ mix.disableNotifications();
  |
  */
 
+mix.webpackConfig({
+    devtool: 'source-map',
+})
 mix.js('resources/js/buildamic.js', 'public/js').vue().sourceMaps();
 // mix.css('resources/css/buildamic.css', 'public/css')
 

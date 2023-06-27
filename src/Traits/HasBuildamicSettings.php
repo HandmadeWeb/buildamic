@@ -31,6 +31,7 @@ trait HasBuildamicSettings
             return $this->buildamicSettings();
         }
 
-        return array_get($this->buildamicSettings, $key, $fallback);
+        $value = array_get($this->buildamicSettings, $key, $fallback);
+        return $value ?? $fallback;
     }
 }

@@ -17,7 +17,7 @@
           'bg-grey-40  rounded':
             breakpoint === 'xs'
               ? selected === option.value
-              : selected === `${breakpoint}:${option}`,
+              : selected === `${breakpoint}:${option.value}`,
         }"
         @click="switchAlignment(option.value)"
         v-for="option in config.options"
@@ -62,6 +62,10 @@ export default {
       return this.value;
     },
   },
+  //   mounted() {
+  //     console.log("alignmentVals", this.value);
+  //     console.log(this.value, this.options);
+  //   },
   methods: {
     switchAlignment(alignment) {
       if (this.breakpoint === "xs") {

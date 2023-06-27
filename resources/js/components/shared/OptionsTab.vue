@@ -66,7 +66,6 @@ export default {
   computed: {
     classOption: {
       get() {
-        console.log(this.getDeep("attributes"));
         return {
           placeholder: "Add any custom classes to this module",
           input_type: "text",

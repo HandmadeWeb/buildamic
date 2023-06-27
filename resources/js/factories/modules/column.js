@@ -1,4 +1,3 @@
-import { InlineDefaults, AttributeDefaults } from './moduleDefaults.js'
 
 const Column = function ({ UUID, ADMIN_LABEL }) {
     this.uuid = `${UUID}`
@@ -14,8 +13,6 @@ const Column = function ({ UUID, ADMIN_LABEL }) {
                 "lg": 12,
                 "xl": ''
             },
-            inline: { ...JSON.parse(JSON.stringify(InlineDefaults)) },
-            attributes: { ...JSON.parse(JSON.stringify(AttributeDefaults)) }
         }
     }
     this.value = []
