@@ -90,7 +90,7 @@ export default {
         this.getFieldDefaults.meta = this.meta;
       }
     },
-    updateMetaTest($newVal) {
+    updateMeta($newVal) {
       this.meta = $newVal;
     },
     handleInput($event) {
