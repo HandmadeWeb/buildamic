@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.0",
         "laravel/framework": "^8.80 || ^9.0",
-        "statamic/cms": "3.2.* || 3.3.*||3.4.*",
+        "statamic/cms": "4.*.*",
         "handmadeweb/hookable-actions-filters": "^1.1",
         "edalzell/blade-directives": "^3.5"
     },
