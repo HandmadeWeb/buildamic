@@ -35,15 +35,15 @@
     grid-template-columns: repeat(var(--b-columns, 12), 1fr);
     grid-template-rows: repeat(var(--b-rows, 1), 1fr);
     padding: 2rem 0;
-    gap: var(--col-gap-md, var(--col-gap));
+    gap: var(--gap-x-md, var(--col-gap));
   }
   @include media-breakpoint-up(lg) {
-    gap: var(--col-gap-lg, var(--col-gap-md, var(--col-gap)));
+    gap: var(--gap-x-lg, var(--gap-x-md, var(--col-gap)));
   }
   @include media-breakpoint-up(xl) {
     gap: var(
-      --col-gap-xl,
-      var(--col-gap-lg, var(--col-gap-md, var(--col-gap)))
+      --gap-x-xl,
+      var(--gap-x-lg, var(--gap-x-md, var(--col-gap)))
     );
   }
 }

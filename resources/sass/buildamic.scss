@@ -1,9 +1,6 @@
-// This wraps all our tailwind in a specificity class while also enabling !important to override the CP version
-.buildamic-fieldtype {
-  @import "./tailwindbase";
-  @import "./tailwindcomponents";
-  @import "./tailwindutilities";
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /*--------------------------------------------------------------
 # Functions, Variables, Mixins: (these should always come first)

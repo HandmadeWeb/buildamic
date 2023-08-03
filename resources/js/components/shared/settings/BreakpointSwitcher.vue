@@ -1,6 +1,6 @@
 <template>
   <div class="breakpoint-switcher flex justify-center mb-2 sticky z-top">
-    <ul class="flex col-gap-3 rounded border border-dashed p-2 bg-white">
+    <ul class="flex gap-x-3 rounded border border-dashed p-6 bg-white">
       <li
         class="breakpoint-option px-1 cursor-pointer"
         :class="{ 'bg-grey-40  rounded': breakpoint === option }"

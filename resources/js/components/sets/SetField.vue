@@ -5,22 +5,21 @@
     :defaults="setDefaults"
     :class="[
       `${getType}-fieldtype`,
-      `field-${window.tailwind_width_class(this.getConfig.width)}`,
+      `${window.tailwind_width_class(this.getConfig.width)}`,
     ]"
   >
-    <element-container>
-      <publish-field
-        :config="getConfig"
-        :value="value"
-        :meta="meta"
-        :handle="handle"
-        @input="handleInput"
-        @meta-updated="updateMeta($event)"
-        @focus="$emit('focus')"
-        @blur="handleBlur"
-      />
+  <element-container>
+    <publish-field
+      :config="getConfig"
+      :value="value"
+      :meta="meta"
+      :handle="handle"
+      @input="handleInput"
+      @meta-updated="updateMeta($event)"
+      @focus="$emit('focus')"
+      @blur="handleBlur"
+    />
     </element-container>
-
     <!-- <error-display :handle="handle" /> -->
   </field-base>
 </template>

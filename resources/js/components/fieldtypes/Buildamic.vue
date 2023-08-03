@@ -5,7 +5,7 @@
       handle=".sortable-handle"
       :group="{ name: 'sections' }"
       ghost-class="ghost"
-      class="flex flex-col gap-2"
+      class="flex flex-col gap-3"
     >
       <component
         :is="`grid-${section.type}`"

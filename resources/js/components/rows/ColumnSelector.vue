@@ -1,19 +1,7 @@
 <template>
-  <vue-modal
-    :name="name"
-    :scrollable="true"
-    :draggable="true"
-    :clickToClose="true"
-    :height="'auto'"
-    v-cloak
-  >
-    <eva-icon
-      @click="$modals.close(name)"
-      name="close-circle"
-      class="text-grey-80 cursor-pointer inset-y-0 m-2 absolute right-0"
-    ></eva-icon>
-    <div class="p-6 bg-grey-40 text-grey-80">
-      <span class="block text-2xl text-grey-80 mb-4"
+
+    <div class="p-6 bg-gray-400 text-gray-800">
+      <span class="block text-2xl text-gray-800 mb-4"
         >Choose column layout:</span
       >
       <ul class="list-unstyled relative flex flex-wrap">
@@ -30,7 +18,7 @@
           :key="layout"
         >
           <div
-            class="mb-2 w-full buildamic-row bg-grey-60 rounded p-1"
+            class="mb-2 w-full buildamic-row bg-gray-600 rounded p-3"
             :style="colCount(i)"
           >
             <div
@@ -39,13 +27,12 @@
               :key="name + index"
               :class="colClass"
             >
-              <div class="bg-grey-30 h-12"></div>
+              <div class="bg-gray-300 h-12"></div>
             </div>
           </div>
         </li>
       </ul>
     </div>
-  </vue-modal>
 </template>
 
 <script>
@@ -138,8 +125,6 @@ export default {
           this.row.value[0].value.push(...oldModules[key]);
         }
       });
-
-      this.$modals.close(this.name);
 
       // Send this off to vuex for mutatin'
       // this.changeColumnLayout({

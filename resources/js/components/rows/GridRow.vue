@@ -16,7 +16,7 @@
     <div
       class="sortable-handle bg-green-200 absolute top-0 left-0 h-full"
     ></div>
-    <div class="buildamic-row p-2 w-full gap-2" :style="colCount">
+    <div class="buildamic-row p-6 pt-10 w-full gap-3" :style="colCount">
       <button
         class="py-1 px-1 border border-dashed"
         style="grid-column: 1 / -1"
@@ -46,11 +46,14 @@
       :index="rowIndex"
       :customSettings="customSettings"
     />
-
-    <column-selector
-      :row="row"
-      :name="row.uuid + '-column-layouts'"
-    ></column-selector>
+    <stack name="column-selector-stack" v-if="columnStackOpen" :beforeClose="handleClose">
+      <div class="buildamic-settings-stack h-full p-4 bg-white overflow-auto">
+        <column-selector
+          :row="row"
+          :name="row.uuid + '-column-layouts'"
+        ></column-selector>
+      </div>
+    </stack>
   </div>
 </template>
 
@@ -75,6 +78,7 @@ export default {
   data() {
     return {
       columns: this.row.value ?? [],
+      columnStackOpen: false,
       rowID: this.row.uuid,
       columnsTotal:
         this.row.config.buildamic_settings?.attributes?.column_count_total ||
@@ -83,7 +87,7 @@ export default {
         columns: {
           icon: "grid",
           title: "Column Selector",
-          action: () => this.openModal(),
+          action: () => this.openStack(),
           order: 30,
         },
       },
@@ -116,9 +120,12 @@ export default {
     },
   },
   methods: {
-    openModal() {
-      this.$modals.open(`${this.row.uuid}-column-layouts`);
+    openStack() {
+      this.columnStackOpen = !this.columnStackOpen;
     },
+    handleClose() {
+      this.columnStackOpen = false;
+    }
   },
 };
 </script>

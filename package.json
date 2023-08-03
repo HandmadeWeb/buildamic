@@ -1,46 +1,42 @@
 {
-    "private": true,
-    "scripts": {
-        "test:unit": "vue-cli-service test:unit",
-        "dev": "mix",
-        "development": "mix",
-        "hot": "mix watch --hot",
-        "prod": "mix --production",
-        "production": "mix --production",
-        "test": "jest",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000"
-    },
-    "dependencies": {
-        "@simonwep/pickr": "^1.8.1",
-        "axios": "^0.21.4",
-        "js-laravel-validation": "^1.3.1",
-        "uuid": "^8.3.2",
-        "vue-eva-icons": "^1.1.1",
-        "vue-gpickr": "^0.2.7",
-        "vue-simple-accordion": "^0.1.0",
-        "vuedraggable": "^2.24.3",
-        "vuex": "^3.6.2"
-    },
-    "devDependencies": {
-        "@vue/test-utils": "^1.2.1",
-        "babel-core": "^7.0.0-bridge.0",
-        "babel-jest": "^27.0.2",
-        "cross-env": "^7.0",
-        "jest": "^27.0.4",
-        "jsdom": "^16.6.0",
-        "jsdom-global": "^3.0.2",
-        "laravel-mix": "^6.0",
-        "postcss": "^8.1",
-        "postcss-import": "^14.0.2",
-        "postcss-preset-env": "^7.0.0",
-        "resolve-url-loader": "^4.0.0",
-        "sass": "^1.43.4",
-        "sass-loader": "^12.1.0",
-        "tailwindcss": "^3.0.19",
-        "vue": "^2.6.12",
-        "vue-jest": "^4.0.1",
-        "vue-loader": "^15.9.7",
-        "vue-template-compiler": "^2.6.12"
-    }
+  "private": true,
+  "scripts": {
+    "test:unit": "vue-cli-service test:unit",
+    "dev": "mix",
+    "development": "mix",
+    "hot": "mix watch --hot",
+    "prod": "mix --production",
+    "production": "mix --production",
+    "test": "jest",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000"
+  },
+  "dependencies": {
+    "@simonwep/pickr": "^1.8.1",
+    "axios": "^0.21.4",
+    "js-laravel-validation": "^1.3.1",
+    "uuid": "^8.3.2",
+    "vue-eva-icons": "^1.1.1",
+    "vue-gpickr": "^0.2.7",
+    "vue-simple-accordion": "^0.1.0",
+    "vuedraggable": "^2.24.3",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.2.1",
+    "babel-core": "^7.0.0-bridge.0",
+    "cross-env": "^7.0",
+    "laravel-mix": "^6.0",
+    "postcss": "^8.1",
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^7.0.0",
+    "resolve-url-loader": "^4.0.0",
+    "sass": "^1.43.4",
+    "sass-loader": "^12.1.0",
+    "tailwindcss": "^3.3.0",
+    "vue": "^2.6.12",
+    "vue-jest": "^4.0.1",
+    "vue-loader": "^15.9.7",
+    "vue-template-compiler": "^2.6.12"
+  }
 }

@@ -3,21 +3,21 @@
     :handle="fieldData.config.statamic_settings.handle"
     :field="field"
     :defaults="fieldDefaults"
-    class="buildamic-field"
+    class="buildamic-field w-full"
     :class="[`${getType}-fieldtype`]"
   >
-    <element-container>
-      <publish-field
-        :config="getConfig"
-        :value="fieldData.value"
-        :meta="getMeta"
-        :handle="fieldData.config.statamic_settings.handle"
-        @input="updateField({ obj: field, path: 'value', val: $event })"
-        @meta-updated="
-          updateMeta({ obj: field, path: 'computed.meta', val: $event })
-        "
-      />
-    </element-container>
+      <element-container>
+        <publish-field
+          :config="getConfig"
+          :value="fieldData.value"
+          :meta="getMeta"
+          :handle="fieldData.config.statamic_settings.handle"
+          @input="updateField({ obj: field, path: 'value', val: $event })"
+          @meta-updated="
+            updateMeta({ obj: field, path: 'computed.meta', val: $event })
+          "
+        />
+      </element-container>
     <error-display />
   </field-base>
 </template>

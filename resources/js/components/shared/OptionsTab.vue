@@ -1,5 +1,5 @@
 <template>
-  <div class="options flex col-gap-6 p-2">
+  <div class="options w-full flex gap-x-6 p-6">
     <div class="flex-grow">
       <div class="attributes mb-4">
         <div class="buildamic-field">
@@ -34,7 +34,7 @@
         <label>Module Link</label>
         <element-container>
           <publish-field
-            class="border p-2"
+            class="border p-6"
             :config="moduleLink"
             :meta="moduleLink.meta"
             :value="moduleLink.value || []"

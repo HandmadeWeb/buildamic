@@ -4,8 +4,8 @@
       buildamic-section
       transition-all
       duration-200
-      p-2
-      pb-4
+      p-6
+      pb-10
       border border-t-4
       rounded
       border-blue-500
@@ -21,7 +21,7 @@
       :group="{ name: 'rows' }"
       handle=".sortable-handle"
       ghost-class="ghost"
-      class="section-draggable flex flex-grow flex-col gap-2 group"
+      class="section-draggable w-full flex flex-grow flex-col gap-3 group"
     >
       <template v-if="rows.length">
         <grid-row
