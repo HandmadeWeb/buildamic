@@ -5,7 +5,7 @@
       border border-t-4 border-grey-70
       rounded
       w-full
-      p-1
+      p-3
       text-center
       relative
     "

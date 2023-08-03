@@ -33,7 +33,7 @@
           <div class="fieldtype-selector">
             <div class="fieldtype-list">
               <div
-                class="p-1"
+                class="p-3"
                 v-for="(field, key) in fieldDefaults.fields"
                 :key="key"
               >
@@ -63,7 +63,7 @@
                 </a>
               </div>
               <div
-                class="p-1"
+                class="p-3"
                 v-for="(field, key) in fieldDefaults.sets"
                 :key="key"
               >

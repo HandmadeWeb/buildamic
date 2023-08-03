@@ -28,7 +28,7 @@
         </li>
       </ul>
     </div>
-    <div class="tabs-details border p-2">
+    <div class="tabs-details border p-6">
       <slot></slot>
     </div>
   </div>

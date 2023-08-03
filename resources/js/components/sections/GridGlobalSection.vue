@@ -2,7 +2,7 @@
   <div
     class="
       buildamic-section
-      p-2
+      p-6
       pl-1
       border border-t-4
       rounded
@@ -22,7 +22,7 @@
 
     <element-container>
       <publish-field
-        class="border p-2"
+        class="border p-6"
         :config="config"
         :meta="getMeta"
         :value="section.value || []"

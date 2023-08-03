@@ -14,6 +14,9 @@ export default {
 </script>
 
 <style>
+.setting-group {
+  width: 100%;
+}
 .setting-group + .setting-group {
   margin-top: 2rem;
 }

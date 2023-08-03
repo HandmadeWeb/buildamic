@@ -1,6 +1,6 @@
 <template>
   <settings-group heading="Background">
-    <div class="flex col-gap-4">
+    <div class="flex gap-x-4">
       <div class="flex-grow">
         <vue-tabs :id="field.uuid">
           <vue-tab name="Color" selected="selected">

@@ -4,10 +4,10 @@
       class="
         flex
         items-center
-        col-gap-3
+        gap-x-3
         rounded
         border border-dashed
-        p-2
+        p-6
         bg-white
       "
     >

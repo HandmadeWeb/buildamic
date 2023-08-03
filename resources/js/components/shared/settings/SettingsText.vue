@@ -1,6 +1,6 @@
 <template>
   <settings-group heading="Text">
-    <div class="flex col-gap-4">
+    <div class="flex gap-x-4">
       <div class="flex-grow">
         <div class="buildamic-field flex items-center mb-2">
           <label class="mr-2">Alignment :</label>

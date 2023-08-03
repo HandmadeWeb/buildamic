@@ -3,19 +3,19 @@
     class="
       buildamic-column
       border-2 border-dashed
-      p-2
-      gap-2
+      p-6
+      gap-3
       flex flex-col
       items-center
     "
     :class="[columnClass, { 'justify-center': !fields.length }]"
   >
     <vue-draggable
-      v-if="fields.length"
+
       :list="fields"
       :group="{ name: 'columns' }"
       ghost-class="ghost"
-      class="w-full flex flex-col gap-2 items-center"
+      class="w-full flex flex-col gap-3 items-center"
     >
       <template v-for="(field, index) in fields">
         <field-display

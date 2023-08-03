@@ -1,7 +1,7 @@
 <template>
   <settings-group heading="Layout">
-    <div class="flex col-gap-4">
-      <div class="flex-grow">
+    <div class="flex justify-between gap-3">
+      <div class="flex-1">
         <div class="attributes attributes__inline">
           <slot name="layout-top" />
           <div

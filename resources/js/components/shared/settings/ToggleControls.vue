@@ -4,15 +4,15 @@
       class="
         flex
         items-center
-        col-gap-1
+        gap-x-1
         rounded
         border border-dashed
-        p-1
+        p-3
         bg-white
       "
     >
       <li
-        class="breakpoint-option p-1 flex items-center cursor-pointer"
+        class="breakpoint-option p-3 flex items-center cursor-pointer"
         :class="{
           'bg-grey-40  rounded':
             breakpoint === 'xs'

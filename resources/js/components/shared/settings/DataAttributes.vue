@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border p-2 border-dashed field-repeater module module-settings mt-0 flex flex-col"
+    class="border p-6 border-dashed field-repeater module module-settings mt-0 flex flex-col"
   >
     <span class="text-sm text-grey-70 italic mb-2 block" v-if="instructions">{{
       instructions

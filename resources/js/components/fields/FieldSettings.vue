@@ -3,13 +3,19 @@
     <admin-label :field="field" />
     <vue-tabs :id="field.uuid">
       <vue-tab name="Content" selected="selected">
-        <single-field :field="field" :fieldDefaults="fieldDefaults" />
+        <div class="publish-fields @container w-full">
+          <single-field :field="field" :fieldDefaults="fieldDefaults" />
+        </div>
       </vue-tab>
       <vue-tab name="Design">
-        <design-tab :field="field" :fieldDefaults="fieldDefaults" />
+        <div class="publish-fields @container w-full">
+          <design-tab :field="field" :fieldDefaults="fieldDefaults" />
+        </div>
       </vue-tab>
       <vue-tab name="Options">
-        <options-tab :field="field" />
+        <div class="publish-fields @container w-full">
+          <options-tab :field="field" />
+        </div>
       </vue-tab>
     </vue-tabs>
   </div>
