@@ -27,7 +27,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "cross-env": "^7.0",
     "laravel-mix": "^6.0",
-    "postcss": "^8.1",
+    "postcss": "^8.4",
     "postcss-import": "^14.0.2",
     "postcss-preset-env": "^7.0.0",
     "resolve-url-loader": "^4.0.0",
