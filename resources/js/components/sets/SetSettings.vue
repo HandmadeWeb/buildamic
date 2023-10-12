@@ -53,14 +53,15 @@ export default {
   },
   computed: {
     setDefaults() {
+      console.log({set:this.field.config.statamic_settings.handle })
       return this.fieldDefaults[
         this.field.config.statamic_settings.handle
-      ].fields.reduce((acc, cur) => {
+      ]?.fields.reduce((acc, cur) => {
         acc[cur.handle] = cur;
         return acc;
       }, {});
     },
-  },
+  }, 
   components: {
     SetField,
     OptionsTab,

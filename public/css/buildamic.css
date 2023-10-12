@@ -848,11 +848,11 @@ video {
 .buildamic-fieldtype :is(.pb-0) {
   padding-bottom: 0px;
 }
+.buildamic-fieldtype :is(.pb-10) {
+  padding-bottom: 2.5rem;
+}
 .buildamic-fieldtype :is(.pb-3) {
   padding-bottom: 0.75rem;
-}
-.buildamic-fieldtype :is(.pb-4) {
-  padding-bottom: 1rem;
 }
 .buildamic-fieldtype :is(.pl-1) {
   padding-left: 0.25rem;
@@ -877,12 +877,6 @@ video {
 }
 .buildamic-fieldtype :is(.pt-10) {
   padding-top: 2.5rem;
-}
-.buildamic-fieldtype :is(.pb-6) {
-  padding-bottom: 1.5rem;
-}
-.buildamic-fieldtype :is(.pb-10) {
-  padding-bottom: 2.5rem;
 }
 .buildamic-fieldtype :is(.text-left) {
   text-align: left;

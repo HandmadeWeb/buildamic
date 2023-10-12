@@ -68,8 +68,10 @@ export default {
   //   },
 
   mounted() {
+    console.log({test: this.meta})
     this.$store.dispatch("setFieldDefaults", this.meta);
     this.$store.dispatch("setGlobals", this.config.globals);
+    console.log(this.config)
     window.addEventListener("blur", this.readFromClipboard);
     window.addEventListener("focus", this.readFromClipboard);
   },
