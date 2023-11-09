@@ -1,5 +1,5 @@
 @php
-    $boxed = $section->buildamicSetting('boxed_layout') ? true : false;
+    $boxed = $section->buildamicSetting('boxed_layout') ? true : ($section->buildamicSetting('inner_container') ? true : false);
     $background_image = $section->computedAttribute('background_image') ?? null;
     $background_video = $section->computedAttribute('background_video') ?? null;
     $mp4 = $background_video['mp4'][0] ?? null;

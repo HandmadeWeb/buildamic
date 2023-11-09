@@ -13,6 +13,15 @@
               @input="boxed_layout = $event"
               :key="boxed_layout"
             />
+            <label>Inner Container?</label>
+            <toggle-fieldtype
+              :config="{
+                handle: 'section_inner_container',
+              }"
+              :value="inner_container"
+              @input="inner_container = $event"
+              :key="inner_container"
+            />
           </div>
         </template>
       </design-tab>
@@ -41,9 +50,6 @@ export default {
       columns: this.field.value,
     };
   },
-  mounted() {
-    console.log({ boxed: this.boxed_layout });
-  },
   computed: {
     boxed_layout: {
       get() {
@@ -52,6 +58,14 @@ export default {
       set($event) {
         this.boxed = $event;
         this.updateField({ path: `boxed_layout`, val: $event });
+      },
+    },
+    inner_container: {
+      get() {
+        return this.getDeep("inner_container");
+      },
+      set($event) {
+        this.updateField({ path: `inner_container`, val: $event });
       },
     },
   },

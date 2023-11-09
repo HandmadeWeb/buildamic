@@ -58,16 +58,11 @@ export default {
     },
   },
 
-  //   watch: {
-  //     value: {
-  //       handler(val) {
-  //         console.log({ val });
-  //       },
-  //       deep: true,
-  //     },
-  //   },
 
   mounted() {
+    Statamic.$hooks.on('entry.saved', (resolve, reject) => {
+      window.location.reload();
+    }); 
     console.log({test: this.meta})
     this.$store.dispatch("setFieldDefaults", this.meta);
     this.$store.dispatch("setGlobals", this.config.globals);

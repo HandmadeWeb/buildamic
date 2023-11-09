@@ -33,7 +33,7 @@ export default {
         : this.field.value[handle];
 
       value.forEach((_, i) => {
-        return replicator.fields.forEach((field) => {
+        return replicator.fields?.forEach((field) => {
           if (!field.validate) return false;
           const field_value = value[i][field.handle];
           formData[`${field.handle}-${i}`] = {};
