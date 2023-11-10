@@ -60,7 +60,7 @@
               <assets-fieldtype
                 handle="settings_background_image"
                 :config="inline.background.image.config"
-                :meta="undefined"
+                :meta="inline.background.image.meta || {}"
                 :value="inline.background.image.value"
                 @input="
                   updateField({
@@ -87,18 +87,13 @@
               <assets-fieldtype
                 handle="settings_background_video_mp4"
                 :config="inline.background.video.mp4.config"
-                :meta="undefined"
                 :value="inline.background.video.mp4.value"
+                :key="inline.background.video.mp4.value"
+                :meta="inline.background.video.mp4.meta || {}"
                 @input="
                   updateField({
                     type: 'asset',
                     path: 'inline.background.video.mp4',
-                    val: $event,
-                  })
-                "
-                @meta-updated="
-                  updateMeta({
-                    path: `inline.background.video.mp4.meta`,
                     val: $event,
                   })
                 "
@@ -112,18 +107,13 @@
               <assets-fieldtype
                 handle="settings_background_video_webm"
                 :config="inline.background.video.webm.config"
-                :meta="undefined"
+                :meta="inline.background.video.webm.meta || {}"
                 :value="inline.background.video.webm.value"
+                :key="inline.background.video.webm.value"
                 @input="
                   updateField({
                     type: 'asset',
                     path: 'inline.background.video.webm',
-                    val: $event,
-                  })
-                "
-                @meta-updated="
-                  updateMeta({
-                    path: `inline.background.video.webm.meta`,
                     val: $event,
                   })
                 "
@@ -204,7 +194,8 @@ export default {
                 icon: "assets",
                 listable: "hidden",
               },
-              value: this.getDeep(`inline.background.video.mp4`) || [],
+              meta: {},
+              value: [],
             },
             webm: {
               config: {
@@ -219,7 +210,8 @@ export default {
                 icon: "assets",
                 listable: "hidden",
               },
-              value: this.getDeep(`inline.background.video.webm`) || [],
+              meta: {},
+              value: [],
             },
           },
         },
@@ -296,6 +288,14 @@ export default {
     },
   },
   mounted() {
+    Object.keys(this.inline.background.video).forEach((key) => {
+      this.inline.background.video[key].value = this.getDeep(
+        `inline.background.video.${key}`
+      );
+      this.inline.background.video[key].meta.data[0] = {
+        id: this.getDeep(`inline.background.video.${key}.0`),
+      }
+    });
     const val = this.getDeep(`inline.background.gradient.value`);
     if (val) {
       this.gradientToggle = true;
